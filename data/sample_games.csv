@@ -1,0 +1,25 @@
+week,date,home_team,away_team,home_score,away_score,neutral_site
+1,2025-08-30,Ohio State,Notre Dame,31,24,false
+1,2025-08-30,Georgia,Clemson,34,17,true
+1,2025-08-30,Texas,Michigan,27,20,false
+1,2025-08-30,Oregon,Boise State,38,21,false
+2,2025-09-06,Alabama,Wisconsin,35,13,false
+2,2025-09-06,Penn State,West Virginia,30,16,false
+2,2025-09-06,Tennessee,NC State,28,24,true
+2,2025-09-06,Ole Miss,Tulane,41,20,false
+3,2025-09-13,Georgia,Tennessee,27,23,false
+3,2025-09-13,Texas,Oklahoma,34,31,true
+3,2025-09-13,Alabama,Ole Miss,24,27,false
+3,2025-09-13,Oregon,Penn State,20,24,false
+4,2025-09-20,Ohio State,Michigan State,38,10,false
+4,2025-09-20,Notre Dame,USC,31,27,false
+4,2025-09-20,Clemson,NC State,35,21,false
+4,2025-09-20,Oklahoma,Kansas State,30,21,false
+5,2025-09-27,Georgia,Alabama,24,28,false
+5,2025-09-27,Texas,Oregon,31,28,true
+5,2025-09-27,Penn State,Ohio State,20,23,false
+5,2025-09-27,Ole Miss,LSU,33,30,false
+6,2025-10-04,Notre Dame,Louisville,27,17,false
+6,2025-10-04,Tennessee,Florida,34,20,false
+6,2025-10-04,Clemson,Florida State,28,24,false
+6,2025-10-04,USC,Utah,17,21,false

@@ -1,0 +1,434 @@
+from __future__ import annotations
+
+import math
+from io import BytesIO
+from pathlib import Path
+
+import pandas as pd
+import streamlit as st
+
+
+DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_2025.csv")
+DEFAULT_BACKTEST_PATH = Path("output/backtests/weekly_backtest_2025_regular.csv")
+DEFAULT_EXCEL_PATH = Path("output/power_ratings_final.xlsx")
+DEFAULT_WIN_TOTALS_PATH = Path("output/projections/projected_win_totals_2026.csv")
+DEFAULT_PROJECTED_GAMES_PATH = Path("output/projections/projected_games_2026.csv")
+DEFAULT_ODDS_COMPARISON_PATH = Path("output/odds/ncaaf_game_odds_comparison.csv")
+
+
+def load_csv(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame()
+    return pd.read_csv(path)
+
+
+def load_uploaded_csv(uploaded_file) -> pd.DataFrame:
+    if uploaded_file is None:
+        return pd.DataFrame()
+    return pd.read_csv(uploaded_file)
+
+
+def discover_csv_options(root: Path) -> list[str]:
+    if not root.exists():
+        return []
+    return sorted(str(path) for path in root.rglob("*.csv"))
+
+
+def win_probability(spread: float, margin_std_dev: float = 16.0) -> float:
+    z_score = spread / margin_std_dev
+    return 0.5 * (1.0 + math.erf(z_score / math.sqrt(2.0)))
+
+
+def site_adjusted_spread(base_spread: float, site: str, home_field_advantage: float = 2.5) -> float:
+    if site == "Team A Home":
+        return base_spread + home_field_advantage
+    if site == "Team B Home":
+        return base_spread - home_field_advantage
+    return base_spread
+
+
+def render_missing_state(path: Path, label: str) -> None:
+    st.warning(f"{label} was not found at `{path}`.")
+
+
+def main() -> None:
+    st.set_page_config(
+        page_title="College Football Power Ratings",
+        page_icon="🏈",
+        layout="wide",
+    )
+
+    st.title("College Football Power Ratings")
+    st.caption("Market-calibrated college football power numbers with matchup and backtest views.")
+
+    discovered_csvs = discover_csv_options(Path("output"))
+    ratings_default = str(DEFAULT_RATINGS_PATH)
+    backtest_default = str(DEFAULT_BACKTEST_PATH)
+    win_totals_default = str(DEFAULT_WIN_TOTALS_PATH)
+    projected_games_default = str(DEFAULT_PROJECTED_GAMES_PATH)
+    odds_default = str(DEFAULT_ODDS_COMPARISON_PATH)
+
+    st.sidebar.subheader("Data Sources")
+    ratings_path = st.sidebar.selectbox(
+        "Ratings CSV",
+        options=discovered_csvs if discovered_csvs else [ratings_default],
+        index=discovered_csvs.index(ratings_default) if ratings_default in discovered_csvs else 0,
+    )
+    backtest_options = [path for path in discovered_csvs if "backtest" in path.lower()]
+    backtest_path = st.sidebar.selectbox(
+        "Backtest CSV",
+        options=backtest_options if backtest_options else [backtest_default],
+        index=backtest_options.index(backtest_default) if backtest_default in backtest_options else 0,
+    )
+    projection_options = [path for path in discovered_csvs if "projected_win_totals" in path.lower()]
+    projected_games_options = [path for path in discovered_csvs if "projected_games" in path.lower()]
+    win_totals_path = st.sidebar.selectbox(
+        "Projected Win Totals CSV",
+        options=projection_options if projection_options else [win_totals_default],
+        index=projection_options.index(win_totals_default) if win_totals_default in projection_options else 0,
+    )
+    projected_games_path = st.sidebar.selectbox(
+        "Projected Games CSV",
+        options=projected_games_options if projected_games_options else [projected_games_default],
+        index=projected_games_options.index(projected_games_default) if projected_games_default in projected_games_options else 0,
+    )
+    odds_options = [path for path in discovered_csvs if "odds" in path.lower()]
+    odds_path = st.sidebar.selectbox(
+        "Odds Comparison CSV",
+        options=odds_options if odds_options else [odds_default],
+        index=odds_options.index(odds_default) if odds_default in odds_options else 0,
+    )
+    excel_path = st.sidebar.text_input("Excel Workbook", str(DEFAULT_EXCEL_PATH))
+
+    st.sidebar.subheader("Hosted Fallback")
+    uploaded_ratings = st.sidebar.file_uploader("Upload ratings CSV", type="csv")
+    uploaded_backtest = st.sidebar.file_uploader("Upload backtest CSV", type="csv")
+    uploaded_win_totals = st.sidebar.file_uploader("Upload projected win totals CSV", type="csv")
+    uploaded_projected_games = st.sidebar.file_uploader("Upload projected games CSV", type="csv")
+    uploaded_odds = st.sidebar.file_uploader("Upload odds comparison CSV", type="csv")
+    uploaded_excel = st.sidebar.file_uploader("Upload Excel workbook", type=["xlsx"])
+
+    ratings = load_uploaded_csv(uploaded_ratings) if uploaded_ratings else load_csv(Path(ratings_path))
+    backtest = load_uploaded_csv(uploaded_backtest) if uploaded_backtest else load_csv(Path(backtest_path))
+    win_totals = load_uploaded_csv(uploaded_win_totals) if uploaded_win_totals else load_csv(Path(win_totals_path))
+    projected_games = load_uploaded_csv(uploaded_projected_games) if uploaded_projected_games else load_csv(Path(projected_games_path))
+    odds = load_uploaded_csv(uploaded_odds) if uploaded_odds else load_csv(Path(odds_path))
+
+    if ratings.empty:
+        render_missing_state(Path(ratings_path), "Ratings file")
+        st.info("On Streamlit Cloud, either commit the latest output files to the repo or upload them from the sidebar.")
+        st.stop()
+
+    ratings = ratings.sort_values("rating", ascending=False).reset_index(drop=True)
+    ratings.index = ratings.index + 1
+
+    top_row = ratings.iloc[0]
+    st.markdown(
+        f"""
+        <div style="padding: 1rem 1.2rem; border-radius: 18px; background: linear-gradient(135deg, #14324a, #b6461d); color: white; margin-bottom: 1rem;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.85;">Current No. 1</div>
+          <div style="font-size: 2rem; font-weight: 700;">{top_row['team']}</div>
+          <div style="font-size: 1rem; opacity: 0.92;">Rating {top_row['rating']:.2f} | Record {top_row['record']}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, backtest_tab, files_tab = st.tabs(
+        ["Rankings", "Matchup", "Weekly Matchups", "Projected Wins", "Odds / Edges", "Backtest", "Files"]
+    )
+
+    with rankings_tab:
+        conferences = ["All conferences"] + sorted(ratings["conference"].dropna().astype(str).unique().tolist())
+        selected_conference = st.selectbox("Conference", conferences, index=0)
+        search_term = st.text_input("Team search", placeholder="Start typing a team name")
+
+        filtered = ratings.copy()
+        if selected_conference != "All conferences":
+            filtered = filtered[filtered["conference"] == selected_conference]
+        if search_term:
+            filtered = filtered[filtered["team"].str.contains(search_term, case=False, na=False)]
+
+        display = filtered[
+            ["team", "conference", "record", "rating", "efficiency_score", "market_score", "schedule_score"]
+        ].copy()
+        display.columns = ["Team", "Conference", "Record", "Rating", "Efficiency", "Market", "Schedule"]
+        st.dataframe(display, use_container_width=True, height=620)
+
+    with matchup_tab:
+        team_names = ratings["team"].astype(str).tolist()
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            team_a_name = st.selectbox("Team A", team_names, index=0)
+        with col2:
+            team_b_name = st.selectbox("Team B", team_names, index=1 if len(team_names) > 1 else 0)
+        with col3:
+            game_site = st.selectbox("Game Site", ["Neutral", "Team A Home", "Team B Home"], index=0)
+
+        team_a = ratings[ratings["team"] == team_a_name].iloc[0]
+        team_b = ratings[ratings["team"] == team_b_name].iloc[0]
+        base_spread = float(team_a["rating"]) - float(team_b["rating"])
+        spread = site_adjusted_spread(base_spread, game_site)
+        team_a_prob = win_probability(spread)
+
+        metric1, metric2, metric3 = st.columns(3)
+        favorite_label = f"{team_a_name} -{abs(spread):.1f}" if spread >= 0 else f"{team_b_name} -{abs(spread):.1f}"
+        metric1.metric("Projected Spread", favorite_label)
+        metric2.metric(f"{team_a_name} Win %", f"{team_a_prob * 100:.1f}%")
+        metric3.metric(f"{team_b_name} Win %", f"{(1 - team_a_prob) * 100:.1f}%")
+        st.caption(f"Site setting: {game_site}")
+
+        comparison = pd.DataFrame(
+            [
+                {
+                    "Team": team_a_name,
+                    "Rating": float(team_a["rating"]),
+                    "Record": team_a["record"],
+                    "Efficiency": float(team_a["efficiency_score"]),
+                    "Market": float(team_a["market_score"]),
+                    "Schedule": float(team_a["schedule_score"]),
+                },
+                {
+                    "Team": team_b_name,
+                    "Rating": float(team_b["rating"]),
+                    "Record": team_b["record"],
+                    "Efficiency": float(team_b["efficiency_score"]),
+                    "Market": float(team_b["market_score"]),
+                    "Schedule": float(team_b["schedule_score"]),
+                },
+            ]
+        )
+        st.dataframe(comparison, use_container_width=True, hide_index=True)
+
+    with weekly_tab:
+        if projected_games.empty:
+            render_missing_state(Path(projected_games_path), "Projected games file")
+        else:
+            weekly_board = projected_games.copy()
+            weekly_board["week"] = weekly_board["week"].astype(int)
+            available_weeks = sorted(weekly_board["week"].unique().tolist())
+            filter_col1, filter_col2 = st.columns([1, 2])
+            with filter_col1:
+                selected_week = st.selectbox("Week", available_weeks, index=0, key="weekly_matchup_week")
+            with filter_col2:
+                matchup_search = st.text_input(
+                    "Search weekly matchups",
+                    placeholder="Search by team, opponent, or favorite",
+                    key="weekly_matchup_search",
+                ).strip().lower()
+            board = weekly_board[weekly_board["week"] == selected_week].copy()
+            board = board[board["site"].isin(["home", "neutral"])].copy()
+
+            board["matchup"] = board.apply(
+                lambda row: f"{row['opponent']} vs {row['team']}" if row["site"] == "neutral" else f"{row['opponent']} at {row['team']}",
+                axis=1,
+            )
+            board["line"] = board.apply(
+                lambda row: f"{row['favorite']} -{float(row['favorite_spread']):.1f}",
+                axis=1,
+            )
+            board["home_team"] = board["team"]
+            board["away_team"] = board["opponent"]
+            board.loc[board["site"] == "neutral", "home_team"] = ""
+            board.loc[board["site"] == "neutral", "away_team"] = ""
+
+            if matchup_search:
+                board = board[
+                    board.apply(
+                        lambda row: matchup_search in str(row["matchup"]).lower()
+                        or matchup_search in str(row["favorite"]).lower()
+                        or matchup_search in str(row["team"]).lower()
+                        or matchup_search in str(row["opponent"]).lower(),
+                        axis=1,
+                    )
+                ]
+
+            display = board[
+                ["week", "matchup", "site", "line", "win_probability", "team_rating", "opponent_rating"]
+            ].copy()
+            display.columns = [
+                "Week",
+                "Matchup",
+                "Site",
+                "Projected Line",
+                "Home/Listed Team Win %",
+                "Listed Team Rating",
+                "Opponent Rating",
+            ]
+            display["Home/Listed Team Win %"] = display["Home/Listed Team Win %"].map(lambda value: f"{float(value) * 100:.1f}%")
+            st.dataframe(display, use_container_width=True, hide_index=True, height=520)
+
+    with win_totals_tab:
+        if win_totals.empty:
+            render_missing_state(Path(win_totals_path), "Projected win totals file")
+        else:
+            totals_display = win_totals.copy().sort_values("projected_wins", ascending=False)
+            totals_display.columns = [
+                "Team",
+                "Conference",
+                "Rating",
+                "Projected Wins",
+                "Projected Losses",
+                "Schedule Games",
+                "Projected SOS",
+                "Avg Game Win %",
+            ]
+            st.dataframe(totals_display, use_container_width=True, height=520, hide_index=True)
+
+            if not projected_games.empty:
+                team_names = totals_display["Team"].tolist()
+                selected_team = st.selectbox("Schedule detail", team_names, key="schedule_detail_team")
+                team_games = projected_games[projected_games["team"] == selected_team].copy().sort_values("week")
+                team_games.columns = [
+                    "Week",
+                    "Team",
+                    "Opponent",
+                    "Site",
+                    "Team Rating",
+                    "Opponent Rating",
+                    "Projected Spread",
+                    "Favorite",
+                    "Favorite Spread",
+                    "Win Probability",
+                ]
+                st.dataframe(team_games, use_container_width=True, hide_index=True)
+
+    with odds_tab:
+        if odds.empty:
+            render_missing_state(Path(odds_path), "Odds comparison file")
+        else:
+            odds_board = odds.copy()
+            numeric_columns = [
+                "week",
+                "book_count",
+                "model_home_margin",
+                "model_home_spread",
+                "market_home_spread",
+                "market_home_margin",
+                "edge_home_points",
+                "absolute_edge_points",
+            ]
+            for column in numeric_columns:
+                if column in odds_board.columns:
+                    odds_board[column] = pd.to_numeric(odds_board[column], errors="coerce")
+
+            metric_col1, metric_col2, metric_col3 = st.columns(3)
+            metric_col1.metric("Matched Games", f"{len(odds_board)}")
+            metric_col2.metric("Average Edge", f"{odds_board['absolute_edge_points'].mean():.2f}")
+            metric_col3.metric("Largest Edge", f"{odds_board['absolute_edge_points'].max():.2f}")
+
+            filter_col1, filter_col2, filter_col3 = st.columns([1, 1, 2])
+            available_weeks = sorted(int(week) for week in odds_board["week"].dropna().unique()) if "week" in odds_board.columns else []
+            with filter_col1:
+                week_filter = st.selectbox("Week", ["All"] + available_weeks, index=0, key="odds_week_filter")
+            with filter_col2:
+                min_edge = st.slider("Minimum edge", min_value=0.0, max_value=20.0, value=3.0, step=0.5)
+            with filter_col3:
+                odds_search = st.text_input(
+                    "Search odds board",
+                    placeholder="Search by team, matchup, or edge side",
+                    key="odds_search",
+                ).strip().lower()
+
+            filtered_odds = odds_board[odds_board["absolute_edge_points"] >= min_edge].copy()
+            if week_filter != "All":
+                filtered_odds = filtered_odds[filtered_odds["week"] == int(week_filter)]
+            if odds_search:
+                filtered_odds = filtered_odds[
+                    filtered_odds.apply(
+                        lambda row: odds_search in str(row.get("home_team", "")).lower()
+                        or odds_search in str(row.get("away_team", "")).lower()
+                        or odds_search in str(row.get("edge_side", "")).lower(),
+                        axis=1,
+                    )
+                ]
+
+            filtered_odds["matchup"] = filtered_odds.apply(
+                lambda row: f"{row['away_team']} at {row['home_team']}",
+                axis=1,
+            )
+            filtered_odds["model_line"] = filtered_odds.apply(
+                lambda row: f"{row['home_team']} {float(row['model_home_spread']):+.1f}",
+                axis=1,
+            )
+            filtered_odds["market_line"] = filtered_odds.apply(
+                lambda row: f"{row['home_team']} {float(row['market_home_spread']):+.1f}",
+                axis=1,
+            )
+
+            display = filtered_odds[
+                [
+                    "week",
+                    "commence_time",
+                    "matchup",
+                    "edge_side",
+                    "absolute_edge_points",
+                    "model_line",
+                    "market_line",
+                    "book_count",
+                    "market_total",
+                ]
+            ].copy()
+            display.columns = [
+                "Week",
+                "Kickoff",
+                "Matchup",
+                "Model Edge Side",
+                "Edge Points",
+                "Model Line",
+                "Market Line",
+                "Books",
+                "Market Total",
+            ]
+            st.dataframe(display, use_container_width=True, hide_index=True, height=520)
+
+            with st.expander("Raw odds comparison"):
+                st.dataframe(filtered_odds, use_container_width=True, hide_index=True)
+
+    with backtest_tab:
+        if backtest.empty:
+            render_missing_state(Path(backtest_path), "Backtest file")
+        else:
+            total_games = int(backtest["games"].sum())
+            weighted_mae = (backtest["model_vs_market_mae"] * backtest["games"]).sum() / total_games
+            weighted_corr = (backtest["model_vs_market_corr"] * backtest["games"]).sum() / total_games
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Tracked Games", f"{total_games}")
+            col2.metric("Weighted MAE", f"{weighted_mae:.3f}")
+            col3.metric("Weighted Corr", f"{weighted_corr:.3f}")
+
+            chart_df = backtest.set_index("week")[
+                ["model_vs_market_mae", "model_vs_actual_mae", "actual_vs_market_mae"]
+            ]
+            st.line_chart(chart_df, use_container_width=True)
+            st.dataframe(backtest, use_container_width=True, hide_index=True)
+
+    with files_tab:
+        st.write("These are the current file paths the app is reading.")
+        st.code(
+            "Ratings CSV: "
+            f"{ratings_path}\nBacktest CSV: {backtest_path}\nProjected Win Totals CSV: {win_totals_path}\n"
+            f"Projected Games CSV: {projected_games_path}\nOdds Comparison CSV: {odds_path}\nExcel Workbook: {excel_path}",
+            language="text",
+        )
+        excel_file = Path(excel_path)
+        if uploaded_excel is not None:
+            st.download_button(
+                "Download Excel workbook",
+                data=BytesIO(uploaded_excel.getvalue()),
+                file_name=uploaded_excel.name,
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            )
+        elif excel_file.exists():
+            st.download_button(
+                "Download Excel workbook",
+                data=excel_file.read_bytes(),
+                file_name=excel_file.name,
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            )
+        else:
+            render_missing_state(excel_file, "Excel workbook")
+
+
+if __name__ == "__main__":
+    main()

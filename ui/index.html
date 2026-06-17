@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>College Football Power Ratings</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Local Dashboard</p>
+          <h1>College Football Power Ratings</h1>
+          <p class="hero-text">
+            A live local view of your neutral-field power numbers, matchup edges, and historical backtest performance.
+          </p>
+        </div>
+        <div class="hero-badge" id="sourceBadge">Loading data...</div>
+      </header>
+
+      <main class="grid">
+        <section class="panel panel-highlight">
+          <div class="panel-head">
+            <h2>Matchup Lab</h2>
+            <p>Pick two teams and get the model spread and win probability.</p>
+          </div>
+          <div class="matchup-grid">
+            <label>
+              <span>Team A</span>
+              <select id="teamASelect"></select>
+            </label>
+            <label>
+              <span>Team B</span>
+              <select id="teamBSelect"></select>
+            </label>
+          </div>
+          <div class="matchup-output" id="matchupOutput">
+            <div class="metric-card">
+              <span class="metric-label">Projected Spread</span>
+              <strong class="metric-value">--</strong>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Team A Win %</span>
+              <strong class="metric-value">--</strong>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Team B Win %</span>
+              <strong class="metric-value">--</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Model Snapshot</h2>
+            <p>A quick sanity check from the latest available backtest file.</p>
+          </div>
+          <div class="stats-grid" id="backtestStats"></div>
+        </section>
+
+        <section class="panel panel-wide">
+          <div class="panel-head">
+            <h2>Rankings</h2>
+            <p>Filter by conference or search for a team to inspect the current board.</p>
+          </div>
+          <div class="toolbar">
+            <label>
+              <span>Conference</span>
+              <select id="conferenceFilter"></select>
+            </label>
+            <label class="search-wrap">
+              <span>Search</span>
+              <input id="teamSearch" type="search" placeholder="Start typing a team name" />
+            </label>
+          </div>
+          <div class="table-wrap">
+            <table id="ratingsTable">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team</th>
+                  <th>Conf</th>
+                  <th>Record</th>
+                  <th>Rating</th>
+                  <th>Eff</th>
+                  <th>Mkt</th>
+                  <th>Sch</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel panel-wide">
+          <div class="panel-head">
+            <h2>Backtest by Week</h2>
+            <p>How the leakage-safe weekly replay performed against market lines.</p>
+          </div>
+          <div class="table-wrap">
+            <table id="backtestTable">
+              <thead>
+                <tr>
+                  <th>Week</th>
+                  <th>Games</th>
+                  <th>Model vs Market MAE</th>
+                  <th>Model vs Actual MAE</th>
+                  <th>Actual vs Market MAE</th>
+                  <th>Model vs Market Corr</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
