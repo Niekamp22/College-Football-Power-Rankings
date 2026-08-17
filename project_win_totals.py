@@ -13,6 +13,7 @@ DEFAULT_SCHEDULE_PATH = Path("data/cfbd/raw/2026/games.json")
 DEFAULT_OUTPUT_ROOT = Path("output/projections")
 HOME_FIELD_ADVANTAGE = 2.5
 FCS_BASELINE_RATING = -18.0
+UNRATED_FBS_BASELINE_RATING = -12.0
 MARGIN_STD_DEV = 16.0
 
 
@@ -62,6 +63,8 @@ def opponent_rating(game: dict[str, Any], side: str, ratings_lookup: dict[str, d
     opponent_row = ratings_lookup.get(opponent_name)
     if opponent_row:
         return parse_float(opponent_row["rating"]), opponent_name
+    if opponent_classification == "fbs":
+        return UNRATED_FBS_BASELINE_RATING, f"{opponent_name} (unrated FBS baseline)"
     if opponent_classification == "fcs":
         return FCS_BASELINE_RATING, f"{opponent_name} (FCS baseline)"
     return 0.0, f"{opponent_name} (unrated)"
@@ -94,49 +97,58 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
             continue
         if game.get("seasonType") != "regular":
             continue
-        if game.get("homeClassification") != "fbs" or game.get("awayClassification") != "fbs":
-            if game.get("homeClassification") != "fbs":
-                continue
-        if game.get("homeClassification") != "fbs":
+        if game.get("homeClassification") != "fbs" and game.get("awayClassification") != "fbs":
             continue
 
         week = int(game.get("week") or 0)
         home_team_name = game["homeTeam"]
         away_team_name = game["awayTeam"]
-        if home_team_name not in ratings_lookup:
+        home_rating_row = ratings_lookup.get(home_team_name)
+        away_rating_row = ratings_lookup.get(away_team_name)
+        if not home_rating_row and not away_rating_row:
             continue
 
-        home_team = ensure_team(summary, ratings_lookup, home_team_name)
+        if home_rating_row:
+            home_rating = parse_float(home_rating_row["rating"])
+            home_display_name = home_team_name
+        elif game.get("homeClassification") == "fbs":
+            home_rating = UNRATED_FBS_BASELINE_RATING
+            home_display_name = f"{home_team_name} (unrated FBS baseline)"
+        else:
+            home_rating = FCS_BASELINE_RATING
+            home_display_name = f"{home_team_name} (FCS baseline)"
 
         away_rating, away_display_name = opponent_rating(game, "home", ratings_lookup)
-        home_rating = parse_float(ratings_lookup[home_team_name]["rating"])
         home_spread = home_rating - away_rating + (0.0 if game.get("neutralSite") else HOME_FIELD_ADVANTAGE)
         home_win_prob = win_probability(home_spread)
 
-        home_team["projected_wins"] += home_win_prob
-        home_team["schedule_games"] += 1
-        home_team["projected_strength_of_schedule"] += away_rating
-        home_team["games"].append(home_win_prob)
+        if home_rating_row:
+            home_team = ensure_team(summary, ratings_lookup, home_team_name)
+            home_team["projected_wins"] += home_win_prob
+            home_team["schedule_games"] += 1
+            home_team["projected_strength_of_schedule"] += away_rating
+            home_team["games"].append(home_win_prob)
 
-        favorite = home_team_name if home_spread >= 0 else away_display_name
+        favorite = home_display_name if home_spread >= 0 else away_display_name
         favorite_spread = round(abs(home_spread), 2)
 
-        game_rows.append(
-            {
-                "week": week,
-                "team": home_team_name,
-                "opponent": away_display_name,
-                "site": "neutral" if game.get("neutralSite") else "home",
-                "team_rating": round(home_rating, 2),
-                "opponent_rating": round(away_rating, 2),
-                "projected_spread": round(home_spread, 2),
-                "favorite": favorite,
-                "favorite_spread": favorite_spread,
-                "win_probability": round(home_win_prob, 4),
-            }
-        )
+        if home_rating_row:
+            game_rows.append(
+                {
+                    "week": week,
+                    "team": home_team_name,
+                    "opponent": away_display_name,
+                    "site": "neutral" if game.get("neutralSite") else "home",
+                    "team_rating": round(home_rating, 2),
+                    "opponent_rating": round(away_rating, 2),
+                    "projected_spread": round(home_spread, 2),
+                    "favorite": favorite,
+                    "favorite_spread": favorite_spread,
+                    "win_probability": round(home_win_prob, 4),
+                }
+            )
 
-        if away_team_name in ratings_lookup:
+        if away_rating_row:
             away_team = ensure_team(summary, ratings_lookup, away_team_name)
             away_team["projected_wins"] += 1 - home_win_prob
             away_team["schedule_games"] += 1
@@ -147,7 +159,7 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
                 {
                     "week": week,
                     "team": away_team_name,
-                    "opponent": home_team_name,
+                    "opponent": home_display_name,
                     "site": "neutral" if game.get("neutralSite") else "away",
                     "team_rating": round(away_rating, 2),
                     "opponent_rating": round(home_rating, 2),

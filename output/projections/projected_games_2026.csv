@@ -1,6 +1,6 @@
 week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,favorite_spread,win_probability
 1,Air Force,Duquesne (FCS baseline),home,-7.59,-18.0,12.91,Air Force,12.91,0.7901
-2,Air Force,North Dakota State (unrated),home,-7.59,0.0,-5.09,North Dakota State (unrated),5.09,0.3752
+2,Air Force,North Dakota State (unrated FBS baseline),home,-7.59,-12.0,6.91,Air Force,6.91,0.6671
 4,Air Force,Nevada,away,-7.59,-12.08,1.99,Air Force,1.99,0.5495
 5,Air Force,Navy,home,-7.59,0.98,-6.07,Navy,6.07,0.3522
 6,Air Force,Northern Illinois,away,-7.59,-14.94,4.85,Air Force,4.85,0.6191
@@ -35,12 +35,18 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 11,Alabama,Vanderbilt,away,22.02,13.24,6.28,Alabama,6.28,0.6527
 12,Alabama,Chattanooga (FCS baseline),home,22.02,-18.0,42.52,Alabama,42.52,0.9961
 13,Alabama,Auburn,home,22.02,12.61,11.91,Alabama,11.91,0.7717
-2,App State,East Carolina,away,-9.22,-1.07,-10.65,East Carolina,10.65,0.2528
+1,App State,Maine (FCS baseline),home,-9.22,-18.0,11.28,App State,11.28,0.7596
 2,App State,East Carolina,away,-9.22,-1.07,-10.65,East Carolina,10.65,0.2528
 3,App State,Charlotte,home,-9.22,-20.32,13.6,App State,13.6,0.8023
-3,App State,Charlotte,home,-9.22,-20.32,13.6,App State,13.6,0.8023
 4,App State,NC State,away,-9.22,2.48,-14.2,NC State,14.2,0.1874
-4,App State,NC State,away,-9.22,2.48,-14.2,NC State,14.2,0.1874
+6,App State,Old Dominion,home,-9.22,2.02,-8.74,Old Dominion,8.74,0.2924
+7,App State,Coastal Carolina,away,-9.22,-12.42,0.7,App State,0.7,0.5174
+8,App State,James Madison,home,-9.22,8.29,-15.01,James Madison,15.01,0.1741
+9,App State,Georgia Southern,away,-9.22,-9.18,-2.54,Georgia Southern,2.54,0.4369
+10,App State,Georgia State,home,-9.22,-13.8,7.08,App State,7.08,0.6709
+11,App State,Marshall,away,-9.22,-4.97,-6.75,Marshall,6.75,0.3366
+12,App State,UL Monroe,home,-9.22,-17.09,10.37,App State,10.37,0.7415
+13,App State,South Alabama,away,-9.22,-9.24,-2.48,South Alabama,2.48,0.4384
 1,Arizona,Northern Arizona (FCS baseline),home,3.61,-18.0,24.11,Arizona,24.11,0.9341
 2,Arizona,BYU,away,3.61,8.21,-7.1,BYU,7.1,0.3286
 3,Arizona,Northern Illinois,home,3.61,-14.94,21.05,Arizona,21.05,0.9059
@@ -78,7 +84,17 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 12,Arkansas,Texas,away,11.29,18.63,-9.84,Texas,9.84,0.2693
 13,Arkansas,LSU,home,11.29,13.13,0.66,Arkansas,0.66,0.5165
 1,Arkansas State,Memphis,away,-12.06,1.94,-16.5,Memphis,16.5,0.1512
+2,Arkansas State,West Georgia (FCS baseline),home,-12.06,-18.0,8.44,Arkansas State,8.44,0.7011
 3,Arkansas State,TCU,away,-12.06,9.87,-24.43,TCU,24.43,0.0634
+4,Arkansas State,Kennesaw State,home,-12.06,-8.18,-1.38,Kennesaw State,1.38,0.4656
+5,Arkansas State,Louisiana,away,-12.06,-10.25,-4.31,Louisiana,4.31,0.3938
+6,Arkansas State,South Alabama,home,-12.06,-9.24,-0.32,South Alabama,0.32,0.492
+7,Arkansas State,Southern Miss,away,-12.06,-4.5,-10.06,Southern Miss,10.06,0.2648
+8,Arkansas State,Georgia State,home,-12.06,-13.8,4.24,Arkansas State,4.24,0.6045
+10,Arkansas State,UL Monroe,home,-12.06,-17.09,7.53,Arkansas State,7.53,0.681
+11,Arkansas State,Coastal Carolina,away,-12.06,-12.42,-2.14,Coastal Carolina,2.14,0.4468
+12,Arkansas State,Louisiana Tech,away,-12.06,-8.08,-6.48,Louisiana Tech,6.48,0.3427
+13,Arkansas State,Troy,home,-12.06,-8.14,-1.42,Troy,1.42,0.4646
 1,Army,Bryant (FCS baseline),home,-6.67,-18.0,13.83,Army,13.83,0.8063
 2,Army,South Florida,home,-6.67,6.33,-10.5,South Florida,10.5,0.2558
 4,Army,Temple,away,-6.67,-11.33,2.16,Army,2.16,0.5537
@@ -120,9 +136,9 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 3,Ball State,Liberty,away,-22.17,-3.45,-21.22,Liberty,21.22,0.0924
 4,Ball State,Kent State,away,-22.17,-25.57,0.9,Ball State,0.9,0.5224
 5,Ball State,Toledo,home,-22.17,0.68,-20.35,Toledo,20.35,0.1017
-6,Ball State,Northwestern,neutral,-22.17,0.2,-22.37,Northwestern,22.37,0.081
+6,Ball State,Northwestern,away,-22.17,0.2,-24.87,Northwestern,24.87,0.06
 7,Ball State,Bowling Green,away,-22.17,-13.81,-10.86,Bowling Green,10.86,0.2486
-8,Ball State,Sacramento State (unrated),home,-22.17,0.0,-19.67,Sacramento State (unrated),19.67,0.1095
+8,Ball State,Sacramento State (unrated FBS baseline),home,-22.17,-12.0,-7.67,Sacramento State (unrated FBS baseline),7.67,0.3158
 10,Ball State,Massachusetts,away,-22.17,-27.03,2.36,Ball State,2.36,0.5586
 11,Ball State,Buffalo,home,-22.17,-9.82,-9.85,Buffalo,9.85,0.2691
 12,Ball State,Ohio,away,-22.17,-2.05,-22.62,Ohio,22.62,0.0787
@@ -167,7 +183,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 3,Bowling Green,Iowa State,away,-13.81,3.54,-19.85,Iowa State,19.85,0.1074
 4,Bowling Green,South Florida,home,-13.81,6.33,-17.64,South Florida,17.64,0.1351
 5,Bowling Green,Miami (OH),away,-13.81,-5.8,-10.51,Miami (OH),10.51,0.2556
-6,Bowling Green,Sacramento State (unrated),home,-13.81,0.0,-11.31,Sacramento State (unrated),11.31,0.2398
+6,Bowling Green,Sacramento State (unrated FBS baseline),home,-13.81,-12.0,0.69,Bowling Green,0.69,0.5172
 7,Bowling Green,Ball State,home,-13.81,-22.17,10.86,Bowling Green,10.86,0.7514
 8,Bowling Green,Buffalo,away,-13.81,-9.82,-6.49,Buffalo,6.49,0.3425
 9,Bowling Green,Western Michigan,away,-13.81,-8.82,-7.49,Western Michigan,7.49,0.3198
@@ -206,13 +222,12 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 6,Central Michigan,Ohio,away,-12.93,-2.05,-13.38,Ohio,13.38,0.2015
 7,Central Michigan,Western Michigan,home,-12.93,-8.82,-1.61,Western Michigan,1.61,0.4599
 8,Central Michigan,Miami (OH),home,-12.93,-5.8,-4.63,Miami (OH),4.63,0.3861
-10,Central Michigan,Eastern Michigan,away,-12.93,-13.09,-2.34,Eastern Michigan,2.34,0.4419
-11,Central Michigan,Sacramento State (unrated),home,-12.93,0.0,-10.43,Sacramento State (unrated),10.43,0.2572
+10,Central Michigan,Eastern Michigan,neutral,-12.93,-13.09,0.16,Central Michigan,0.16,0.504
+11,Central Michigan,Sacramento State (unrated FBS baseline),home,-12.93,-12.0,1.57,Central Michigan,1.57,0.5391
 12,Central Michigan,Buffalo,away,-12.93,-9.82,-5.61,Buffalo,5.61,0.3629
 13,Central Michigan,Ball State,away,-12.93,-22.17,6.74,Central Michigan,6.74,0.6632
 1,Charlotte,The Citadel (FCS baseline),home,-20.32,-18.0,0.18,Charlotte,0.18,0.5045
 2,Charlotte,Ole Miss,away,-20.32,18.57,-41.39,Ole Miss,41.39,0.0048
-3,Charlotte,App State,away,-20.32,-9.22,-13.6,App State,13.6,0.1977
 3,Charlotte,App State,away,-20.32,-9.22,-13.6,App State,13.6,0.1977
 4,Charlotte,Louisiana,home,-20.32,-10.25,-7.57,Louisiana,7.57,0.3181
 5,Charlotte,Memphis,home,-20.32,1.94,-19.76,Memphis,19.76,0.1084
@@ -248,6 +263,17 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 12,Clemson,Duke,away,12.8,4.34,5.96,Clemson,5.96,0.6452
 13,Clemson,South Carolina,home,12.8,10.15,5.15,Clemson,5.15,0.6262
 1,Coastal Carolina,West Virginia,away,-12.42,-3.99,-10.93,West Virginia,10.93,0.2473
+2,Coastal Carolina,Fordham (FCS baseline),home,-12.42,-18.0,8.08,Coastal Carolina,8.08,0.6932
+3,Coastal Carolina,Delaware,away,-12.42,-9.72,-5.2,Delaware,5.2,0.3726
+4,Coastal Carolina,Liberty,home,-12.42,-3.45,-6.47,Liberty,6.47,0.343
+5,Coastal Carolina,Georgia Southern,home,-12.42,-9.18,-0.74,Georgia Southern,0.74,0.4816
+6,Coastal Carolina,Marshall,away,-12.42,-4.97,-9.95,Marshall,9.95,0.267
+7,Coastal Carolina,App State,home,-12.42,-9.22,-0.7,App State,0.7,0.4826
+9,Coastal Carolina,Georgia State,away,-12.42,-13.8,-1.12,Georgia State,1.12,0.4721
+10,Coastal Carolina,Old Dominion,home,-12.42,2.02,-11.94,Old Dominion,11.94,0.2278
+11,Coastal Carolina,Arkansas State,home,-12.42,-12.06,2.14,Coastal Carolina,2.14,0.5532
+12,Coastal Carolina,Louisiana,away,-12.42,-10.25,-4.67,Louisiana,4.67,0.3852
+13,Coastal Carolina,James Madison,away,-12.42,8.29,-23.21,James Madison,23.21,0.0734
 1,Colorado,Georgia Tech,away,-0.21,7.05,-9.76,Georgia Tech,9.76,0.2709
 2,Colorado,Weber State (FCS baseline),home,-0.21,-18.0,20.29,Colorado,20.29,0.8976
 3,Colorado,Northwestern,away,-0.21,0.2,-2.91,Northwestern,2.91,0.4278
@@ -273,7 +299,16 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 12,Colorado State,Fresno State,away,-8.04,-5.91,-4.63,Fresno State,4.63,0.3861
 1,Delaware,Merrimack (FCS baseline),home,-9.72,-18.0,10.78,Delaware,10.78,0.7498
 2,Delaware,Vanderbilt,away,-9.72,13.24,-25.46,Vanderbilt,25.46,0.0558
+3,Delaware,Coastal Carolina,home,-9.72,-12.42,5.2,Delaware,5.2,0.6274
 4,Delaware,Virginia,away,-9.72,3.43,-15.65,Virginia,15.65,0.164
+5,Delaware,Liberty,home,-9.72,-3.45,-3.77,Liberty,3.77,0.4069
+7,Delaware,Middle Tennessee,away,-9.72,-13.13,0.91,Delaware,0.91,0.5227
+8,Delaware,Missouri State,home,-9.72,-12.47,5.25,Delaware,5.25,0.6286
+9,Delaware,Western Kentucky,away,-9.72,-7.07,-5.15,Western Kentucky,5.15,0.3738
+10,Delaware,Kennesaw State,away,-9.72,-8.18,-4.04,Kennesaw State,4.04,0.4003
+11,Delaware,Florida International,home,-9.72,-9.82,2.6,Delaware,2.6,0.5645
+12,Delaware,New Mexico State,away,-9.72,-17.35,5.13,Delaware,5.13,0.6258
+13,Delaware,Jacksonville State,home,-9.72,-8.54,1.32,Delaware,1.32,0.5329
 1,Duke,Tulane,home,4.34,4.35,2.49,Duke,2.49,0.5618
 2,Duke,Illinois,away,4.34,8.5,-6.66,Illinois,6.66,0.3386
 3,Duke,Stanford,home,4.34,-8.78,15.62,Duke,15.62,0.8355
@@ -288,7 +323,6 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 13,Duke,Wake Forest,away,4.34,-2.7,4.54,Duke,4.54,0.6117
 1,East Carolina,Alabama,away,-1.07,22.02,-25.59,Alabama,25.59,0.0549
 2,East Carolina,App State,home,-1.07,-9.22,10.65,East Carolina,10.65,0.7472
-2,East Carolina,App State,home,-1.07,-9.22,10.65,East Carolina,10.65,0.7472
 3,East Carolina,Old Dominion,away,-1.07,2.02,-5.59,Old Dominion,5.59,0.3634
 4,East Carolina,North Carolina Central (FCS baseline),home,-1.07,-18.0,19.43,East Carolina,19.43,0.8877
 6,East Carolina,Rice,home,-1.07,-12.69,14.12,East Carolina,14.12,0.8112
@@ -299,7 +333,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 11,East Carolina,Charlotte,away,-1.07,-20.32,16.75,East Carolina,16.75,0.8524
 12,East Carolina,Army,away,-1.07,-6.67,3.1,East Carolina,3.1,0.5768
 13,East Carolina,Florida Atlantic,home,-1.07,-12.25,13.68,East Carolina,13.68,0.8037
-1,Eastern Michigan,Sacramento State (unrated),home,-13.09,0.0,-10.59,Sacramento State (unrated),10.59,0.254
+1,Eastern Michigan,Sacramento State (unrated FBS baseline),home,-13.09,-12.0,1.41,Eastern Michigan,1.41,0.5351
 1,Eastern Michigan,San José State,home,-13.09,-6.54,-4.05,San José State,4.05,0.4001
 2,Eastern Michigan,Michigan State,away,-13.09,1.96,-17.55,Michigan State,17.55,0.1363
 3,Eastern Michigan,Wisconsin,away,-13.09,3.95,-19.54,Wisconsin,19.54,0.111
@@ -308,7 +342,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 6,Eastern Michigan,Akron,away,-13.09,-21.45,5.86,Eastern Michigan,5.86,0.6429
 7,Eastern Michigan,Toledo,home,-13.09,0.68,-11.27,Toledo,11.27,0.2406
 8,Eastern Michigan,Ohio,away,-13.09,-2.05,-13.54,Ohio,13.54,0.1987
-10,Eastern Michigan,Central Michigan,home,-13.09,-12.93,2.34,Eastern Michigan,2.34,0.5581
+10,Eastern Michigan,Central Michigan,neutral,-13.09,-12.93,-0.16,Central Michigan,0.16,0.496
 12,Eastern Michigan,Western Michigan,away,-13.09,-8.82,-6.77,Western Michigan,6.77,0.3361
 13,Eastern Michigan,Kent State,home,-13.09,-25.57,14.98,Eastern Michigan,14.98,0.8254
 1,Florida,Florida Atlantic,home,10.73,-12.25,25.48,Florida,25.48,0.9444
@@ -338,7 +372,15 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 1,Florida International,South Florida,away,-9.82,6.33,-18.65,South Florida,18.65,0.1219
 2,Florida International,Buffalo,home,-9.82,-9.82,2.5,Florida International,2.5,0.5621
 3,Florida International,Florida Atlantic,away,-9.82,-12.25,-0.07,Florida Atlantic,0.07,0.4983
-1,Florida State,New Mexico State,home,7.9,-17.35,27.75,Florida State,27.75,0.9586
+4,Florida International,Long Island University (FCS baseline),home,-9.82,-18.0,10.68,Florida International,10.68,0.7478
+6,Florida International,New Mexico State,home,-9.82,-17.35,10.03,Florida International,10.03,0.7346
+7,Florida International,Jacksonville State,away,-9.82,-8.54,-3.78,Jacksonville State,3.78,0.4066
+8,Florida International,Middle Tennessee,home,-9.82,-13.13,5.81,Florida International,5.81,0.6417
+9,Florida International,Liberty,away,-9.82,-3.45,-8.87,Liberty,8.87,0.2897
+10,Florida International,Missouri State,home,-9.82,-12.47,5.15,Florida International,5.15,0.6262
+11,Florida International,Delaware,away,-9.82,-9.72,-2.6,Delaware,2.6,0.4355
+12,Florida International,Kennesaw State,away,-9.82,-8.18,-4.14,Kennesaw State,4.14,0.3979
+13,Florida International,Sam Houston,home,-9.82,-18.36,11.04,Florida International,11.04,0.7549
 1,Florida State,New Mexico State,home,7.9,-17.35,27.75,Florida State,27.75,0.9586
 1,Florida State,SMU,home,7.9,10.46,-0.06,SMU,0.06,0.4985
 3,Florida State,Alabama,away,7.9,22.02,-16.62,Alabama,16.62,0.1495
@@ -352,7 +394,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 12,Florida State,NC State,home,7.9,2.48,7.92,Florida State,7.92,0.6897
 13,Florida State,Florida,home,7.9,10.73,-0.33,Florida,0.33,0.4918
 1,Fresno State,USC,away,-5.91,17.94,-26.35,USC,26.35,0.0498
-2,Fresno State,Sacramento State (unrated),home,-5.91,0.0,-3.41,Sacramento State (unrated),3.41,0.4156
+2,Fresno State,Sacramento State (unrated FBS baseline),home,-5.91,-12.0,8.59,Fresno State,8.59,0.7043
 3,Fresno State,San José State,away,-5.91,-6.54,-1.87,San José State,1.87,0.4535
 4,Fresno State,Rice,home,-5.91,-12.69,9.28,Fresno State,9.28,0.719
 5,Fresno State,Washington State,away,-5.91,-4.21,-4.2,Washington State,4.2,0.3965
@@ -374,10 +416,30 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 11,Georgia,Missouri,home,23.69,12.97,13.22,Georgia,13.22,0.7957
 12,Georgia,South Carolina,away,23.69,10.15,11.04,Georgia,11.04,0.7549
 13,Georgia,Georgia Tech,home,23.69,7.05,19.14,Georgia,19.14,0.8842
+1,Georgia Southern,Charleston Southern (FCS baseline),home,-9.18,-18.0,11.32,Georgia Southern,11.32,0.7604
 2,Georgia Southern,Clemson,away,-9.18,12.8,-24.48,Clemson,24.48,0.063
+3,Georgia Southern,Jacksonville State,away,-9.18,-8.54,-3.14,Jacksonville State,3.14,0.4222
 4,Georgia Southern,Houston,home,-9.18,1.01,-7.69,Houston,7.69,0.3154
+5,Georgia Southern,Coastal Carolina,away,-9.18,-12.42,0.74,Georgia Southern,0.74,0.5184
+6,Georgia Southern,James Madison,home,-9.18,8.29,-14.97,James Madison,14.97,0.1747
+7,Georgia Southern,Old Dominion,away,-9.18,2.02,-13.7,Old Dominion,13.7,0.1959
+9,Georgia Southern,App State,home,-9.18,-9.22,2.54,Georgia Southern,2.54,0.5631
+10,Georgia Southern,Marshall,home,-9.18,-4.97,-1.71,Marshall,1.71,0.4574
+11,Georgia Southern,Georgia State,away,-9.18,-13.8,2.12,Georgia Southern,2.12,0.5527
+12,Georgia Southern,Troy,away,-9.18,-8.14,-3.54,Troy,3.54,0.4124
+13,Georgia Southern,Louisiana Tech,home,-9.18,-8.08,1.4,Georgia Southern,1.4,0.5349
+1,Georgia State,North Carolina A&T (FCS baseline),home,-13.8,-18.0,6.7,Georgia State,6.7,0.6623
+2,Georgia State,Kennesaw State,away,-13.8,-8.18,-8.12,Kennesaw State,8.12,0.3059
 3,Georgia State,UCF,away,-13.8,0.08,-16.38,UCF,16.38,0.153
 4,Georgia State,Northern Illinois,home,-13.8,-14.94,3.64,Georgia State,3.64,0.59
+5,Georgia State,Old Dominion,home,-13.8,2.02,-13.32,Old Dominion,13.32,0.2026
+7,Georgia State,James Madison,away,-13.8,8.29,-24.59,James Madison,24.59,0.0622
+8,Georgia State,Arkansas State,away,-13.8,-12.06,-4.24,Arkansas State,4.24,0.3955
+9,Georgia State,Coastal Carolina,home,-13.8,-12.42,1.12,Georgia State,1.12,0.5279
+10,Georgia State,App State,away,-13.8,-9.22,-7.08,App State,7.08,0.3291
+11,Georgia State,Georgia Southern,home,-13.8,-9.18,-2.12,Georgia Southern,2.12,0.4473
+12,Georgia State,Marshall,away,-13.8,-4.97,-11.33,Marshall,11.33,0.2394
+13,Georgia State,Louisiana,home,-13.8,-10.25,-1.05,Louisiana,1.05,0.4738
 1,Georgia Tech,Colorado,home,7.05,-0.21,9.76,Georgia Tech,9.76,0.7291
 2,Georgia Tech,Tennessee,home,7.05,15.49,-5.94,Tennessee,5.94,0.3552
 3,Georgia Tech,Mercer (FCS baseline),home,7.05,-18.0,27.55,Georgia Tech,27.55,0.9575
@@ -399,9 +461,9 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 7,Hawai'i,New Mexico,home,-6.15,-5.44,1.79,Hawai'i,1.79,0.5445
 8,Hawai'i,Northern Illinois,away,-6.15,-14.94,6.29,Hawai'i,6.29,0.6529
 10,Hawai'i,UTEP,away,-6.15,-12.66,4.01,Hawai'i,4.01,0.5989
-11,Hawai'i,North Dakota State (unrated),home,-6.15,0.0,-3.65,North Dakota State (unrated),3.65,0.4098
+11,Hawai'i,North Dakota State (unrated FBS baseline),home,-6.15,-12.0,8.35,Hawai'i,8.35,0.6991
 12,Hawai'i,Nevada,away,-6.15,-12.08,3.43,Hawai'i,3.43,0.5849
-13,Hawai'i,Sacramento State (unrated),home,-6.15,0.0,-3.65,Sacramento State (unrated),3.65,0.4098
+13,Hawai'i,Sacramento State (unrated FBS baseline),home,-6.15,-12.0,8.35,Hawai'i,8.35,0.6991
 1,Houston,Oregon State,home,1.01,-8.31,11.82,Houston,11.82,0.77
 2,Houston,Southern (FCS baseline),home,1.01,-18.0,21.51,Houston,21.51,0.9106
 3,Houston,Texas Tech,away,1.01,17.8,-19.29,Texas Tech,19.29,0.114
@@ -425,7 +487,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 10,Illinois,Nebraska,home,8.5,10.01,0.99,Illinois,0.99,0.5247
 11,Illinois,UCLA,away,8.5,0.51,5.49,Illinois,5.49,0.6342
 12,Illinois,Iowa,home,8.5,14.2,-3.2,Iowa,3.2,0.4207
-13,Illinois,Northwestern,home,8.5,0.2,10.8,Illinois,10.8,0.7502
+13,Illinois,Northwestern,away,8.5,0.2,5.8,Illinois,5.8,0.6415
 1,Indiana,North Texas,home,23.9,4.44,21.96,Indiana,21.96,0.915
 2,Indiana,Howard (FCS baseline),home,23.9,-18.0,44.4,Indiana,44.4,0.9972
 3,Indiana,Western Kentucky,home,23.9,-7.07,33.47,Indiana,33.47,0.9818
@@ -446,7 +508,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 6,Iowa,Washington,away,14.2,10.57,1.13,Iowa,1.13,0.5282
 8,Iowa,Minnesota,away,14.2,0.77,10.93,Iowa,10.93,0.7527
 9,Iowa,Wisconsin,home,14.2,3.95,12.75,Iowa,12.75,0.7872
-10,Iowa,Northwestern,neutral,14.2,0.2,14.0,Iowa,14.0,0.8092
+10,Iowa,Northwestern,away,14.2,0.2,11.5,Iowa,11.5,0.7639
 11,Iowa,Purdue,home,14.2,-0.92,17.62,Iowa,17.62,0.8646
 12,Iowa,Illinois,away,14.2,8.5,3.2,Iowa,3.2,0.5793
 13,Iowa,Nebraska,home,14.2,10.01,6.69,Iowa,6.69,0.6621
@@ -462,9 +524,30 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 11,Iowa State,Cincinnati,home,3.54,5.26,0.78,Iowa State,0.78,0.5194
 12,Iowa State,UCF,away,3.54,0.08,0.96,Iowa State,0.96,0.5239
 13,Iowa State,Kansas State,home,3.54,7.43,-1.39,Kansas State,1.39,0.4654
+1,Jacksonville State,Eastern Kentucky (FCS baseline),home,-8.54,-18.0,11.96,Jacksonville State,11.96,0.7726
+1,Jacksonville State,North Dakota State (unrated FBS baseline),away,-8.54,-12.0,0.96,Jacksonville State,0.96,0.5239
 2,Jacksonville State,Ohio,away,-8.54,-2.05,-8.99,Ohio,8.99,0.2871
+3,Jacksonville State,Georgia Southern,home,-8.54,-9.18,3.14,Jacksonville State,3.14,0.5778
+4,Jacksonville State,Middle Tennessee,home,-8.54,-13.13,7.09,Jacksonville State,7.09,0.6712
+6,Jacksonville State,Kennesaw State,away,-8.54,-8.18,-2.86,Kennesaw State,2.86,0.4291
+7,Jacksonville State,Florida International,home,-8.54,-9.82,3.78,Jacksonville State,3.78,0.5934
+9,Jacksonville State,New Mexico State,away,-8.54,-17.35,6.31,Jacksonville State,6.31,0.6533
+10,Jacksonville State,Sam Houston,home,-8.54,-18.36,12.32,Jacksonville State,12.32,0.7794
+11,Jacksonville State,Western Kentucky,away,-8.54,-7.07,-3.97,Western Kentucky,3.97,0.402
+12,Jacksonville State,Missouri State,home,-8.54,-12.47,6.43,Jacksonville State,6.43,0.6561
+13,Jacksonville State,Delaware,away,-8.54,-9.72,-1.32,Delaware,1.32,0.4671
+1,James Madison,Liberty,home,8.29,-3.45,14.24,James Madison,14.24,0.8133
+2,James Madison,Wagner (FCS baseline),home,8.29,-18.0,28.79,James Madison,28.79,0.964
 3,James Madison,San Diego State,away,8.29,-1.36,7.15,James Madison,7.15,0.6725
+4,James Madison,Old Dominion,away,8.29,2.02,3.77,James Madison,3.77,0.5931
+5,James Madison,Marshall,home,8.29,-4.97,15.76,James Madison,15.76,0.8377
+6,James Madison,Georgia Southern,away,8.29,-9.18,14.97,James Madison,14.97,0.8253
+7,James Madison,Georgia State,home,8.29,-13.8,24.59,James Madison,24.59,0.9378
+8,James Madison,App State,away,8.29,-9.22,15.01,James Madison,15.01,0.8259
+9,James Madison,Troy,home,8.29,-8.14,18.93,James Madison,18.93,0.8816
+10,James Madison,Southern Miss,away,8.29,-4.5,10.29,James Madison,10.29,0.7399
 11,James Madison,UConn,away,8.29,-4.98,10.77,James Madison,10.77,0.7496
+13,James Madison,Coastal Carolina,home,8.29,-12.42,23.21,James Madison,23.21,0.9266
 1,Kansas,Long Island University (FCS baseline),home,6.17,-18.0,26.67,Kansas,26.67,0.9522
 2,Kansas,Missouri,home,6.17,12.97,-4.3,Missouri,4.3,0.3941
 3,Kansas,Arizona State,neutral,6.17,5.67,0.5,Kansas,0.5,0.5125
@@ -490,7 +573,17 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 12,Kansas State,Arizona,home,7.43,3.61,6.32,Kansas State,6.32,0.6536
 13,Kansas State,Iowa State,away,7.43,3.54,1.39,Kansas State,1.39,0.5346
 1,Kennesaw State,West Georgia (FCS baseline),home,-8.18,-18.0,12.32,Kennesaw State,12.32,0.7794
+2,Kennesaw State,Georgia State,home,-8.18,-13.8,8.12,Kennesaw State,8.12,0.6941
 3,Kennesaw State,Tennessee,away,-8.18,15.49,-26.17,Tennessee,26.17,0.051
+4,Kennesaw State,Arkansas State,away,-8.18,-12.06,1.38,Kennesaw State,1.38,0.5344
+6,Kennesaw State,Jacksonville State,home,-8.18,-8.54,2.86,Kennesaw State,2.86,0.5709
+7,Kennesaw State,Missouri State,away,-8.18,-12.47,1.79,Kennesaw State,1.79,0.5445
+8,Kennesaw State,Liberty,home,-8.18,-3.45,-2.23,Liberty,2.23,0.4446
+9,Kennesaw State,Middle Tennessee,away,-8.18,-13.13,2.45,Kennesaw State,2.45,0.5609
+10,Kennesaw State,Delaware,home,-8.18,-9.72,4.04,Kennesaw State,4.04,0.5997
+11,Kennesaw State,Sam Houston,away,-8.18,-18.36,7.68,Kennesaw State,7.68,0.6844
+12,Kennesaw State,Florida International,home,-8.18,-9.82,4.14,Kennesaw State,4.14,0.6021
+13,Kennesaw State,Western Kentucky,away,-8.18,-7.07,-3.61,Western Kentucky,3.61,0.4107
 1,Kent State,South Carolina,away,-25.57,10.15,-38.22,South Carolina,38.22,0.0085
 2,Kent State,Wofford (FCS baseline),home,-25.57,-18.0,-5.07,Wofford (FCS baseline),5.07,0.3757
 3,Kent State,Ohio State,away,-25.57,27.84,-55.91,Ohio State,55.91,0.0002
@@ -499,13 +592,13 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 6,Kent State,Western Michigan,away,-25.57,-8.82,-19.25,Western Michigan,19.25,0.1145
 7,Kent State,South Florida,away,-25.57,6.33,-34.4,South Florida,34.4,0.0158
 8,Kent State,Akron,home,-25.57,-21.45,-1.62,Akron,1.62,0.4597
+9,Kent State,Sacramento State (unrated FBS baseline),away,-25.57,-12.0,-16.07,Sacramento State (unrated FBS baseline),16.07,0.1576
 11,Kent State,Bowling Green,away,-25.57,-13.81,-14.26,Bowling Green,14.26,0.1864
 12,Kent State,Miami (OH),home,-25.57,-5.8,-17.27,Miami (OH),17.27,0.1402
 13,Kent State,Eastern Michigan,away,-25.57,-13.09,-14.98,Eastern Michigan,14.98,0.1746
 1,Kentucky,Youngstown State (FCS baseline),home,6.79,-18.0,27.29,Kentucky,27.29,0.956
 2,Kentucky,Alabama,home,6.79,22.02,-12.73,Alabama,12.73,0.2131
 3,Kentucky,Texas A&M,away,6.79,21.08,-16.79,Texas A&M,16.79,0.147
-4,Kentucky,South Alabama,home,6.79,-9.24,18.53,Kentucky,18.53,0.8766
 4,Kentucky,South Alabama,home,6.79,-9.24,18.53,Kentucky,18.53,0.8766
 5,Kentucky,South Carolina,away,6.79,10.15,-5.86,South Carolina,5.86,0.3571
 6,Kentucky,LSU,home,6.79,13.13,-3.84,LSU,3.84,0.4052
@@ -527,13 +620,42 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 11,LSU,Texas,home,13.13,18.63,-3.0,Texas,3.0,0.4256
 12,LSU,Tennessee,away,13.13,15.49,-4.86,Tennessee,4.86,0.3807
 13,LSU,Arkansas,away,13.13,11.29,-0.66,Arkansas,0.66,0.4835
+1,Liberty,James Madison,away,-3.45,8.29,-14.24,James Madison,14.24,0.1867
+2,Liberty,Gardner-Webb (FCS baseline),home,-3.45,-18.0,17.05,Liberty,17.05,0.8567
 3,Liberty,Ball State,home,-3.45,-22.17,21.22,Liberty,21.22,0.9076
+4,Liberty,Coastal Carolina,away,-3.45,-12.42,6.47,Liberty,6.47,0.657
+5,Liberty,Delaware,away,-3.45,-9.72,3.77,Liberty,3.77,0.5931
+6,Liberty,Sam Houston,home,-3.45,-18.36,17.41,Liberty,17.41,0.8617
+8,Liberty,Kennesaw State,away,-3.45,-8.18,2.23,Liberty,2.23,0.5554
+9,Liberty,Florida International,home,-3.45,-9.82,8.87,Liberty,8.87,0.7103
+10,Liberty,New Mexico State,away,-3.45,-17.35,11.4,Liberty,11.4,0.7619
+11,Liberty,Middle Tennessee,home,-3.45,-13.13,12.18,Liberty,12.18,0.7767
+12,Liberty,Western Kentucky,home,-3.45,-7.07,6.12,Liberty,6.12,0.649
+13,Liberty,Missouri State,away,-3.45,-12.47,6.52,Liberty,6.52,0.6582
+1,Louisiana,Lamar (FCS baseline),home,-10.25,-18.0,10.25,Louisiana,10.25,0.7391
 2,Louisiana,USC,away,-10.25,17.94,-30.69,USC,30.69,0.0275
 3,Louisiana,UAB,home,-10.25,-14.46,6.71,Louisiana,6.71,0.6625
 4,Louisiana,Charlotte,away,-10.25,-20.32,7.57,Louisiana,7.57,0.6819
+5,Louisiana,Arkansas State,home,-10.25,-12.06,4.31,Louisiana,4.31,0.6062
+6,Louisiana,Louisiana Tech,away,-10.25,-8.08,-4.67,Louisiana Tech,4.67,0.3852
+7,Louisiana,Troy,home,-10.25,-8.14,0.39,Louisiana,0.39,0.5097
+8,Louisiana,Southern Miss,away,-10.25,-4.5,-8.25,Southern Miss,8.25,0.3031
+10,Louisiana,South Alabama,home,-10.25,-9.24,1.49,Louisiana,1.49,0.5371
+11,Louisiana,UL Monroe,away,-10.25,-17.09,4.34,Louisiana,4.34,0.6069
+12,Louisiana,Coastal Carolina,home,-10.25,-12.42,4.67,Louisiana,4.67,0.6148
+13,Louisiana,Georgia State,away,-10.25,-13.8,1.05,Louisiana,1.05,0.5262
+1,Louisiana Tech,Northwestern State (FCS baseline),home,-8.08,-18.0,12.42,Louisiana Tech,12.42,0.7812
 2,Louisiana Tech,LSU,away,-8.08,13.13,-23.71,LSU,23.71,0.0692
 3,Louisiana Tech,Baylor,away,-8.08,7.36,-17.94,Baylor,17.94,0.1311
 5,Louisiana Tech,Army,home,-8.08,-6.67,1.09,Louisiana Tech,1.09,0.5272
+6,Louisiana Tech,Louisiana,home,-8.08,-10.25,4.67,Louisiana Tech,4.67,0.6148
+7,Louisiana Tech,UL Monroe,away,-8.08,-17.09,6.51,Louisiana Tech,6.51,0.658
+8,Louisiana Tech,Old Dominion,home,-8.08,2.02,-7.6,Old Dominion,7.6,0.3174
+9,Louisiana Tech,South Alabama,away,-8.08,-9.24,-1.34,South Alabama,1.34,0.4666
+10,Louisiana Tech,Troy,away,-8.08,-8.14,-2.44,Troy,2.44,0.4394
+11,Louisiana Tech,Southern Miss,home,-8.08,-4.5,-1.08,Southern Miss,1.08,0.4731
+12,Louisiana Tech,Arkansas State,home,-8.08,-12.06,6.48,Louisiana Tech,6.48,0.6573
+13,Louisiana Tech,Georgia Southern,away,-8.08,-9.18,-1.4,Georgia Southern,1.4,0.4651
 1,Louisville,Ole Miss,neutral,11.0,18.57,-7.57,Ole Miss,7.57,0.3181
 2,Louisville,Villanova (FCS baseline),home,11.0,-18.0,31.5,Louisville,31.5,0.9755
 3,Louisville,SMU,home,11.0,10.46,3.04,Louisville,3.04,0.5753
@@ -547,7 +669,18 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 12,Louisville,Pittsburgh,home,11.0,5.62,7.88,Louisville,7.88,0.6888
 13,Louisville,Kentucky,away,11.0,6.79,1.71,Louisville,1.71,0.5426
 1,Marshall,Penn State,away,-4.97,17.74,-25.21,Penn State,25.21,0.0576
-1,Maryland,Howard (FCS baseline),home,0.42,-18.0,20.92,Maryland,20.92,0.9045
+2,Marshall,Middle Tennessee,home,-4.97,-13.13,10.66,Marshall,10.66,0.7474
+3,Marshall,Missouri State,away,-4.97,-12.47,5.0,Marshall,5.0,0.6227
+4,Marshall,Gardner-Webb (FCS baseline),home,-4.97,-18.0,15.53,Marshall,15.53,0.8341
+5,Marshall,James Madison,away,-4.97,8.29,-15.76,James Madison,15.76,0.1623
+6,Marshall,Coastal Carolina,home,-4.97,-12.42,9.95,Marshall,9.95,0.733
+8,Marshall,South Alabama,home,-4.97,-9.24,6.77,Marshall,6.77,0.6639
+9,Marshall,Old Dominion,away,-4.97,2.02,-9.49,Old Dominion,9.49,0.2765
+10,Marshall,Georgia Southern,away,-4.97,-9.18,1.71,Marshall,1.71,0.5426
+11,Marshall,App State,home,-4.97,-9.22,6.75,Marshall,6.75,0.6634
+12,Marshall,Georgia State,home,-4.97,-13.8,11.33,Marshall,11.33,0.7606
+13,Marshall,UL Monroe,away,-4.97,-17.09,9.62,Marshall,9.62,0.7262
+1,Maryland,Hampton (FCS baseline),home,0.42,-18.0,20.92,Maryland,20.92,0.9045
 2,Maryland,UConn,away,0.42,-4.98,2.9,Maryland,2.9,0.5719
 3,Maryland,Virginia Tech,home,0.42,-1.97,4.89,Maryland,4.89,0.6201
 4,Maryland,UCLA,home,0.42,0.51,2.41,Maryland,2.41,0.5599
@@ -562,6 +695,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 1,Massachusetts,Rutgers,away,-27.03,2.19,-31.72,Rutgers,31.72,0.0237
 2,Massachusetts,Sacred Heart (FCS baseline),home,-27.03,-18.0,-6.53,Sacred Heart (FCS baseline),6.53,0.3416
 3,Massachusetts,Stonehill (FCS baseline),home,-27.03,-18.0,-6.53,Stonehill (FCS baseline),6.53,0.3416
+4,Massachusetts,Sacramento State (unrated FBS baseline),away,-27.03,-12.0,-17.53,Sacramento State (unrated FBS baseline),17.53,0.1366
 5,Massachusetts,Eastern Michigan,home,-27.03,-13.09,-11.44,Eastern Michigan,11.44,0.2373
 6,Massachusetts,Miami (OH),home,-27.03,-5.8,-18.73,Miami (OH),18.73,0.1209
 7,Massachusetts,Buffalo,away,-27.03,-9.82,-19.71,Buffalo,19.71,0.109
@@ -630,8 +764,18 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 11,Michigan State,Washington,home,1.96,10.57,-6.11,Washington,6.11,0.3513
 12,Michigan State,Oregon,home,1.96,26.55,-22.09,Oregon,22.09,0.0837
 13,Michigan State,Rutgers,away,1.96,2.19,-2.73,Rutgers,2.73,0.4323
+1,Middle Tennessee,Murray State (FCS baseline),home,-13.13,-18.0,7.37,Middle Tennessee,7.37,0.6775
+2,Middle Tennessee,Marshall,away,-13.13,-4.97,-10.66,Marshall,10.66,0.2526
 3,Middle Tennessee,Nevada,home,-13.13,-12.08,1.45,Middle Tennessee,1.45,0.5361
+4,Middle Tennessee,Jacksonville State,away,-13.13,-8.54,-7.09,Jacksonville State,7.09,0.3288
 5,Middle Tennessee,Kansas,away,-13.13,6.17,-21.8,Kansas,21.8,0.0865
+7,Middle Tennessee,Delaware,home,-13.13,-9.72,-0.91,Delaware,0.91,0.4773
+8,Middle Tennessee,Florida International,away,-13.13,-9.82,-5.81,Florida International,5.81,0.3583
+9,Middle Tennessee,Kennesaw State,home,-13.13,-8.18,-2.45,Kennesaw State,2.45,0.4391
+10,Middle Tennessee,Western Kentucky,home,-13.13,-7.07,-3.56,Western Kentucky,3.56,0.412
+11,Middle Tennessee,Liberty,away,-13.13,-3.45,-12.18,Liberty,12.18,0.2233
+12,Middle Tennessee,Sam Houston,away,-13.13,-18.36,2.73,Middle Tennessee,2.73,0.5677
+13,Middle Tennessee,New Mexico State,home,-13.13,-17.35,6.72,Middle Tennessee,6.72,0.6628
 1,Minnesota,Eastern Illinois (FCS baseline),home,0.77,-18.0,21.27,Minnesota,21.27,0.9081
 2,Minnesota,Mississippi State,home,0.77,4.78,-1.51,Mississippi State,1.51,0.4624
 3,Minnesota,Akron,home,0.77,-21.45,24.72,Minnesota,24.72,0.9388
@@ -669,11 +813,20 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 12,Missouri,Kentucky,home,12.97,6.79,8.68,Missouri,8.68,0.7063
 13,Missouri,Oklahoma,home,12.97,17.34,-1.87,Oklahoma,1.87,0.4535
 1,Missouri State,Texas A&M,away,-12.47,21.08,-36.05,Texas A&M,36.05,0.0121
+2,Missouri State,Lindenwood (FCS baseline),home,-12.47,-18.0,8.03,Missouri State,8.03,0.6921
+3,Missouri State,Marshall,home,-12.47,-4.97,-5.0,Marshall,5.0,0.3773
 4,Missouri State,SMU,away,-12.47,10.46,-25.43,SMU,25.43,0.056
-1,NC State,Virginia,neutral,2.48,3.43,-0.95,Virginia,0.95,0.4763
+6,Missouri State,Western Kentucky,away,-12.47,-7.07,-7.9,Western Kentucky,7.9,0.3107
+7,Missouri State,Kennesaw State,home,-12.47,-8.18,-1.79,Kennesaw State,1.79,0.4555
+8,Missouri State,Delaware,away,-12.47,-9.72,-5.25,Delaware,5.25,0.3714
+9,Missouri State,Sam Houston,home,-12.47,-18.36,8.39,Missouri State,8.39,0.7
+10,Missouri State,Florida International,away,-12.47,-9.82,-5.15,Florida International,5.15,0.3738
+11,Missouri State,New Mexico State,home,-12.47,-17.35,7.38,Missouri State,7.38,0.6777
+12,Missouri State,Jacksonville State,away,-12.47,-8.54,-6.43,Jacksonville State,6.43,0.3439
+13,Missouri State,Liberty,home,-12.47,-3.45,-6.52,Liberty,6.52,0.3418
+1,NC State,Virginia,away,2.48,3.43,-3.45,Virginia,3.45,0.4146
 2,NC State,Richmond (FCS baseline),home,2.48,-18.0,22.98,NC State,22.98,0.9245
 3,NC State,Vanderbilt,away,2.48,13.24,-13.26,Vanderbilt,13.26,0.2036
-4,NC State,App State,home,2.48,-9.22,14.2,NC State,14.2,0.8126
 4,NC State,App State,home,2.48,-9.22,14.2,NC State,14.2,0.8126
 5,NC State,Louisville,home,2.48,11.0,-6.02,Louisville,6.02,0.3534
 6,NC State,Wake Forest,home,2.48,-2.7,7.68,NC State,7.68,0.6844
@@ -712,6 +865,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 3,Nevada,Middle Tennessee,away,-12.08,-13.13,-1.45,Middle Tennessee,1.45,0.4639
 4,Nevada,Air Force,home,-12.08,-7.59,-1.99,Air Force,1.99,0.4505
 6,Nevada,UTEP,away,-12.08,-12.66,-1.92,UTEP,1.92,0.4522
+7,Nevada,North Dakota State (unrated FBS baseline),away,-12.08,-12.0,-2.58,North Dakota State (unrated FBS baseline),2.58,0.4359
 8,Nevada,San José State,home,-12.08,-6.54,-3.04,San José State,3.04,0.4247
 9,Nevada,UCLA,away,-12.08,0.51,-15.09,UCLA,15.09,0.1728
 10,Nevada,New Mexico,home,-12.08,-5.44,-4.14,New Mexico,4.14,0.3979
@@ -724,16 +878,24 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 4,New Mexico,New Mexico State,away,-5.44,-17.35,9.41,New Mexico,9.41,0.7218
 5,New Mexico,UTEP,home,-5.44,-12.66,9.72,New Mexico,9.72,0.7282
 7,New Mexico,Hawai'i,away,-5.44,-6.15,-1.79,Hawai'i,1.79,0.4555
-8,New Mexico,North Dakota State (unrated),home,-5.44,0.0,-2.94,North Dakota State (unrated),2.94,0.4271
+8,New Mexico,North Dakota State (unrated FBS baseline),home,-5.44,-12.0,9.06,New Mexico,9.06,0.7144
 9,New Mexico,San José State,away,-5.44,-6.54,-1.4,San José State,1.4,0.4651
 10,New Mexico,Nevada,away,-5.44,-12.08,4.14,New Mexico,4.14,0.6021
 11,New Mexico,UNLV,home,-5.44,0.52,-3.46,UNLV,3.46,0.4144
 12,New Mexico,Wyoming,away,-5.44,-7.1,-0.84,Wyoming,0.84,0.4791
 13,New Mexico,Air Force,home,-5.44,-7.59,4.65,New Mexico,4.65,0.6143
 1,New Mexico State,Florida State,away,-17.35,7.9,-27.75,Florida State,27.75,0.0414
-1,New Mexico State,Florida State,away,-17.35,7.9,-27.75,Florida State,27.75,0.0414
+1,New Mexico State,Mercyhurst (FCS baseline),home,-17.35,-18.0,3.15,New Mexico State,3.15,0.578
 2,New Mexico State,Hawai'i,away,-17.35,-6.15,-13.7,Hawai'i,13.7,0.1959
 4,New Mexico State,New Mexico,home,-17.35,-5.44,-9.41,New Mexico,9.41,0.2782
+5,New Mexico State,Western Kentucky,home,-17.35,-7.07,-7.78,Western Kentucky,7.78,0.3134
+6,New Mexico State,Florida International,away,-17.35,-9.82,-10.03,Florida International,10.03,0.2654
+8,New Mexico State,Sam Houston,away,-17.35,-18.36,-1.49,Sam Houston,1.49,0.4629
+9,New Mexico State,Jacksonville State,home,-17.35,-8.54,-6.31,Jacksonville State,6.31,0.3467
+10,New Mexico State,Liberty,home,-17.35,-3.45,-11.4,Liberty,11.4,0.2381
+11,New Mexico State,Missouri State,away,-17.35,-12.47,-7.38,Missouri State,7.38,0.3223
+12,New Mexico State,Delaware,home,-17.35,-9.72,-5.13,Delaware,5.13,0.3742
+13,New Mexico State,Middle Tennessee,away,-17.35,-13.13,-6.72,Middle Tennessee,6.72,0.3372
 1,North Carolina,TCU,neutral,-5.52,9.87,-15.39,TCU,15.39,0.1681
 2,North Carolina,East Tennessee State (FCS baseline),home,-5.52,-18.0,14.98,North Carolina,14.98,0.8254
 3,North Carolina,Clemson,away,-5.52,12.8,-20.82,Clemson,20.82,0.0966
@@ -768,19 +930,20 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 9,Northern Illinois,UNLV,away,-14.94,0.52,-17.96,UNLV,17.96,0.1308
 10,Northern Illinois,San José State,away,-14.94,-6.54,-10.9,San José State,10.9,0.2479
 11,Northern Illinois,Nevada,home,-14.94,-12.08,-0.36,Nevada,0.36,0.491
+12,Northern Illinois,North Dakota State (unrated FBS baseline),away,-14.94,-12.0,-5.44,North Dakota State (unrated FBS baseline),5.44,0.3669
 13,Northern Illinois,UTEP,home,-14.94,-12.66,0.22,Northern Illinois,0.22,0.5055
 1,Northwestern,South Dakota State (FCS baseline),home,0.2,-18.0,20.7,Northwestern,20.7,0.9021
 3,Northwestern,Colorado,home,0.2,-0.21,2.91,Northwestern,2.91,0.5722
 4,Northwestern,Indiana,away,0.2,23.9,-26.2,Indiana,26.2,0.0508
-5,Northwestern,Penn State,neutral,0.2,17.74,-17.54,Penn State,17.54,0.1365
-6,Northwestern,Ball State,neutral,0.2,-22.17,22.37,Northwestern,22.37,0.919
+5,Northwestern,Penn State,home,0.2,17.74,-15.04,Penn State,15.04,0.1736
+6,Northwestern,Ball State,home,0.2,-22.17,24.87,Northwestern,24.87,0.94
 7,Northwestern,Michigan State,away,0.2,1.96,-4.26,Michigan State,4.26,0.395
-8,Northwestern,Rutgers,neutral,0.2,2.19,-1.99,Rutgers,1.99,0.4505
+8,Northwestern,Rutgers,home,0.2,2.19,0.51,Northwestern,0.51,0.5127
 9,Northwestern,Oregon,away,0.2,26.55,-28.85,Oregon,28.85,0.0357
-10,Northwestern,Iowa,neutral,0.2,14.2,-14.0,Iowa,14.0,0.1908
+10,Northwestern,Iowa,home,0.2,14.2,-11.5,Iowa,11.5,0.2361
 11,Northwestern,Ohio State,away,0.2,27.84,-30.14,Ohio State,30.14,0.0298
 12,Northwestern,Minnesota,away,0.2,0.77,-3.07,Minnesota,3.07,0.4239
-13,Northwestern,Illinois,away,0.2,8.5,-10.8,Illinois,10.8,0.2498
+13,Northwestern,Illinois,home,0.2,8.5,-5.8,Illinois,5.8,0.3585
 1,Notre Dame,Wisconsin,neutral,23.71,3.95,19.76,Notre Dame,19.76,0.8916
 2,Notre Dame,Rice,home,23.71,-12.69,38.9,Notre Dame,38.9,0.9925
 3,Notre Dame,Michigan State,home,23.71,1.96,24.25,Notre Dame,24.25,0.9352
@@ -799,6 +962,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 4,Ohio,Stonehill (FCS baseline),home,-2.05,-18.0,18.45,Ohio,18.45,0.8756
 5,Ohio,Kent State,away,-2.05,-25.57,21.02,Ohio,21.02,0.9055
 6,Ohio,Central Michigan,home,-2.05,-12.93,13.38,Ohio,13.38,0.7985
+7,Ohio,Sacramento State (unrated FBS baseline),away,-2.05,-12.0,7.45,Ohio,7.45,0.6793
 8,Ohio,Eastern Michigan,home,-2.05,-13.09,13.54,Ohio,13.54,0.8013
 10,Ohio,Akron,away,-2.05,-21.45,16.9,Ohio,16.9,0.8546
 11,Ohio,Miami (OH),away,-2.05,-5.8,1.25,Ohio,1.25,0.5311
@@ -840,9 +1004,18 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 11,Oklahoma State,Texas Tech,home,-15.83,17.8,-31.13,Texas Tech,31.13,0.0258
 12,Oklahoma State,Arizona State,away,-15.83,5.67,-24.0,Arizona State,24.0,0.0668
 13,Oklahoma State,Kansas,home,-15.83,6.17,-19.5,Kansas,19.5,0.1115
+1,Old Dominion,Norfolk State (FCS baseline),home,2.02,-18.0,22.52,Old Dominion,22.52,0.9204
 2,Old Dominion,Virginia Tech,away,2.02,-1.97,1.49,Old Dominion,1.49,0.5371
 3,Old Dominion,East Carolina,home,2.02,-1.07,5.59,Old Dominion,5.59,0.6366
+4,Old Dominion,James Madison,home,2.02,8.29,-3.77,James Madison,3.77,0.4069
+5,Old Dominion,Georgia State,away,2.02,-13.8,13.32,Old Dominion,13.32,0.7974
+6,Old Dominion,App State,away,2.02,-9.22,8.74,Old Dominion,8.74,0.7076
+7,Old Dominion,Georgia Southern,home,2.02,-9.18,13.7,Old Dominion,13.7,0.8041
+8,Old Dominion,Louisiana Tech,away,2.02,-8.08,7.6,Old Dominion,7.6,0.6826
+9,Old Dominion,Marshall,home,2.02,-4.97,9.49,Old Dominion,9.49,0.7235
+10,Old Dominion,Coastal Carolina,away,2.02,-12.42,11.94,Old Dominion,11.94,0.7722
 12,Old Dominion,UConn,away,2.02,-4.98,4.5,Old Dominion,4.5,0.6107
+13,Old Dominion,Southern Miss,home,2.02,-4.5,9.02,Old Dominion,9.02,0.7135
 1,Ole Miss,Louisville,neutral,18.57,11.0,7.57,Ole Miss,7.57,0.6819
 2,Ole Miss,Charlotte,home,18.57,-20.32,41.39,Ole Miss,41.39,0.9952
 3,Ole Miss,LSU,home,18.57,13.13,7.94,Ole Miss,7.94,0.6901
@@ -882,7 +1055,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 2,Penn State,Temple,away,17.74,-11.33,26.57,Penn State,26.57,0.9516
 3,Penn State,Buffalo,home,17.74,-9.82,30.06,Penn State,30.06,0.9699
 4,Penn State,Wisconsin,home,17.74,3.95,16.29,Penn State,16.29,0.8457
-5,Penn State,Northwestern,neutral,17.74,0.2,17.54,Penn State,17.54,0.8635
+5,Penn State,Northwestern,away,17.74,0.2,15.04,Penn State,15.04,0.8264
 6,Penn State,USC,home,17.74,17.94,2.3,Penn State,2.3,0.5572
 7,Penn State,Michigan,away,17.74,14.64,0.6,Penn State,0.6,0.515
 9,Penn State,Purdue,home,17.74,-0.92,21.16,Penn State,21.16,0.907
@@ -932,7 +1105,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 4,Rutgers,Howard (FCS baseline),home,2.19,-18.0,22.69,Rutgers,22.69,0.9219
 5,Rutgers,Indiana,home,2.19,23.9,-19.21,Indiana,19.21,0.1149
 7,Rutgers,Maryland,away,2.19,0.42,-0.73,Maryland,0.73,0.4818
-8,Rutgers,Northwestern,neutral,2.19,0.2,1.99,Rutgers,1.99,0.5495
+8,Rutgers,Northwestern,away,2.19,0.2,-0.51,Northwestern,0.51,0.4873
 9,Rutgers,Michigan,home,2.19,14.64,-9.95,Michigan,9.95,0.267
 10,Rutgers,Wisconsin,away,2.19,3.95,-4.26,Wisconsin,4.26,0.395
 11,Rutgers,Nebraska,home,2.19,10.01,-5.32,Nebraska,5.32,0.3698
@@ -950,8 +1123,18 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 11,SMU,Wake Forest,home,10.46,-2.7,15.66,SMU,15.66,0.8361
 12,SMU,Notre Dame,away,10.46,23.71,-15.75,Notre Dame,15.75,0.1625
 13,SMU,Stanford,away,10.46,-8.78,16.74,SMU,16.74,0.8523
+1,Sam Houston,Troy,away,-18.36,-8.14,-12.72,Troy,12.72,0.2133
 2,Sam Houston,Tulsa,home,-18.36,-14.2,-1.66,Tulsa,1.66,0.4587
+3,Sam Houston,Nicholls (FCS baseline),home,-18.36,-18.0,2.14,Sam Houston,2.14,0.5532
 4,Sam Houston,Texas Tech,away,-18.36,17.8,-38.66,Texas Tech,38.66,0.0078
+6,Sam Houston,Liberty,away,-18.36,-3.45,-17.41,Liberty,17.41,0.1383
+7,Sam Houston,Western Kentucky,home,-18.36,-7.07,-8.79,Western Kentucky,8.79,0.2914
+8,Sam Houston,New Mexico State,home,-18.36,-17.35,1.49,Sam Houston,1.49,0.5371
+9,Sam Houston,Missouri State,away,-18.36,-12.47,-8.39,Missouri State,8.39,0.3
+10,Sam Houston,Jacksonville State,away,-18.36,-8.54,-12.32,Jacksonville State,12.32,0.2206
+11,Sam Houston,Kennesaw State,home,-18.36,-8.18,-7.68,Kennesaw State,7.68,0.3156
+12,Sam Houston,Middle Tennessee,home,-18.36,-13.13,-2.73,Middle Tennessee,2.73,0.4323
+13,Sam Houston,Florida International,away,-18.36,-9.82,-11.04,Florida International,11.04,0.2451
 1,San Diego State,Portland State (FCS baseline),home,-1.36,-18.0,19.14,San Diego State,19.14,0.8842
 2,San Diego State,UCLA,away,-1.36,0.51,-4.37,UCLA,4.37,0.3924
 3,San Diego State,James Madison,home,-1.36,8.29,-7.15,James Madison,7.15,0.3275
@@ -975,12 +1158,19 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 10,San José State,Northern Illinois,home,-6.54,-14.94,10.9,San José State,10.9,0.7521
 11,San José State,Air Force,away,-6.54,-7.59,-1.45,Air Force,1.45,0.4639
 12,San José State,UNLV,home,-6.54,0.52,-4.56,UNLV,4.56,0.3878
-13,San José State,North Dakota State (unrated),home,-6.54,0.0,-4.04,North Dakota State (unrated),4.04,0.4003
-2,South Alabama,Tulane,away,-9.24,4.35,-16.09,Tulane,16.09,0.1573
+13,San José State,North Dakota State (unrated FBS baseline),home,-6.54,-12.0,7.96,San José State,7.96,0.6906
+1,South Alabama,SE Louisiana (FCS baseline),home,-9.24,-18.0,11.26,South Alabama,11.26,0.7592
 2,South Alabama,Tulane,away,-9.24,4.35,-16.09,Tulane,16.09,0.1573
 3,South Alabama,Ohio,home,-9.24,-2.05,-4.69,Ohio,4.69,0.3847
 4,South Alabama,Kentucky,away,-9.24,6.79,-18.53,Kentucky,18.53,0.1234
-4,South Alabama,Kentucky,away,-9.24,6.79,-18.53,Kentucky,18.53,0.1234
+5,South Alabama,UL Monroe,home,-9.24,-17.09,10.35,South Alabama,10.35,0.7411
+6,South Alabama,Arkansas State,away,-9.24,-12.06,0.32,South Alabama,0.32,0.508
+8,South Alabama,Marshall,away,-9.24,-4.97,-6.77,Marshall,6.77,0.3361
+9,South Alabama,Louisiana Tech,home,-9.24,-8.08,1.34,South Alabama,1.34,0.5334
+10,South Alabama,Louisiana,away,-9.24,-10.25,-1.49,Louisiana,1.49,0.4629
+11,South Alabama,Troy,home,-9.24,-8.14,1.4,South Alabama,1.4,0.5349
+12,South Alabama,Southern Miss,away,-9.24,-4.5,-7.24,Southern Miss,7.24,0.3255
+13,South Alabama,App State,home,-9.24,-9.22,2.48,South Alabama,2.48,0.5616
 1,South Carolina,Kent State,home,10.15,-25.57,38.22,South Carolina,38.22,0.9915
 2,South Carolina,Towson (FCS baseline),home,10.15,-18.0,30.65,South Carolina,30.65,0.9723
 3,South Carolina,Mississippi State,home,10.15,4.78,7.87,South Carolina,7.87,0.6886
@@ -1005,9 +1195,18 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 11,South Florida,Memphis,home,6.33,1.94,6.89,South Florida,6.89,0.6666
 12,South Florida,Florida Atlantic,away,6.33,-12.25,16.08,South Florida,16.08,0.8426
 13,South Florida,Tulane,home,6.33,4.35,4.48,South Florida,4.48,0.6103
+1,Southern Miss,Alcorn State (FCS baseline),home,-4.5,-18.0,16.0,Southern Miss,16.0,0.8413
 2,Southern Miss,Auburn,away,-4.5,12.61,-19.61,Auburn,19.61,0.1102
 3,Southern Miss,UConn,home,-4.5,-4.98,2.98,Southern Miss,2.98,0.5739
 4,Southern Miss,Tulane,away,-4.5,4.35,-11.35,Tulane,11.35,0.239
+6,Southern Miss,Troy,away,-4.5,-8.14,1.14,Southern Miss,1.14,0.5284
+7,Southern Miss,Arkansas State,home,-4.5,-12.06,10.06,Southern Miss,10.06,0.7352
+8,Southern Miss,Louisiana,home,-4.5,-10.25,8.25,Southern Miss,8.25,0.6969
+9,Southern Miss,UL Monroe,away,-4.5,-17.09,10.09,Southern Miss,10.09,0.7359
+10,Southern Miss,James Madison,home,-4.5,8.29,-10.29,James Madison,10.29,0.2601
+11,Southern Miss,Louisiana Tech,away,-4.5,-8.08,1.08,Southern Miss,1.08,0.5269
+12,Southern Miss,South Alabama,home,-4.5,-9.24,7.24,Southern Miss,7.24,0.6745
+13,Southern Miss,Old Dominion,away,-4.5,2.02,-9.02,Old Dominion,9.02,0.2865
 1,Stanford,Hawai'i,home,-8.78,-6.15,-0.13,Hawai'i,0.13,0.4968
 1,Stanford,Miami,home,-8.78,21.21,-27.49,Miami,27.49,0.0429
 3,Stanford,Duke,away,-8.78,4.34,-15.62,Duke,15.62,0.1645
@@ -1123,13 +1322,23 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 6,Toledo,Buffalo,home,0.68,-9.82,13.0,Toledo,13.0,0.7917
 7,Toledo,Eastern Michigan,away,0.68,-13.09,11.27,Toledo,11.27,0.7594
 8,Toledo,Western Michigan,home,0.68,-8.82,12.0,Toledo,12.0,0.7734
+10,Toledo,Sacramento State (unrated FBS baseline),away,0.68,-12.0,10.18,Toledo,10.18,0.7377
 11,Toledo,Massachusetts,home,0.68,-27.03,30.21,Toledo,30.21,0.9705
 12,Toledo,Bowling Green,home,0.68,-13.81,16.99,Toledo,16.99,0.8559
 13,Toledo,Ohio,away,0.68,-2.05,0.23,Toledo,0.23,0.5057
+1,Troy,Sam Houston,home,-8.14,-18.36,12.72,Troy,12.72,0.7867
+2,Troy,Alabama State (FCS baseline),home,-8.14,-18.0,12.36,Troy,12.36,0.7801
 3,Troy,Missouri,away,-8.14,12.97,-23.61,Missouri,23.61,0.07
 4,Troy,Utah State,away,-8.14,-7.03,-3.61,Utah State,3.61,0.4107
+6,Troy,Southern Miss,home,-8.14,-4.5,-1.14,Southern Miss,1.14,0.4716
+7,Troy,Louisiana,away,-8.14,-10.25,-0.39,Louisiana,0.39,0.4903
+8,Troy,UL Monroe,home,-8.14,-17.09,11.45,Troy,11.45,0.7629
+9,Troy,James Madison,away,-8.14,8.29,-18.93,James Madison,18.93,0.1184
+10,Troy,Louisiana Tech,home,-8.14,-8.08,2.44,Troy,2.44,0.5606
+11,Troy,South Alabama,away,-8.14,-9.24,-1.4,South Alabama,1.4,0.4651
+12,Troy,Georgia Southern,home,-8.14,-9.18,3.54,Troy,3.54,0.5876
+13,Troy,Arkansas State,away,-8.14,-12.06,1.42,Troy,1.42,0.5354
 1,Tulane,Duke,away,4.35,4.34,-2.49,Duke,2.49,0.4382
-2,Tulane,South Alabama,home,4.35,-9.24,16.09,Tulane,16.09,0.8427
 2,Tulane,South Alabama,home,4.35,-9.24,16.09,Tulane,16.09,0.8427
 3,Tulane,Kansas State,away,4.35,7.43,-5.58,Kansas State,5.58,0.3636
 4,Tulane,Southern Miss,home,4.35,-4.5,11.35,Tulane,11.35,0.761
@@ -1203,13 +1412,22 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 13,UConn,Wyoming,away,-4.98,-7.1,-0.38,Wyoming,0.38,0.4905
 1,UL Monroe,Mississippi State,away,-17.09,4.78,-24.37,Mississippi State,24.37,0.0639
 2,UL Monroe,UAB,away,-17.09,-14.46,-5.13,UAB,5.13,0.3742
+3,UL Monroe,SE Louisiana (FCS baseline),home,-17.09,-18.0,3.41,UL Monroe,3.41,0.5844
 4,UL Monroe,Florida Atlantic,home,-17.09,-12.25,-2.34,Florida Atlantic,2.34,0.4419
+5,UL Monroe,South Alabama,away,-17.09,-9.24,-10.35,South Alabama,10.35,0.2589
+7,UL Monroe,Louisiana Tech,home,-17.09,-8.08,-6.51,Louisiana Tech,6.51,0.342
+8,UL Monroe,Troy,away,-17.09,-8.14,-11.45,Troy,11.45,0.2371
+9,UL Monroe,Southern Miss,home,-17.09,-4.5,-10.09,Southern Miss,10.09,0.2641
+10,UL Monroe,Arkansas State,away,-17.09,-12.06,-7.53,Arkansas State,7.53,0.319
+11,UL Monroe,Louisiana,home,-17.09,-10.25,-4.34,Louisiana,4.34,0.3931
+12,UL Monroe,App State,away,-17.09,-9.22,-10.37,App State,10.37,0.2585
+13,UL Monroe,Marshall,home,-17.09,-4.97,-9.62,Marshall,9.62,0.2738
 1,UNLV,Hawai'i,away,0.52,-6.15,4.17,UNLV,4.17,0.6028
 1,UNLV,Memphis,home,0.52,1.94,1.08,UNLV,1.08,0.5269
 2,UNLV,North Texas,away,0.52,4.44,-6.42,North Texas,6.42,0.3441
 4,UNLV,Akron,away,0.52,-21.45,19.47,UNLV,19.47,0.8882
 5,UNLV,California,home,0.52,-2.39,5.41,UNLV,5.41,0.6324
-6,UNLV,North Dakota State (unrated),home,0.52,0.0,3.02,UNLV,3.02,0.5749
+6,UNLV,North Dakota State (unrated FBS baseline),home,0.52,-12.0,15.02,UNLV,15.02,0.8261
 7,UNLV,Air Force,away,0.52,-7.59,5.61,UNLV,5.61,0.6371
 9,UNLV,Northern Illinois,home,0.52,-14.94,17.96,UNLV,17.96,0.8692
 10,UNLV,Wyoming,home,0.52,-7.1,10.12,UNLV,10.12,0.7365
@@ -1235,6 +1453,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 5,UTEP,New Mexico,away,-12.66,-5.44,-9.72,New Mexico,9.72,0.2718
 6,UTEP,Nevada,home,-12.66,-12.08,1.92,UTEP,1.92,0.5478
 7,UTEP,San José State,home,-12.66,-6.54,-3.62,San José State,3.62,0.4105
+9,UTEP,North Dakota State (unrated FBS baseline),away,-12.66,-12.0,-3.16,North Dakota State (unrated FBS baseline),3.16,0.4217
 10,UTEP,Hawai'i,home,-12.66,-6.15,-4.01,Hawai'i,4.01,0.4011
 11,UTEP,Wyoming,home,-12.66,-7.1,-3.06,Wyoming,3.06,0.4242
 12,UTEP,Air Force,away,-12.66,-7.59,-7.57,Air Force,7.57,0.3181
@@ -1286,7 +1505,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 11,Vanderbilt,Alabama,home,13.24,22.02,-6.28,Alabama,6.28,0.3473
 12,Vanderbilt,Florida,away,13.24,10.73,0.01,Vanderbilt,0.01,0.5002
 13,Vanderbilt,Tennessee,home,13.24,15.49,0.25,Vanderbilt,0.25,0.5062
-1,Virginia,NC State,neutral,3.43,2.48,0.95,Virginia,0.95,0.5237
+1,Virginia,NC State,home,3.43,2.48,3.45,Virginia,3.45,0.5854
 2,Virginia,Norfolk State (FCS baseline),home,3.43,-18.0,23.93,Virginia,23.93,0.9326
 3,Virginia,West Virginia,neutral,3.43,-3.99,7.42,Virginia,7.42,0.6786
 4,Virginia,Delaware,home,3.43,-9.72,15.65,Virginia,15.65,0.836
@@ -1360,6 +1579,15 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 1,Western Kentucky,Nevada,away,-7.07,-12.08,2.51,Western Kentucky,2.51,0.5623
 2,Western Kentucky,Georgia,away,-7.07,23.69,-33.26,Georgia,33.26,0.0188
 3,Western Kentucky,Indiana,away,-7.07,23.9,-33.47,Indiana,33.47,0.0182
+4,Western Kentucky,Mercyhurst (FCS baseline),home,-7.07,-18.0,13.43,Western Kentucky,13.43,0.7994
+5,Western Kentucky,New Mexico State,away,-7.07,-17.35,7.78,Western Kentucky,7.78,0.6866
+6,Western Kentucky,Missouri State,home,-7.07,-12.47,7.9,Western Kentucky,7.9,0.6893
+7,Western Kentucky,Sam Houston,away,-7.07,-18.36,8.79,Western Kentucky,8.79,0.7086
+9,Western Kentucky,Delaware,home,-7.07,-9.72,5.15,Western Kentucky,5.15,0.6262
+10,Western Kentucky,Middle Tennessee,away,-7.07,-13.13,3.56,Western Kentucky,3.56,0.588
+11,Western Kentucky,Jacksonville State,home,-7.07,-8.54,3.97,Western Kentucky,3.97,0.598
+12,Western Kentucky,Liberty,away,-7.07,-3.45,-6.12,Liberty,6.12,0.351
+13,Western Kentucky,Kennesaw State,home,-7.07,-8.18,3.61,Western Kentucky,3.61,0.5893
 1,Western Michigan,Michigan,away,-8.82,14.64,-25.96,Michigan,25.96,0.0523
 2,Western Michigan,Monmouth (FCS baseline),home,-8.82,-18.0,11.68,Western Michigan,11.68,0.7673
 3,Western Michigan,Rice,away,-8.82,-12.69,1.37,Western Michigan,1.37,0.5341
@@ -1388,6 +1616,7 @@ week,team,opponent,site,team_rating,opponent_rating,projected_spread,favorite,fa
 2,Wyoming,Northern Colorado (FCS baseline),home,-7.1,-18.0,13.4,Wyoming,13.4,0.7988
 3,Wyoming,Central Michigan,away,-7.1,-12.93,3.33,Wyoming,3.33,0.5824
 4,Wyoming,Hawai'i,home,-7.1,-6.15,1.55,Wyoming,1.55,0.5386
+5,Wyoming,North Dakota State (unrated FBS baseline),away,-7.1,-12.0,2.4,Wyoming,2.4,0.5596
 6,Wyoming,San José State,away,-7.1,-6.54,-3.06,San José State,3.06,0.4242
 7,Wyoming,Northern Illinois,home,-7.1,-14.94,10.34,Wyoming,10.34,0.7409
 8,Wyoming,Air Force,home,-7.1,-7.59,2.99,Wyoming,2.99,0.5741
