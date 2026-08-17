@@ -341,12 +341,19 @@ def main() -> None:
             metric_col2.metric("Average Edge", f"{odds_board['absolute_edge_points'].mean():.2f}")
             metric_col3.metric("Largest Edge", f"{odds_board['absolute_edge_points'].max():.2f}")
 
-            filter_col1, filter_col2, filter_col3 = st.columns([1, 1, 2])
+            filter_col1, filter_col2, filter_col3 = st.columns([1, 1.4, 2])
             available_weeks = sorted(int(week) for week in odds_board["week"].dropna().unique()) if "week" in odds_board.columns else []
             with filter_col1:
                 week_filter = st.selectbox("Week", ["All"] + available_weeks, index=0, key="odds_week_filter")
             with filter_col2:
-                min_edge = st.slider("Minimum edge", min_value=0.0, max_value=20.0, value=3.0, step=0.5)
+                edge_range = st.slider(
+                    "Edge range",
+                    min_value=0.0,
+                    max_value=25.0,
+                    value=(2.5, 10.0),
+                    step=0.5,
+                    help="Very large edges are often data/model review candidates rather than clean value spots.",
+                )
             with filter_col3:
                 odds_search = st.text_input(
                     "Search odds board",
@@ -354,7 +361,11 @@ def main() -> None:
                     key="odds_search",
                 ).strip().lower()
 
-            filtered_odds = odds_board[odds_board["absolute_edge_points"] >= min_edge].copy()
+            min_edge, max_edge = edge_range
+            filtered_odds = odds_board[
+                (odds_board["absolute_edge_points"] >= min_edge)
+                & (odds_board["absolute_edge_points"] <= max_edge)
+            ].copy()
             if week_filter != "All":
                 filtered_odds = filtered_odds[filtered_odds["week"] == int(week_filter)]
             if odds_search:
