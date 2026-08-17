@@ -349,7 +349,7 @@ def main() -> None:
                 edge_range = st.slider(
                     "Edge range",
                     min_value=0.0,
-                    max_value=25.0,
+                    max_value=50.0,
                     value=(2.5, 10.0),
                     step=0.5,
                     help="Very large edges are often data/model review candidates rather than clean value spots.",
