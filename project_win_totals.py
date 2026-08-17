@@ -22,6 +22,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--schedule", type=Path, default=DEFAULT_SCHEDULE_PATH)
     parser.add_argument("--season", type=int, default=2026)
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
+    parser.add_argument("--expected-games", type=int, default=12)
+    parser.add_argument(
+        "--require-complete-schedules",
+        action="store_true",
+        help="Exit with an error when any rated FBS team has fewer than the expected number of games.",
+    )
     return parser.parse_args()
 
 
@@ -174,6 +180,41 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
     return summary_rows, game_rows
 
 
+def build_schedule_coverage(
+    ratings_rows: list[dict[str, Any]],
+    summary_rows: list[dict[str, Any]],
+    expected_games: int,
+) -> list[dict[str, Any]]:
+    summaries = {row["team"]: row for row in summary_rows}
+    coverage_rows: list[dict[str, Any]] = []
+
+    for rating_row in ratings_rows:
+        team = rating_row["team"]
+        summary = summaries.get(team, {})
+        schedule_games = int(summary.get("schedule_games", 0) or 0)
+        if schedule_games < expected_games:
+            status = "incomplete"
+        elif schedule_games > expected_games:
+            status = "extra_games"
+        else:
+            status = "complete"
+
+        coverage_rows.append(
+            {
+                "team": team,
+                "conference": rating_row.get("conference", ""),
+                "rating": rating_row.get("rating", ""),
+                "schedule_games": schedule_games,
+                "expected_games": expected_games,
+                "missing_games": max(0, expected_games - schedule_games),
+                "status": status,
+            }
+        )
+
+    coverage_rows.sort(key=lambda row: (-int(row["missing_games"]), row["conference"], row["team"]))
+    return coverage_rows
+
+
 def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not rows:
@@ -189,14 +230,28 @@ def main() -> None:
     ratings_rows = load_csv(args.ratings)
     schedule_games = load_json(args.schedule)
     summary_rows, game_rows = build_projections(ratings_rows, schedule_games, args.season)
+    coverage_rows = build_schedule_coverage(ratings_rows, summary_rows, args.expected_games)
+    incomplete_rows = [row for row in coverage_rows if row["status"] == "incomplete"]
 
     summary_path = args.output_root / f"projected_win_totals_{args.season}.csv"
     games_path = args.output_root / f"projected_games_{args.season}.csv"
+    coverage_path = args.output_root / f"schedule_coverage_{args.season}.csv"
     write_csv(summary_path, summary_rows)
     write_csv(games_path, game_rows)
+    write_csv(coverage_path, coverage_rows)
 
     print(f"Saved projected win totals to {summary_path}")
     print(f"Saved projected game probabilities to {games_path}")
+    print(f"Saved schedule coverage audit to {coverage_path}")
+    if incomplete_rows:
+        print()
+        print(f"Warning: {len(incomplete_rows)} teams have fewer than {args.expected_games} scheduled games.")
+        for row in incomplete_rows[:20]:
+            print(f"- {row['team']}: {row['schedule_games']} games")
+        if len(incomplete_rows) > 20:
+            print(f"- ...and {len(incomplete_rows) - 20} more")
+        if args.require_complete_schedules:
+            raise SystemExit("Incomplete schedules found. Refresh the schedule data before trusting projections.")
 
 
 if __name__ == "__main__":

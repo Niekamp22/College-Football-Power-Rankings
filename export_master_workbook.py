@@ -15,6 +15,7 @@ DEFAULT_BACKTEST_PATH = Path("output/backtests/weekly_backtest_2025_regular.csv"
 DEFAULT_BACKTEST_GAMES_PATH = Path("output/backtests/game_backtest_2025_regular.csv")
 DEFAULT_WIN_TOTALS_PATH = Path("output/projections/projected_win_totals_2026.csv")
 DEFAULT_PROJECTED_GAMES_PATH = Path("output/projections/projected_games_2026.csv")
+DEFAULT_SCHEDULE_COVERAGE_PATH = Path("output/projections/schedule_coverage_2026.csv")
 DEFAULT_ODDS_COMPARISON_PATH = Path("output/odds/ncaaf_game_odds_comparison.csv")
 DEFAULT_OUTPUT_PATH = Path("output/power_ratings_master.xlsx")
 
@@ -26,6 +27,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--backtest-games", type=Path, default=DEFAULT_BACKTEST_GAMES_PATH)
     parser.add_argument("--win-totals", type=Path, default=DEFAULT_WIN_TOTALS_PATH)
     parser.add_argument("--projected-games", type=Path, default=DEFAULT_PROJECTED_GAMES_PATH)
+    parser.add_argument("--schedule-coverage", type=Path, default=DEFAULT_SCHEDULE_COVERAGE_PATH)
     parser.add_argument("--odds-comparison", type=Path, default=DEFAULT_ODDS_COMPARISON_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH)
     return parser.parse_args()
@@ -107,6 +109,7 @@ def main() -> None:
     game_backtest = load_csv(args.backtest_games)
     win_totals = load_csv(args.win_totals)
     projected_games = load_csv(args.projected_games)
+    schedule_coverage = load_csv(args.schedule_coverage)
     odds_comparison = load_csv(args.odds_comparison)
 
     workbook = Workbook()
@@ -116,6 +119,7 @@ def main() -> None:
     add_matchup_sheet(workbook, ratings)
     write_sheet(workbook, "ProjectedWins", win_totals)
     write_sheet(workbook, "WeeklyMatchups", projected_games)
+    write_sheet(workbook, "ScheduleCoverage", schedule_coverage)
     write_sheet(workbook, "OddsEdges", odds_comparison)
     write_sheet(workbook, "BacktestWeekly", weekly_backtest)
     write_sheet(workbook, "BacktestGames", game_backtest)

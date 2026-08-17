@@ -13,6 +13,7 @@ DEFAULT_BACKTEST_PATH = Path("output/backtests/weekly_backtest_2025_regular.csv"
 DEFAULT_EXCEL_PATH = Path("output/power_ratings_final.xlsx")
 DEFAULT_WIN_TOTALS_PATH = Path("output/projections/projected_win_totals_2026.csv")
 DEFAULT_PROJECTED_GAMES_PATH = Path("output/projections/projected_games_2026.csv")
+DEFAULT_SCHEDULE_COVERAGE_PATH = Path("output/projections/schedule_coverage_2026.csv")
 DEFAULT_ODDS_COMPARISON_PATH = Path("output/odds/ncaaf_game_odds_comparison.csv")
 
 
@@ -66,6 +67,7 @@ def main() -> None:
     backtest_default = str(DEFAULT_BACKTEST_PATH)
     win_totals_default = str(DEFAULT_WIN_TOTALS_PATH)
     projected_games_default = str(DEFAULT_PROJECTED_GAMES_PATH)
+    schedule_coverage_default = str(DEFAULT_SCHEDULE_COVERAGE_PATH)
     odds_default = str(DEFAULT_ODDS_COMPARISON_PATH)
 
     st.sidebar.subheader("Data Sources")
@@ -92,6 +94,12 @@ def main() -> None:
         options=projected_games_options if projected_games_options else [projected_games_default],
         index=projected_games_options.index(projected_games_default) if projected_games_default in projected_games_options else 0,
     )
+    schedule_coverage_options = [path for path in discovered_csvs if "schedule_coverage" in path.lower()]
+    schedule_coverage_path = st.sidebar.selectbox(
+        "Schedule Coverage CSV",
+        options=schedule_coverage_options if schedule_coverage_options else [schedule_coverage_default],
+        index=schedule_coverage_options.index(schedule_coverage_default) if schedule_coverage_default in schedule_coverage_options else 0,
+    )
     odds_options = [path for path in discovered_csvs if "odds" in path.lower()]
     odds_path = st.sidebar.selectbox(
         "Odds Comparison CSV",
@@ -105,6 +113,7 @@ def main() -> None:
     uploaded_backtest = st.sidebar.file_uploader("Upload backtest CSV", type="csv")
     uploaded_win_totals = st.sidebar.file_uploader("Upload projected win totals CSV", type="csv")
     uploaded_projected_games = st.sidebar.file_uploader("Upload projected games CSV", type="csv")
+    uploaded_schedule_coverage = st.sidebar.file_uploader("Upload schedule coverage CSV", type="csv")
     uploaded_odds = st.sidebar.file_uploader("Upload odds comparison CSV", type="csv")
     uploaded_excel = st.sidebar.file_uploader("Upload Excel workbook", type=["xlsx"])
 
@@ -112,6 +121,7 @@ def main() -> None:
     backtest = load_uploaded_csv(uploaded_backtest) if uploaded_backtest else load_csv(Path(backtest_path))
     win_totals = load_uploaded_csv(uploaded_win_totals) if uploaded_win_totals else load_csv(Path(win_totals_path))
     projected_games = load_uploaded_csv(uploaded_projected_games) if uploaded_projected_games else load_csv(Path(projected_games_path))
+    schedule_coverage = load_uploaded_csv(uploaded_schedule_coverage) if uploaded_schedule_coverage else load_csv(Path(schedule_coverage_path))
     odds = load_uploaded_csv(uploaded_odds) if uploaded_odds else load_csv(Path(odds_path))
 
     if ratings.empty:
@@ -262,6 +272,20 @@ def main() -> None:
         if win_totals.empty:
             render_missing_state(Path(win_totals_path), "Projected win totals file")
         else:
+            if not schedule_coverage.empty and "status" in schedule_coverage.columns:
+                incomplete = schedule_coverage[schedule_coverage["status"] == "incomplete"].copy()
+                if not incomplete.empty:
+                    st.warning(
+                        f"{len(incomplete)} teams have fewer than 12 scheduled games in the loaded schedule data. "
+                        "Projected win totals for those teams are not reliable until the schedule is refreshed."
+                    )
+                    with st.expander("Incomplete schedule audit"):
+                        st.dataframe(
+                            incomplete[["team", "conference", "schedule_games", "missing_games"]],
+                            use_container_width=True,
+                            hide_index=True,
+                        )
+
             totals_display = win_totals.copy().sort_values("projected_wins", ascending=False)
             totals_display.columns = [
                 "Team",
@@ -408,7 +432,8 @@ def main() -> None:
         st.code(
             "Ratings CSV: "
             f"{ratings_path}\nBacktest CSV: {backtest_path}\nProjected Win Totals CSV: {win_totals_path}\n"
-            f"Projected Games CSV: {projected_games_path}\nOdds Comparison CSV: {odds_path}\nExcel Workbook: {excel_path}",
+            f"Projected Games CSV: {projected_games_path}\nSchedule Coverage CSV: {schedule_coverage_path}\n"
+            f"Odds Comparison CSV: {odds_path}\nExcel Workbook: {excel_path}",
             language="text",
         )
         excel_file = Path(excel_path)
