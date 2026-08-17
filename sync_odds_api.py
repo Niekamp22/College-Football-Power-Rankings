@@ -20,6 +20,17 @@ DEFAULT_OUTPUT_ROOT = Path("output/odds")
 ODDS_API_BASE_URL = "https://api.the-odds-api.com/v4"
 NCAAF_SPORT_KEY = "americanfootball_ncaaf"
 
+TEAM_ALIASES = {
+    "houston baptist": "Houston Christian",
+    "houston baptist huskies": "Houston Christian",
+    "sam houston state": "Sam Houston",
+    "sam houston state bearkats": "Sam Houston",
+    "hawaii": "Hawai'i",
+    "hawaii rainbow warriors": "Hawai'i",
+    "san jose state": "San José State",
+    "san jose state spartans": "San José State",
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Fetch live NCAAF odds and compare them to model projections.")
@@ -89,6 +100,8 @@ def build_team_lookup(team_names: set[str]) -> dict[str, str]:
 
 def resolve_team(api_name: str, team_lookup: dict[str, str]) -> str | None:
     normalized = normalize_team_name(api_name)
+    if normalized in TEAM_ALIASES:
+        return TEAM_ALIASES[normalized]
     if normalized in team_lookup:
         return team_lookup[normalized]
 
