@@ -18,6 +18,7 @@ The current model is a market-calibrated predictive power rating built for neutr
 - `build_team_features.py`: flattens CFBD season data into a reusable team feature table
 - `inspect_cfbd_data.py`: summarizes raw CFBD payload coverage and schema
 - `weekly_update.py`: runs the full weekly refresh pipeline end to end
+- `refresh_public_app.py`: refreshes the public Streamlit outputs and optionally pushes them to GitHub
 - `backtest_power_model.py`: evaluates weekly predictive performance on past seasons
 - `dashboard_server.py`: serves a local UI for rankings, matchup lookup, and backtest review
 - `app.py`: Streamlit app entrypoint for local use and shareable deployment
@@ -154,11 +155,17 @@ It does not use full-season advanced stats or WEPA in the weekly replay, because
 
 During the season, the simplest refresh path is:
 
-1. `py weekly_update.py --year 2026 --week 1 --dry-run`
-2. Review the planned commands and output paths
-3. `py weekly_update.py --year 2026 --week 1`
+1. Set `CFBD_API_KEY` and `ODDS_API_KEY` in the local environment
+2. `py refresh_public_app.py --ratings-year 2026 --projection-year 2026 --push`
+3. Check the Streamlit URL after GitHub finishes pushing
 
-Each run saves a dated or week-labeled snapshot under `output/weekly/<year>/...` so you can keep historical versions instead of overwriting the same file every week.
+That command refreshes CFBD data, power ratings, projections, sportsbook odds, Excel exports, commits changed deployable outputs, and pushes to GitHub so Streamlit redeploys.
+
+For a local-only dry run without committing:
+
+```powershell
+py refresh_public_app.py --ratings-year 2026 --projection-year 2026 --skip-cfbd-fetch --skip-odds-fetch
+```
 
 ## Next steps
 
