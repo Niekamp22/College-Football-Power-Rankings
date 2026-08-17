@@ -161,6 +161,8 @@ During the season, the simplest refresh path is:
 
 That command refreshes CFBD data, power ratings, projections, sportsbook odds, Excel exports, commits changed deployable outputs, and pushes to GitHub so Streamlit redeploys.
 
+The repo also includes a GitHub Actions workflow that runs the same refresh every Monday at 14:00 UTC. Add `CFBD_API_KEY` and `ODDS_API_KEY` as repository secrets in GitHub so the scheduled job can pull fresh data without exposing either key.
+
 For a local-only dry run without committing:
 
 ```powershell
