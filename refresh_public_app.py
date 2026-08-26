@@ -25,7 +25,7 @@ DEFAULT_MASTER_WORKBOOK = Path("output/power_ratings_master.xlsx")
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Refresh public Streamlit outputs and optionally push them to GitHub.")
-    parser.add_argument("--ratings-year", type=int, default=2026)
+    parser.add_argument("--ratings-year", type=int, default=2025)
     parser.add_argument("--projection-year", type=int, default=2026)
     parser.add_argument("--backtest-year", type=int, default=2025)
     parser.add_argument("--skip-cfbd-fetch", action="store_true")

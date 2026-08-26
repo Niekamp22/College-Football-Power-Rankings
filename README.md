@@ -156,7 +156,7 @@ It does not use full-season advanced stats or WEPA in the weekly replay, because
 During the season, the simplest refresh path is:
 
 1. Set `CFBD_API_KEY` and `ODDS_API_KEY` in the local environment
-2. `py refresh_public_app.py --ratings-year 2026 --projection-year 2026 --push`
+2. `py refresh_public_app.py --ratings-year 2025 --projection-year 2026 --push`
 3. Check the Streamlit URL after GitHub finishes pushing
 
 That command refreshes CFBD data, power ratings, projections, sportsbook odds, Excel exports, commits changed deployable outputs, and pushes to GitHub so Streamlit redeploys.
@@ -166,7 +166,7 @@ The repo also includes a GitHub Actions workflow that runs the same refresh ever
 For a local-only dry run without committing:
 
 ```powershell
-py refresh_public_app.py --ratings-year 2026 --projection-year 2026 --skip-cfbd-fetch --skip-odds-fetch
+py refresh_public_app.py --ratings-year 2025 --projection-year 2026 --skip-cfbd-fetch --skip-odds-fetch
 ```
 
 ## Next steps

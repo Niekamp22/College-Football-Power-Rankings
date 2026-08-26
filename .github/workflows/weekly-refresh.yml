@@ -39,4 +39,4 @@ jobs:
         env:
           CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: python refresh_public_app.py --ratings-year 2026 --projection-year 2026 --push
+        run: python refresh_public_app.py --ratings-year 2025 --projection-year 2026 --push
