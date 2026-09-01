@@ -19,6 +19,10 @@ DEFAULT_PROJECTION_OUTPUTS = [
     Path("output/projections/projected_games_2026.csv"),
     Path("output/projections/schedule_coverage_2026.csv"),
 ]
+DEFAULT_REVIEW_OUTPUTS = [
+    Path("output/reviews/weekly_results_review_2026.csv"),
+    Path("output/reviews/completed_games_review_2026.csv"),
+]
 DEFAULT_ODDS_OUTPUT = Path("output/odds/ncaaf_game_odds_comparison.csv")
 DEFAULT_MASTER_WORKBOOK = Path("output/power_ratings_master.xlsx")
 
@@ -92,6 +96,7 @@ def main() -> None:
         run([python, "backtest_power_model.py", "--year", str(args.backtest_year), "--season-type", "regular", "--save-games"])
 
     run([python, "project_win_totals.py", "--season", str(args.projection_year)])
+    run([python, "review_completed_games.py", "--season", str(args.projection_year)])
 
     if not args.skip_odds_fetch:
         require_env("ODDS_API_KEY")
@@ -120,6 +125,7 @@ def main() -> None:
         DEFAULT_RATINGS_EXCEL,
         *DEFAULT_BACKTEST_OUTPUTS,
         *DEFAULT_PROJECTION_OUTPUTS,
+        *DEFAULT_REVIEW_OUTPUTS,
         DEFAULT_ODDS_OUTPUT,
         DEFAULT_MASTER_WORKBOOK,
     ]

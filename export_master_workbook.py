@@ -17,6 +17,8 @@ DEFAULT_WIN_TOTALS_PATH = Path("output/projections/projected_win_totals_2026.csv
 DEFAULT_PROJECTED_GAMES_PATH = Path("output/projections/projected_games_2026.csv")
 DEFAULT_SCHEDULE_COVERAGE_PATH = Path("output/projections/schedule_coverage_2026.csv")
 DEFAULT_ODDS_COMPARISON_PATH = Path("output/odds/ncaaf_game_odds_comparison.csv")
+DEFAULT_WEEKLY_RESULTS_REVIEW_PATH = Path("output/reviews/weekly_results_review_2026.csv")
+DEFAULT_COMPLETED_GAMES_REVIEW_PATH = Path("output/reviews/completed_games_review_2026.csv")
 DEFAULT_OUTPUT_PATH = Path("output/power_ratings_master.xlsx")
 
 
@@ -29,6 +31,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--projected-games", type=Path, default=DEFAULT_PROJECTED_GAMES_PATH)
     parser.add_argument("--schedule-coverage", type=Path, default=DEFAULT_SCHEDULE_COVERAGE_PATH)
     parser.add_argument("--odds-comparison", type=Path, default=DEFAULT_ODDS_COMPARISON_PATH)
+    parser.add_argument("--weekly-results-review", type=Path, default=DEFAULT_WEEKLY_RESULTS_REVIEW_PATH)
+    parser.add_argument("--completed-games-review", type=Path, default=DEFAULT_COMPLETED_GAMES_REVIEW_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH)
     return parser.parse_args()
 
@@ -111,6 +115,8 @@ def main() -> None:
     projected_games = load_csv(args.projected_games)
     schedule_coverage = load_csv(args.schedule_coverage)
     odds_comparison = load_csv(args.odds_comparison)
+    weekly_results_review = load_csv(args.weekly_results_review)
+    completed_games_review = load_csv(args.completed_games_review)
 
     workbook = Workbook()
     workbook.remove(workbook.active)
@@ -121,6 +127,8 @@ def main() -> None:
     write_sheet(workbook, "WeeklyMatchups", projected_games)
     write_sheet(workbook, "ScheduleCoverage", schedule_coverage)
     write_sheet(workbook, "OddsEdges", odds_comparison)
+    write_sheet(workbook, "WeeklyReview", weekly_results_review)
+    write_sheet(workbook, "CompletedGames", completed_games_review)
     write_sheet(workbook, "BacktestWeekly", weekly_backtest)
     write_sheet(workbook, "BacktestGames", game_backtest)
 

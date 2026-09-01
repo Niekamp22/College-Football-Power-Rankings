@@ -24,6 +24,7 @@ The current model is a market-calibrated predictive power rating built for neutr
 - `app.py`: Streamlit app entrypoint for local use and shareable deployment
 - `streamlit_app.py`: older Streamlit prototype kept for reference
 - `project_win_totals.py`: projects future-season win totals from the current ratings and schedule
+- `review_completed_games.py`: grades completed games against the model, market lines, and final scores
 - `export_master_workbook.py`: combines current outputs into one spreadsheet workbook
 - `tune_model.py`: runs a small historical parameter sweep to look for better backtest settings
 - `data/sample_games.csv`: sample results you can replace with your own data
@@ -108,6 +109,12 @@ To export a single workbook with rankings, matchup tool, projections, and backte
 
 ```powershell
 py export_master_workbook.py
+```
+
+To review completed games against the model and market:
+
+```powershell
+py review_completed_games.py --season 2026
 ```
 
 To tune the prior-blend settings across multiple seasons:

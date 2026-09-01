@@ -15,6 +15,8 @@ DEFAULT_WIN_TOTALS_PATH = Path("output/projections/projected_win_totals_2026.csv
 DEFAULT_PROJECTED_GAMES_PATH = Path("output/projections/projected_games_2026.csv")
 DEFAULT_SCHEDULE_COVERAGE_PATH = Path("output/projections/schedule_coverage_2026.csv")
 DEFAULT_ODDS_COMPARISON_PATH = Path("output/odds/ncaaf_game_odds_comparison.csv")
+DEFAULT_WEEKLY_RESULTS_REVIEW_PATH = Path("output/reviews/weekly_results_review_2026.csv")
+DEFAULT_COMPLETED_GAMES_REVIEW_PATH = Path("output/reviews/completed_games_review_2026.csv")
 
 
 def load_csv(path: Path) -> pd.DataFrame:
@@ -81,6 +83,8 @@ def main() -> None:
     projected_games_default = str(DEFAULT_PROJECTED_GAMES_PATH)
     schedule_coverage_default = str(DEFAULT_SCHEDULE_COVERAGE_PATH)
     odds_default = str(DEFAULT_ODDS_COMPARISON_PATH)
+    weekly_review_default = str(DEFAULT_WEEKLY_RESULTS_REVIEW_PATH)
+    completed_review_default = str(DEFAULT_COMPLETED_GAMES_REVIEW_PATH)
 
     st.sidebar.subheader("Data Sources")
     ratings_path = st.sidebar.selectbox(
@@ -118,6 +122,17 @@ def main() -> None:
         options=odds_options if odds_options else [odds_default],
         index=odds_options.index(odds_default) if odds_default in odds_options else 0,
     )
+    review_options = [path for path in discovered_csvs if "results_review" in path.lower() or "completed_games_review" in path.lower()]
+    weekly_review_path = st.sidebar.selectbox(
+        "Weekly Results Review CSV",
+        options=review_options if review_options else [weekly_review_default],
+        index=review_options.index(weekly_review_default) if weekly_review_default in review_options else 0,
+    )
+    completed_review_path = st.sidebar.selectbox(
+        "Completed Games Review CSV",
+        options=review_options if review_options else [completed_review_default],
+        index=review_options.index(completed_review_default) if completed_review_default in review_options else 0,
+    )
     excel_path = st.sidebar.text_input("Excel Workbook", str(DEFAULT_EXCEL_PATH))
 
     st.sidebar.subheader("Hosted Fallback")
@@ -127,6 +142,8 @@ def main() -> None:
     uploaded_projected_games = st.sidebar.file_uploader("Upload projected games CSV", type="csv")
     uploaded_schedule_coverage = st.sidebar.file_uploader("Upload schedule coverage CSV", type="csv")
     uploaded_odds = st.sidebar.file_uploader("Upload odds comparison CSV", type="csv")
+    uploaded_weekly_review = st.sidebar.file_uploader("Upload weekly results review CSV", type="csv")
+    uploaded_completed_review = st.sidebar.file_uploader("Upload completed games review CSV", type="csv")
     uploaded_excel = st.sidebar.file_uploader("Upload Excel workbook", type=["xlsx"])
 
     ratings = load_uploaded_csv(uploaded_ratings) if uploaded_ratings else load_csv(Path(ratings_path))
@@ -135,6 +152,8 @@ def main() -> None:
     projected_games = load_uploaded_csv(uploaded_projected_games) if uploaded_projected_games else load_csv(Path(projected_games_path))
     schedule_coverage = load_uploaded_csv(uploaded_schedule_coverage) if uploaded_schedule_coverage else load_csv(Path(schedule_coverage_path))
     odds = load_uploaded_csv(uploaded_odds) if uploaded_odds else load_csv(Path(odds_path))
+    weekly_review = load_uploaded_csv(uploaded_weekly_review) if uploaded_weekly_review else load_csv(Path(weekly_review_path))
+    completed_review = load_uploaded_csv(uploaded_completed_review) if uploaded_completed_review else load_csv(Path(completed_review_path))
 
     if ratings.empty:
         render_missing_state(Path(ratings_path), "Ratings file")
@@ -156,8 +175,8 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, backtest_tab, files_tab = st.tabs(
-        ["Rankings", "Matchup", "Weekly Matchups", "Projected Wins", "Odds / Edges", "Backtest", "Files"]
+    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, review_tab, backtest_tab, files_tab = st.tabs(
+        ["Rankings", "Matchup", "Weekly Matchups", "Projected Wins", "Odds / Edges", "Results Review", "Backtest", "Files"]
     )
 
     with rankings_tab:
@@ -485,6 +504,150 @@ def main() -> None:
             with st.expander("Raw odds comparison"):
                 st.dataframe(filtered_odds, use_container_width=True, hide_index=True)
 
+    with review_tab:
+        if weekly_review.empty or completed_review.empty:
+            render_missing_state(Path(completed_review_path), "Completed games review file")
+        else:
+            weekly_results = add_week_display_columns(weekly_review)
+            completed_games = add_week_display_columns(completed_review)
+            for column in [
+                "display_week",
+                "games",
+                "games_with_market_line",
+                "model_margin_mae",
+                "market_margin_mae",
+                "model_winner_accuracy",
+                "market_winner_accuracy",
+                "edge_right_side_rate",
+                "actual_home_margin",
+                "model_home_margin",
+                "market_home_margin",
+                "absolute_model_error",
+                "absolute_market_error",
+            ]:
+                if column in weekly_results.columns:
+                    weekly_results[column] = pd.to_numeric(weekly_results[column], errors="coerce")
+                if column in completed_games.columns:
+                    completed_games[column] = pd.to_numeric(completed_games[column], errors="coerce")
+
+            review_col1, review_col2, review_col3, review_col4 = st.columns(4)
+            total_completed = int(weekly_results["games"].sum())
+            market_games = int(weekly_results["games_with_market_line"].sum())
+            weighted_model_mae = (
+                (weekly_results["model_margin_mae"] * weekly_results["games"]).sum() / total_completed
+                if total_completed
+                else 0.0
+            )
+            weighted_market_mae = (
+                (weekly_results["market_margin_mae"] * weekly_results["games_with_market_line"]).sum() / market_games
+                if market_games
+                else 0.0
+            )
+            review_col1.metric("Completed Games", f"{total_completed}")
+            review_col2.metric("With Market Line", f"{market_games}")
+            review_col3.metric("Model Margin MAE", f"{weighted_model_mae:.2f}")
+            review_col4.metric("Market Margin MAE", f"{weighted_market_mae:.2f}" if market_games else "N/A")
+
+            st.subheader("Weekly Sanity Check")
+            weekly_display = weekly_results[
+                [
+                    "week_label",
+                    "games",
+                    "games_with_market_line",
+                    "model_margin_mae",
+                    "market_margin_mae",
+                    "model_winner_accuracy",
+                    "market_winner_accuracy",
+                    "edge_right_side_rate",
+                ]
+            ].copy()
+            weekly_display.columns = [
+                "Week",
+                "Games",
+                "Market Games",
+                "Model Margin MAE",
+                "Market Margin MAE",
+                "Model Winner %",
+                "Market Winner %",
+                "Edge Right-Side %",
+            ]
+            st.dataframe(weekly_display, use_container_width=True, hide_index=True)
+
+            st.subheader("Game-Level Review")
+            completed_games["matchup"] = completed_games.apply(
+                lambda row: f"{row['away_team']} at {row['home_team']}",
+                axis=1,
+            )
+            completed_games["score"] = completed_games.apply(
+                lambda row: f"{row['away_team']} {int(row['away_points'])}, {row['home_team']} {int(row['home_points'])}",
+                axis=1,
+            )
+            completed_games["model_line"] = completed_games.apply(
+                lambda row: f"{row['home_team']} {float(row['model_home_spread']):+.1f}",
+                axis=1,
+            )
+            completed_games["market_line"] = completed_games.apply(
+                lambda row: (
+                    f"{row['home_team']} {float(row['market_home_spread']):+.1f}"
+                    if pd.notna(row.get("market_home_spread")) and row.get("market_home_spread") != ""
+                    else "No market line"
+                ),
+                axis=1,
+            )
+
+            available_review_weeks = sorted(int(week) for week in completed_games["display_week"].dropna().unique())
+            review_week_options = {f"Week {week}": week for week in available_review_weeks}
+            review_filter_col1, review_filter_col2 = st.columns([1, 2])
+            with review_filter_col1:
+                review_week_filter = st.selectbox("Week", ["All"] + list(review_week_options), index=0, key="results_review_week")
+            with review_filter_col2:
+                review_search = st.text_input(
+                    "Search completed games",
+                    placeholder="Search by team, matchup, or result",
+                    key="results_review_search",
+                ).strip().lower()
+
+            filtered_review = completed_games.copy()
+            if review_week_filter != "All":
+                filtered_review = filtered_review[filtered_review["display_week"] == review_week_options[review_week_filter]]
+            if review_search:
+                filtered_review = filtered_review[
+                    filtered_review.apply(
+                        lambda row: review_search in str(row.get("matchup", "")).lower()
+                        or review_search in str(row.get("winner_model_result", "")).lower()
+                        or review_search in str(row.get("edge_result", "")).lower(),
+                        axis=1,
+                    )
+                ]
+
+            review_game_display = filtered_review[
+                [
+                    "week_label",
+                    "matchup",
+                    "score",
+                    "model_line",
+                    "market_line",
+                    "actual_home_margin",
+                    "absolute_model_error",
+                    "absolute_market_error",
+                    "winner_model_result",
+                    "edge_result",
+                ]
+            ].copy()
+            review_game_display.columns = [
+                "Week",
+                "Matchup",
+                "Final Score",
+                "Model Line",
+                "Market Line",
+                "Actual Home Margin",
+                "Model Error",
+                "Market Error",
+                "Winner Pick",
+                "Edge Result",
+            ]
+            st.dataframe(review_game_display, use_container_width=True, hide_index=True, height=520)
+
     with backtest_tab:
         if backtest.empty:
             render_missing_state(Path(backtest_path), "Backtest file")
@@ -509,7 +672,8 @@ def main() -> None:
             "Ratings CSV: "
             f"{ratings_path}\nBacktest CSV: {backtest_path}\nProjected Win Totals CSV: {win_totals_path}\n"
             f"Projected Games CSV: {projected_games_path}\nSchedule Coverage CSV: {schedule_coverage_path}\n"
-            f"Odds Comparison CSV: {odds_path}\nExcel Workbook: {excel_path}",
+            f"Odds Comparison CSV: {odds_path}\nWeekly Results Review CSV: {weekly_review_path}\n"
+            f"Completed Games Review CSV: {completed_review_path}\nExcel Workbook: {excel_path}",
             language="text",
         )
         excel_file = Path(excel_path)

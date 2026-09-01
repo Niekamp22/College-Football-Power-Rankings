@@ -1,0 +1,9 @@
+season,week,display_week,week_label,start_date,away_team,home_team,neutral_site,away_points,home_points,actual_home_margin,model_home_margin,model_home_spread,market_home_spread,market_home_margin,model_margin_error,market_margin_error,absolute_model_error,absolute_market_error,winner_model_result,winner_market_result,model_edge_home_points,model_edge_side,edge_result
+2026,1,0,Week 0,2026-08-29T16:00:00.000Z,North Carolina,TCU,True,15,10,-5.0,15.33,-15.33,-7.5,7.5,20.33,12.5,20.33,12.5,wrong,wrong,7.83,TCU,wrong_side
+2026,1,0,Week 0,2026-08-29T19:00:00.000Z,San José State,USC,False,26,42,16.0,26.97,-26.97,-37.33,37.33,10.97,21.33,10.97,21.33,correct,correct,-10.36,San José State,right_side
+2026,1,0,Week 0,2026-08-29T19:30:00.000Z,NC State,Virginia,False,8,34,26.0,3.44,-3.44,-4.0,4.0,-22.56,-22.0,22.56,22.0,correct,correct,-0.56,NC State,wrong_side
+2026,1,0,Week 0,2026-08-29T21:30:00.000Z,Jacksonville State,North Dakota State,False,7,33,26.0,-0.94,0.94,-6.67,6.67,-26.94,-19.33,26.94,19.33,wrong,correct,-7.61,Jacksonville State,wrong_side
+2026,1,0,Week 0,2026-08-29T22:30:00.000Z,Sacramento State,Eastern Michigan,False,17,28,11.0,1.4,-1.4,-9.0,9.0,-9.6,-2.0,9.6,2.0,correct,correct,-7.6,Sacramento State,wrong_side
+2026,1,0,Week 0,2026-08-29T23:00:00.000Z,Hawai'i,Stanford,False,27,37,10.0,-0.12,0.12,-4.67,4.67,-10.12,-5.33,10.12,5.33,wrong,correct,-4.79,Hawai'i,wrong_side
+2026,1,0,Week 0,2026-08-29T23:00:00.000Z,New Mexico State,Florida State,False,17,34,17.0,27.74,-27.74,-31.0,31.0,10.74,14.0,10.74,14.0,correct,correct,-3.26,New Mexico State,right_side
+2026,1,0,Week 0,2026-08-30T02:00:00.000Z,Memphis,UNLV,False,27,21,-6.0,1.08,-1.08,-4.5,4.5,7.08,10.5,7.08,10.5,wrong,wrong,-3.42,Memphis,right_side
