@@ -361,15 +361,22 @@ def main() -> None:
                 "market_home_margin",
                 "edge_home_points",
                 "absolute_edge_points",
+                "actual_home_points",
+                "actual_away_points",
+                "actual_home_margin",
             ]
             for column in numeric_columns:
                 if column in odds_board.columns:
                     odds_board[column] = pd.to_numeric(odds_board[column], errors="coerce")
+            if "market_status" not in odds_board.columns:
+                odds_board["market_status"] = "open_market"
 
+            live_odds = odds_board[odds_board["market_home_spread"].notna()].copy()
+            no_current_odds = odds_board[odds_board["market_home_spread"].isna()].copy()
             metric_col1, metric_col2, metric_col3 = st.columns(3)
-            metric_col1.metric("Matched Games", f"{len(odds_board)}")
-            metric_col2.metric("Average Edge", f"{odds_board['absolute_edge_points'].mean():.2f}")
-            metric_col3.metric("Largest Edge", f"{odds_board['absolute_edge_points'].max():.2f}")
+            metric_col1.metric("Live Odds Games", f"{len(live_odds)}")
+            metric_col2.metric("Completed No-Odds", f"{len(no_current_odds)}")
+            metric_col3.metric("Largest Live Edge", f"{live_odds['absolute_edge_points'].max():.2f}" if not live_odds.empty else "N/A")
 
             filter_col1, filter_col2, filter_col3 = st.columns([1, 1.4, 2])
             available_weeks = sorted(int(week) for week in odds_board["display_week"].dropna().unique()) if "display_week" in odds_board.columns else []
@@ -393,12 +400,20 @@ def main() -> None:
                 ).strip().lower()
 
             min_edge, max_edge = edge_range
-            filtered_odds = odds_board[
-                (odds_board["absolute_edge_points"] >= min_edge)
-                & (odds_board["absolute_edge_points"] <= max_edge)
-            ].copy()
             if week_filter != "All":
-                filtered_odds = filtered_odds[filtered_odds["display_week"] == week_options[week_filter]]
+                selected_display_week = week_options[week_filter]
+                week_odds = odds_board[odds_board["display_week"] == selected_display_week].copy()
+                live_week_odds = week_odds[
+                    (week_odds["absolute_edge_points"] >= min_edge)
+                    & (week_odds["absolute_edge_points"] <= max_edge)
+                ].copy()
+                fallback_week_odds = week_odds[week_odds["market_home_spread"].isna()].copy()
+                filtered_odds = pd.concat([live_week_odds, fallback_week_odds], ignore_index=True)
+            else:
+                filtered_odds = odds_board[
+                    (odds_board["absolute_edge_points"] >= min_edge)
+                    & (odds_board["absolute_edge_points"] <= max_edge)
+                ].copy()
             if odds_search:
                 filtered_odds = filtered_odds[
                     filtered_odds.apply(
@@ -418,7 +433,22 @@ def main() -> None:
                 axis=1,
             )
             filtered_odds["market_line"] = filtered_odds.apply(
-                lambda row: f"{row['home_team']} {float(row['market_home_spread']):+.1f}",
+                lambda row: (
+                    f"{row['home_team']} {float(row['market_home_spread']):+.1f}"
+                    if pd.notna(row.get("market_home_spread"))
+                    else "No current line"
+                ),
+                axis=1,
+            )
+            filtered_odds["edge_display"] = filtered_odds["absolute_edge_points"].map(
+                lambda value: f"{float(value):.2f}" if pd.notna(value) else "N/A"
+            )
+            filtered_odds["result"] = filtered_odds.apply(
+                lambda row: (
+                    f"{row.get('away_team')} {int(row.get('actual_away_points'))}, {row.get('home_team')} {int(row.get('actual_home_points'))}"
+                    if pd.notna(row.get("actual_away_points")) and pd.notna(row.get("actual_home_points"))
+                    else ""
+                ),
                 axis=1,
             )
 
@@ -427,10 +457,12 @@ def main() -> None:
                     "week_label",
                     "commence_time",
                     "matchup",
+                    "market_status",
                     "edge_side",
-                    "absolute_edge_points",
+                    "edge_display",
                     "model_line",
                     "market_line",
+                    "result",
                     "book_count",
                     "market_total",
                 ]
@@ -439,10 +471,12 @@ def main() -> None:
                 "Week",
                 "Kickoff",
                 "Matchup",
+                "Market Status",
                 "Model Edge Side",
                 "Edge Points",
                 "Model Line",
                 "Market Line",
+                "Result",
                 "Books",
                 "Market Total",
             ]

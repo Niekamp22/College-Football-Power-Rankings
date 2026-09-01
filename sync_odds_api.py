@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from cfb_weeks import display_week_for_game, week_label
-from project_win_totals import HOME_FIELD_ADVANTAGE, FCS_BASELINE_RATING, parse_float
+from project_win_totals import HOME_FIELD_ADVANTAGE, FCS_BASELINE_RATING, UNRATED_FBS_BASELINE_RATING, parse_float
 
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_2025.csv")
@@ -167,6 +167,16 @@ def average(values: list[float]) -> float | None:
     return sum(values) / len(values) if values else None
 
 
+def rating_for_team(team: str, classification: str | None, ratings: dict[str, float]) -> float:
+    if team in ratings:
+        return ratings[team]
+    if classification == "fbs":
+        return UNRATED_FBS_BASELINE_RATING
+    if classification == "fcs":
+        return FCS_BASELINE_RATING
+    return 0.0
+
+
 def build_schedule_lookup(schedule_games: list[dict[str, Any]], team_lookup: dict[str, str]) -> dict[tuple[str, str], dict[str, Any]]:
     lookup: dict[tuple[str, str], dict[str, Any]] = {}
     for game in schedule_games:
@@ -178,6 +188,73 @@ def build_schedule_lookup(schedule_games: list[dict[str, Any]], team_lookup: dic
         resolved_away = resolve_team(away_team, team_lookup) or away_team
         lookup[(resolved_home, resolved_away)] = game
     return lookup
+
+
+def completed_games_without_current_odds(
+    comparison_rows: list[dict[str, Any]],
+    ratings: dict[str, float],
+    schedule_games: list[dict[str, Any]],
+    target_display_week: int = 0,
+) -> list[dict[str, Any]]:
+    compared_games = {
+        (row.get("home_team"), row.get("away_team"))
+        for row in comparison_rows
+        if row.get("home_team") and row.get("away_team")
+    }
+    fallback_rows: list[dict[str, Any]] = []
+
+    for game in schedule_games:
+        if display_week_for_game(game) != target_display_week:
+            continue
+        if not game.get("completed"):
+            continue
+        if game.get("homeClassification") != "fbs" and game.get("awayClassification") != "fbs":
+            continue
+
+        home_team = game.get("homeTeam")
+        away_team = game.get("awayTeam")
+        if not home_team or not away_team:
+            continue
+        if (home_team, away_team) in compared_games:
+            continue
+
+        home_rating = rating_for_team(home_team, game.get("homeClassification"), ratings)
+        away_rating = rating_for_team(away_team, game.get("awayClassification"), ratings)
+        home_field = 0.0 if game.get("neutralSite") else HOME_FIELD_ADVANTAGE
+        model_home_margin = home_rating - away_rating + home_field
+        model_home_spread = -model_home_margin
+        actual_home_margin = parse_float(game.get("homePoints")) - parse_float(game.get("awayPoints"))
+
+        fallback_rows.append(
+            {
+                "event_id": f"cfbd-{game.get('id')}",
+                "commence_time": game.get("startDate", ""),
+                "week": game.get("week", ""),
+                "display_week": target_display_week,
+                "week_label": week_label(target_display_week),
+                "market_status": "completed_no_current_odds",
+                "home_team": home_team,
+                "away_team": away_team,
+                "neutral_site": bool(game.get("neutralSite", False)),
+                "book_count": 0,
+                "model_home_margin": round(model_home_margin, 2),
+                "model_home_spread": round(model_home_spread, 2),
+                "market_home_spread": "",
+                "market_home_margin": "",
+                "edge_home_points": "",
+                "edge_side": "",
+                "absolute_edge_points": "",
+                "model_favorite": home_team if model_home_margin >= 0 else away_team,
+                "market_favorite": "",
+                "market_total": "",
+                "actual_home_points": game.get("homePoints", ""),
+                "actual_away_points": game.get("awayPoints", ""),
+                "actual_home_margin": round(actual_home_margin, 2),
+                "actual_winner": home_team if actual_home_margin > 0 else away_team,
+            }
+        )
+
+    return fallback_rows
 
 
 def compare_game_odds(
@@ -251,6 +328,7 @@ def compare_game_odds(
                 "week": schedule_game.get("week", ""),
                 "display_week": display_week_for_game(schedule_game) if schedule_game else "",
                 "week_label": week_label(display_week_for_game(schedule_game)) if schedule_game else "",
+                "market_status": "open_market",
                 "home_team": home_team,
                 "away_team": away_team,
                 "neutral_site": bool(schedule_game.get("neutralSite", False)),
@@ -269,7 +347,14 @@ def compare_game_odds(
             }
         )
 
-    comparison_rows.sort(key=lambda row: (-float(row["absolute_edge_points"]), str(row["commence_time"])))
+    comparison_rows.extend(completed_games_without_current_odds(comparison_rows, ratings, schedule_games))
+    comparison_rows.sort(
+        key=lambda row: (
+            int(row["display_week"]) if row.get("display_week") not in ("", None) else 999,
+            -parse_float(row.get("absolute_edge_points"), -1.0),
+            str(row["commence_time"]),
+        )
+    )
     return comparison_rows
 
 
