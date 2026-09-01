@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from cfb_weeks import display_week_for_game, week_label
 from project_win_totals import HOME_FIELD_ADVANTAGE, FCS_BASELINE_RATING, parse_float
 
 
@@ -248,6 +249,8 @@ def compare_game_odds(
                 "event_id": event.get("id"),
                 "commence_time": event.get("commence_time"),
                 "week": schedule_game.get("week", ""),
+                "display_week": display_week_for_game(schedule_game) if schedule_game else "",
+                "week_label": week_label(display_week_for_game(schedule_game)) if schedule_game else "",
                 "home_team": home_team,
                 "away_team": away_team,
                 "neutral_site": bool(schedule_game.get("neutralSite", False)),

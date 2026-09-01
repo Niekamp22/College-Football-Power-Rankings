@@ -7,6 +7,8 @@ import math
 from pathlib import Path
 from typing import Any
 
+from cfb_weeks import display_week_for_game, week_label
+
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_2025.csv")
 DEFAULT_SCHEDULE_PATH = Path("data/cfbd/raw/2026/games.json")
@@ -101,6 +103,7 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
             continue
 
         week = int(game.get("week") or 0)
+        display_week = display_week_for_game(game)
         home_team_name = game["homeTeam"]
         away_team_name = game["awayTeam"]
         home_rating_row = ratings_lookup.get(home_team_name)
@@ -136,6 +139,8 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
             game_rows.append(
                 {
                     "week": week,
+                    "display_week": display_week,
+                    "week_label": week_label(display_week),
                     "team": home_team_name,
                     "opponent": away_display_name,
                     "site": "neutral" if game.get("neutralSite") else "home",
@@ -158,6 +163,8 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
             game_rows.append(
                 {
                     "week": week,
+                    "display_week": display_week,
+                    "week_label": week_label(display_week),
                     "team": away_team_name,
                     "opponent": home_display_name,
                     "site": "neutral" if game.get("neutralSite") else "away",
@@ -188,7 +195,7 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
         summary_rows.append(row)
 
     summary_rows.sort(key=lambda row: (-float(row["projected_wins"]), -float(row["rating"]), row["team"]))
-    game_rows.sort(key=lambda row: (row["team"], int(row["week"]), row["opponent"]))
+    game_rows.sort(key=lambda row: (row["team"], int(row["display_week"]), int(row["week"]), row["opponent"]))
     return summary_rows, game_rows
 
 

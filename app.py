@@ -48,6 +48,18 @@ def site_adjusted_spread(base_spread: float, site: str, home_field_advantage: fl
     return base_spread
 
 
+def add_week_display_columns(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return df
+    with_display = df.copy()
+    if "display_week" not in with_display.columns:
+        with_display["display_week"] = with_display["week"]
+    with_display["display_week"] = pd.to_numeric(with_display["display_week"], errors="coerce").astype("Int64")
+    if "week_label" not in with_display.columns:
+        with_display["week_label"] = with_display["display_week"].map(lambda week: f"Week {int(week)}" if pd.notna(week) else "")
+    return with_display
+
+
 def render_missing_state(path: Path, label: str) -> None:
     st.warning(f"{label} was not found at `{path}`.")
 
@@ -214,19 +226,21 @@ def main() -> None:
         if projected_games.empty:
             render_missing_state(Path(projected_games_path), "Projected games file")
         else:
-            weekly_board = projected_games.copy()
+            weekly_board = add_week_display_columns(projected_games)
             weekly_board["week"] = weekly_board["week"].astype(int)
-            available_weeks = sorted(weekly_board["week"].unique().tolist())
+            available_weeks = sorted(int(week) for week in weekly_board["display_week"].dropna().unique())
+            week_options = {f"Week {week}": week for week in available_weeks}
             filter_col1, filter_col2 = st.columns([1, 2])
             with filter_col1:
-                selected_week = st.selectbox("Week", available_weeks, index=0, key="weekly_matchup_week")
+                selected_week_label = st.selectbox("Week", list(week_options), index=0, key="weekly_matchup_week")
+                selected_week = week_options[selected_week_label]
             with filter_col2:
                 matchup_search = st.text_input(
                     "Search weekly matchups",
                     placeholder="Search by team, opponent, or favorite",
                     key="weekly_matchup_search",
                 ).strip().lower()
-            board = weekly_board[weekly_board["week"] == selected_week].copy()
+            board = weekly_board[weekly_board["display_week"] == selected_week].copy()
             board = board[board["site"].isin(["home", "neutral"])].copy()
 
             board["matchup"] = board.apply(
@@ -254,7 +268,7 @@ def main() -> None:
                 ]
 
             display = board[
-                ["week", "matchup", "site", "line", "win_probability", "team_rating", "opponent_rating"]
+                ["week_label", "matchup", "site", "line", "win_probability", "team_rating", "opponent_rating"]
             ].copy()
             display.columns = [
                 "Week",
@@ -302,7 +316,22 @@ def main() -> None:
             if not projected_games.empty:
                 team_names = totals_display["Team"].tolist()
                 selected_team = st.selectbox("Schedule detail", team_names, key="schedule_detail_team")
-                team_games = projected_games[projected_games["team"] == selected_team].copy().sort_values("week")
+                team_games = add_week_display_columns(projected_games)
+                team_games = team_games[team_games["team"] == selected_team].copy().sort_values(["display_week", "week"])
+                team_games = team_games[
+                    [
+                        "week_label",
+                        "team",
+                        "opponent",
+                        "site",
+                        "team_rating",
+                        "opponent_rating",
+                        "projected_spread",
+                        "favorite",
+                        "favorite_spread",
+                        "win_probability",
+                    ]
+                ].copy()
                 team_games.columns = [
                     "Week",
                     "Team",
@@ -321,9 +350,10 @@ def main() -> None:
         if odds.empty:
             render_missing_state(Path(odds_path), "Odds comparison file")
         else:
-            odds_board = odds.copy()
+            odds_board = add_week_display_columns(odds)
             numeric_columns = [
                 "week",
+                "display_week",
                 "book_count",
                 "model_home_margin",
                 "model_home_spread",
@@ -342,9 +372,10 @@ def main() -> None:
             metric_col3.metric("Largest Edge", f"{odds_board['absolute_edge_points'].max():.2f}")
 
             filter_col1, filter_col2, filter_col3 = st.columns([1, 1.4, 2])
-            available_weeks = sorted(int(week) for week in odds_board["week"].dropna().unique()) if "week" in odds_board.columns else []
+            available_weeks = sorted(int(week) for week in odds_board["display_week"].dropna().unique()) if "display_week" in odds_board.columns else []
+            week_options = {f"Week {week}": week for week in available_weeks}
             with filter_col1:
-                week_filter = st.selectbox("Week", ["All"] + available_weeks, index=0, key="odds_week_filter")
+                week_filter = st.selectbox("Week", ["All"] + list(week_options), index=0, key="odds_week_filter")
             with filter_col2:
                 edge_range = st.slider(
                     "Edge range",
@@ -367,7 +398,7 @@ def main() -> None:
                 & (odds_board["absolute_edge_points"] <= max_edge)
             ].copy()
             if week_filter != "All":
-                filtered_odds = filtered_odds[filtered_odds["week"] == int(week_filter)]
+                filtered_odds = filtered_odds[filtered_odds["display_week"] == week_options[week_filter]]
             if odds_search:
                 filtered_odds = filtered_odds[
                     filtered_odds.apply(
@@ -393,7 +424,7 @@ def main() -> None:
 
             display = filtered_odds[
                 [
-                    "week",
+                    "week_label",
                     "commence_time",
                     "matchup",
                     "edge_side",
