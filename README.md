@@ -104,6 +104,7 @@ py project_win_totals.py --season 2026
 ```
 
 The future schedule projection uses a fixed `2.5` points of home-field advantage when turning team ratings into projected spreads and win probabilities.
+Unrated FCS opponents are assigned a conservative low baseline rating so early-season FBS/FCS mismatch projections do not treat them like lower-tier FBS teams.
 
 To export a single workbook with rankings, matchup tool, projections, and backtests:
 

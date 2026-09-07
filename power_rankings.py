@@ -41,6 +41,8 @@ RIDGE_ALPHA = 0.75
 PRIOR_DECAY_GAMES = 2.5
 MIN_PRIOR_WEIGHT = 0.0
 PRIOR_SCALE = 14.0
+EARLY_SEASON_SHRINK_GAMES = 0.0
+MIN_RATING_SCALE = 0.45
 
 LOWER_IS_BETTER = {
     "defense_ppa_allowed",
@@ -58,6 +60,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--excel", type=Path, help="Optional path to save an Excel workbook.")
     parser.add_argument("--team-a", help="Optional team name for a neutral-field matchup query.")
     parser.add_argument("--team-b", help="Optional team name for a neutral-field matchup query.")
+    parser.add_argument(
+        "--early-season-shrink-games",
+        type=float,
+        default=EARLY_SEASON_SHRINK_GAMES,
+        help="FBS games needed before a team's current-season rating is no longer shrunk toward average.",
+    )
+    parser.add_argument(
+        "--min-rating-scale",
+        type=float,
+        default=MIN_RATING_SCALE,
+        help="Lowest rating scale for teams with little or no current-season FBS sample.",
+    )
     return parser.parse_args()
 
 
@@ -263,17 +277,52 @@ def blended_team_ratings(
     return {team: rating - blended_mean for team, rating in blended.items()}
 
 
+def early_season_rating_scale(fbs_games: float, shrink_games: float, min_scale: float) -> float:
+    if shrink_games <= 0:
+        return 1.0
+    bounded_min_scale = min(max(min_scale, 0.0), 1.0)
+    progress = min(max(fbs_games / shrink_games, 0.0), 1.0)
+    return bounded_min_scale + ((1.0 - bounded_min_scale) * progress)
+
+
+def apply_early_season_shrink(
+    ratings: dict[str, float],
+    rows: list[dict[str, Any]],
+    shrink_games: float = EARLY_SEASON_SHRINK_GAMES,
+    min_scale: float = MIN_RATING_SCALE,
+) -> tuple[dict[str, float], dict[str, float]]:
+    scales: dict[str, float] = {}
+    shrunk_ratings: dict[str, float] = {}
+    for row in rows:
+        team = str(row["team"])
+        fbs_games = float(row.get("fbs_games", 0) or 0)
+        scale = early_season_rating_scale(fbs_games, shrink_games, min_scale)
+        scales[team] = scale
+        shrunk_ratings[team] = ratings[team] * scale
+
+    shrunk_mean = sum(shrunk_ratings.values()) / len(shrunk_ratings)
+    return {team: rating - shrunk_mean for team, rating in shrunk_ratings.items()}, scales
+
+
 def build_rankings(
     rows: list[dict[str, Any]],
     feature_coefficients: np.ndarray,
     team_vectors: dict[str, np.ndarray],
     calibration_features: list[str] = DEFAULT_CALIBRATION_FEATURES,
+    early_season_shrink_games: float = EARLY_SEASON_SHRINK_GAMES,
+    min_rating_scale: float = MIN_RATING_SCALE,
 ) -> list[dict[str, Any]]:
     coeffs_by_feature = {
         feature: float(feature_coefficients[index])
         for index, feature in enumerate(calibration_features)
     }
     ratings = blended_team_ratings(rows, feature_coefficients, team_vectors, calibration_features=calibration_features)
+    ratings, rating_scales = apply_early_season_shrink(
+        ratings,
+        rows,
+        shrink_games=early_season_shrink_games,
+        min_scale=min_rating_scale,
+    )
 
     efficiency_scores = component_score(
         team_vectors,
@@ -311,6 +360,7 @@ def build_rankings(
                 "record": f"{row.get('wins', 0)}-{row.get('losses', 0)}",
                 "fbs_record": f"{row.get('fbs_wins', 0)}-{row.get('fbs_losses', 0)}",
                 "rating": round(float(ratings[team]), 2),
+                "early_season_rating_scale": round(float(rating_scales[team]), 3),
                 "efficiency_score": round(efficiency_scores[team], 2),
                 "market_score": round(market_scores[team], 2),
                 "schedule_score": round(schedule_scores[team], 2),
@@ -489,7 +539,15 @@ def main() -> None:
 
     lines = load_lines(args.lines)
     feature_coefficients, home_field_advantage, samples, team_vectors, diagnostics = fit_market_model(rows, lines)
-    rankings = build_rankings(rows, feature_coefficients, team_vectors)
+    rankings = build_rankings(
+        rows,
+        feature_coefficients,
+        team_vectors,
+        early_season_shrink_games=args.early_season_shrink_games,
+        min_rating_scale=args.min_rating_scale,
+    )
+    diagnostics["early_season_shrink_games"] = args.early_season_shrink_games
+    diagnostics["min_rating_scale"] = args.min_rating_scale
     print_rankings(rankings, args.top)
     print()
     print(
