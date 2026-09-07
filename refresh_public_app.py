@@ -2,13 +2,15 @@ from __future__ import annotations
 
 import argparse
 import os
+import shutil
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
 
 
-DEFAULT_RATINGS_OUTPUT = Path("output/cfbd_power_ratings_2025.csv")
+DEFAULT_RATINGS_OUTPUT = Path("output/cfbd_power_ratings_current.csv")
+LEGACY_RATINGS_OUTPUT = Path("output/cfbd_power_ratings_2025.csv")
 DEFAULT_RATINGS_EXCEL = Path("output/power_ratings_final.xlsx")
 DEFAULT_BACKTEST_OUTPUTS = [
     Path("output/backtests/weekly_backtest_2025_regular.csv"),
@@ -91,6 +93,7 @@ def main() -> None:
             str(DEFAULT_RATINGS_EXCEL),
         ]
     )
+    shutil.copy2(DEFAULT_RATINGS_OUTPUT, LEGACY_RATINGS_OUTPUT)
 
     if not args.skip_backtest:
         run([python, "backtest_power_model.py", "--year", str(args.backtest_year), "--season-type", "regular", "--save-games"])
@@ -122,6 +125,7 @@ def main() -> None:
     files_to_commit = [
         ratings_features,
         DEFAULT_RATINGS_OUTPUT,
+        LEGACY_RATINGS_OUTPUT,
         DEFAULT_RATINGS_EXCEL,
         *DEFAULT_BACKTEST_OUTPUTS,
         *DEFAULT_PROJECTION_OUTPUTS,

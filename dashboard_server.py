@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 
-DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_2025.csv")
+DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
 DEFAULT_BACKTEST_PATH = Path("output/backtests/weekly_backtest_2025_regular.csv")
 DEFAULT_UI_ROOT = Path("ui")
 

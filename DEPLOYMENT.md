@@ -6,7 +6,7 @@ This app is designed to deploy on Streamlit Community Cloud with `app.py` as the
 
 The app reads prebuilt CSV/XLSX outputs by default:
 
-- `output/cfbd_power_ratings_2025.csv`
+- `output/cfbd_power_ratings_current.csv`
 - `output/backtests/weekly_backtest_2025_regular.csv`
 - `output/projections/projected_win_totals_2026.csv`
 - `output/projections/projected_games_2026.csv`
@@ -49,7 +49,7 @@ Current hosted mode does not require secrets because it reads committed output f
 Refresh data locally, then commit the updated outputs:
 
 ```powershell
-py power_rankings.py --save output/cfbd_power_ratings_2025.csv --excel output/power_ratings_final.xlsx
+py power_rankings.py --save output/cfbd_power_ratings_current.csv --excel output/power_ratings_final.xlsx
 py project_win_totals.py --season 2026
 py sync_odds_api.py
 py export_master_workbook.py

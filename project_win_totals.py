@@ -10,7 +10,7 @@ from typing import Any
 from cfb_weeks import display_week_for_game, week_label
 
 
-DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_2025.csv")
+DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
 DEFAULT_SCHEDULE_PATH = Path("data/cfbd/raw/2026/games.json")
 DEFAULT_OUTPUT_ROOT = Path("output/projections")
 HOME_FIELD_ADVANTAGE = 2.5

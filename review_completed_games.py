@@ -11,7 +11,7 @@ from cfb_weeks import display_week_for_game, week_label
 from project_win_totals import HOME_FIELD_ADVANTAGE, FCS_BASELINE_RATING, UNRATED_FBS_BASELINE_RATING, parse_float
 
 
-DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_2025.csv")
+DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
 DEFAULT_GAMES_PATH = Path("data/cfbd/raw/2026/games.json")
 DEFAULT_LINES_PATH = Path("data/cfbd/raw/2026/lines.json")
 DEFAULT_OUTPUT_ROOT = Path("output/reviews")
