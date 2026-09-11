@@ -441,6 +441,10 @@ def main() -> None:
             available_weeks = sorted(int(week) for week in odds_board["display_week"].dropna().unique()) if "display_week" in odds_board.columns else []
             week_options = {f"Week {week}": week for week in available_weeks}
             odds_game_type_options = ["All"] + sorted(odds_board["game_type"].dropna().astype(str).unique().tolist())
+            market_status_options = sorted(odds_board["market_status"].dropna().astype(str).unique().tolist())
+            edge_side_options = ["All"] + sorted(
+                side for side in odds_board["edge_side"].dropna().astype(str).unique().tolist() if side
+            )
             with filter_col1:
                 week_filter = st.selectbox("Week", ["All"] + list(week_options), index=0, key="odds_week_filter")
             with filter_col2:
@@ -461,6 +465,43 @@ def main() -> None:
                     key="odds_search",
                 ).strip().lower()
 
+            advanced_col1, advanced_col2, advanced_col3, advanced_col4 = st.columns([1.4, 1.2, 1.2, 1.2])
+            with advanced_col1:
+                selected_market_statuses = st.multiselect(
+                    "Market status",
+                    market_status_options,
+                    default=market_status_options,
+                    key="odds_market_status_filter",
+                )
+            with advanced_col2:
+                edge_side_filter = st.selectbox("Edge side", edge_side_options, index=0, key="odds_edge_side_filter")
+            with advanced_col3:
+                min_books = st.number_input(
+                    "Minimum books",
+                    min_value=0,
+                    max_value=25,
+                    value=0,
+                    step=1,
+                    key="odds_min_books",
+                )
+            with advanced_col4:
+                hide_no_line_games = st.checkbox("Hide no-line games", value=False, key="odds_hide_no_line")
+
+            sort_col1, sort_col2, sort_col3 = st.columns([1.4, 1, 1])
+            odds_sort_options = {
+                "Biggest edge": "absolute_edge_points",
+                "Kickoff": "commence_time",
+                "Most books": "book_count",
+                "Model spread": "model_home_spread",
+                "Market spread": "market_home_spread",
+            }
+            with sort_col1:
+                odds_sort_label = st.selectbox("Sort odds by", list(odds_sort_options), index=0, key="odds_sort_by")
+            with sort_col2:
+                odds_sort_direction = st.selectbox("Direction", ["Descending", "Ascending"], index=0, key="odds_sort_direction")
+            with sort_col3:
+                max_odds_rows = st.number_input("Rows shown", min_value=10, max_value=250, value=75, step=5, key="odds_rows_shown")
+
             min_edge, max_edge = edge_range
             if week_filter != "All":
                 selected_display_week = week_options[week_filter]
@@ -478,6 +519,13 @@ def main() -> None:
                 ].copy()
             if odds_game_type_filter != "All":
                 filtered_odds = filtered_odds[filtered_odds["game_type"] == odds_game_type_filter]
+            if selected_market_statuses:
+                filtered_odds = filtered_odds[filtered_odds["market_status"].isin(selected_market_statuses)]
+            if edge_side_filter != "All":
+                filtered_odds = filtered_odds[filtered_odds["edge_side"] == edge_side_filter]
+            filtered_odds = filtered_odds[filtered_odds["book_count"].fillna(0) >= min_books]
+            if hide_no_line_games:
+                filtered_odds = filtered_odds[filtered_odds["market_home_spread"].notna()]
             if odds_search:
                 filtered_odds = filtered_odds[
                     filtered_odds.apply(
@@ -487,6 +535,28 @@ def main() -> None:
                         axis=1,
                     )
                 ]
+
+            sort_column = odds_sort_options[odds_sort_label]
+            filtered_odds = filtered_odds.sort_values(
+                sort_column,
+                ascending=odds_sort_direction == "Ascending",
+                na_position="last",
+            )
+
+            odds_summary_col1, odds_summary_col2, odds_summary_col3, odds_summary_col4 = st.columns(4)
+            odds_summary_col1.metric("Filtered Games", f"{len(filtered_odds)}")
+            odds_summary_col2.metric(
+                "Avg Edge",
+                f"{filtered_odds['absolute_edge_points'].mean():.2f}" if filtered_odds["absolute_edge_points"].notna().any() else "N/A",
+            )
+            odds_summary_col3.metric(
+                "Median Edge",
+                f"{filtered_odds['absolute_edge_points'].median():.2f}" if filtered_odds["absolute_edge_points"].notna().any() else "N/A",
+            )
+            odds_summary_col4.metric(
+                "Avg Books",
+                f"{filtered_odds['book_count'].mean():.1f}" if filtered_odds["book_count"].notna().any() else "N/A",
+            )
 
             filtered_odds["matchup"] = filtered_odds.apply(
                 lambda row: f"{row['away_team']} at {row['home_team']}",
@@ -516,7 +586,7 @@ def main() -> None:
                 axis=1,
             )
 
-            display = filtered_odds[
+            display = filtered_odds.head(max_odds_rows)[
                 [
                     "week_label",
                     "commence_time",
@@ -571,6 +641,7 @@ def main() -> None:
                 "market_home_margin",
                 "absolute_model_error",
                 "absolute_market_error",
+                "model_edge_home_points",
             ]:
                 if column in weekly_results.columns:
                     weekly_results[column] = pd.to_numeric(weekly_results[column], errors="coerce")
@@ -645,23 +716,93 @@ def main() -> None:
             available_review_weeks = sorted(int(week) for week in completed_games["display_week"].dropna().unique())
             review_week_options = {f"Week {week}": week for week in available_review_weeks}
             review_game_type_options = ["All"] + sorted(completed_games["game_type"].dropna().astype(str).unique().tolist())
-            review_filter_col1, review_filter_col2, review_filter_col3 = st.columns([1, 1, 2])
+            winner_result_options = ["All"] + sorted(completed_games["winner_model_result"].dropna().astype(str).unique().tolist())
+            edge_result_options = ["All"] + sorted(
+                result for result in completed_games["edge_result"].dropna().astype(str).unique().tolist() if result
+            )
+            review_filter_col1, review_filter_col2, review_filter_col3, review_filter_col4 = st.columns([1, 1, 1, 2])
             with review_filter_col1:
                 review_week_filter = st.selectbox("Week", ["All"] + list(review_week_options), index=0, key="results_review_week")
             with review_filter_col2:
                 review_game_type_filter = st.selectbox("Game Type", review_game_type_options, index=0, key="results_review_game_type")
             with review_filter_col3:
+                winner_result_filter = st.selectbox("Winner Pick", winner_result_options, index=0, key="results_review_winner_result")
+            with review_filter_col4:
                 review_search = st.text_input(
                     "Search completed games",
                     placeholder="Search by team, matchup, or result",
                     key="results_review_search",
                 ).strip().lower()
 
+            review_advanced_col1, review_advanced_col2, review_advanced_col3, review_advanced_col4 = st.columns([1, 1.2, 1.2, 1.2])
+            with review_advanced_col1:
+                edge_result_filter = st.selectbox("Edge Result", edge_result_options, index=0, key="results_review_edge_result")
+            with review_advanced_col2:
+                min_model_error = st.slider(
+                    "Min model error",
+                    min_value=0.0,
+                    max_value=60.0,
+                    value=0.0,
+                    step=1.0,
+                    key="results_review_min_model_error",
+                )
+            with review_advanced_col3:
+                error_view = st.selectbox(
+                    "Error view",
+                    ["All games", "Model worse than market", "Model better than market", "No market line"],
+                    index=0,
+                    key="results_review_error_view",
+                )
+            with review_advanced_col4:
+                min_edge_size = st.slider(
+                    "Min edge size",
+                    min_value=0.0,
+                    max_value=50.0,
+                    value=0.0,
+                    step=0.5,
+                    help="Uses absolute model edge versus market when a market line exists.",
+                    key="results_review_min_edge_size",
+                )
+
+            review_sort_col1, review_sort_col2, review_sort_col3 = st.columns([1.4, 1, 1])
+            review_sort_options = {
+                "Biggest model error": "absolute_model_error",
+                "Biggest market error": "absolute_market_error",
+                "Largest model edge": "absolute_model_edge",
+                "Kickoff": "start_date",
+                "Actual margin": "actual_home_margin",
+            }
+            with review_sort_col1:
+                review_sort_label = st.selectbox("Sort review by", list(review_sort_options), index=0, key="results_review_sort_by")
+            with review_sort_col2:
+                review_sort_direction = st.selectbox("Direction", ["Descending", "Ascending"], index=0, key="results_review_sort_direction")
+            with review_sort_col3:
+                max_review_rows = st.number_input("Rows shown", min_value=10, max_value=250, value=75, step=5, key="results_review_rows_shown")
+
             filtered_review = completed_games.copy()
+            filtered_review["absolute_model_edge"] = filtered_review["model_edge_home_points"].abs()
             if review_week_filter != "All":
                 filtered_review = filtered_review[filtered_review["display_week"] == review_week_options[review_week_filter]]
             if review_game_type_filter != "All":
                 filtered_review = filtered_review[filtered_review["game_type"] == review_game_type_filter]
+            if winner_result_filter != "All":
+                filtered_review = filtered_review[filtered_review["winner_model_result"] == winner_result_filter]
+            if edge_result_filter != "All":
+                filtered_review = filtered_review[filtered_review["edge_result"] == edge_result_filter]
+            filtered_review = filtered_review[filtered_review["absolute_model_error"].fillna(0) >= min_model_error]
+            filtered_review = filtered_review[filtered_review["absolute_model_edge"].fillna(0) >= min_edge_size]
+            if error_view == "Model worse than market":
+                filtered_review = filtered_review[
+                    filtered_review["absolute_market_error"].notna()
+                    & (filtered_review["absolute_model_error"] > filtered_review["absolute_market_error"])
+                ]
+            elif error_view == "Model better than market":
+                filtered_review = filtered_review[
+                    filtered_review["absolute_market_error"].notna()
+                    & (filtered_review["absolute_model_error"] < filtered_review["absolute_market_error"])
+                ]
+            elif error_view == "No market line":
+                filtered_review = filtered_review[filtered_review["absolute_market_error"].isna()]
             if review_search:
                 filtered_review = filtered_review[
                     filtered_review.apply(
@@ -672,7 +813,29 @@ def main() -> None:
                     )
                 ]
 
-            review_game_display = filtered_review[
+            review_sort_column = review_sort_options[review_sort_label]
+            filtered_review = filtered_review.sort_values(
+                review_sort_column,
+                ascending=review_sort_direction == "Ascending",
+                na_position="last",
+            )
+
+            review_summary_col1, review_summary_col2, review_summary_col3, review_summary_col4 = st.columns(4)
+            review_summary_col1.metric("Filtered Games", f"{len(filtered_review)}")
+            review_summary_col2.metric(
+                "Model Error",
+                f"{filtered_review['absolute_model_error'].mean():.2f}" if filtered_review["absolute_model_error"].notna().any() else "N/A",
+            )
+            review_summary_col3.metric(
+                "Market Error",
+                f"{filtered_review['absolute_market_error'].mean():.2f}" if filtered_review["absolute_market_error"].notna().any() else "N/A",
+            )
+            review_summary_col4.metric(
+                "Winner Hit Rate",
+                f"{(filtered_review['winner_model_result'].eq('right').mean() * 100):.1f}%" if not filtered_review.empty else "N/A",
+            )
+
+            review_game_display = filtered_review.head(max_review_rows)[
                 [
                     "week_label",
                     "matchup",
@@ -683,6 +846,7 @@ def main() -> None:
                     "actual_home_margin",
                     "absolute_model_error",
                     "absolute_market_error",
+                    "absolute_model_edge",
                     "winner_model_result",
                     "edge_result",
                 ]
@@ -697,6 +861,7 @@ def main() -> None:
                 "Actual Home Margin",
                 "Model Error",
                 "Market Error",
+                "Model Edge",
                 "Winner Pick",
                 "Edge Result",
             ]
