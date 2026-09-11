@@ -1,0 +1,5 @@
+week_label,game_type,away_team,home_team,model_favorite,market_favorite,winner_model_result,winner_market_result,model_home_margin,market_home_margin,actual_home_margin,absolute_model_error,absolute_market_error
+Week 1,FBS vs FBS,Western Kentucky,Nevada,Nevada,Western Kentucky,correct,wrong,0.16,-0.67,35.0,34.84,35.67
+Week 1,FBS vs FBS,UCLA,California,California,UCLA,wrong,correct,0.96,-2.5,-21.0,21.96,18.5
+Week 1,FBS vs FBS,Oklahoma State,Tulsa,Tulsa,Oklahoma State,correct,wrong,0.28,-13.33,14.0,13.72,27.33
+Week 1,FBS vs FBS,SMU,Florida State,Florida State,SMU,wrong,correct,0.79,-3.0,-3.0,3.79,0.0

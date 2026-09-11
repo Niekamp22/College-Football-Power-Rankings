@@ -1,0 +1,12 @@
+conference,teams,team_games,average_ats_cover_rate,average_model_bias_margin,average_model_margin_mae,average_market_margin_mae
+Mid-American,13,15,0.3077,11.917,21.729,14.622
+SEC,16,16,0.625,-10.606,19.425,14.114
+Mountain West,10,14,0.5,-1.575,17.518,14.307
+Pac-12,8,8,0.5,9.72,17.055,15.896
+Big Ten,18,19,0.4722,-4.016,16.987,12.782
+ACC,17,20,0.5,-2.855,16.967,14.171
+American Athletic,14,15,0.5714,6.562,14.412,10.428
+Sun Belt,14,14,0.6429,1.231,13.929,16.454
+Big 12,16,16,0.5625,-4.52,12.998,12.822
+FBS Independents,2,2,1.0,-12.415,12.415,17.67
+Conference USA,10,12,0.65,5.416,12.027,12.508

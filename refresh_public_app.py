@@ -27,6 +27,15 @@ DEFAULT_REVIEW_OUTPUTS = [
 ]
 DEFAULT_ODDS_OUTPUT = Path("output/odds/ncaaf_game_odds_comparison.csv")
 DEFAULT_MASTER_WORKBOOK = Path("output/power_ratings_master.xlsx")
+DEFAULT_ANALYTICS_OUTPUTS = [
+    Path("output/analytics/edge_bucket_summary_2026.csv"),
+    Path("output/analytics/split_summary_2026.csv"),
+    Path("output/analytics/team_bias_2026.csv"),
+    Path("output/analytics/conference_summary_2026.csv"),
+    Path("output/analytics/big_misses_2026.csv"),
+    Path("output/analytics/market_disagreements_2026.csv"),
+    Path("output/analytics/probability_calibration_2026.csv"),
+]
 
 
 def parse_args() -> argparse.Namespace:
@@ -105,6 +114,7 @@ def main() -> None:
         require_env("ODDS_API_KEY")
         run([python, "sync_odds_api.py"])
 
+    run([python, "betting_analytics.py", "--season", str(args.projection_year)])
     run([python, "export_master_workbook.py"])
 
     changes = changed_files()
@@ -131,6 +141,7 @@ def main() -> None:
         *DEFAULT_PROJECTION_OUTPUTS,
         *DEFAULT_REVIEW_OUTPUTS,
         DEFAULT_ODDS_OUTPUT,
+        *DEFAULT_ANALYTICS_OUTPUTS,
         DEFAULT_MASTER_WORKBOOK,
     ]
     existing_files = [str(path) for path in files_to_commit if path.exists()]

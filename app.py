@@ -17,6 +17,13 @@ DEFAULT_SCHEDULE_COVERAGE_PATH = Path("output/projections/schedule_coverage_2026
 DEFAULT_ODDS_COMPARISON_PATH = Path("output/odds/ncaaf_game_odds_comparison.csv")
 DEFAULT_WEEKLY_RESULTS_REVIEW_PATH = Path("output/reviews/weekly_results_review_2026.csv")
 DEFAULT_COMPLETED_GAMES_REVIEW_PATH = Path("output/reviews/completed_games_review_2026.csv")
+DEFAULT_EDGE_BUCKET_SUMMARY_PATH = Path("output/analytics/edge_bucket_summary_2026.csv")
+DEFAULT_SPLIT_SUMMARY_PATH = Path("output/analytics/split_summary_2026.csv")
+DEFAULT_TEAM_BIAS_PATH = Path("output/analytics/team_bias_2026.csv")
+DEFAULT_CONFERENCE_SUMMARY_PATH = Path("output/analytics/conference_summary_2026.csv")
+DEFAULT_BIG_MISSES_PATH = Path("output/analytics/big_misses_2026.csv")
+DEFAULT_MARKET_DISAGREEMENTS_PATH = Path("output/analytics/market_disagreements_2026.csv")
+DEFAULT_PROBABILITY_CALIBRATION_PATH = Path("output/analytics/probability_calibration_2026.csv")
 
 
 def load_csv(path: Path) -> pd.DataFrame:
@@ -216,6 +223,13 @@ def main() -> None:
     odds_default = str(DEFAULT_ODDS_COMPARISON_PATH)
     weekly_review_default = str(DEFAULT_WEEKLY_RESULTS_REVIEW_PATH)
     completed_review_default = str(DEFAULT_COMPLETED_GAMES_REVIEW_PATH)
+    edge_bucket_default = str(DEFAULT_EDGE_BUCKET_SUMMARY_PATH)
+    split_summary_default = str(DEFAULT_SPLIT_SUMMARY_PATH)
+    team_bias_default = str(DEFAULT_TEAM_BIAS_PATH)
+    conference_summary_default = str(DEFAULT_CONFERENCE_SUMMARY_PATH)
+    big_misses_default = str(DEFAULT_BIG_MISSES_PATH)
+    market_disagreements_default = str(DEFAULT_MARKET_DISAGREEMENTS_PATH)
+    probability_calibration_default = str(DEFAULT_PROBABILITY_CALIBRATION_PATH)
 
     st.sidebar.subheader("Data Sources")
     ratings_path = st.sidebar.selectbox(
@@ -285,6 +299,13 @@ def main() -> None:
     odds = load_uploaded_csv(uploaded_odds) if uploaded_odds else load_csv(Path(odds_path))
     weekly_review = load_uploaded_csv(uploaded_weekly_review) if uploaded_weekly_review else load_csv(Path(weekly_review_path))
     completed_review = load_uploaded_csv(uploaded_completed_review) if uploaded_completed_review else load_csv(Path(completed_review_path))
+    edge_bucket_summary = load_csv(Path(edge_bucket_default))
+    split_summary = load_csv(Path(split_summary_default))
+    team_bias = load_csv(Path(team_bias_default))
+    conference_summary = load_csv(Path(conference_summary_default))
+    big_misses = load_csv(Path(big_misses_default))
+    market_disagreements = load_csv(Path(market_disagreements_default))
+    probability_calibration = load_csv(Path(probability_calibration_default))
 
     if ratings.empty:
         render_missing_state(Path(ratings_path), "Ratings file")
@@ -306,7 +327,7 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, team_betting_tab, review_tab, backtest_tab, files_tab = st.tabs(
+    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab, files_tab = st.tabs(
         [
             "Rankings",
             "Matchup",
@@ -314,6 +335,7 @@ def main() -> None:
             "Projected Wins",
             "Odds / Edges",
             "Team Betting",
+            "Analytics",
             "Results Review",
             "Backtest",
             "Files",
@@ -931,6 +953,148 @@ def main() -> None:
                     ]
                     st.dataframe(detail_display, use_container_width=True, hide_index=True)
 
+    with analytics_tab:
+        analytics_frames = [
+            edge_bucket_summary,
+            split_summary,
+            team_bias,
+            conference_summary,
+            big_misses,
+            market_disagreements,
+            probability_calibration,
+        ]
+        if all(frame.empty for frame in analytics_frames):
+            render_missing_state(Path(edge_bucket_default), "Betting analytics files")
+        else:
+            st.caption(
+                "Statistical tracking layer for model health. These tables are regenerated during each refresh and saved in "
+                "`output/analytics` plus the master workbook."
+            )
+
+            analytics_section = st.selectbox(
+                "Analytics view",
+                [
+                    "Edge Buckets",
+                    "Splits",
+                    "Probability Calibration",
+                    "Team Bias",
+                    "Conference Summary",
+                    "Big Misses",
+                    "Market Disagreements",
+                ],
+                index=0,
+                key="analytics_view",
+            )
+
+            if analytics_section == "Edge Buckets":
+                if edge_bucket_summary.empty:
+                    render_missing_state(Path(edge_bucket_default), "Edge bucket summary")
+                else:
+                    display = edge_bucket_summary.copy()
+                    st.write("How model edge size has performed against the market and actual results.")
+                    st.dataframe(display, use_container_width=True, hide_index=True)
+
+            elif analytics_section == "Splits":
+                if split_summary.empty:
+                    render_missing_state(Path(split_summary_default), "Split summary")
+                else:
+                    split_options = ["All"] + sorted(split_summary["split"].dropna().astype(str).unique().tolist())
+                    selected_split = st.selectbox("Split", split_options, index=0, key="analytics_split_filter")
+                    display = split_summary.copy()
+                    if selected_split != "All":
+                        display = display[display["split"] == selected_split]
+                    st.write("Performance split by game type, pick role, pick site, and week.")
+                    st.dataframe(display, use_container_width=True, hide_index=True)
+
+            elif analytics_section == "Probability Calibration":
+                if probability_calibration.empty:
+                    render_missing_state(Path(probability_calibration_default), "Probability calibration")
+                else:
+                    st.write("Checks whether model win probabilities are calibrated to actual win rates.")
+                    chart = probability_calibration.copy()
+                    for column in ["average_model_probability", "actual_win_rate"]:
+                        chart[column] = pd.to_numeric(chart[column], errors="coerce")
+                    st.line_chart(
+                        chart.set_index("win_probability_bucket")[["average_model_probability", "actual_win_rate"]],
+                        use_container_width=True,
+                    )
+                    st.dataframe(probability_calibration, use_container_width=True, hide_index=True)
+
+            elif analytics_section == "Team Bias":
+                if team_bias.empty:
+                    render_missing_state(Path(team_bias_default), "Team bias")
+                else:
+                    bias = team_bias.copy()
+                    for column in [
+                        "games",
+                        "ats_cover_rate",
+                        "average_ats_margin",
+                        "average_model_bias_margin",
+                        "model_edge_picks",
+                        "edge_pick_hit_rate",
+                        "model_margin_mae",
+                        "market_margin_mae",
+                    ]:
+                        bias[column] = pd.to_numeric(bias[column], errors="coerce")
+                    bias_col1, bias_col2, bias_col3 = st.columns([1, 1, 2])
+                    with bias_col1:
+                        min_bias_games = st.number_input("Minimum games", min_value=1, max_value=20, value=1, step=1, key="analytics_bias_min_games")
+                    with bias_col2:
+                        bias_sort = st.selectbox(
+                            "Sort by",
+                            ["Largest absolute bias", "Most overrated", "Most underrated", "Worst model error", "Best ATS cover"],
+                            index=0,
+                            key="analytics_bias_sort",
+                        )
+                    with bias_col3:
+                        bias_search = st.text_input("Search team/conference", key="analytics_bias_search").strip().lower()
+                    bias = bias[bias["games"] >= min_bias_games]
+                    if bias_search:
+                        bias = bias[
+                            bias.apply(
+                                lambda row: bias_search in str(row.get("team", "")).lower()
+                                or bias_search in str(row.get("conference", "")).lower(),
+                                axis=1,
+                            )
+                        ]
+                    if bias_sort == "Largest absolute bias":
+                        bias = bias.assign(abs_bias=bias["average_model_bias_margin"].abs()).sort_values("abs_bias", ascending=False)
+                    elif bias_sort == "Most overrated":
+                        bias = bias.sort_values("average_model_bias_margin", ascending=False)
+                    elif bias_sort == "Most underrated":
+                        bias = bias.sort_values("average_model_bias_margin", ascending=True)
+                    elif bias_sort == "Worst model error":
+                        bias = bias.sort_values("model_margin_mae", ascending=False)
+                    else:
+                        bias = bias.sort_values("ats_cover_rate", ascending=False)
+                    st.write("Positive model bias means the model has overrated that team versus actual margins.")
+                    st.dataframe(bias.drop(columns=["abs_bias"], errors="ignore"), use_container_width=True, hide_index=True, height=520)
+
+            elif analytics_section == "Conference Summary":
+                if conference_summary.empty:
+                    render_missing_state(Path(conference_summary_default), "Conference summary")
+                else:
+                    st.write("Conference-level rollup of team bias and error metrics.")
+                    st.dataframe(conference_summary, use_container_width=True, hide_index=True)
+
+            elif analytics_section == "Big Misses":
+                if big_misses.empty:
+                    render_missing_state(Path(big_misses_default), "Big misses")
+                else:
+                    miss = big_misses.copy()
+                    miss["absolute_model_error"] = pd.to_numeric(miss["absolute_model_error"], errors="coerce")
+                    min_miss = st.slider("Minimum model error", min_value=20.0, max_value=60.0, value=20.0, step=1.0, key="analytics_min_miss")
+                    miss = miss[miss["absolute_model_error"] >= min_miss].sort_values("absolute_model_error", ascending=False)
+                    st.write("Games where the model missed the final margin badly enough to deserve review.")
+                    st.dataframe(miss, use_container_width=True, hide_index=True, height=520)
+
+            elif analytics_section == "Market Disagreements":
+                if market_disagreements.empty:
+                    st.info("No games yet where the model and market disagreed on the winner.")
+                else:
+                    st.write("Games where the model and market picked different outright winners.")
+                    st.dataframe(market_disagreements, use_container_width=True, hide_index=True)
+
     with review_tab:
         if weekly_review.empty or completed_review.empty:
             render_missing_state(Path(completed_review_path), "Completed games review file")
@@ -1208,7 +1372,11 @@ def main() -> None:
             f"{ratings_path}\nBacktest CSV: {backtest_path}\nProjected Win Totals CSV: {win_totals_path}\n"
             f"Projected Games CSV: {projected_games_path}\nSchedule Coverage CSV: {schedule_coverage_path}\n"
             f"Odds Comparison CSV: {odds_path}\nWeekly Results Review CSV: {weekly_review_path}\n"
-            f"Completed Games Review CSV: {completed_review_path}\nExcel Workbook: {excel_path}",
+            f"Completed Games Review CSV: {completed_review_path}\nEdge Buckets CSV: {edge_bucket_default}\n"
+            f"Split Summary CSV: {split_summary_default}\nTeam Bias CSV: {team_bias_default}\n"
+            f"Conference Summary CSV: {conference_summary_default}\nBig Misses CSV: {big_misses_default}\n"
+            f"Market Disagreements CSV: {market_disagreements_default}\n"
+            f"Probability Calibration CSV: {probability_calibration_default}\nExcel Workbook: {excel_path}",
             language="text",
         )
         excel_file = Path(excel_path)
