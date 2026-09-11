@@ -714,6 +714,10 @@ def main() -> None:
                 ),
                 axis=1,
             )
+            completed_games["model_winner"] = completed_games.apply(
+                lambda row: row["home_team"] if row["model_home_margin"] >= 0 else row["away_team"],
+                axis=1,
+            )
 
             available_review_weeks = sorted(int(week) for week in completed_games["display_week"].dropna().unique())
             review_week_options = {f"Week {week}": week for week in available_review_weeks}
@@ -849,6 +853,7 @@ def main() -> None:
                     "absolute_model_error",
                     "absolute_market_error",
                     "absolute_model_edge",
+                    "model_winner",
                     "winner_model_result",
                     "edge_result",
                 ]
@@ -864,6 +869,7 @@ def main() -> None:
                 "Model Error",
                 "Market Error",
                 "Model Edge",
+                "Model Winner",
                 "Winner Pick",
                 "Edge Result",
             ]
