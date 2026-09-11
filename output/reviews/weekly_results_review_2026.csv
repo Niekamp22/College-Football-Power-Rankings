@@ -1,3 +1,4 @@
 season,display_week,week_label,games,games_with_market_line,model_margin_mae,market_margin_mae,model_winner_accuracy,market_winner_accuracy,edge_right_side_rate
-2026,0,Week 0,8,8,10.82,13.37,0.75,0.75,0.625
-2026,1,Week 1,90,90,16.25,13.72,0.922,0.911,0.472
+2026,0,Week 0,8,8,11.0,13.37,0.75,0.75,0.625
+2026,1,Week 1,91,91,16.3,13.57,0.912,0.912,0.483
+2026,2,Week 2,1,1,18.84,10.5,1.0,1.0,0.0
