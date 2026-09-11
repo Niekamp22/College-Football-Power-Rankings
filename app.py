@@ -62,6 +62,34 @@ def add_week_display_columns(df: pd.DataFrame) -> pd.DataFrame:
     return with_display
 
 
+def add_game_type_column(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return df
+    typed = df.copy()
+    if "game_type" not in typed.columns:
+        typed["game_type"] = typed.apply(
+            lambda row: "FCS involved"
+            if "fcs" in str(row.get("opponent_classification", "")).lower()
+            or "fcs" in str(row.get("home_classification", "")).lower()
+            or "fcs" in str(row.get("away_classification", "")).lower()
+            or "FCS baseline" in str(row.get("opponent", ""))
+            else "FBS vs FBS",
+            axis=1,
+        )
+    return typed
+
+
+def team_watchlist_label(row: pd.Series) -> str:
+    flags: list[str] = []
+    cover_margin = pd.to_numeric(pd.Series([row.get("avg_cover_margin")]), errors="coerce").iloc[0]
+    if pd.notna(cover_margin) and cover_margin <= -20:
+        flags.append("Market miss")
+    fbs_record = str(row.get("fbs_record", ""))
+    if fbs_record == "0-0":
+        flags.append("FCS-only profile")
+    return ", ".join(flags)
+
+
 def render_missing_state(path: Path, label: str) -> None:
     st.warning(f"{label} was not found at `{path}`.")
 
@@ -185,15 +213,19 @@ def main() -> None:
         search_term = st.text_input("Team search", placeholder="Start typing a team name")
 
         filtered = ratings.copy()
+        filtered["watchlist"] = filtered.apply(team_watchlist_label, axis=1)
+        watchlist_only = st.checkbox("Show watchlist teams only", value=False)
         if selected_conference != "All conferences":
             filtered = filtered[filtered["conference"] == selected_conference]
         if search_term:
             filtered = filtered[filtered["team"].str.contains(search_term, case=False, na=False)]
+        if watchlist_only:
+            filtered = filtered[filtered["watchlist"] != ""]
 
         display = filtered[
-            ["team", "conference", "record", "rating", "efficiency_score", "market_score", "schedule_score"]
+            ["team", "conference", "record", "rating", "watchlist", "efficiency_score", "market_score", "schedule_score"]
         ].copy()
-        display.columns = ["Team", "Conference", "Record", "Rating", "Efficiency", "Market", "Schedule"]
+        display.columns = ["Team", "Conference", "Record", "Rating", "Watchlist", "Efficiency", "Market", "Schedule"]
         st.dataframe(display, use_container_width=True, height=620)
 
     with matchup_tab:
@@ -245,15 +277,18 @@ def main() -> None:
         if projected_games.empty:
             render_missing_state(Path(projected_games_path), "Projected games file")
         else:
-            weekly_board = add_week_display_columns(projected_games)
+            weekly_board = add_game_type_column(add_week_display_columns(projected_games))
             weekly_board["week"] = weekly_board["week"].astype(int)
             available_weeks = sorted(int(week) for week in weekly_board["display_week"].dropna().unique())
             week_options = {f"Week {week}": week for week in available_weeks}
-            filter_col1, filter_col2 = st.columns([1, 2])
+            game_type_options = ["All"] + sorted(weekly_board["game_type"].dropna().astype(str).unique().tolist())
+            filter_col1, filter_col2, filter_col3 = st.columns([1, 1, 2])
             with filter_col1:
                 selected_week_label = st.selectbox("Week", list(week_options), index=0, key="weekly_matchup_week")
                 selected_week = week_options[selected_week_label]
             with filter_col2:
+                selected_game_type = st.selectbox("Game Type", game_type_options, index=0, key="weekly_game_type")
+            with filter_col3:
                 matchup_search = st.text_input(
                     "Search weekly matchups",
                     placeholder="Search by team, opponent, or favorite",
@@ -261,6 +296,8 @@ def main() -> None:
                 ).strip().lower()
             board = weekly_board[weekly_board["display_week"] == selected_week].copy()
             board = board[board["site"].isin(["home", "neutral"])].copy()
+            if selected_game_type != "All":
+                board = board[board["game_type"] == selected_game_type]
 
             board["matchup"] = board.apply(
                 lambda row: f"{row['opponent']} vs {row['team']}" if row["site"] == "neutral" else f"{row['opponent']} at {row['team']}",
@@ -287,11 +324,12 @@ def main() -> None:
                 ]
 
             display = board[
-                ["week_label", "matchup", "site", "line", "win_probability", "team_rating", "opponent_rating"]
+                ["week_label", "matchup", "game_type", "site", "line", "win_probability", "team_rating", "opponent_rating"]
             ].copy()
             display.columns = [
                 "Week",
                 "Matchup",
+                "Game Type",
                 "Site",
                 "Projected Line",
                 "Home/Listed Team Win %",
@@ -335,13 +373,14 @@ def main() -> None:
             if not projected_games.empty:
                 team_names = totals_display["Team"].tolist()
                 selected_team = st.selectbox("Schedule detail", team_names, key="schedule_detail_team")
-                team_games = add_week_display_columns(projected_games)
+                team_games = add_game_type_column(add_week_display_columns(projected_games))
                 team_games = team_games[team_games["team"] == selected_team].copy().sort_values(["display_week", "week"])
                 team_games = team_games[
                     [
                         "week_label",
                         "team",
                         "opponent",
+                        "game_type",
                         "site",
                         "team_rating",
                         "opponent_rating",
@@ -355,6 +394,7 @@ def main() -> None:
                     "Week",
                     "Team",
                     "Opponent",
+                    "Game Type",
                     "Site",
                     "Team Rating",
                     "Opponent Rating",
@@ -369,7 +409,7 @@ def main() -> None:
         if odds.empty:
             render_missing_state(Path(odds_path), "Odds comparison file")
         else:
-            odds_board = add_week_display_columns(odds)
+            odds_board = add_game_type_column(add_week_display_columns(odds))
             numeric_columns = [
                 "week",
                 "display_week",
@@ -397,12 +437,15 @@ def main() -> None:
             metric_col2.metric("Completed No-Odds", f"{len(no_current_odds)}")
             metric_col3.metric("Largest Live Edge", f"{live_odds['absolute_edge_points'].max():.2f}" if not live_odds.empty else "N/A")
 
-            filter_col1, filter_col2, filter_col3 = st.columns([1, 1.4, 2])
+            filter_col1, filter_col2, filter_col3, filter_col4 = st.columns([1, 1, 1.4, 2])
             available_weeks = sorted(int(week) for week in odds_board["display_week"].dropna().unique()) if "display_week" in odds_board.columns else []
             week_options = {f"Week {week}": week for week in available_weeks}
+            odds_game_type_options = ["All"] + sorted(odds_board["game_type"].dropna().astype(str).unique().tolist())
             with filter_col1:
                 week_filter = st.selectbox("Week", ["All"] + list(week_options), index=0, key="odds_week_filter")
             with filter_col2:
+                odds_game_type_filter = st.selectbox("Game Type", odds_game_type_options, index=0, key="odds_game_type_filter")
+            with filter_col3:
                 edge_range = st.slider(
                     "Edge range",
                     min_value=0.0,
@@ -411,7 +454,7 @@ def main() -> None:
                     step=0.5,
                     help="Very large edges are often data/model review candidates rather than clean value spots.",
                 )
-            with filter_col3:
+            with filter_col4:
                 odds_search = st.text_input(
                     "Search odds board",
                     placeholder="Search by team, matchup, or edge side",
@@ -433,6 +476,8 @@ def main() -> None:
                     (odds_board["absolute_edge_points"] >= min_edge)
                     & (odds_board["absolute_edge_points"] <= max_edge)
                 ].copy()
+            if odds_game_type_filter != "All":
+                filtered_odds = filtered_odds[filtered_odds["game_type"] == odds_game_type_filter]
             if odds_search:
                 filtered_odds = filtered_odds[
                     filtered_odds.apply(
@@ -476,6 +521,7 @@ def main() -> None:
                     "week_label",
                     "commence_time",
                     "matchup",
+                    "game_type",
                     "market_status",
                     "edge_side",
                     "edge_display",
@@ -490,6 +536,7 @@ def main() -> None:
                 "Week",
                 "Kickoff",
                 "Matchup",
+                "Game Type",
                 "Market Status",
                 "Model Edge Side",
                 "Edge Points",
@@ -509,7 +556,7 @@ def main() -> None:
             render_missing_state(Path(completed_review_path), "Completed games review file")
         else:
             weekly_results = add_week_display_columns(weekly_review)
-            completed_games = add_week_display_columns(completed_review)
+            completed_games = add_game_type_column(add_week_display_columns(completed_review))
             for column in [
                 "display_week",
                 "games",
@@ -597,10 +644,13 @@ def main() -> None:
 
             available_review_weeks = sorted(int(week) for week in completed_games["display_week"].dropna().unique())
             review_week_options = {f"Week {week}": week for week in available_review_weeks}
-            review_filter_col1, review_filter_col2 = st.columns([1, 2])
+            review_game_type_options = ["All"] + sorted(completed_games["game_type"].dropna().astype(str).unique().tolist())
+            review_filter_col1, review_filter_col2, review_filter_col3 = st.columns([1, 1, 2])
             with review_filter_col1:
                 review_week_filter = st.selectbox("Week", ["All"] + list(review_week_options), index=0, key="results_review_week")
             with review_filter_col2:
+                review_game_type_filter = st.selectbox("Game Type", review_game_type_options, index=0, key="results_review_game_type")
+            with review_filter_col3:
                 review_search = st.text_input(
                     "Search completed games",
                     placeholder="Search by team, matchup, or result",
@@ -610,6 +660,8 @@ def main() -> None:
             filtered_review = completed_games.copy()
             if review_week_filter != "All":
                 filtered_review = filtered_review[filtered_review["display_week"] == review_week_options[review_week_filter]]
+            if review_game_type_filter != "All":
+                filtered_review = filtered_review[filtered_review["game_type"] == review_game_type_filter]
             if review_search:
                 filtered_review = filtered_review[
                     filtered_review.apply(
@@ -624,6 +676,7 @@ def main() -> None:
                 [
                     "week_label",
                     "matchup",
+                    "game_type",
                     "score",
                     "model_line",
                     "market_line",
@@ -637,6 +690,7 @@ def main() -> None:
             review_game_display.columns = [
                 "Week",
                 "Matchup",
+                "Game Type",
                 "Final Score",
                 "Model Line",
                 "Market Line",

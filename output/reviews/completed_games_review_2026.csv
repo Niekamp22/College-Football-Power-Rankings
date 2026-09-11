@@ -1,99 +1,99 @@
-season,week,display_week,week_label,start_date,away_team,home_team,neutral_site,away_points,home_points,actual_home_margin,model_home_margin,model_home_spread,market_home_spread,market_home_margin,model_margin_error,market_margin_error,absolute_model_error,absolute_market_error,winner_model_result,winner_market_result,model_edge_home_points,model_edge_side,edge_result
-2026,1,0,Week 0,2026-08-29T16:00:00.000Z,North Carolina,TCU,True,15,10,-5.0,3.53,-3.53,-7.5,7.5,8.53,12.5,8.53,12.5,wrong,wrong,-3.97,North Carolina,right_side
-2026,1,0,Week 0,2026-08-29T19:00:00.000Z,San José State,USC,False,26,42,16.0,24.08,-24.08,-37.33,37.33,8.08,21.33,8.08,21.33,correct,correct,-13.25,San José State,right_side
-2026,1,0,Week 0,2026-08-29T19:30:00.000Z,NC State,Virginia,False,8,34,26.0,2.99,-2.99,-4.0,4.0,-23.01,-22.0,23.01,22.0,correct,correct,-1.01,NC State,wrong_side
-2026,1,0,Week 0,2026-08-29T21:30:00.000Z,Jacksonville State,North Dakota State,False,7,33,26.0,3.41,-3.41,-6.67,6.67,-22.59,-19.33,22.59,19.33,correct,correct,-3.26,Jacksonville State,wrong_side
-2026,1,0,Week 0,2026-08-29T22:30:00.000Z,Sacramento State,Eastern Michigan,False,17,28,11.0,1.24,-1.24,-9.0,9.0,-9.76,-2.0,9.76,2.0,correct,correct,-7.76,Sacramento State,wrong_side
-2026,1,0,Week 0,2026-08-29T23:00:00.000Z,Hawai'i,Stanford,False,27,37,10.0,6.39,-6.39,-4.67,4.67,-3.61,-5.33,3.61,5.33,correct,correct,1.72,Stanford,right_side
-2026,1,0,Week 0,2026-08-29T23:00:00.000Z,New Mexico State,Florida State,False,17,34,17.0,19.18,-19.18,-31.0,31.0,2.18,14.0,2.18,14.0,correct,correct,-11.82,New Mexico State,right_side
-2026,1,0,Week 0,2026-08-30T02:00:00.000Z,Memphis,UNLV,False,27,21,-6.0,2.77,-2.77,-4.5,4.5,8.77,10.5,8.77,10.5,wrong,wrong,-1.73,Memphis,right_side
-2026,1,1,Week 1,2026-09-03T22:00:00.000Z,Massachusetts,Rutgers,False,37,21,-16.0,18.57,-18.57,-29.33,29.33,34.57,45.33,34.57,45.33,wrong,wrong,-10.76,Massachusetts,right_side
-2026,1,1,Week 1,2026-09-03T23:00:00.000Z,Akron,Wake Forest,False,16,38,22.0,20.15,-20.15,-27.5,27.5,-1.85,5.5,1.85,5.5,correct,correct,-7.35,Akron,right_side
-2026,1,1,Week 1,2026-09-03T23:00:00.000Z,Bethune-Cookman,UCF,False,6,73,67.0,37.66,-37.66,-43.5,43.5,-29.34,-23.5,29.34,23.5,correct,correct,-5.84,Bethune-Cookman,wrong_side
-2026,1,1,Week 1,2026-09-03T23:00:00.000Z,Merrimack,Delaware,False,7,42,35.0,32.98,-32.98,-31.5,31.5,-2.02,-3.5,2.02,3.5,correct,correct,1.48,Delaware,right_side
-2026,1,1,Week 1,2026-09-03T23:00:00.000Z,UAlbany,Buffalo,False,17,21,4.0,33.47,-33.47,-18.5,18.5,29.47,14.5,29.47,14.5,correct,correct,14.97,Buffalo,wrong_side
-2026,1,1,Week 1,2026-09-03T23:00:00.000Z,West Georgia,Kennesaw State,False,0,47,47.0,32.75,-32.75,-22.5,22.5,-14.25,-24.5,14.25,24.5,correct,correct,10.25,Kennesaw State,right_side
-2026,1,1,Week 1,2026-09-04T00:00:00.000Z,Arkansas-Pine Bluff,Missouri,False,14,54,40.0,44.04,-44.04,-55.5,55.5,4.04,15.5,4.04,15.5,correct,correct,-11.46,Arkansas-Pine Bluff,right_side
-2026,1,1,Week 1,2026-09-04T00:00:00.000Z,Colorado,Georgia Tech,False,14,13,-1.0,6.66,-6.66,-6.5,6.5,7.66,7.5,7.66,7.5,wrong,wrong,0.16,Georgia Tech,wrong_side
-2026,1,1,Week 1,2026-09-04T00:00:00.000Z,Eastern Illinois,Minnesota,False,7,59,52.0,39.58,-39.58,-42.5,42.5,-12.42,-9.5,12.42,9.5,correct,correct,-2.92,Eastern Illinois,wrong_side
-2026,1,1,Week 1,2026-09-04T01:00:00.000Z,Idaho,Utah,False,14,66,52.0,44.82,-44.82,-38.0,38.0,-7.18,-14.0,7.18,14.0,correct,correct,6.82,Utah,right_side
-2026,1,1,Week 1,2026-09-04T01:00:00.000Z,UAB,Illinois,False,23,42,19.0,10.53,-10.53,-25.83,25.83,-8.47,6.83,8.47,6.83,correct,correct,-15.3,UAB,right_side
-2026,1,1,Week 1,2026-09-04T22:30:00.000Z,San José State,Eastern Michigan,False,27,21,-6.0,1.98,-1.98,-1.5,1.5,7.98,7.5,7.98,7.5,wrong,wrong,0.48,Eastern Michigan,wrong_side
-2026,1,1,Week 1,2026-09-04T23:00:00.000Z,Indiana State,Purdue,False,19,44,25.0,35.34,-35.34,-35.17,35.17,10.34,10.17,10.34,10.17,correct,correct,0.17,Purdue,wrong_side
-2026,1,1,Week 1,2026-09-04T23:00:00.000Z,North Carolina A&T,Georgia State,False,10,59,49.0,31.55,-31.55,-28.33,28.33,-17.45,-20.67,17.45,20.67,correct,correct,3.22,Georgia State,right_side
-2026,1,1,Week 1,2026-09-05T00:00:00.000Z,Long Island University,Kansas,False,6,51,45.0,38.75,-38.75,-43.67,43.67,-6.25,-1.33,6.25,1.33,correct,correct,-4.92,Long Island University,wrong_side
-2026,1,1,Week 1,2026-09-05T00:00:00.000Z,Toledo,Michigan State,False,20,30,10.0,2.8,-2.8,-10.0,10.0,-7.2,0.0,7.2,0.0,correct,correct,-7.2,Toledo,push
-2026,1,1,Week 1,2026-09-05T00:00:00.000Z,UTEP,Oklahoma,False,0,51,51.0,21.91,-21.91,-40.67,40.67,-29.09,-10.33,29.09,10.33,correct,correct,-18.76,UTEP,wrong_side
-2026,1,1,Week 1,2026-09-05T01:00:00.000Z,Fresno State,USC,False,0,39,39.0,20.02,-20.02,-21.83,21.83,-18.98,-17.17,18.98,17.17,correct,correct,-1.81,Fresno State,wrong_side
-2026,1,1,Week 1,2026-09-05T01:00:00.000Z,Miami,Stanford,False,45,6,-39.0,-12.22,12.22,24.5,-24.5,26.78,14.5,26.78,14.5,correct,correct,12.28,Stanford,wrong_side
-2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Bryant,Army,False,3,59,56.0,31.99,-31.99,-37.33,37.33,-24.01,-18.67,24.01,18.67,correct,correct,-5.34,Bryant,wrong_side
-2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Coastal Carolina,West Virginia,False,24,31,7.0,8.86,-8.86,-21.0,21.0,1.86,14.0,1.86,14.0,correct,correct,-12.14,Coastal Carolina,right_side
-2026,1,1,Week 1,2026-09-05T16:00:00.000Z,East Carolina,Alabama,False,10,48,38.0,17.49,-17.49,-28.0,28.0,-20.51,-10.0,20.51,10.0,correct,correct,-10.51,East Carolina,wrong_side
-2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Lafayette,UConn,False,7,56,49.0,37.66,-37.66,-20.83,20.83,-11.34,-28.17,11.34,28.17,correct,correct,16.83,UConn,right_side
-2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Liberty,James Madison,False,13,20,7.0,4.04,-4.04,-6.0,6.0,-2.96,-1.0,2.96,1.0,correct,correct,-1.96,Liberty,wrong_side
-2026,1,1,Week 1,2026-09-05T16:00:00.000Z,New Hampshire,Syracuse,False,3,66,63.0,35.65,-35.65,-35.17,35.17,-27.35,-27.83,27.35,27.83,correct,correct,0.48,Syracuse,right_side
-2026,1,1,Week 1,2026-09-05T16:00:00.000Z,North Texas,Indiana,False,16,52,36.0,18.36,-18.36,-39.83,39.83,-17.64,3.83,17.64,3.83,correct,correct,-21.47,North Texas,right_side
-2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Ohio,Nebraska,False,21,49,28.0,14.68,-14.68,-23.67,23.67,-13.32,-4.33,13.32,4.33,correct,correct,-8.99,Ohio,wrong_side
-2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Oregon State,Houston,False,20,33,13.0,10.75,-10.75,-20.83,20.83,-2.25,7.83,2.25,7.83,correct,correct,-10.08,Oregon State,right_side
-2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Tarleton State,Bowling Green,False,20,13,-7.0,33.34,-33.34,-1.67,1.67,40.34,8.67,40.34,8.67,wrong,wrong,31.67,Bowling Green,wrong_side
-2026,1,1,Week 1,2026-09-05T16:30:00.000Z,Ball State,Ohio State,False,3,56,53.0,32.49,-32.49,-50.33,50.33,-20.51,-2.67,20.51,2.67,correct,correct,-17.84,Ball State,wrong_side
-2026,1,1,Week 1,2026-09-05T16:30:00.000Z,Miami (OH),Pittsburgh,False,14,59,45.0,9.5,-9.5,-16.33,16.33,-35.5,-28.67,35.5,28.67,correct,correct,-6.83,Miami (OH),wrong_side
-2026,1,1,Week 1,2026-09-05T16:45:00.000Z,Kent State,South Carolina,False,0,57,57.0,23.74,-23.74,-35.83,35.83,-33.26,-21.17,33.26,21.17,correct,correct,-12.09,Kent State,wrong_side
-2026,1,1,Week 1,2026-09-05T17:00:00.000Z,Duquesne,Air Force,False,0,34,34.0,29.44,-29.44,-30.5,30.5,-4.56,-3.5,4.56,3.5,correct,correct,-1.06,Duquesne,wrong_side
-2026,1,1,Week 1,2026-09-05T17:00:00.000Z,Southeast Missouri State,Iowa State,False,10,38,28.0,39.92,-39.92,-29.5,29.5,11.92,1.5,11.92,1.5,correct,correct,10.42,Iowa State,wrong_side
-2026,1,1,Week 1,2026-09-05T17:00:00.000Z,Youngstown State,Kentucky,False,13,45,32.0,40.0,-40.0,-22.33,22.33,8.0,-9.67,8.0,9.67,correct,correct,17.67,Kentucky,right_side
-2026,1,1,Week 1,2026-09-05T18:00:00.000Z,Rhode Island,Temple,False,14,38,24.0,33.97,-33.97,-14.5,14.5,9.97,-9.5,9.97,9.5,correct,correct,19.47,Temple,right_side
-2026,1,1,Week 1,2026-09-05T19:00:00.000Z,Tennessee State,Georgia,False,3,63,60.0,51.59,-51.59,-49.33,49.33,-8.41,-10.67,8.41,10.67,correct,correct,2.26,Georgia,right_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Baylor,Auburn,True,16,17,1.0,4.97,-4.97,-6.5,6.5,3.97,5.5,3.97,5.5,correct,correct,-1.53,Baylor,right_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Boise State,Oregon,False,27,34,7.0,19.14,-19.14,-24.67,24.67,12.14,17.67,12.14,17.67,correct,correct,-5.53,Boise State,right_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Boston College,Cincinnati,False,15,34,19.0,4.09,-4.09,-7.0,7.0,-14.91,-12.0,14.91,12.0,correct,correct,-2.91,Boston College,wrong_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Fordham,North Dakota State,False,0,38,38.0,34.97,-34.97,-41.5,41.5,-3.03,3.5,3.03,3.5,correct,correct,-6.53,Fordham,right_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Furman,Tennessee,False,9,56,47.0,45.96,-45.96,-49.33,49.33,-1.04,2.33,1.04,2.33,correct,correct,-3.37,Furman,right_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Maine,App State,False,3,55,52.0,33.76,-33.76,-20.83,20.83,-18.24,-31.17,18.24,31.17,correct,correct,12.93,App State,right_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Marshall,Penn State,False,0,45,45.0,15.94,-15.94,-23.33,23.33,-29.06,-21.67,29.06,21.67,correct,correct,-7.39,Marshall,wrong_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Texas State,Texas,False,7,59,52.0,17.42,-17.42,-29.5,29.5,-34.58,-22.5,34.58,22.5,correct,correct,-12.08,Texas State,wrong_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,The Citadel,Charlotte,False,43,41,-2.0,30.48,-30.48,-20.5,20.5,32.48,22.5,32.48,22.5,wrong,wrong,9.98,Charlotte,wrong_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Towson,Navy,False,15,42,27.0,30.42,-30.42,-31.17,31.17,3.42,4.17,3.42,4.17,correct,correct,-0.75,Towson,right_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Tulane,Duke,False,3,17,14.0,3.64,-3.64,-9.0,9.0,-10.36,-5.0,10.36,5.0,correct,correct,-5.36,Tulane,wrong_side
-2026,1,1,Week 1,2026-09-05T19:30:00.000Z,UT Rio Grande Valley,UTSA,False,16,45,29.0,38.45,-38.45,-28.5,28.5,9.45,-0.5,9.45,0.5,correct,correct,9.95,UTSA,right_side
-2026,1,1,Week 1,2026-09-05T19:45:00.000Z,Oklahoma State,Tulsa,False,10,24,14.0,0.77,-0.77,13.33,-13.33,-13.23,-27.33,13.23,27.33,correct,wrong,14.1,Tulsa,right_side
-2026,1,1,Week 1,2026-09-05T20:15:00.000Z,North Alabama,Arkansas,False,14,31,17.0,40.59,-40.59,-40.5,40.5,23.59,23.5,23.59,23.5,correct,correct,0.09,Arkansas,wrong_side
-2026,1,1,Week 1,2026-09-05T20:15:00.000Z,Northern Illinois,Iowa,False,0,40,40.0,19.21,-19.21,-31.67,31.67,-20.79,-8.33,20.79,8.33,correct,correct,-12.46,Northern Illinois,wrong_side
-2026,1,1,Week 1,2026-09-05T21:00:00.000Z,Alcorn State,Southern Miss,False,3,49,46.0,34.17,-34.17,-19.83,19.83,-11.83,-26.17,11.83,26.17,correct,correct,14.34,Southern Miss,right_side
-2026,1,1,Week 1,2026-09-05T22:00:00.000Z,Norfolk State,Old Dominion,False,10,31,21.0,32.82,-32.82,-41.33,41.33,11.82,20.33,11.82,20.33,correct,correct,-8.51,Norfolk State,right_side
-2026,1,1,Week 1,2026-09-05T22:00:00.000Z,Wyoming,Colorado State,False,13,35,22.0,4.36,-4.36,-2.67,2.67,-17.64,-19.33,17.64,19.33,correct,correct,1.69,Colorado State,right_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Abilene Christian,Texas Tech,False,10,33,23.0,47.18,-47.18,-45.17,45.17,24.18,22.17,24.18,22.17,correct,correct,2.01,Texas Tech,wrong_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Arkansas State,Memphis,False,24,42,18.0,8.97,-8.97,-10.5,10.5,-9.03,-7.5,9.03,7.5,correct,correct,-1.53,Arkansas State,wrong_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Austin Peay,Vanderbilt,False,9,28,19.0,44.19,-44.19,-29.0,29.0,25.19,10.0,25.19,10.0,correct,correct,15.19,Vanderbilt,wrong_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Charleston Southern,Georgia Southern,False,0,31,31.0,35.26,-35.26,-28.33,28.33,4.26,-2.67,4.26,2.67,correct,correct,6.93,Georgia Southern,right_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Eastern Kentucky,Jacksonville State,False,7,49,42.0,34.06,-34.06,-22.33,22.33,-7.94,-19.67,7.94,19.67,correct,correct,11.73,Jacksonville State,right_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Florida International,South Florida,False,9,19,10.0,11.13,-11.13,-14.5,14.5,1.13,4.5,1.13,4.5,correct,correct,-3.37,Florida International,right_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Houston Christian,Rice,False,3,31,28.0,30.99,-30.99,-22.67,22.67,2.99,-5.33,2.99,5.33,correct,correct,8.32,Rice,right_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Idaho State,Utah State,False,29,17,-12.0,33.58,-33.58,-15.17,15.17,45.58,27.17,45.58,27.17,wrong,wrong,18.41,Utah State,wrong_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Missouri State,Texas A&M,False,0,50,50.0,22.95,-22.95,-39.17,39.17,-27.05,-10.83,27.05,10.83,correct,correct,-16.22,Missouri State,wrong_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Murray State,Middle Tennessee,False,14,38,24.0,32.18,-32.18,-22.5,22.5,8.18,-1.5,8.18,1.5,correct,correct,9.68,Middle Tennessee,right_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Nicholls,Kansas State,False,3,71,68.0,41.41,-41.41,-41.33,41.33,-26.59,-26.67,26.59,26.67,correct,correct,0.08,Kansas State,right_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,SE Louisiana,South Alabama,False,14,39,25.0,34.39,-34.39,-13.67,13.67,9.39,-11.33,9.39,11.33,correct,correct,20.72,South Alabama,right_side
-2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Sam Houston,Troy,False,21,24,3.0,9.64,-9.64,-16.17,16.17,6.64,13.17,6.64,13.17,correct,correct,-6.53,Sam Houston,right_side
-2026,1,1,Week 1,2026-09-05T23:30:00.000Z,Clemson,LSU,False,10,51,41.0,5.51,-5.51,-10.0,10.0,-35.49,-31.0,35.49,31.0,correct,correct,-4.49,Clemson,wrong_side
-2026,1,1,Week 1,2026-09-05T23:30:00.000Z,Northwestern State,Louisiana Tech,False,6,80,74.0,35.05,-35.05,-44.5,44.5,-38.95,-29.5,38.95,29.5,correct,correct,-9.45,Northwestern State,wrong_side
-2026,1,1,Week 1,2026-09-05T23:30:00.000Z,UL Monroe,Mississippi State,False,13,62,49.0,18.9,-18.9,-28.5,28.5,-30.1,-20.5,30.1,20.5,correct,correct,-9.6,UL Monroe,wrong_side
-2026,1,1,Week 1,2026-09-05T23:30:00.000Z,VMI,Virginia Tech,False,3,73,70.0,38.63,-38.63,-54.5,54.5,-31.37,-15.5,31.37,15.5,correct,correct,-15.87,VMI,wrong_side
-2026,1,1,Week 1,2026-09-05T23:30:00.000Z,Western Michigan,Michigan,False,12,13,1.0,16.31,-16.31,-27.5,27.5,15.31,26.5,15.31,26.5,correct,correct,-11.19,Western Michigan,right_side
-2026,1,1,Week 1,2026-09-05T23:45:00.000Z,Florida Atlantic,Florida,False,21,66,45.0,17.7,-17.7,-26.17,26.17,-27.3,-18.83,27.3,18.83,correct,correct,-8.47,Florida Atlantic,wrong_side
-2026,1,1,Week 1,2026-09-06T00:00:00.000Z,Hampton,Maryland,False,0,62,62.0,37.76,-37.76,-45.5,45.5,-24.24,-16.5,24.24,16.5,correct,correct,-7.74,Hampton,wrong_side
-2026,1,1,Week 1,2026-09-06T00:00:00.000Z,Lamar,Louisiana,False,7,38,31.0,34.7,-34.7,-20.33,20.33,3.7,-10.67,3.7,10.67,correct,correct,14.37,Louisiana,right_side
-2026,1,1,Week 1,2026-09-06T00:00:00.000Z,South Dakota State,Northwestern,False,18,34,16.0,39.57,-39.57,-13.5,13.5,23.57,-2.5,23.57,2.5,correct,correct,26.07,Northwestern,right_side
-2026,1,1,Week 1,2026-09-06T00:00:00.000Z,Utah Tech,BYU,False,7,63,56.0,41.82,-41.82,-50.17,50.17,-14.18,-5.83,14.18,5.83,correct,correct,-8.35,Utah Tech,wrong_side
-2026,1,1,Week 1,2026-09-06T01:00:00.000Z,Mercyhurst,New Mexico State,False,14,51,37.0,26.47,-26.47,-29.17,29.17,-10.53,-7.83,10.53,7.83,correct,correct,-2.7,Mercyhurst,wrong_side
-2026,1,1,Week 1,2026-09-06T01:30:00.000Z,Northern Arizona,Arizona,False,7,35,28.0,41.23,-41.23,-32.5,32.5,13.23,4.5,13.23,4.5,correct,correct,8.73,Arizona,wrong_side
-2026,1,1,Week 1,2026-09-06T01:30:00.000Z,Portland State,San Diego State,False,20,53,33.0,37.5,-37.5,-39.17,39.17,4.5,6.17,4.5,6.17,correct,correct,-1.67,Portland State,right_side
-2026,1,1,Week 1,2026-09-06T02:00:00.000Z,Central Michigan,New Mexico,False,7,38,31.0,7.98,-7.98,-11.0,11.0,-23.02,-20.0,23.02,20.0,correct,correct,-3.02,Central Michigan,wrong_side
-2026,1,1,Week 1,2026-09-06T02:00:00.000Z,Mississippi Valley State,Sacramento State,False,0,52,52.0,33.43,-33.43,-38.0,38.0,-18.57,-14.0,18.57,14.0,correct,correct,-4.57,Mississippi Valley State,wrong_side
-2026,1,1,Week 1,2026-09-06T02:00:00.000Z,Morgan State,Arizona State,False,7,70,63.0,40.63,-40.63,-44.0,44.0,-22.37,-19.0,22.37,19.0,correct,correct,-3.37,Morgan State,wrong_side
-2026,1,1,Week 1,2026-09-06T02:00:00.000Z,UNLV,Hawai'i,False,21,6,-15.0,-4.69,4.69,2.83,-2.83,10.31,12.17,10.31,12.17,correct,correct,-1.86,UNLV,right_side
-2026,1,1,Week 1,2026-09-06T02:30:00.000Z,UCLA,California,False,45,24,-21.0,1.5,-1.5,2.5,-2.5,22.5,18.5,22.5,18.5,wrong,correct,4.0,California,wrong_side
-2026,1,1,Week 1,2026-09-06T02:30:00.000Z,Western Kentucky,Nevada,False,14,49,35.0,0.24,-0.24,0.67,-0.67,-34.76,-35.67,34.76,35.67,correct,wrong,0.91,Nevada,right_side
-2026,1,1,Week 1,2026-09-06T20:00:00.000Z,Washington State,Washington,False,10,24,14.0,10.82,-10.82,-23.33,23.33,-3.18,9.33,3.18,9.33,correct,correct,-12.51,Washington State,right_side
-2026,1,1,Week 1,2026-09-06T23:30:00.000Z,Louisville,Ole Miss,True,38,41,3.0,6.9,-6.9,-6.5,6.5,3.9,3.5,3.9,3.5,correct,correct,0.4,Ole Miss,wrong_side
-2026,1,1,Week 1,2026-09-06T23:30:00.000Z,Wisconsin,Notre Dame,True,13,41,28.0,15.8,-15.8,-20.83,20.83,-12.2,-7.17,12.2,7.17,correct,correct,-5.03,Wisconsin,wrong_side
+season,week,display_week,week_label,start_date,away_team,home_team,game_type,away_classification,home_classification,neutral_site,away_points,home_points,actual_home_margin,model_home_margin,model_home_spread,market_home_spread,market_home_margin,model_margin_error,market_margin_error,absolute_model_error,absolute_market_error,winner_model_result,winner_market_result,model_edge_home_points,model_edge_side,edge_result
+2026,1,0,Week 0,2026-08-29T16:00:00.000Z,North Carolina,TCU,FBS vs FBS,fbs,fbs,True,15,10,-5.0,3.53,-3.53,-7.5,7.5,8.53,12.5,8.53,12.5,wrong,wrong,-3.97,North Carolina,right_side
+2026,1,0,Week 0,2026-08-29T19:00:00.000Z,San José State,USC,FBS vs FBS,fbs,fbs,False,26,42,16.0,24.08,-24.08,-37.33,37.33,8.08,21.33,8.08,21.33,correct,correct,-13.25,San José State,right_side
+2026,1,0,Week 0,2026-08-29T19:30:00.000Z,NC State,Virginia,FBS vs FBS,fbs,fbs,False,8,34,26.0,2.99,-2.99,-4.0,4.0,-23.01,-22.0,23.01,22.0,correct,correct,-1.01,NC State,wrong_side
+2026,1,0,Week 0,2026-08-29T21:30:00.000Z,Jacksonville State,North Dakota State,FBS vs FBS,fbs,fbs,False,7,33,26.0,3.41,-3.41,-6.67,6.67,-22.59,-19.33,22.59,19.33,correct,correct,-3.26,Jacksonville State,wrong_side
+2026,1,0,Week 0,2026-08-29T22:30:00.000Z,Sacramento State,Eastern Michigan,FBS vs FBS,fbs,fbs,False,17,28,11.0,1.24,-1.24,-9.0,9.0,-9.76,-2.0,9.76,2.0,correct,correct,-7.76,Sacramento State,wrong_side
+2026,1,0,Week 0,2026-08-29T23:00:00.000Z,Hawai'i,Stanford,FBS vs FBS,fbs,fbs,False,27,37,10.0,6.39,-6.39,-4.67,4.67,-3.61,-5.33,3.61,5.33,correct,correct,1.72,Stanford,right_side
+2026,1,0,Week 0,2026-08-29T23:00:00.000Z,New Mexico State,Florida State,FBS vs FBS,fbs,fbs,False,17,34,17.0,19.18,-19.18,-31.0,31.0,2.18,14.0,2.18,14.0,correct,correct,-11.82,New Mexico State,right_side
+2026,1,0,Week 0,2026-08-30T02:00:00.000Z,Memphis,UNLV,FBS vs FBS,fbs,fbs,False,27,21,-6.0,2.77,-2.77,-4.5,4.5,8.77,10.5,8.77,10.5,wrong,wrong,-1.73,Memphis,right_side
+2026,1,1,Week 1,2026-09-03T22:00:00.000Z,Massachusetts,Rutgers,FBS vs FBS,fbs,fbs,False,37,21,-16.0,18.57,-18.57,-29.33,29.33,34.57,45.33,34.57,45.33,wrong,wrong,-10.76,Massachusetts,right_side
+2026,1,1,Week 1,2026-09-03T23:00:00.000Z,Akron,Wake Forest,FBS vs FBS,fbs,fbs,False,16,38,22.0,20.15,-20.15,-27.5,27.5,-1.85,5.5,1.85,5.5,correct,correct,-7.35,Akron,right_side
+2026,1,1,Week 1,2026-09-03T23:00:00.000Z,Bethune-Cookman,UCF,FCS involved,fcs,fbs,False,6,73,67.0,37.66,-37.66,-43.5,43.5,-29.34,-23.5,29.34,23.5,correct,correct,-5.84,Bethune-Cookman,wrong_side
+2026,1,1,Week 1,2026-09-03T23:00:00.000Z,Merrimack,Delaware,FCS involved,fcs,fbs,False,7,42,35.0,32.98,-32.98,-31.5,31.5,-2.02,-3.5,2.02,3.5,correct,correct,1.48,Delaware,right_side
+2026,1,1,Week 1,2026-09-03T23:00:00.000Z,UAlbany,Buffalo,FCS involved,fcs,fbs,False,17,21,4.0,33.47,-33.47,-18.5,18.5,29.47,14.5,29.47,14.5,correct,correct,14.97,Buffalo,wrong_side
+2026,1,1,Week 1,2026-09-03T23:00:00.000Z,West Georgia,Kennesaw State,FCS involved,fcs,fbs,False,0,47,47.0,32.75,-32.75,-22.5,22.5,-14.25,-24.5,14.25,24.5,correct,correct,10.25,Kennesaw State,right_side
+2026,1,1,Week 1,2026-09-04T00:00:00.000Z,Arkansas-Pine Bluff,Missouri,FCS involved,fcs,fbs,False,14,54,40.0,44.04,-44.04,-55.5,55.5,4.04,15.5,4.04,15.5,correct,correct,-11.46,Arkansas-Pine Bluff,right_side
+2026,1,1,Week 1,2026-09-04T00:00:00.000Z,Colorado,Georgia Tech,FBS vs FBS,fbs,fbs,False,14,13,-1.0,6.66,-6.66,-6.5,6.5,7.66,7.5,7.66,7.5,wrong,wrong,0.16,Georgia Tech,wrong_side
+2026,1,1,Week 1,2026-09-04T00:00:00.000Z,Eastern Illinois,Minnesota,FCS involved,fcs,fbs,False,7,59,52.0,39.58,-39.58,-42.5,42.5,-12.42,-9.5,12.42,9.5,correct,correct,-2.92,Eastern Illinois,wrong_side
+2026,1,1,Week 1,2026-09-04T01:00:00.000Z,Idaho,Utah,FCS involved,fcs,fbs,False,14,66,52.0,44.82,-44.82,-38.0,38.0,-7.18,-14.0,7.18,14.0,correct,correct,6.82,Utah,right_side
+2026,1,1,Week 1,2026-09-04T01:00:00.000Z,UAB,Illinois,FBS vs FBS,fbs,fbs,False,23,42,19.0,10.53,-10.53,-25.83,25.83,-8.47,6.83,8.47,6.83,correct,correct,-15.3,UAB,right_side
+2026,1,1,Week 1,2026-09-04T22:30:00.000Z,San José State,Eastern Michigan,FBS vs FBS,fbs,fbs,False,27,21,-6.0,1.98,-1.98,-1.5,1.5,7.98,7.5,7.98,7.5,wrong,wrong,0.48,Eastern Michigan,wrong_side
+2026,1,1,Week 1,2026-09-04T23:00:00.000Z,Indiana State,Purdue,FCS involved,fcs,fbs,False,19,44,25.0,35.34,-35.34,-35.17,35.17,10.34,10.17,10.34,10.17,correct,correct,0.17,Purdue,wrong_side
+2026,1,1,Week 1,2026-09-04T23:00:00.000Z,North Carolina A&T,Georgia State,FCS involved,fcs,fbs,False,10,59,49.0,31.55,-31.55,-28.33,28.33,-17.45,-20.67,17.45,20.67,correct,correct,3.22,Georgia State,right_side
+2026,1,1,Week 1,2026-09-05T00:00:00.000Z,Long Island University,Kansas,FCS involved,fcs,fbs,False,6,51,45.0,38.75,-38.75,-43.67,43.67,-6.25,-1.33,6.25,1.33,correct,correct,-4.92,Long Island University,wrong_side
+2026,1,1,Week 1,2026-09-05T00:00:00.000Z,Toledo,Michigan State,FBS vs FBS,fbs,fbs,False,20,30,10.0,2.8,-2.8,-10.0,10.0,-7.2,0.0,7.2,0.0,correct,correct,-7.2,Toledo,push
+2026,1,1,Week 1,2026-09-05T00:00:00.000Z,UTEP,Oklahoma,FBS vs FBS,fbs,fbs,False,0,51,51.0,21.91,-21.91,-40.67,40.67,-29.09,-10.33,29.09,10.33,correct,correct,-18.76,UTEP,wrong_side
+2026,1,1,Week 1,2026-09-05T01:00:00.000Z,Fresno State,USC,FBS vs FBS,fbs,fbs,False,0,39,39.0,20.02,-20.02,-21.83,21.83,-18.98,-17.17,18.98,17.17,correct,correct,-1.81,Fresno State,wrong_side
+2026,1,1,Week 1,2026-09-05T01:00:00.000Z,Miami,Stanford,FBS vs FBS,fbs,fbs,False,45,6,-39.0,-12.22,12.22,24.5,-24.5,26.78,14.5,26.78,14.5,correct,correct,12.28,Stanford,wrong_side
+2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Bryant,Army,FCS involved,fcs,fbs,False,3,59,56.0,31.99,-31.99,-37.33,37.33,-24.01,-18.67,24.01,18.67,correct,correct,-5.34,Bryant,wrong_side
+2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Coastal Carolina,West Virginia,FBS vs FBS,fbs,fbs,False,24,31,7.0,8.86,-8.86,-21.0,21.0,1.86,14.0,1.86,14.0,correct,correct,-12.14,Coastal Carolina,right_side
+2026,1,1,Week 1,2026-09-05T16:00:00.000Z,East Carolina,Alabama,FBS vs FBS,fbs,fbs,False,10,48,38.0,17.49,-17.49,-28.0,28.0,-20.51,-10.0,20.51,10.0,correct,correct,-10.51,East Carolina,wrong_side
+2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Lafayette,UConn,FCS involved,fcs,fbs,False,7,56,49.0,37.66,-37.66,-20.83,20.83,-11.34,-28.17,11.34,28.17,correct,correct,16.83,UConn,right_side
+2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Liberty,James Madison,FBS vs FBS,fbs,fbs,False,13,20,7.0,4.04,-4.04,-6.0,6.0,-2.96,-1.0,2.96,1.0,correct,correct,-1.96,Liberty,wrong_side
+2026,1,1,Week 1,2026-09-05T16:00:00.000Z,New Hampshire,Syracuse,FCS involved,fcs,fbs,False,3,66,63.0,35.65,-35.65,-35.17,35.17,-27.35,-27.83,27.35,27.83,correct,correct,0.48,Syracuse,right_side
+2026,1,1,Week 1,2026-09-05T16:00:00.000Z,North Texas,Indiana,FBS vs FBS,fbs,fbs,False,16,52,36.0,18.36,-18.36,-39.83,39.83,-17.64,3.83,17.64,3.83,correct,correct,-21.47,North Texas,right_side
+2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Ohio,Nebraska,FBS vs FBS,fbs,fbs,False,21,49,28.0,14.68,-14.68,-23.67,23.67,-13.32,-4.33,13.32,4.33,correct,correct,-8.99,Ohio,wrong_side
+2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Oregon State,Houston,FBS vs FBS,fbs,fbs,False,20,33,13.0,10.75,-10.75,-20.83,20.83,-2.25,7.83,2.25,7.83,correct,correct,-10.08,Oregon State,right_side
+2026,1,1,Week 1,2026-09-05T16:00:00.000Z,Tarleton State,Bowling Green,FCS involved,fcs,fbs,False,20,13,-7.0,33.34,-33.34,-1.67,1.67,40.34,8.67,40.34,8.67,wrong,wrong,31.67,Bowling Green,wrong_side
+2026,1,1,Week 1,2026-09-05T16:30:00.000Z,Ball State,Ohio State,FBS vs FBS,fbs,fbs,False,3,56,53.0,32.49,-32.49,-50.33,50.33,-20.51,-2.67,20.51,2.67,correct,correct,-17.84,Ball State,wrong_side
+2026,1,1,Week 1,2026-09-05T16:30:00.000Z,Miami (OH),Pittsburgh,FBS vs FBS,fbs,fbs,False,14,59,45.0,9.5,-9.5,-16.33,16.33,-35.5,-28.67,35.5,28.67,correct,correct,-6.83,Miami (OH),wrong_side
+2026,1,1,Week 1,2026-09-05T16:45:00.000Z,Kent State,South Carolina,FBS vs FBS,fbs,fbs,False,0,57,57.0,23.74,-23.74,-35.83,35.83,-33.26,-21.17,33.26,21.17,correct,correct,-12.09,Kent State,wrong_side
+2026,1,1,Week 1,2026-09-05T17:00:00.000Z,Duquesne,Air Force,FCS involved,fcs,fbs,False,0,34,34.0,29.44,-29.44,-30.5,30.5,-4.56,-3.5,4.56,3.5,correct,correct,-1.06,Duquesne,wrong_side
+2026,1,1,Week 1,2026-09-05T17:00:00.000Z,Southeast Missouri State,Iowa State,FCS involved,fcs,fbs,False,10,38,28.0,39.92,-39.92,-29.5,29.5,11.92,1.5,11.92,1.5,correct,correct,10.42,Iowa State,wrong_side
+2026,1,1,Week 1,2026-09-05T17:00:00.000Z,Youngstown State,Kentucky,FCS involved,fcs,fbs,False,13,45,32.0,40.0,-40.0,-22.33,22.33,8.0,-9.67,8.0,9.67,correct,correct,17.67,Kentucky,right_side
+2026,1,1,Week 1,2026-09-05T18:00:00.000Z,Rhode Island,Temple,FCS involved,fcs,fbs,False,14,38,24.0,33.97,-33.97,-14.5,14.5,9.97,-9.5,9.97,9.5,correct,correct,19.47,Temple,right_side
+2026,1,1,Week 1,2026-09-05T19:00:00.000Z,Tennessee State,Georgia,FCS involved,fcs,fbs,False,3,63,60.0,51.59,-51.59,-49.33,49.33,-8.41,-10.67,8.41,10.67,correct,correct,2.26,Georgia,right_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Baylor,Auburn,FBS vs FBS,fbs,fbs,True,16,17,1.0,4.97,-4.97,-6.5,6.5,3.97,5.5,3.97,5.5,correct,correct,-1.53,Baylor,right_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Boise State,Oregon,FBS vs FBS,fbs,fbs,False,27,34,7.0,19.14,-19.14,-24.67,24.67,12.14,17.67,12.14,17.67,correct,correct,-5.53,Boise State,right_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Boston College,Cincinnati,FBS vs FBS,fbs,fbs,False,15,34,19.0,4.09,-4.09,-7.0,7.0,-14.91,-12.0,14.91,12.0,correct,correct,-2.91,Boston College,wrong_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Fordham,North Dakota State,FCS involved,fcs,fbs,False,0,38,38.0,34.97,-34.97,-41.5,41.5,-3.03,3.5,3.03,3.5,correct,correct,-6.53,Fordham,right_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Furman,Tennessee,FCS involved,fcs,fbs,False,9,56,47.0,45.96,-45.96,-49.33,49.33,-1.04,2.33,1.04,2.33,correct,correct,-3.37,Furman,right_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Maine,App State,FCS involved,fcs,fbs,False,3,55,52.0,33.76,-33.76,-20.83,20.83,-18.24,-31.17,18.24,31.17,correct,correct,12.93,App State,right_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Marshall,Penn State,FBS vs FBS,fbs,fbs,False,0,45,45.0,15.94,-15.94,-23.33,23.33,-29.06,-21.67,29.06,21.67,correct,correct,-7.39,Marshall,wrong_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Texas State,Texas,FBS vs FBS,fbs,fbs,False,7,59,52.0,17.42,-17.42,-29.5,29.5,-34.58,-22.5,34.58,22.5,correct,correct,-12.08,Texas State,wrong_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,The Citadel,Charlotte,FCS involved,fcs,fbs,False,43,41,-2.0,30.48,-30.48,-20.5,20.5,32.48,22.5,32.48,22.5,wrong,wrong,9.98,Charlotte,wrong_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Towson,Navy,FCS involved,fcs,fbs,False,15,42,27.0,30.42,-30.42,-31.17,31.17,3.42,4.17,3.42,4.17,correct,correct,-0.75,Towson,right_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,Tulane,Duke,FBS vs FBS,fbs,fbs,False,3,17,14.0,3.64,-3.64,-9.0,9.0,-10.36,-5.0,10.36,5.0,correct,correct,-5.36,Tulane,wrong_side
+2026,1,1,Week 1,2026-09-05T19:30:00.000Z,UT Rio Grande Valley,UTSA,FCS involved,fcs,fbs,False,16,45,29.0,38.45,-38.45,-28.5,28.5,9.45,-0.5,9.45,0.5,correct,correct,9.95,UTSA,right_side
+2026,1,1,Week 1,2026-09-05T19:45:00.000Z,Oklahoma State,Tulsa,FBS vs FBS,fbs,fbs,False,10,24,14.0,0.77,-0.77,13.33,-13.33,-13.23,-27.33,13.23,27.33,correct,wrong,14.1,Tulsa,right_side
+2026,1,1,Week 1,2026-09-05T20:15:00.000Z,North Alabama,Arkansas,FCS involved,fcs,fbs,False,14,31,17.0,40.59,-40.59,-40.5,40.5,23.59,23.5,23.59,23.5,correct,correct,0.09,Arkansas,wrong_side
+2026,1,1,Week 1,2026-09-05T20:15:00.000Z,Northern Illinois,Iowa,FBS vs FBS,fbs,fbs,False,0,40,40.0,19.21,-19.21,-31.67,31.67,-20.79,-8.33,20.79,8.33,correct,correct,-12.46,Northern Illinois,wrong_side
+2026,1,1,Week 1,2026-09-05T21:00:00.000Z,Alcorn State,Southern Miss,FCS involved,fcs,fbs,False,3,49,46.0,34.17,-34.17,-19.83,19.83,-11.83,-26.17,11.83,26.17,correct,correct,14.34,Southern Miss,right_side
+2026,1,1,Week 1,2026-09-05T22:00:00.000Z,Norfolk State,Old Dominion,FCS involved,fcs,fbs,False,10,31,21.0,32.82,-32.82,-41.33,41.33,11.82,20.33,11.82,20.33,correct,correct,-8.51,Norfolk State,right_side
+2026,1,1,Week 1,2026-09-05T22:00:00.000Z,Wyoming,Colorado State,FBS vs FBS,fbs,fbs,False,13,35,22.0,4.36,-4.36,-2.67,2.67,-17.64,-19.33,17.64,19.33,correct,correct,1.69,Colorado State,right_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Abilene Christian,Texas Tech,FCS involved,fcs,fbs,False,10,33,23.0,47.18,-47.18,-45.17,45.17,24.18,22.17,24.18,22.17,correct,correct,2.01,Texas Tech,wrong_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Arkansas State,Memphis,FBS vs FBS,fbs,fbs,False,24,42,18.0,8.97,-8.97,-10.5,10.5,-9.03,-7.5,9.03,7.5,correct,correct,-1.53,Arkansas State,wrong_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Austin Peay,Vanderbilt,FCS involved,fcs,fbs,False,9,28,19.0,44.19,-44.19,-29.0,29.0,25.19,10.0,25.19,10.0,correct,correct,15.19,Vanderbilt,wrong_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Charleston Southern,Georgia Southern,FCS involved,fcs,fbs,False,0,31,31.0,35.26,-35.26,-28.33,28.33,4.26,-2.67,4.26,2.67,correct,correct,6.93,Georgia Southern,right_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Eastern Kentucky,Jacksonville State,FCS involved,fcs,fbs,False,7,49,42.0,34.06,-34.06,-22.33,22.33,-7.94,-19.67,7.94,19.67,correct,correct,11.73,Jacksonville State,right_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Florida International,South Florida,FBS vs FBS,fbs,fbs,False,9,19,10.0,11.13,-11.13,-14.5,14.5,1.13,4.5,1.13,4.5,correct,correct,-3.37,Florida International,right_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Houston Christian,Rice,FCS involved,fcs,fbs,False,3,31,28.0,30.99,-30.99,-22.67,22.67,2.99,-5.33,2.99,5.33,correct,correct,8.32,Rice,right_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Idaho State,Utah State,FCS involved,fcs,fbs,False,29,17,-12.0,33.58,-33.58,-15.17,15.17,45.58,27.17,45.58,27.17,wrong,wrong,18.41,Utah State,wrong_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Missouri State,Texas A&M,FBS vs FBS,fbs,fbs,False,0,50,50.0,22.95,-22.95,-39.17,39.17,-27.05,-10.83,27.05,10.83,correct,correct,-16.22,Missouri State,wrong_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Murray State,Middle Tennessee,FCS involved,fcs,fbs,False,14,38,24.0,32.18,-32.18,-22.5,22.5,8.18,-1.5,8.18,1.5,correct,correct,9.68,Middle Tennessee,right_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Nicholls,Kansas State,FCS involved,fcs,fbs,False,3,71,68.0,41.41,-41.41,-41.33,41.33,-26.59,-26.67,26.59,26.67,correct,correct,0.08,Kansas State,right_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,SE Louisiana,South Alabama,FCS involved,fcs,fbs,False,14,39,25.0,34.39,-34.39,-13.67,13.67,9.39,-11.33,9.39,11.33,correct,correct,20.72,South Alabama,right_side
+2026,1,1,Week 1,2026-09-05T23:00:00.000Z,Sam Houston,Troy,FBS vs FBS,fbs,fbs,False,21,24,3.0,9.64,-9.64,-16.17,16.17,6.64,13.17,6.64,13.17,correct,correct,-6.53,Sam Houston,right_side
+2026,1,1,Week 1,2026-09-05T23:30:00.000Z,Clemson,LSU,FBS vs FBS,fbs,fbs,False,10,51,41.0,5.51,-5.51,-10.0,10.0,-35.49,-31.0,35.49,31.0,correct,correct,-4.49,Clemson,wrong_side
+2026,1,1,Week 1,2026-09-05T23:30:00.000Z,Northwestern State,Louisiana Tech,FCS involved,fcs,fbs,False,6,80,74.0,35.05,-35.05,-44.5,44.5,-38.95,-29.5,38.95,29.5,correct,correct,-9.45,Northwestern State,wrong_side
+2026,1,1,Week 1,2026-09-05T23:30:00.000Z,UL Monroe,Mississippi State,FBS vs FBS,fbs,fbs,False,13,62,49.0,18.9,-18.9,-28.5,28.5,-30.1,-20.5,30.1,20.5,correct,correct,-9.6,UL Monroe,wrong_side
+2026,1,1,Week 1,2026-09-05T23:30:00.000Z,VMI,Virginia Tech,FCS involved,fcs,fbs,False,3,73,70.0,38.63,-38.63,-54.5,54.5,-31.37,-15.5,31.37,15.5,correct,correct,-15.87,VMI,wrong_side
+2026,1,1,Week 1,2026-09-05T23:30:00.000Z,Western Michigan,Michigan,FBS vs FBS,fbs,fbs,False,12,13,1.0,16.31,-16.31,-27.5,27.5,15.31,26.5,15.31,26.5,correct,correct,-11.19,Western Michigan,right_side
+2026,1,1,Week 1,2026-09-05T23:45:00.000Z,Florida Atlantic,Florida,FBS vs FBS,fbs,fbs,False,21,66,45.0,17.7,-17.7,-26.17,26.17,-27.3,-18.83,27.3,18.83,correct,correct,-8.47,Florida Atlantic,wrong_side
+2026,1,1,Week 1,2026-09-06T00:00:00.000Z,Hampton,Maryland,FCS involved,fcs,fbs,False,0,62,62.0,37.76,-37.76,-45.5,45.5,-24.24,-16.5,24.24,16.5,correct,correct,-7.74,Hampton,wrong_side
+2026,1,1,Week 1,2026-09-06T00:00:00.000Z,Lamar,Louisiana,FCS involved,fcs,fbs,False,7,38,31.0,34.7,-34.7,-20.33,20.33,3.7,-10.67,3.7,10.67,correct,correct,14.37,Louisiana,right_side
+2026,1,1,Week 1,2026-09-06T00:00:00.000Z,South Dakota State,Northwestern,FCS involved,fcs,fbs,False,18,34,16.0,39.57,-39.57,-13.5,13.5,23.57,-2.5,23.57,2.5,correct,correct,26.07,Northwestern,right_side
+2026,1,1,Week 1,2026-09-06T00:00:00.000Z,Utah Tech,BYU,FCS involved,fcs,fbs,False,7,63,56.0,41.82,-41.82,-50.17,50.17,-14.18,-5.83,14.18,5.83,correct,correct,-8.35,Utah Tech,wrong_side
+2026,1,1,Week 1,2026-09-06T01:00:00.000Z,Mercyhurst,New Mexico State,FCS involved,fcs,fbs,False,14,51,37.0,26.47,-26.47,-29.17,29.17,-10.53,-7.83,10.53,7.83,correct,correct,-2.7,Mercyhurst,wrong_side
+2026,1,1,Week 1,2026-09-06T01:30:00.000Z,Northern Arizona,Arizona,FCS involved,fcs,fbs,False,7,35,28.0,41.23,-41.23,-32.5,32.5,13.23,4.5,13.23,4.5,correct,correct,8.73,Arizona,wrong_side
+2026,1,1,Week 1,2026-09-06T01:30:00.000Z,Portland State,San Diego State,FCS involved,fcs,fbs,False,20,53,33.0,37.5,-37.5,-39.17,39.17,4.5,6.17,4.5,6.17,correct,correct,-1.67,Portland State,right_side
+2026,1,1,Week 1,2026-09-06T02:00:00.000Z,Central Michigan,New Mexico,FBS vs FBS,fbs,fbs,False,7,38,31.0,7.98,-7.98,-11.0,11.0,-23.02,-20.0,23.02,20.0,correct,correct,-3.02,Central Michigan,wrong_side
+2026,1,1,Week 1,2026-09-06T02:00:00.000Z,Mississippi Valley State,Sacramento State,FCS involved,fcs,fbs,False,0,52,52.0,33.43,-33.43,-38.0,38.0,-18.57,-14.0,18.57,14.0,correct,correct,-4.57,Mississippi Valley State,wrong_side
+2026,1,1,Week 1,2026-09-06T02:00:00.000Z,Morgan State,Arizona State,FCS involved,fcs,fbs,False,7,70,63.0,40.63,-40.63,-44.0,44.0,-22.37,-19.0,22.37,19.0,correct,correct,-3.37,Morgan State,wrong_side
+2026,1,1,Week 1,2026-09-06T02:00:00.000Z,UNLV,Hawai'i,FBS vs FBS,fbs,fbs,False,21,6,-15.0,-4.69,4.69,2.83,-2.83,10.31,12.17,10.31,12.17,correct,correct,-1.86,UNLV,right_side
+2026,1,1,Week 1,2026-09-06T02:30:00.000Z,UCLA,California,FBS vs FBS,fbs,fbs,False,45,24,-21.0,1.5,-1.5,2.5,-2.5,22.5,18.5,22.5,18.5,wrong,correct,4.0,California,wrong_side
+2026,1,1,Week 1,2026-09-06T02:30:00.000Z,Western Kentucky,Nevada,FBS vs FBS,fbs,fbs,False,14,49,35.0,0.24,-0.24,0.67,-0.67,-34.76,-35.67,34.76,35.67,correct,wrong,0.91,Nevada,right_side
+2026,1,1,Week 1,2026-09-06T20:00:00.000Z,Washington State,Washington,FBS vs FBS,fbs,fbs,False,10,24,14.0,10.82,-10.82,-23.33,23.33,-3.18,9.33,3.18,9.33,correct,correct,-12.51,Washington State,right_side
+2026,1,1,Week 1,2026-09-06T23:30:00.000Z,Louisville,Ole Miss,FBS vs FBS,fbs,fbs,True,38,41,3.0,6.9,-6.9,-6.5,6.5,3.9,3.5,3.9,3.5,correct,correct,0.4,Ole Miss,wrong_side
+2026,1,1,Week 1,2026-09-06T23:30:00.000Z,Wisconsin,Notre Dame,FBS vs FBS,fbs,fbs,True,13,41,28.0,15.8,-15.8,-20.83,20.83,-12.2,-7.17,12.2,7.17,correct,correct,-5.03,Wisconsin,wrong_side

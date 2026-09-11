@@ -19,6 +19,16 @@ UNRATED_FBS_BASELINE_RATING = -12.0
 MARGIN_STD_DEV = 16.0
 
 
+def game_type(home_classification: str | None, away_classification: str | None) -> str:
+    home_level = str(home_classification or "").lower()
+    away_level = str(away_classification or "").lower()
+    if home_level == "fbs" and away_level == "fbs":
+        return "FBS vs FBS"
+    if home_level == "fcs" or away_level == "fcs":
+        return "FCS involved"
+    return "Other"
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Project FBS win totals from the current power ratings and a future schedule.")
     parser.add_argument("--ratings", type=Path, default=DEFAULT_RATINGS_PATH)
@@ -104,6 +114,7 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
 
         week = int(game.get("week") or 0)
         display_week = display_week_for_game(game)
+        matchup_type = game_type(game.get("homeClassification"), game.get("awayClassification"))
         home_team_name = game["homeTeam"]
         away_team_name = game["awayTeam"]
         home_rating_row = ratings_lookup.get(home_team_name)
@@ -143,6 +154,9 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
                     "week_label": week_label(display_week),
                     "team": home_team_name,
                     "opponent": away_display_name,
+                    "game_type": matchup_type,
+                    "team_classification": game.get("homeClassification", ""),
+                    "opponent_classification": game.get("awayClassification", ""),
                     "site": "neutral" if game.get("neutralSite") else "home",
                     "team_rating": round(home_rating, 2),
                     "opponent_rating": round(away_rating, 2),
@@ -167,6 +181,9 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
                     "week_label": week_label(display_week),
                     "team": away_team_name,
                     "opponent": home_display_name,
+                    "game_type": matchup_type,
+                    "team_classification": game.get("awayClassification", ""),
+                    "opponent_classification": game.get("homeClassification", ""),
                     "site": "neutral" if game.get("neutralSite") else "away",
                     "team_rating": round(away_rating, 2),
                     "opponent_rating": round(home_rating, 2),

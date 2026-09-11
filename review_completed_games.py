@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from cfb_weeks import display_week_for_game, week_label
-from project_win_totals import HOME_FIELD_ADVANTAGE, FCS_BASELINE_RATING, UNRATED_FBS_BASELINE_RATING, parse_float
+from project_win_totals import HOME_FIELD_ADVANTAGE, FCS_BASELINE_RATING, UNRATED_FBS_BASELINE_RATING, game_type, parse_float
 
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
@@ -108,6 +108,8 @@ def grade_games(
 
         home_team = game.get("homeTeam", "")
         away_team = game.get("awayTeam", "")
+        home_classification = game.get("homeClassification")
+        away_classification = game.get("awayClassification")
         home_rating = rating_for_team(home_team, game.get("homeClassification"), ratings)
         away_rating = rating_for_team(away_team, game.get("awayClassification"), ratings)
         home_field = 0.0 if game.get("neutralSite") else HOME_FIELD_ADVANTAGE
@@ -130,6 +132,9 @@ def grade_games(
                 "start_date": game.get("startDate", ""),
                 "away_team": away_team,
                 "home_team": home_team,
+                "game_type": game_type(home_classification, away_classification),
+                "away_classification": away_classification or "",
+                "home_classification": home_classification or "",
                 "neutral_site": bool(game.get("neutralSite", False)),
                 "away_points": game.get("awayPoints", ""),
                 "home_points": game.get("homePoints", ""),

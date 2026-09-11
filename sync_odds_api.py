@@ -12,7 +12,13 @@ from pathlib import Path
 from typing import Any
 
 from cfb_weeks import display_week_for_game, week_label
-from project_win_totals import HOME_FIELD_ADVANTAGE, FCS_BASELINE_RATING, UNRATED_FBS_BASELINE_RATING, parse_float
+from project_win_totals import (
+    HOME_FIELD_ADVANTAGE,
+    FCS_BASELINE_RATING,
+    UNRATED_FBS_BASELINE_RATING,
+    game_type,
+    parse_float,
+)
 
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
@@ -232,6 +238,7 @@ def completed_games_without_current_odds(
                 "week": game.get("week", ""),
                 "display_week": target_display_week,
                 "week_label": week_label(target_display_week),
+                "game_type": game_type(game.get("homeClassification"), game.get("awayClassification")),
                 "market_status": "completed_no_current_odds",
                 "home_team": home_team,
                 "away_team": away_team,
@@ -328,6 +335,7 @@ def compare_game_odds(
                 "week": schedule_game.get("week", ""),
                 "display_week": display_week_for_game(schedule_game) if schedule_game else "",
                 "week_label": week_label(display_week_for_game(schedule_game)) if schedule_game else "",
+                "game_type": game_type(schedule_game.get("homeClassification"), schedule_game.get("awayClassification")) if schedule_game else "",
                 "market_status": "open_market",
                 "home_team": home_team,
                 "away_team": away_team,
