@@ -90,6 +90,109 @@ def team_watchlist_label(row: pd.Series) -> str:
     return ", ".join(flags)
 
 
+def summarize_team_betting(team_games: pd.DataFrame) -> pd.DataFrame:
+    if team_games.empty:
+        return pd.DataFrame()
+
+    summary_rows: list[dict[str, object]] = []
+    for team, group in team_games.groupby("team"):
+        ats_decisions = group[group["ats_result"] != "push"]
+        edge_picks = group[group["model_edge_pick"]]
+        summary_rows.append(
+            {
+                "team": team,
+                "games": len(group),
+                "ats_decisions": len(ats_decisions),
+                "ats_covers": int(ats_decisions["ats_result"].eq("cover").sum()),
+                "ats_cover_rate": ats_decisions["ats_result"].eq("cover").mean() if not ats_decisions.empty else pd.NA,
+                "avg_ats_margin": group["ats_margin"].mean(),
+                "model_winner_picks": int(group["model_winner_pick"].sum()),
+                "model_winner_accuracy": group["model_winner_hit"].mean(),
+                "model_edge_picks": len(edge_picks),
+                "edge_pick_hits": int(edge_picks["model_edge_hit"].sum()),
+                "edge_pick_hit_rate": edge_picks["model_edge_hit"].mean() if not edge_picks.empty else pd.NA,
+                "avg_edge_when_picked": edge_picks["model_edge"].mean() if not edge_picks.empty else pd.NA,
+                "avg_model_error": group["absolute_model_error"].mean(),
+                "avg_market_error": group["absolute_market_error"].mean(),
+            }
+        )
+
+    team_summary = pd.DataFrame(summary_rows).sort_values(["model_edge_picks", "edge_pick_hit_rate"], ascending=[False, False])
+    return team_summary
+
+
+def build_team_betting_summary(completed_games: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    if completed_games.empty:
+        return pd.DataFrame(), pd.DataFrame()
+
+    games = add_game_type_column(add_week_display_columns(completed_games))
+    numeric_columns = [
+        "display_week",
+        "away_points",
+        "home_points",
+        "actual_home_margin",
+        "model_home_margin",
+        "market_home_margin",
+        "market_home_spread",
+        "absolute_model_error",
+        "absolute_market_error",
+        "model_edge_home_points",
+    ]
+    for column in numeric_columns:
+        if column in games.columns:
+            games[column] = pd.to_numeric(games[column], errors="coerce")
+
+    team_rows: list[dict[str, object]] = []
+    for _, game in games.iterrows():
+        if pd.isna(game.get("actual_home_margin")) or pd.isna(game.get("market_home_spread")):
+            continue
+
+        for side in ("home", "away"):
+            is_home = side == "home"
+            team = game.get("home_team") if is_home else game.get("away_team")
+            opponent = game.get("away_team") if is_home else game.get("home_team")
+            points_for = game.get("home_points") if is_home else game.get("away_points")
+            points_against = game.get("away_points") if is_home else game.get("home_points")
+            actual_margin = game.get("actual_home_margin") if is_home else -game.get("actual_home_margin")
+            model_margin = game.get("model_home_margin") if is_home else -game.get("model_home_margin")
+            market_margin = game.get("market_home_margin") if is_home else -game.get("market_home_margin")
+            market_spread = game.get("market_home_spread") if is_home else -game.get("market_home_spread")
+            model_edge = model_margin - market_margin
+            ats_margin = actual_margin + market_spread
+            model_winner_pick = model_margin > 0
+            actual_win = actual_margin > 0
+            edge_pick = model_edge > 0
+
+            team_rows.append(
+                {
+                    "week_label": game.get("week_label", ""),
+                    "display_week": game.get("display_week"),
+                    "team": team,
+                    "opponent": opponent,
+                    "game_type": game.get("game_type", ""),
+                    "site": "home" if is_home else "away",
+                    "points_for": points_for,
+                    "points_against": points_against,
+                    "actual_margin": actual_margin,
+                    "market_spread": market_spread,
+                    "ats_margin": ats_margin,
+                    "ats_result": "cover" if ats_margin > 0 else "no_cover" if ats_margin < 0 else "push",
+                    "model_margin": model_margin,
+                    "model_winner_pick": model_winner_pick,
+                    "model_winner_hit": model_winner_pick == actual_win,
+                    "model_edge": model_edge,
+                    "model_edge_pick": edge_pick,
+                    "model_edge_hit": edge_pick and ats_margin > 0,
+                    "absolute_model_error": game.get("absolute_model_error"),
+                    "absolute_market_error": game.get("absolute_market_error"),
+                }
+            )
+
+    team_games = pd.DataFrame(team_rows)
+    team_summary = summarize_team_betting(team_games)
+    return team_summary, team_games
+
+
 def render_missing_state(path: Path, label: str) -> None:
     st.warning(f"{label} was not found at `{path}`.")
 
@@ -203,8 +306,18 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, review_tab, backtest_tab, files_tab = st.tabs(
-        ["Rankings", "Matchup", "Weekly Matchups", "Projected Wins", "Odds / Edges", "Results Review", "Backtest", "Files"]
+    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, team_betting_tab, review_tab, backtest_tab, files_tab = st.tabs(
+        [
+            "Rankings",
+            "Matchup",
+            "Weekly Matchups",
+            "Projected Wins",
+            "Odds / Edges",
+            "Team Betting",
+            "Results Review",
+            "Backtest",
+            "Files",
+        ]
     )
 
     with rankings_tab:
@@ -622,6 +735,201 @@ def main() -> None:
 
             with st.expander("Raw odds comparison"):
                 st.dataframe(filtered_odds, use_container_width=True, hide_index=True)
+
+    with team_betting_tab:
+        if completed_review.empty:
+            render_missing_state(Path(completed_review_path), "Completed games review file")
+        else:
+            team_summary, team_game_log = build_team_betting_summary(completed_review)
+            if team_summary.empty or team_game_log.empty:
+                st.warning("No completed games with market lines are available for team betting analysis.")
+            else:
+                st.caption(
+                    "Team-level betting view. ATS cover rate is based on the closing/average market spread in the review file. "
+                    "Edge hit rate only counts games where the model's spread edge selected that team."
+                )
+
+                betting_filter_col1, betting_filter_col2, betting_filter_col3, betting_filter_col4 = st.columns([1, 1, 1.3, 2])
+                with betting_filter_col1:
+                    min_team_games = st.number_input(
+                        "Minimum games",
+                        min_value=1,
+                        max_value=20,
+                        value=1,
+                        step=1,
+                        key="team_betting_min_games",
+                    )
+                with betting_filter_col2:
+                    min_edge_picks = st.number_input(
+                        "Minimum edge picks",
+                        min_value=0,
+                        max_value=20,
+                        value=0,
+                        step=1,
+                        key="team_betting_min_edge_picks",
+                    )
+                with betting_filter_col3:
+                    game_type_filter = st.selectbox(
+                        "Game Type",
+                        ["All"] + sorted(team_game_log["game_type"].dropna().astype(str).unique().tolist()),
+                        index=0,
+                        key="team_betting_game_type",
+                    )
+                with betting_filter_col4:
+                    team_betting_search = st.text_input(
+                        "Search teams",
+                        placeholder="Start typing a team",
+                        key="team_betting_search",
+                    ).strip().lower()
+
+                filtered_team_games = team_game_log.copy()
+                if game_type_filter != "All":
+                    filtered_team_games = filtered_team_games[filtered_team_games["game_type"] == game_type_filter]
+
+                if filtered_team_games.empty:
+                    st.info("No team-game rows match those filters.")
+                else:
+                    team_summary = summarize_team_betting(filtered_team_games)
+                    filtered_team_summary = team_summary[
+                        (team_summary["games"] >= min_team_games)
+                        & (team_summary["model_edge_picks"] >= min_edge_picks)
+                    ].copy()
+                    if team_betting_search:
+                        filtered_team_summary = filtered_team_summary[
+                            filtered_team_summary["team"].str.contains(team_betting_search, case=False, na=False)
+                        ]
+
+                    sort_options = {
+                        "Best ATS cover rate": "ats_cover_rate",
+                        "Worst ATS cover rate": "ats_cover_rate",
+                        "Best edge-pick hit rate": "edge_pick_hit_rate",
+                        "Worst edge-pick hit rate": "edge_pick_hit_rate",
+                        "Most edge picks": "model_edge_picks",
+                        "Best avg ATS margin": "avg_ats_margin",
+                        "Worst avg ATS margin": "avg_ats_margin",
+                        "Largest model error": "avg_model_error",
+                    }
+                    sort_col1, sort_col2 = st.columns([1.4, 1])
+                    with sort_col1:
+                        team_sort_label = st.selectbox("Sort teams by", list(sort_options), index=0, key="team_betting_sort")
+                    with sort_col2:
+                        max_team_rows = st.number_input(
+                            "Rows shown",
+                            min_value=10,
+                            max_value=250,
+                            value=75,
+                            step=5,
+                            key="team_betting_rows",
+                        )
+
+                    ascending = team_sort_label.startswith("Worst")
+                    filtered_team_summary = filtered_team_summary.sort_values(
+                        sort_options[team_sort_label],
+                        ascending=ascending,
+                        na_position="last",
+                    )
+
+                    metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+                    metric_col1.metric("Teams Shown", f"{len(filtered_team_summary)}")
+                    metric_col2.metric(
+                        "Avg ATS Cover",
+                        f"{filtered_team_summary['ats_cover_rate'].mean() * 100:.1f}%"
+                        if filtered_team_summary["ats_cover_rate"].notna().any()
+                        else "N/A",
+                    )
+                    metric_col3.metric(
+                        "Avg Edge Hit",
+                        f"{filtered_team_summary['edge_pick_hit_rate'].mean() * 100:.1f}%"
+                        if filtered_team_summary["edge_pick_hit_rate"].notna().any()
+                        else "N/A",
+                    )
+                    metric_col4.metric(
+                        "Avg Model Error",
+                        f"{filtered_team_summary['avg_model_error'].mean():.2f}"
+                        if filtered_team_summary["avg_model_error"].notna().any()
+                        else "N/A",
+                    )
+
+                    display = filtered_team_summary.head(max_team_rows)[
+                        [
+                            "team",
+                            "games",
+                            "ats_covers",
+                            "ats_decisions",
+                            "ats_cover_rate",
+                            "avg_ats_margin",
+                            "model_edge_picks",
+                            "edge_pick_hits",
+                            "edge_pick_hit_rate",
+                            "avg_edge_when_picked",
+                            "model_winner_accuracy",
+                            "avg_model_error",
+                            "avg_market_error",
+                        ]
+                    ].copy()
+                    for column in ["ats_cover_rate", "edge_pick_hit_rate", "model_winner_accuracy"]:
+                        display[column] = display[column].map(lambda value: f"{value * 100:.1f}%" if pd.notna(value) else "N/A")
+                    for column in ["avg_ats_margin", "avg_edge_when_picked", "avg_model_error", "avg_market_error"]:
+                        display[column] = display[column].map(lambda value: f"{value:.2f}" if pd.notna(value) else "N/A")
+                    display.columns = [
+                        "Team",
+                        "Games",
+                        "ATS Covers",
+                        "ATS Decisions",
+                        "ATS Cover %",
+                        "Avg ATS Margin",
+                        "Model Edge Picks",
+                        "Edge Hits",
+                        "Edge Hit %",
+                        "Avg Edge Pick",
+                        "Winner Pick %",
+                        "Model Error",
+                        "Market Error",
+                    ]
+                    st.dataframe(display, use_container_width=True, hide_index=True, height=520)
+
+                    st.subheader("Team Game Log")
+                    selected_team = st.selectbox(
+                        "Team detail",
+                        filtered_team_summary["team"].tolist() if not filtered_team_summary.empty else sorted(filtered_team_games["team"].unique().tolist()),
+                        key="team_betting_detail_team",
+                    )
+                    detail = filtered_team_games[filtered_team_games["team"] == selected_team].sort_values(["display_week", "opponent"]).copy()
+                    detail["score"] = detail.apply(
+                        lambda row: f"{int(row['points_for'])}-{int(row['points_against'])}",
+                        axis=1,
+                    )
+                    detail_display = detail[
+                        [
+                            "week_label",
+                            "opponent",
+                            "game_type",
+                            "site",
+                            "score",
+                            "market_spread",
+                            "ats_margin",
+                            "ats_result",
+                            "model_margin",
+                            "model_edge",
+                            "model_edge_pick",
+                            "model_edge_hit",
+                        ]
+                    ].copy()
+                    detail_display.columns = [
+                        "Week",
+                        "Opponent",
+                        "Game Type",
+                        "Site",
+                        "Score",
+                        "Market Spread",
+                        "ATS Margin",
+                        "ATS Result",
+                        "Model Margin",
+                        "Model Edge",
+                        "Model Picked Team",
+                        "Edge Hit",
+                    ]
+                    st.dataframe(detail_display, use_container_width=True, hide_index=True)
 
     with review_tab:
         if weekly_review.empty or completed_review.empty:
