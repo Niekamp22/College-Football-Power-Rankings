@@ -196,6 +196,31 @@ def build_schedule_lookup(schedule_games: list[dict[str, Any]], team_lookup: dic
     return lookup
 
 
+def find_schedule_game(
+    schedule_lookup: dict[tuple[str, str], dict[str, Any]],
+    home_team: str,
+    away_team: str,
+) -> tuple[dict[str, Any], str]:
+    exact_match = schedule_lookup.get((home_team, away_team))
+    if exact_match:
+        return exact_match, "exact"
+    reversed_match = schedule_lookup.get((away_team, home_team))
+    if reversed_match:
+        return reversed_match, "reversed"
+    return {}, "unmatched"
+
+
+def edge_review_flag(game_type_label: str, absolute_edge: float, schedule_match_status: str) -> str:
+    flags: list[str] = []
+    if schedule_match_status == "unmatched":
+        flags.append("Schedule unmatched")
+    if absolute_edge >= 15.0:
+        flags.append("Huge edge review")
+    if game_type_label == "FCS involved" and absolute_edge >= 7.5:
+        flags.append("FCS edge review")
+    return ", ".join(flags) if flags else "Standard"
+
+
 def completed_games_without_current_odds(
     comparison_rows: list[dict[str, Any]],
     ratings: dict[str, float],
@@ -239,6 +264,8 @@ def completed_games_without_current_odds(
                 "display_week": target_display_week,
                 "week_label": week_label(target_display_week),
                 "game_type": game_type(game.get("homeClassification"), game.get("awayClassification")),
+                "schedule_match_status": "cfbd_completed",
+                "edge_review_flag": "Completed no current odds",
                 "market_status": "completed_no_current_odds",
                 "home_team": home_team,
                 "away_team": away_team,
@@ -287,7 +314,7 @@ def compare_game_odds(
         if not home_team or not away_team:
             continue
 
-        schedule_game = schedule_lookup.get((home_team, away_team), {})
+        schedule_game, schedule_match_status = find_schedule_game(schedule_lookup, home_team, away_team)
         home_rating = ratings.get(home_team)
         away_rating = ratings.get(away_team)
         if home_rating is None or away_rating is None:
@@ -325,6 +352,8 @@ def compare_game_odds(
 
         market_home_margin = -market_home_spread
         model_edge_home_points = model_home_margin - market_home_margin
+        game_type_label = game_type(schedule_game.get("homeClassification"), schedule_game.get("awayClassification")) if schedule_game else ""
+        absolute_edge_points = abs(model_edge_home_points)
         model_favorite = home_team if model_home_margin >= 0 else away_team
         market_favorite = home_team if market_home_margin >= 0 else away_team
 
@@ -335,7 +364,9 @@ def compare_game_odds(
                 "week": schedule_game.get("week", ""),
                 "display_week": display_week_for_game(schedule_game) if schedule_game else "",
                 "week_label": week_label(display_week_for_game(schedule_game)) if schedule_game else "",
-                "game_type": game_type(schedule_game.get("homeClassification"), schedule_game.get("awayClassification")) if schedule_game else "",
+                "game_type": game_type_label,
+                "schedule_match_status": schedule_match_status,
+                "edge_review_flag": edge_review_flag(game_type_label, absolute_edge_points, schedule_match_status),
                 "market_status": "open_market",
                 "home_team": home_team,
                 "away_team": away_team,
@@ -347,7 +378,7 @@ def compare_game_odds(
                 "market_home_margin": round(market_home_margin, 2),
                 "edge_home_points": round(model_edge_home_points, 2),
                 "edge_side": home_team if model_edge_home_points > 0 else away_team,
-                "absolute_edge_points": round(abs(model_edge_home_points), 2),
+                "absolute_edge_points": round(absolute_edge_points, 2),
                 "model_favorite": model_favorite,
                 "market_favorite": market_favorite,
                 "market_total": round(average(total_values), 2) if total_values else "",

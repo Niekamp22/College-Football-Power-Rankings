@@ -564,6 +564,10 @@ def main() -> None:
                     odds_board[column] = pd.to_numeric(odds_board[column], errors="coerce")
             if "market_status" not in odds_board.columns:
                 odds_board["market_status"] = "open_market"
+            if "edge_review_flag" not in odds_board.columns:
+                odds_board["edge_review_flag"] = "Standard"
+            if "schedule_match_status" not in odds_board.columns:
+                odds_board["schedule_match_status"] = ""
 
             live_odds = odds_board[odds_board["market_home_spread"].notna()].copy()
             no_current_odds = odds_board[odds_board["market_home_spread"].isna()].copy()
@@ -577,6 +581,7 @@ def main() -> None:
             week_options = {f"Week {week}": week for week in available_weeks}
             odds_game_type_options = ["All"] + sorted(odds_board["game_type"].dropna().astype(str).unique().tolist())
             market_status_options = sorted(odds_board["market_status"].dropna().astype(str).unique().tolist())
+            review_flag_options = ["All"] + sorted(odds_board["edge_review_flag"].dropna().astype(str).unique().tolist())
             edge_side_options = ["All"] + sorted(
                 side for side in odds_board["edge_side"].dropna().astype(str).unique().tolist() if side
             )
@@ -600,7 +605,7 @@ def main() -> None:
                     key="odds_search",
                 ).strip().lower()
 
-            advanced_col1, advanced_col2, advanced_col3, advanced_col4 = st.columns([1.4, 1.2, 1.2, 1.2])
+            advanced_col1, advanced_col2, advanced_col3, advanced_col4, advanced_col5 = st.columns([1.4, 1.2, 1.2, 1.2, 1.2])
             with advanced_col1:
                 selected_market_statuses = st.multiselect(
                     "Market status",
@@ -611,6 +616,8 @@ def main() -> None:
             with advanced_col2:
                 edge_side_filter = st.selectbox("Edge side", edge_side_options, index=0, key="odds_edge_side_filter")
             with advanced_col3:
+                review_flag_filter = st.selectbox("Review Flag", review_flag_options, index=0, key="odds_review_flag_filter")
+            with advanced_col4:
                 min_books = st.number_input(
                     "Minimum books",
                     min_value=0,
@@ -619,7 +626,7 @@ def main() -> None:
                     step=1,
                     key="odds_min_books",
                 )
-            with advanced_col4:
+            with advanced_col5:
                 hide_no_line_games = st.checkbox("Hide no-line games", value=False, key="odds_hide_no_line")
 
             sort_col1, sort_col2, sort_col3 = st.columns([1.4, 1, 1])
@@ -658,6 +665,8 @@ def main() -> None:
                 filtered_odds = filtered_odds[filtered_odds["market_status"].isin(selected_market_statuses)]
             if edge_side_filter != "All":
                 filtered_odds = filtered_odds[filtered_odds["edge_side"] == edge_side_filter]
+            if review_flag_filter != "All":
+                filtered_odds = filtered_odds[filtered_odds["edge_review_flag"] == review_flag_filter]
             filtered_odds = filtered_odds[filtered_odds["book_count"].fillna(0) >= min_books]
             if hide_no_line_games:
                 filtered_odds = filtered_odds[filtered_odds["market_home_spread"].notna()]
@@ -730,6 +739,7 @@ def main() -> None:
                     "market_status",
                     "edge_side",
                     "model_favorite",
+                    "edge_review_flag",
                     "edge_display",
                     "model_line",
                     "market_line",
@@ -746,6 +756,7 @@ def main() -> None:
                 "Market Status",
                 "Model Edge Side",
                 "Model Winner",
+                "Review Flag",
                 "Edge Points",
                 "Model Line",
                 "Market Line",
