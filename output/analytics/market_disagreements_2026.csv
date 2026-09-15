@@ -1,5 +1,13 @@
 week_label,game_type,away_team,home_team,model_favorite,market_favorite,winner_model_result,winner_market_result,model_home_margin,market_home_margin,actual_home_margin,absolute_model_error,absolute_market_error
-Week 1,FBS vs FBS,Western Kentucky,Nevada,Nevada,Western Kentucky,correct,wrong,0.16,-0.67,35.0,34.84,35.67
-Week 1,FBS vs FBS,UCLA,California,California,UCLA,wrong,correct,0.96,-2.5,-21.0,21.96,18.5
-Week 1,FBS vs FBS,Oklahoma State,Tulsa,Tulsa,Oklahoma State,correct,wrong,0.28,-13.33,14.0,13.72,27.33
-Week 1,FBS vs FBS,SMU,Florida State,Florida State,SMU,wrong,correct,0.79,-3.0,-3.0,3.79,0.0
+Week 2,FCS involved,Montana State,Nevada,Nevada,Montana State,wrong,correct,31.45,-4.83,-13.0,44.45,8.17
+Week 2,FBS vs FBS,UNLV,North Texas,North Texas,UNLV,correct,wrong,1.91,-2.83,38.0,36.09,40.83
+Week 2,FCS involved,Illinois State,Northern Illinois,Northern Illinois,Illinois State,wrong,correct,29.46,-2.5,-4.0,33.46,1.5
+Week 1,FBS vs FBS,Western Kentucky,Nevada,Nevada,Western Kentucky,correct,wrong,2.49,-0.67,35.0,32.51,35.67
+Week 2,FBS vs FBS,Mississippi State,Minnesota,Mississippi State,Minnesota,correct,wrong,-2.24,0.33,-25.0,22.76,25.33
+Week 2,FBS vs FBS,South Florida,Army,South Florida,Army,correct,wrong,-12.74,3.0,-4.0,8.74,7.0
+Week 1,FBS vs FBS,San José State,Eastern Michigan,San José State,Eastern Michigan,correct,wrong,-0.34,1.5,-6.0,5.66,7.5
+Week 2,FBS vs FBS,Jacksonville State,Ohio,Jacksonville State,Ohio,wrong,correct,-3.39,1.67,2.0,5.39,0.33
+Week 1,FBS vs FBS,SMU,Florida State,Florida State,SMU,wrong,correct,1.09,-3.0,-3.0,4.09,0.0
+Week 2,FBS vs FBS,Oklahoma,Michigan,Michigan,Oklahoma,correct,wrong,3.07,-5.17,7.0,3.93,12.17
+Week 2,FBS vs FBS,Wake Forest,Purdue,Purdue,Wake Forest,wrong,correct,1.1,-2.67,-2.0,3.1,0.67
+Week 2,FBS vs FBS,Navy,Florida Atlantic,Florida Atlantic,Navy,correct,wrong,8.45,-4.33,8.0,0.45,12.33
