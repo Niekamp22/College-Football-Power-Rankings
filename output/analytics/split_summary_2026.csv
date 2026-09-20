@@ -1,11 +1,12 @@
 split,value,games,edge_hit_rate,model_better_than_market_rate,model_margin_mae,market_margin_mae,average_edge
-Game Type,FBS vs FBS,100,0.53,0.47,13.229,12.208,6.521
-Game Type,FCS involved,85,0.4824,0.3882,15.28,12.822,8.746
-Pick Role,favorite,63,0.6508,0.5556,13.479,13.056,8.299
-Pick Role,underdog,122,0.4344,0.3689,14.529,12.198,7.153
-Pick Site,away,105,0.4286,0.3619,14.024,11.806,6.554
-Pick Site,home,76,0.6316,0.5395,14.719,13.715,9.134
-Pick Site,neutral,4,0.25,0.25,7.617,7.168,3.285
-Week,Week 0,8,0.625,0.625,10.956,13.374,5.515
-Week,Week 1,91,0.4615,0.3516,15.785,13.568,8.067
-Week,Week 2,86,0.5465,0.5,12.763,11.267,7.178
+Game Type,FBS vs FBS,157,0.5541,0.4968,11.27,10.93,5.761
+Game Type,FCS involved,103,0.4563,0.3883,15.214,12.738,8.494
+Pick Role,favorite,84,0.631,0.5357,13.387,12.79,7.386
+Pick Role,underdog,176,0.4602,0.4148,12.568,11.1,6.584
+Pick Site,away,144,0.4514,0.4167,12.396,11.015,6.113
+Pick Site,home,110,0.6,0.5,13.63,12.635,7.946
+Pick Site,neutral,6,0.5,0.5,8.693,8.668,4.142
+Week,Week 0,8,0.75,0.75,10.742,13.374,5.346
+Week,Week 1,91,0.4835,0.4066,15.181,13.568,7.636
+Week,Week 2,86,0.5233,0.5,12.176,11.267,6.505
+Week,Week 3,75,0.52,0.4267,10.958,9.564,6.43
