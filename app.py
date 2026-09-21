@@ -87,6 +87,123 @@ def team_watchlist_label(row: pd.Series) -> str:
     return ", ".join(flags)
 
 
+def build_podcast_shortlist(
+    odds: pd.DataFrame,
+    ratings: pd.DataFrame,
+    week: int | None = None,
+    min_edge: float = 3.0,
+    max_edge: float = 8.5,
+    min_books: int = 4,
+) -> pd.DataFrame:
+    """Rank well-supported candidates without claiming a validated ATS advantage."""
+    if odds.empty or ratings.empty:
+        return pd.DataFrame()
+
+    board = odds.copy()
+    for column in [
+        "display_week",
+        "book_count",
+        "model_home_spread",
+        "market_home_margin",
+        "edge_home_points",
+        "absolute_edge_points",
+        "selected_best_spread",
+        "selected_best_price",
+        "line_shopping_value",
+    ]:
+        if column in board.columns:
+            board[column] = pd.to_numeric(board[column], errors="coerce")
+
+    board = board[
+        board["market_home_margin"].notna()
+        & board["selected_best_spread"].notna()
+        & board["selected_best_price"].notna()
+        & board["absolute_edge_points"].between(min_edge, max_edge, inclusive="both")
+        & (board["book_count"].fillna(0) >= min_books)
+        & board["game_type"].eq("FBS vs FBS")
+        & board["betting_status"].eq("Standard")
+    ].copy()
+    if board.empty:
+        return pd.DataFrame()
+
+    selected_week = week if week is not None else int(board["display_week"].max())
+    board = board[board["display_week"] == selected_week]
+    rating_lookup = ratings.set_index("team")
+    confidence_values = {"High": 1.0, "Medium": 0.65, "Low": 0.3, "Legacy": 0.4}
+    rows: list[dict[str, object]] = []
+
+    for _, game in board.iterrows():
+        home_team = str(game["home_team"])
+        away_team = str(game["away_team"])
+        if home_team not in rating_lookup.index or away_team not in rating_lookup.index:
+            continue
+
+        home = rating_lookup.loc[home_team]
+        away = rating_lookup.loc[away_team]
+        neutral_site = str(game.get("neutral_site", "")).strip().lower() in {"true", "1", "yes"}
+        home_field = 0.0 if neutral_site else 2.5
+        market_margin = float(game["market_home_margin"])
+        direction = 1.0 if float(game["edge_home_points"]) >= 0 else -1.0
+        football_edge = (
+            float(home["football_rating"]) - float(away["football_rating"]) + home_field - market_margin
+        )
+        market_component_edge = (
+            float(home["market_rating"]) - float(away["market_rating"]) + home_field - market_margin
+        )
+        components_agree = direction * football_edge > 0 and direction * market_component_edge > 0
+        if not components_agree:
+            continue
+
+        home_confidence = confidence_values.get(str(home.get("rating_confidence", "")), 0.4)
+        away_confidence = confidence_values.get(str(away.get("rating_confidence", "")), 0.4)
+        confidence_score = (home_confidence + away_confidence) / 2
+        edge = float(game["absolute_edge_points"])
+        edge_quality = max(0.0, 1.0 - abs(edge - 5.5) / 5.5)
+        liquidity_score = min(float(game["book_count"]) / 8.0, 1.0)
+        raw_shopping_value = game.get("line_shopping_value")
+        shopping_value = float(raw_shopping_value) if pd.notna(raw_shopping_value) else 0.0
+        shopping_score = min(max(shopping_value, 0.0) / 1.5, 1.0)
+        max_market_gap = max(abs(float(home["market_gap"])), abs(float(away["market_gap"])))
+        disagreement_penalty = 10.0 if max_market_gap >= 10 else 0.0
+        candidate_score = (
+            30.0 * edge_quality
+            + 25.0
+            + 15.0 * liquidity_score
+            + 10.0 * shopping_score
+            + 20.0 * confidence_score
+            - disagreement_penalty
+        )
+        notes = "Monitor injuries, weather, and line movement"
+        if max_market_gap >= 10:
+            notes = "Large football/market rating gap; extra caution"
+
+        rows.append(
+            {
+                "Week": f"Week {selected_week}",
+                "Kickoff": game.get("commence_time", ""),
+                "Matchup": f"{away_team} at {home_team}",
+                "Model Lean": str(game["edge_side"]),
+                "Model Fair Line": (
+                    float(game["model_home_spread"])
+                    if str(game["edge_side"]) == home_team
+                    else -float(game["model_home_spread"])
+                ),
+                "Best Line": float(game["selected_best_spread"]),
+                "Price": int(float(game["selected_best_price"])),
+                "Book": str(game.get("selected_best_book", "")),
+                "Model Edge": edge,
+                "Books": int(float(game["book_count"])),
+                "Line Shopping Gain": shopping_value,
+                "Candidate Score": round(candidate_score, 1),
+                "Notes": notes,
+            }
+        )
+
+    if not rows:
+        return pd.DataFrame()
+    return pd.DataFrame(rows).sort_values(["Candidate Score", "Model Edge"], ascending=[False, False]).reset_index(drop=True)
+
+
 def summarize_team_betting(team_games: pd.DataFrame) -> pd.DataFrame:
     if team_games.empty:
         return pd.DataFrame()
@@ -567,6 +684,35 @@ def main() -> None:
             metric_col1.metric("Live Odds Games", f"{len(live_odds)}")
             metric_col2.metric("Completed No-Odds", f"{len(no_current_odds)}")
             metric_col3.metric("Largest Live Edge", f"{live_odds['absolute_edge_points'].max():.2f}" if not live_odds.empty else "N/A")
+
+            st.subheader("Podcast Shortlist")
+            st.caption(
+                "A conservative starting list for discussion. It requires FBS games, 3-8.5 point edges, "
+                "at least four books, and agreement between the football and market rating components."
+            )
+            podcast_shortlist = build_podcast_shortlist(odds_board, ratings)
+            if podcast_shortlist.empty:
+                st.info("No games currently satisfy every podcast-shortlist safeguard.")
+            else:
+                shortlist_display = podcast_shortlist.head(6).copy()
+                shortlist_display.insert(0, "Rank", range(1, len(shortlist_display) + 1))
+                shortlist_display["Kickoff"] = pd.to_datetime(shortlist_display["Kickoff"], errors="coerce", utc=True).dt.strftime(
+                    "%a %I:%M %p UTC"
+                )
+                shortlist_display["Model Fair Line"] = shortlist_display["Model Fair Line"].map(
+                    lambda value: f"{float(value):+.1f}"
+                )
+                shortlist_display["Best Line"] = shortlist_display["Best Line"].map(lambda value: f"{float(value):+.1f}")
+                shortlist_display["Price"] = shortlist_display["Price"].map(lambda value: f"{int(value):+d}")
+                shortlist_display["Model Edge"] = shortlist_display["Model Edge"].map(lambda value: f"{float(value):.2f}")
+                shortlist_display["Line Shopping Gain"] = shortlist_display["Line Shopping Gain"].map(
+                    lambda value: f"{float(value):.2f}"
+                )
+                st.dataframe(shortlist_display, width="stretch", hide_index=True)
+                st.warning(
+                    "The Candidate Score ranks data quality and signal agreement; it is not a validated cover probability. "
+                    "Confirm injuries, weather, and the available line before recording a podcast pick."
+                )
 
             filter_col1, filter_col2, filter_col3, filter_col4 = st.columns([1, 1, 1.4, 2])
             available_weeks = sorted(int(week) for week in odds_board["display_week"].dropna().unique()) if "display_week" in odds_board.columns else []
