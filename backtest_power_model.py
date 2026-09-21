@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from build_team_features import apply_talent, build_game_features, load_json, summarize_lines
+from dual_ratings import HOME_FIELD_PRIOR, build_dual_ratings
 from power_rankings import average_home_spread, blended_team_ratings, fit_market_model
 
 
@@ -56,6 +57,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--min-prior-weight", type=float, default=DEFAULT_MIN_PRIOR_WEIGHT)
     parser.add_argument("--prior-scale", type=float, default=DEFAULT_PRIOR_SCALE)
     parser.add_argument("--ridge-alpha", type=float, default=DEFAULT_RIDGE_ALPHA)
+    parser.add_argument("--rating-system", choices=["legacy", "dual"], default="dual")
+    parser.add_argument("--football-weight", type=float, default=0.60)
+    parser.add_argument("--market-weight", type=float, default=0.40)
     parser.add_argument(
         "--save-games",
         action="store_true",
@@ -129,6 +133,9 @@ def run_backtest(
     prior_scale: float,
     ridge_alpha: float,
     save_games: bool = False,
+    rating_system: str = "legacy",
+    football_weight: float = 0.60,
+    market_weight: float = 0.40,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     base = raw_root / str(year)
 
@@ -163,22 +170,42 @@ def run_backtest(
         if len(training_rows) < 10:
             continue
 
-        feature_coefficients, home_field_advantage, _, team_vectors, diagnostics = fit_market_model(
-            training_rows,
-            training_lines,
-            calibration_features=BACKTEST_FEATURES,
-            ridge_alpha=ridge_alpha,
-        )
+        football_ratings: dict[str, float] = {}
+        market_component_ratings: dict[str, float] = {}
+        football_home_field = 0.0
+        market_component_home_field = 0.0
+        if rating_system == "dual":
+            components, diagnostics = build_dual_ratings(
+                training_rows,
+                training_games,
+                training_lines,
+                football_weight=football_weight,
+                market_weight=market_weight,
+            )
+            ratings = {team: values["rating"] for team, values in components.items()}
+            football_ratings = {team: values["football_rating"] for team, values in components.items()}
+            market_component_ratings = {team: values["market_rating"] for team, values in components.items()}
+            home_field_advantage = HOME_FIELD_PRIOR
+            football_home_field = HOME_FIELD_PRIOR
+            market_component_home_field = HOME_FIELD_PRIOR
+            diagnostics["samples"] = int(diagnostics["market_samples"])
+        else:
+            feature_coefficients, home_field_advantage, _, team_vectors, diagnostics = fit_market_model(
+                training_rows,
+                training_lines,
+                calibration_features=BACKTEST_FEATURES,
+                ridge_alpha=ridge_alpha,
+            )
 
-        ratings = blended_team_ratings(
-            training_rows,
-            feature_coefficients,
-            team_vectors,
-            calibration_features=BACKTEST_FEATURES,
-            prior_decay_games=prior_decay_games,
-            min_prior_weight=min_prior_weight,
-            prior_scale=prior_scale,
-        )
+            ratings = blended_team_ratings(
+                training_rows,
+                feature_coefficients,
+                team_vectors,
+                calibration_features=BACKTEST_FEATURES,
+                prior_decay_games=prior_decay_games,
+                min_prior_weight=min_prior_weight,
+                prior_scale=prior_scale,
+            )
 
         model_market_errors: list[float] = []
         model_actual_errors: list[float] = []
@@ -186,6 +213,8 @@ def run_backtest(
         model_margins: list[float] = []
         market_margins: list[float] = []
         actual_margins: list[float] = []
+        football_actual_errors: list[float] = []
+        market_component_actual_errors: list[float] = []
 
         for game in eval_lines:
             if game.get("homeClassification") != "fbs" or game.get("awayClassification") != "fbs":
@@ -203,6 +232,16 @@ def run_backtest(
             model_home_margin = ratings[home_team] - ratings[away_team] + home_field_advantage
             market_home_margin = -home_spread
             actual_home_margin = float(game["homeScore"]) - float(game["awayScore"])
+            football_home_margin = (
+                football_ratings[home_team] - football_ratings[away_team] + football_home_field
+                if rating_system == "dual"
+                else model_home_margin
+            )
+            market_component_home_margin = (
+                market_component_ratings[home_team] - market_component_ratings[away_team] + market_component_home_field
+                if rating_system == "dual"
+                else model_home_margin
+            )
 
             model_market_error = model_home_margin - market_home_margin
             model_actual_error = model_home_margin - actual_home_margin
@@ -214,6 +253,8 @@ def run_backtest(
             model_margins.append(model_home_margin)
             market_margins.append(market_home_margin)
             actual_margins.append(actual_home_margin)
+            football_actual_errors.append(football_home_margin - actual_home_margin)
+            market_component_actual_errors.append(market_component_home_margin - actual_home_margin)
 
             if save_games:
                 game_rows.append(
@@ -225,6 +266,8 @@ def run_backtest(
                         "model_home_margin": round(model_home_margin, 3),
                         "market_home_margin": round(market_home_margin, 3),
                         "actual_home_margin": round(actual_home_margin, 3),
+                        "football_home_margin": round(football_home_margin, 3),
+                        "market_component_home_margin": round(market_component_home_margin, 3),
                         "model_vs_market_error": round(model_market_error, 3),
                         "model_vs_actual_error": round(model_actual_error, 3),
                         "actual_vs_market_error": round(actual_market_error, 3),
@@ -238,6 +281,9 @@ def run_backtest(
             {
                 "year": year,
                 "season_type": season_type,
+                "rating_system": rating_system,
+                "football_weight": round(football_weight, 3) if rating_system == "dual" else "",
+                "market_weight": round(market_weight, 3) if rating_system == "dual" else "",
                 "week": week,
                 "games": len(model_market_errors),
                 "train_samples": diagnostics["samples"],
@@ -255,6 +301,8 @@ def run_backtest(
                 "actual_vs_market_mae": round(mae(actual_market_errors), 3),
                 "actual_vs_market_rmse": round(rmse(actual_market_errors), 3),
                 "actual_vs_market_corr": round(safe_corr(actual_margins, market_margins), 3),
+                "football_vs_actual_mae": round(mae(football_actual_errors), 3),
+                "market_component_vs_actual_mae": round(mae(market_component_actual_errors), 3),
             }
         )
 
@@ -274,6 +322,9 @@ def main() -> None:
         prior_scale=args.prior_scale,
         ridge_alpha=args.ridge_alpha,
         save_games=args.save_games,
+        rating_system=args.rating_system,
+        football_weight=args.football_weight,
+        market_weight=args.market_weight,
     )
     if not weekly_rows:
         raise SystemExit("No backtest results were produced for the requested settings.")

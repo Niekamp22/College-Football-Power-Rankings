@@ -314,6 +314,14 @@ def main() -> None:
 
     ratings = ratings.sort_values("rating", ascending=False).reset_index(drop=True)
     ratings.index = ratings.index + 1
+    if "football_rating" not in ratings.columns:
+        ratings["football_rating"] = ratings["rating"]
+    if "market_rating" not in ratings.columns:
+        ratings["market_rating"] = ratings["rating"]
+    if "market_gap" not in ratings.columns:
+        ratings["market_gap"] = ratings["market_rating"] - ratings["football_rating"]
+    if "rating_confidence" not in ratings.columns:
+        ratings["rating_confidence"] = "Legacy"
 
     top_row = ratings.iloc[0]
     st.markdown(
@@ -321,7 +329,7 @@ def main() -> None:
         <div style="padding: 1rem 1.2rem; border-radius: 18px; background: linear-gradient(135deg, #14324a, #b6461d); color: white; margin-bottom: 1rem;">
           <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.85;">Current No. 1</div>
           <div style="font-size: 2rem; font-weight: 700;">{top_row['team']}</div>
-          <div style="font-size: 1rem; opacity: 0.92;">Rating {top_row['rating']:.2f} | Record {top_row['record']}</div>
+          <div style="font-size: 1rem; opacity: 0.92;">Final {top_row['rating']:.2f} | Football {top_row['football_rating']:.2f} | Market {top_row['market_rating']:.2f}</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -343,6 +351,7 @@ def main() -> None:
     )
 
     with rankings_tab:
+        st.caption("Final Rating blends 60% independent football strength with 40% market-implied strength. Market Gap is market minus football.")
         conferences = ["All conferences"] + sorted(ratings["conference"].dropna().astype(str).unique().tolist())
         selected_conference = st.selectbox("Conference", conferences, index=0)
         search_term = st.text_input("Team search", placeholder="Start typing a team name")
@@ -358,9 +367,29 @@ def main() -> None:
             filtered = filtered[filtered["watchlist"] != ""]
 
         display = filtered[
-            ["team", "conference", "record", "rating", "watchlist", "efficiency_score", "market_score", "schedule_score"]
+            [
+                "team",
+                "conference",
+                "record",
+                "rating",
+                "football_rating",
+                "market_rating",
+                "market_gap",
+                "rating_confidence",
+                "watchlist",
+            ]
         ].copy()
-        display.columns = ["Team", "Conference", "Record", "Rating", "Watchlist", "Efficiency", "Market", "Schedule"]
+        display.columns = [
+            "Team",
+            "Conference",
+            "Record",
+            "Final Rating",
+            "Football Rating",
+            "Market Rating",
+            "Market Gap",
+            "Confidence",
+            "Watchlist",
+        ]
         st.dataframe(display, use_container_width=True, height=620)
 
     with matchup_tab:
@@ -391,6 +420,10 @@ def main() -> None:
                 {
                     "Team": team_a_name,
                     "Rating": float(team_a["rating"]),
+                    "Football Rating": float(team_a["football_rating"]),
+                    "Market Rating": float(team_a["market_rating"]),
+                    "Market Gap": float(team_a["market_gap"]),
+                    "Confidence": team_a["rating_confidence"],
                     "Record": team_a["record"],
                     "Efficiency": float(team_a["efficiency_score"]),
                     "Market": float(team_a["market_score"]),
@@ -399,6 +432,10 @@ def main() -> None:
                 {
                     "Team": team_b_name,
                     "Rating": float(team_b["rating"]),
+                    "Football Rating": float(team_b["football_rating"]),
+                    "Market Rating": float(team_b["market_rating"]),
+                    "Market Gap": float(team_b["market_gap"]),
+                    "Confidence": team_b["rating_confidence"],
                     "Record": team_b["record"],
                     "Efficiency": float(team_b["efficiency_score"]),
                     "Market": float(team_b["market_score"]),
@@ -1128,6 +1165,8 @@ def main() -> None:
             completed_games = add_game_type_column(add_week_display_columns(completed_review))
             if "betting_status" not in completed_games.columns:
                 completed_games["betting_status"] = "Standard"
+            if "rating_source" not in completed_games.columns:
+                completed_games["rating_source"] = "Legacy"
             for column in [
                 "display_week",
                 "games",
@@ -1222,13 +1261,14 @@ def main() -> None:
             review_week_options = {f"Week {week}": week for week in available_review_weeks}
             review_game_type_options = ["All"] + sorted(completed_games["game_type"].dropna().astype(str).unique().tolist())
             winner_result_options = ["All"] + sorted(completed_games["winner_model_result"].dropna().astype(str).unique().tolist())
+            rating_source_options = ["All"] + sorted(completed_games["rating_source"].dropna().astype(str).unique().tolist())
             edge_result_options = ["All"] + sorted(
                 result for result in completed_games["edge_result"].dropna().astype(str).unique().tolist() if result
             )
             review_betting_status_options = ["All"] + sorted(
                 completed_games["betting_status"].dropna().astype(str).unique().tolist()
             )
-            review_filter_col1, review_filter_col2, review_filter_col3, review_filter_col4 = st.columns([1, 1, 1, 2])
+            review_filter_col1, review_filter_col2, review_filter_col3, review_filter_col4, review_filter_col5 = st.columns([1, 1, 1, 1.4, 2])
             with review_filter_col1:
                 review_week_filter = st.selectbox("Week", ["All"] + list(review_week_options), index=0, key="results_review_week")
             with review_filter_col2:
@@ -1236,6 +1276,13 @@ def main() -> None:
             with review_filter_col3:
                 winner_result_filter = st.selectbox("Winner Pick", winner_result_options, index=0, key="results_review_winner_result")
             with review_filter_col4:
+                rating_source_filter = st.selectbox(
+                    "Rating Source",
+                    rating_source_options,
+                    index=0,
+                    key="results_review_rating_source",
+                )
+            with review_filter_col5:
                 review_search = st.text_input(
                     "Search completed games",
                     placeholder="Search by team, matchup, or result",
@@ -1302,6 +1349,8 @@ def main() -> None:
                 filtered_review = filtered_review[filtered_review["game_type"] == review_game_type_filter]
             if winner_result_filter != "All":
                 filtered_review = filtered_review[filtered_review["winner_model_result"] == winner_result_filter]
+            if rating_source_filter != "All":
+                filtered_review = filtered_review[filtered_review["rating_source"] == rating_source_filter]
             if edge_result_filter != "All":
                 filtered_review = filtered_review[filtered_review["edge_result"] == edge_result_filter]
             if review_betting_status_filter != "All":
@@ -1357,6 +1406,7 @@ def main() -> None:
                     "week_label",
                     "matchup",
                     "game_type",
+                    "rating_source",
                     "score",
                     "model_line",
                     "market_line",
@@ -1374,6 +1424,7 @@ def main() -> None:
                 "Week",
                 "Matchup",
                 "Game Type",
+                "Rating Source",
                 "Final Score",
                 "Model Line",
                 "Market Line",

@@ -121,6 +121,20 @@ To review completed games against the model and market:
 py review_completed_games.py --season 2026
 ```
 
+## Dual rating system
+
+The production `rating` is a validated blend of two separately built components:
+
+- `football_rating` uses completed FBS game margins capped at 35 points and an Elo/talent prior.
+- `market_rating` solves team strength directly from available FBS point spreads.
+- `rating` blends 60% football rating with 40% market rating. This blend performed best on the combined market-and-actual objective in walk-forward tests across 2023-2025.
+
+`market_gap` is market rating minus football rating. Large absolute gaps and limited FBS samples reduce `rating_confidence` so disagreements remain visible instead of being hidden inside the final number.
+
+In leakage-safe weekly replays across the 2023-2025 regular seasons, the dual system improved actual-margin MAE from `13.200` to `12.466`, improved market-distance MAE from `4.956` to `3.149`, and increased outright winner accuracy from `68.9%` to `72.7%`. ATS edge-side accuracy remained near 50%, so betting recommendations still require the separate edge filters and review flags.
+
+Every refresh also runs `snapshot_rankings.py`. The first ratings generated for an upcoming week are saved under `output/snapshots/<season>` and are not overwritten. Completed-game review uses a matching weekly snapshot when available and labels older games without a snapshot as `current_retrospective`.
+
 To tune the prior-blend settings across multiple seasons:
 
 ```powershell

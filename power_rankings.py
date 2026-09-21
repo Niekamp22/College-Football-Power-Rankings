@@ -12,9 +12,12 @@ from openpyxl import Workbook
 from openpyxl.styles import Font
 from openpyxl.worksheet.datavalidation import DataValidation
 
+from dual_ratings import build_dual_ratings
+
 
 DEFAULT_FEATURES_PATH = Path("data/cfbd/processed/2025/team_features.csv")
 DEFAULT_LINES_PATH = Path("data/cfbd/raw/2025/lines.json")
+DEFAULT_GAMES_PATH = Path("data/cfbd/raw/2025/games.json")
 
 DEFAULT_CALIBRATION_FEATURES = [
     "latest_team_postgame_elo",
@@ -55,6 +58,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build market-calibrated college football power ratings.")
     parser.add_argument("--features", type=Path, default=DEFAULT_FEATURES_PATH, help="Path to the processed feature CSV.")
     parser.add_argument("--lines", type=Path, default=DEFAULT_LINES_PATH, help="Path to the CFBD lines JSON file.")
+    parser.add_argument("--games", type=Path, default=DEFAULT_GAMES_PATH, help="Path to the CFBD games JSON file.")
     parser.add_argument("--top", type=int, default=25, help="Number of teams to print.")
     parser.add_argument("--save", type=Path, help="Optional path to save the full rankings as CSV.")
     parser.add_argument("--excel", type=Path, help="Optional path to save an Excel workbook.")
@@ -95,6 +99,10 @@ def load_team_features(path: Path) -> list[dict[str, Any]]:
 
 
 def load_lines(path: Path) -> list[dict[str, Any]]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_games(path: Path) -> list[dict[str, Any]]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -311,18 +319,23 @@ def build_rankings(
     calibration_features: list[str] = DEFAULT_CALIBRATION_FEATURES,
     early_season_shrink_games: float = EARLY_SEASON_SHRINK_GAMES,
     min_rating_scale: float = MIN_RATING_SCALE,
+    dual_components: dict[str, dict[str, float]] | None = None,
 ) -> list[dict[str, Any]]:
     coeffs_by_feature = {
         feature: float(feature_coefficients[index])
         for index, feature in enumerate(calibration_features)
     }
-    ratings = blended_team_ratings(rows, feature_coefficients, team_vectors, calibration_features=calibration_features)
-    ratings, rating_scales = apply_early_season_shrink(
-        ratings,
-        rows,
-        shrink_games=early_season_shrink_games,
-        min_scale=min_rating_scale,
-    )
+    if dual_components:
+        ratings = {team: values["rating"] for team, values in dual_components.items()}
+        rating_scales = {team: 1.0 for team in ratings}
+    else:
+        ratings = blended_team_ratings(rows, feature_coefficients, team_vectors, calibration_features=calibration_features)
+        ratings, rating_scales = apply_early_season_shrink(
+            ratings,
+            rows,
+            shrink_games=early_season_shrink_games,
+            min_scale=min_rating_scale,
+        )
 
     efficiency_scores = component_score(
         team_vectors,
@@ -353,6 +366,15 @@ def build_rankings(
     rankings: list[dict[str, Any]] = []
     for row in rows:
         team = str(row["team"])
+        components = dual_components.get(team, {}) if dual_components else {}
+        component_gap = abs(float(components.get("market_gap", 0.0)))
+        fbs_games = float(row.get("fbs_games", 0) or 0)
+        if fbs_games >= 4 and component_gap <= 7.0:
+            confidence = "High"
+        elif fbs_games >= 2 and component_gap <= 12.0:
+            confidence = "Medium"
+        else:
+            confidence = "Low"
         rankings.append(
             {
                 "team": team,
@@ -360,6 +382,10 @@ def build_rankings(
                 "record": f"{row.get('wins', 0)}-{row.get('losses', 0)}",
                 "fbs_record": f"{row.get('fbs_wins', 0)}-{row.get('fbs_losses', 0)}",
                 "rating": round(float(ratings[team]), 2),
+                "football_rating": round(float(components.get("football_rating", ratings[team])), 2),
+                "market_rating": round(float(components.get("market_rating", ratings[team])), 2),
+                "market_gap": round(float(components.get("market_gap", 0.0)), 2),
+                "rating_confidence": confidence,
                 "early_season_rating_scale": round(float(rating_scales[team]), 3),
                 "efficiency_score": round(efficiency_scores[team], 2),
                 "market_score": round(market_scores[team], 2),
@@ -385,17 +411,16 @@ def build_rankings(
 def print_rankings(rankings: list[dict[str, Any]], top_n: int) -> None:
     print("College Football Power Ratings")
     print()
-    print(f"{'RK':<4}{'TEAM':<18}{'REC':<7}{'NTR':<8}{'EFF':<8}{'MKT':<8}{'SCH':<8}{'ELO':<9}")
+    print(f"{'RK':<4}{'TEAM':<18}{'REC':<7}{'FINAL':<8}{'FBL':<8}{'MKT':<8}{'CONF':<8}")
     for index, team in enumerate(rankings[:top_n], start=1):
         print(
             f"{index:<4}"
             f"{str(team['team']):<18}"
             f"{str(team['record']):<7}"
             f"{float(team['rating']):<8.2f}"
-            f"{float(team['efficiency_score']):<8.2f}"
-            f"{float(team['market_score']):<8.2f}"
-            f"{float(team['schedule_score']):<8.2f}"
-            f"{float(team['avg_team_postgame_elo']):<9.2f}"
+            f"{float(team['football_rating']):<8.2f}"
+            f"{float(team['market_rating']):<8.2f}"
+            f"{str(team['rating_confidence']):<8}"
         )
 
 
@@ -538,24 +563,27 @@ def main() -> None:
         raise SystemExit("No team features found in the provided file.")
 
     lines = load_lines(args.lines)
+    games = load_games(args.games)
     feature_coefficients, home_field_advantage, samples, team_vectors, diagnostics = fit_market_model(rows, lines)
+    dual_components, dual_diagnostics = build_dual_ratings(rows, games, lines)
     rankings = build_rankings(
         rows,
         feature_coefficients,
         team_vectors,
         early_season_shrink_games=args.early_season_shrink_games,
         min_rating_scale=args.min_rating_scale,
+        dual_components=dual_components,
     )
+    diagnostics.update(dual_diagnostics)
     diagnostics["early_season_shrink_games"] = args.early_season_shrink_games
     diagnostics["min_rating_scale"] = args.min_rating_scale
     print_rankings(rankings, args.top)
     print()
     print(
-        "Model fit: "
-        f"home field {home_field_advantage:.2f}, "
-        f"MAE {diagnostics['mae']:.2f}, "
-        f"RMSE {diagnostics['rmse']:.2f}, "
-        f"corr {diagnostics['correlation']:.3f}"
+        "Dual rating fit: "
+        f"football samples {int(diagnostics['football_samples'])}, "
+        f"market samples {int(diagnostics['market_samples'])}, "
+        f"production home field {diagnostics['production_home_field']:.2f}"
     )
     if args.team_a and args.team_b:
         print_matchup(rankings, args.team_a, args.team_b)

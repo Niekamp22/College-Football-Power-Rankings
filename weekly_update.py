@@ -58,6 +58,7 @@ def main() -> None:
 
     features_path = processed_root / str(args.year) / "team_features.csv"
     lines_path = raw_root / str(args.year) / "lines.json"
+    games_path = raw_root / str(args.year) / "games.json"
     rankings_csv = output_dir / f"cfbd_power_ratings_{args.year}_{label}.csv"
     rankings_xlsx = output_dir / f"power_ratings_{args.year}_{label}.xlsx"
 
@@ -75,6 +76,8 @@ def main() -> None:
                 str(features_path),
                 "--lines",
                 str(lines_path),
+                "--games",
+                str(games_path),
                 "--top",
                 str(args.top),
                 "--save",
@@ -91,6 +94,7 @@ def main() -> None:
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "features_path": str(features_path),
         "lines_path": str(lines_path),
+        "games_path": str(games_path),
         "rankings_csv": str(rankings_csv),
         "rankings_xlsx": str(rankings_xlsx),
         "dry_run": args.dry_run,

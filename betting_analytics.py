@@ -186,6 +186,7 @@ def build_split_summary(completed_rows: list[dict[str, Any]]) -> list[dict[str, 
         ("Pick Role", "pick_role"),
         ("Pick Site", "pick_site"),
         ("Betting Status", "betting_status"),
+        ("Rating Source", "rating_source"),
         ("Week", "week_label"),
     ]:
         for summary in summarize_group(enriched, field):

@@ -80,6 +80,7 @@ def main() -> None:
 
     ratings_features = Path(f"data/cfbd/processed/{args.ratings_year}/team_features.csv")
     ratings_lines = Path(f"data/cfbd/raw/{args.ratings_year}/lines.json")
+    ratings_games = Path(f"data/cfbd/raw/{args.ratings_year}/games.json")
     python = sys.executable
 
     if not args.skip_cfbd_fetch:
@@ -96,6 +97,8 @@ def main() -> None:
             str(ratings_features),
             "--lines",
             str(ratings_lines),
+            "--games",
+            str(ratings_games),
             "--save",
             str(DEFAULT_RATINGS_OUTPUT),
             "--excel",
@@ -103,9 +106,22 @@ def main() -> None:
         ]
     )
     shutil.copy2(DEFAULT_RATINGS_OUTPUT, LEGACY_RATINGS_OUTPUT)
+    run([python, "snapshot_rankings.py", "--season", str(args.ratings_year)])
 
     if not args.skip_backtest:
-        run([python, "backtest_power_model.py", "--year", str(args.backtest_year), "--season-type", "regular", "--save-games"])
+        run(
+            [
+                python,
+                "backtest_power_model.py",
+                "--year",
+                str(args.backtest_year),
+                "--season-type",
+                "regular",
+                "--rating-system",
+                "dual",
+                "--save-games",
+            ]
+        )
 
     run([python, "project_win_totals.py", "--season", str(args.projection_year)])
     run([python, "review_completed_games.py", "--season", str(args.projection_year)])
@@ -143,6 +159,7 @@ def main() -> None:
         DEFAULT_ODDS_OUTPUT,
         *DEFAULT_ANALYTICS_OUTPUTS,
         DEFAULT_MASTER_WORKBOOK,
+        *sorted(Path("output/snapshots").glob(f"{args.ratings_year}/week_*")),
     ]
     existing_files = [str(path) for path in files_to_commit if path.exists()]
     run(["git", "add", *existing_files])

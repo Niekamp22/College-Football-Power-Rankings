@@ -23,6 +23,7 @@ DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
 DEFAULT_GAMES_PATH = Path("data/cfbd/raw/2026/games.json")
 DEFAULT_LINES_PATH = Path("data/cfbd/raw/2026/lines.json")
 DEFAULT_OUTPUT_ROOT = Path("output/reviews")
+DEFAULT_SNAPSHOT_ROOT = Path("output/snapshots")
 
 
 def parse_args() -> argparse.Namespace:
@@ -32,6 +33,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--games", type=Path, default=DEFAULT_GAMES_PATH)
     parser.add_argument("--lines", type=Path, default=DEFAULT_LINES_PATH)
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
+    parser.add_argument("--snapshot-root", type=Path, default=DEFAULT_SNAPSHOT_ROOT)
     return parser.parse_args()
 
 
@@ -92,13 +94,26 @@ def build_line_lookup(lines: list[dict[str, Any]]) -> dict[int, dict[str, Any]]:
     return {int(line["id"]): line for line in lines if line.get("id") is not None}
 
 
+def load_rating_snapshots(snapshot_root: Path, season: int) -> dict[int, dict[str, float]]:
+    snapshots: dict[int, dict[str, float]] = {}
+    for path in sorted((snapshot_root / str(season)).glob("week_*_ratings.csv")):
+        try:
+            week = int(path.stem.split("_")[1])
+        except (IndexError, ValueError):
+            continue
+        snapshots[week] = {row["team"]: parse_float(row["rating"]) for row in load_csv(path)}
+    return snapshots
+
+
 def grade_games(
     season: int,
     ratings_rows: list[dict[str, Any]],
     games: list[dict[str, Any]],
     lines: list[dict[str, Any]],
+    rating_snapshots: dict[int, dict[str, float]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    ratings = {row["team"]: parse_float(row["rating"]) for row in ratings_rows}
+    current_ratings = {row["team"]: parse_float(row["rating"]) for row in ratings_rows}
+    rating_snapshots = rating_snapshots or {}
     line_lookup = build_line_lookup(lines)
     game_rows: list[dict[str, Any]] = []
 
@@ -118,6 +133,9 @@ def grade_games(
         away_team = game.get("awayTeam", "")
         home_classification = game.get("homeClassification")
         away_classification = game.get("awayClassification")
+        display_week = display_week_for_game(game)
+        ratings = rating_snapshots.get(display_week, current_ratings)
+        rating_source = f"week_{display_week:02d}_snapshot" if display_week in rating_snapshots else "current_retrospective"
         home_rating = rating_for_team(home_team, game.get("homeClassification"), ratings)
         away_rating = rating_for_team(away_team, game.get("awayClassification"), ratings)
         home_field = 0.0 if game.get("neutralSite") else HOME_FIELD_ADVANTAGE
@@ -129,7 +147,6 @@ def grade_games(
         market_home_margin = -market_home_spread if market_home_spread is not None else None
         model_edge_home = model_home_margin - market_home_margin if market_home_margin is not None else None
         actual_vs_market = actual_home_margin - market_home_margin if market_home_margin is not None else None
-        display_week = display_week_for_game(game)
         matchup_type = game_type(home_classification, away_classification)
         margin_std_dev = matchup_margin_std_dev(home_classification, away_classification)
 
@@ -139,6 +156,7 @@ def grade_games(
                 "week": game.get("week", ""),
                 "display_week": display_week,
                 "week_label": week_label(display_week),
+                "rating_source": rating_source,
                 "start_date": game.get("startDate", ""),
                 "away_team": away_team,
                 "home_team": home_team,
@@ -214,6 +232,7 @@ def main() -> None:
         ratings_rows=load_csv(args.ratings),
         games=load_json(args.games),
         lines=load_json(args.lines),
+        rating_snapshots=load_rating_snapshots(args.snapshot_root, args.season),
     )
 
     weekly_path = args.output_root / f"weekly_results_review_{args.season}.csv"
