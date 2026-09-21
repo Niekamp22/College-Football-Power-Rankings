@@ -197,7 +197,7 @@ During the season, the simplest refresh path is:
 
 That command refreshes CFBD data, power ratings, projections, sportsbook odds, Excel exports, commits changed deployable outputs, and pushes to GitHub so Streamlit redeploys.
 
-The repo also includes a guarded GitHub Actions workflow that runs every Monday at 14:17 UTC. Add `CFBD_API_KEY` and `ODDS_API_KEY` as repository secrets in GitHub so the scheduled job can pull fresh data without exposing either key. The workflow runs unit tests, rebuilds every public output, validates data integrity, and pushes only after all blocking checks pass. Incomplete schedules are intentionally reported as warnings rather than failures. Each run publishes a GitHub summary and a downloadable diagnostics artifact.
+The repo also includes a guarded GitHub Actions workflow that runs every Monday at 14:17 UTC. Add `CFBD_API_KEY` and `ODDS_API_KEY` as repository secrets in GitHub so the scheduled job can pull fresh data without exposing either key. The workflow runs unit tests, rebuilds current-season public outputs, preserves the fixed historical backtest, validates data integrity, and pushes only after all blocking checks pass. Incomplete schedules are intentionally reported as warnings rather than failures. Each run publishes a GitHub summary and a downloadable diagnostics artifact.
 
 You can trigger the same process at any time from **GitHub > Actions > Weekly data refresh > Run workflow**. The latest validation result is committed to `output/refresh_status.json` and displayed in the app's status bar.
 
