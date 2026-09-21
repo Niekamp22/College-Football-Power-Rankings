@@ -8,7 +8,15 @@ from pathlib import Path
 from typing import Any
 
 from cfb_weeks import display_week_for_game, week_label
-from project_win_totals import HOME_FIELD_ADVANTAGE, FCS_BASELINE_RATING, UNRATED_FBS_BASELINE_RATING, game_type, parse_float
+from matchup_adjustments import betting_status, matchup_margin_std_dev
+from project_win_totals import (
+    HOME_FIELD_ADVANTAGE,
+    FCS_BASELINE_RATING,
+    UNRATED_FBS_BASELINE_RATING,
+    game_type,
+    parse_float,
+    win_probability,
+)
 
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
@@ -122,6 +130,8 @@ def grade_games(
         model_edge_home = model_home_margin - market_home_margin if market_home_margin is not None else None
         actual_vs_market = actual_home_margin - market_home_margin if market_home_margin is not None else None
         display_week = display_week_for_game(game)
+        matchup_type = game_type(home_classification, away_classification)
+        margin_std_dev = matchup_margin_std_dev(home_classification, away_classification)
 
         game_rows.append(
             {
@@ -132,7 +142,7 @@ def grade_games(
                 "start_date": game.get("startDate", ""),
                 "away_team": away_team,
                 "home_team": home_team,
-                "game_type": game_type(home_classification, away_classification),
+                "game_type": matchup_type,
                 "away_classification": away_classification or "",
                 "home_classification": home_classification or "",
                 "neutral_site": bool(game.get("neutralSite", False)),
@@ -141,6 +151,8 @@ def grade_games(
                 "actual_home_margin": round(actual_home_margin, 2),
                 "model_home_margin": round(model_home_margin, 2),
                 "model_home_spread": round(-model_home_margin, 2),
+                "model_margin_std_dev": margin_std_dev,
+                "model_home_win_probability": round(win_probability(model_home_margin, margin_std_dev), 4),
                 "market_home_spread": round(market_home_spread, 2) if market_home_spread is not None else "",
                 "market_home_margin": round(market_home_margin, 2) if market_home_margin is not None else "",
                 "model_margin_error": round(model_home_margin - actual_home_margin, 2),
@@ -152,6 +164,7 @@ def grade_games(
                 "model_edge_home_points": round(model_edge_home, 2) if model_edge_home is not None else "",
                 "model_edge_side": home_team if model_edge_home and model_edge_home > 0 else away_team if model_edge_home and model_edge_home < 0 else "",
                 "edge_result": edge_result(model_edge_home, actual_vs_market),
+                "betting_status": betting_status(matchup_type, model_edge_home, market_home_spread),
             }
         )
 

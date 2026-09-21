@@ -105,6 +105,9 @@ py project_win_totals.py --season 2026
 
 The future schedule projection uses a fixed `2.5` points of home-field advantage when turning team ratings into projected spreads and win probabilities.
 Unrated FCS opponents are assigned a conservative low baseline rating so early-season FBS/FCS mismatch projections do not treat them like lower-tier FBS teams.
+FCS-involved games use a wider `20.0` point margin standard deviation for win probabilities because their observed scoring variance is materially higher than FBS-only games.
+
+The odds and results-review outputs classify FCS edges separately. An FCS favorite edge from `5.0` to under `15.0` points is a qualified lean. FCS underdog edges, edges below `5.0`, and edges of `15.0+` are marked as passes. The raw model spread remains visible for auditing; this policy changes confidence and bet classification, not the underlying team rating.
 
 To export a single workbook with rankings, matchup tool, projections, and backtests:
 

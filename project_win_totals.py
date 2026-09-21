@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from cfb_weeks import display_week_for_game, week_label
+from matchup_adjustments import FBS_MARGIN_STD_DEV, matchup_margin_std_dev
 
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
@@ -16,7 +17,7 @@ DEFAULT_OUTPUT_ROOT = Path("output/projections")
 HOME_FIELD_ADVANTAGE = 2.5
 FCS_BASELINE_RATING = -36.0
 UNRATED_FBS_BASELINE_RATING = -12.0
-MARGIN_STD_DEV = 16.0
+MARGIN_STD_DEV = FBS_MARGIN_STD_DEV
 
 
 def game_type(home_classification: str | None, away_classification: str | None) -> str:
@@ -59,8 +60,8 @@ def parse_float(value: Any, default: float = 0.0) -> float:
     return float(value)
 
 
-def win_probability(spread: float) -> float:
-    z_score = spread / MARGIN_STD_DEV
+def win_probability(spread: float, margin_std_dev: float = MARGIN_STD_DEV) -> float:
+    z_score = spread / margin_std_dev
     return 0.5 * (1.0 + math.erf(z_score / math.sqrt(2.0)))
 
 
@@ -134,7 +135,11 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
 
         away_rating, away_display_name = opponent_rating(game, "home", ratings_lookup)
         home_spread = home_rating - away_rating + (0.0 if game.get("neutralSite") else HOME_FIELD_ADVANTAGE)
-        home_win_prob = win_probability(home_spread)
+        margin_std_dev = matchup_margin_std_dev(
+            game.get("homeClassification"),
+            game.get("awayClassification"),
+        )
+        home_win_prob = win_probability(home_spread, margin_std_dev)
 
         if home_rating_row:
             home_team = ensure_team(summary, ratings_lookup, home_team_name)
@@ -161,6 +166,7 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
                     "team_rating": round(home_rating, 2),
                     "opponent_rating": round(away_rating, 2),
                     "projected_spread": round(home_spread, 2),
+                    "margin_std_dev": margin_std_dev,
                     "favorite": favorite,
                     "favorite_spread": favorite_spread,
                     "win_probability": round(home_win_prob, 4),
@@ -188,6 +194,7 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
                     "team_rating": round(away_rating, 2),
                     "opponent_rating": round(home_rating, 2),
                     "projected_spread": round(-home_spread, 2),
+                    "margin_std_dev": margin_std_dev,
                     "favorite": favorite,
                     "favorite_spread": favorite_spread,
                     "win_probability": round(1 - home_win_prob, 4),

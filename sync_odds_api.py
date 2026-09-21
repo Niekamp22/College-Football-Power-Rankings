@@ -12,12 +12,18 @@ from pathlib import Path
 from typing import Any
 
 from cfb_weeks import display_week_for_game, week_label
+from matchup_adjustments import (
+    EXTREME_EDGE_MIN,
+    betting_status,
+    matchup_margin_std_dev,
+)
 from project_win_totals import (
     HOME_FIELD_ADVANTAGE,
     FCS_BASELINE_RATING,
     UNRATED_FBS_BASELINE_RATING,
     game_type,
     parse_float,
+    win_probability,
 )
 
 
@@ -214,7 +220,7 @@ def edge_review_flag(game_type_label: str, absolute_edge: float, schedule_match_
     flags: list[str] = []
     if schedule_match_status == "unmatched":
         flags.append("Schedule unmatched")
-    if absolute_edge >= 15.0:
+    if absolute_edge >= EXTREME_EDGE_MIN:
         flags.append("Huge edge review")
     if game_type_label == "FCS involved" and absolute_edge >= 7.5:
         flags.append("FCS edge review")
@@ -255,6 +261,8 @@ def completed_games_without_current_odds(
         model_home_margin = home_rating - away_rating + home_field
         model_home_spread = -model_home_margin
         actual_home_margin = parse_float(game.get("homePoints")) - parse_float(game.get("awayPoints"))
+        game_type_label = game_type(game.get("homeClassification"), game.get("awayClassification"))
+        margin_std_dev = matchup_margin_std_dev(game.get("homeClassification"), game.get("awayClassification"))
 
         fallback_rows.append(
             {
@@ -263,9 +271,10 @@ def completed_games_without_current_odds(
                 "week": game.get("week", ""),
                 "display_week": target_display_week,
                 "week_label": week_label(target_display_week),
-                "game_type": game_type(game.get("homeClassification"), game.get("awayClassification")),
+                "game_type": game_type_label,
                 "schedule_match_status": "cfbd_completed",
                 "edge_review_flag": "Completed no current odds",
+                "betting_status": "No current market line",
                 "market_status": "completed_no_current_odds",
                 "home_team": home_team,
                 "away_team": away_team,
@@ -273,6 +282,8 @@ def completed_games_without_current_odds(
                 "book_count": 0,
                 "model_home_margin": round(model_home_margin, 2),
                 "model_home_spread": round(model_home_spread, 2),
+                "model_margin_std_dev": margin_std_dev,
+                "model_home_win_probability": round(win_probability(model_home_margin, margin_std_dev), 4),
                 "market_home_spread": "",
                 "market_home_margin": "",
                 "edge_home_points": "",
@@ -353,6 +364,10 @@ def compare_game_odds(
         market_home_margin = -market_home_spread
         model_edge_home_points = model_home_margin - market_home_margin
         game_type_label = game_type(schedule_game.get("homeClassification"), schedule_game.get("awayClassification")) if schedule_game else ""
+        margin_std_dev = matchup_margin_std_dev(
+            schedule_game.get("homeClassification"),
+            schedule_game.get("awayClassification"),
+        )
         absolute_edge_points = abs(model_edge_home_points)
         model_favorite = home_team if model_home_margin >= 0 else away_team
         market_favorite = home_team if market_home_margin >= 0 else away_team
@@ -367,6 +382,12 @@ def compare_game_odds(
                 "game_type": game_type_label,
                 "schedule_match_status": schedule_match_status,
                 "edge_review_flag": edge_review_flag(game_type_label, absolute_edge_points, schedule_match_status),
+                "betting_status": betting_status(
+                    game_type_label,
+                    model_edge_home_points,
+                    market_home_spread,
+                    schedule_match_status,
+                ),
                 "market_status": "open_market",
                 "home_team": home_team,
                 "away_team": away_team,
@@ -374,6 +395,8 @@ def compare_game_odds(
                 "book_count": len(event.get("bookmakers", [])),
                 "model_home_margin": round(model_home_margin, 2),
                 "model_home_spread": round(model_home_spread, 2),
+                "model_margin_std_dev": margin_std_dev,
+                "model_home_win_probability": round(win_probability(model_home_margin, margin_std_dev), 4),
                 "market_home_spread": round(market_home_spread, 2),
                 "market_home_margin": round(market_home_margin, 2),
                 "edge_home_points": round(model_edge_home_points, 2),
