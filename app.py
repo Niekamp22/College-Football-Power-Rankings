@@ -165,6 +165,11 @@ def build_podcast_shortlist(
         shopping_score = min(max(shopping_value, 0.0) / 1.5, 1.0)
         max_market_gap = max(abs(float(home["market_gap"])), abs(float(away["market_gap"])))
         disagreement_penalty = 10.0 if max_market_gap >= 10 else 0.0
+        model_fair_line = (
+            float(game["model_home_spread"])
+            if str(game["edge_side"]) == home_team
+            else -float(game["model_home_spread"])
+        )
         candidate_score = (
             30.0 * edge_quality
             + 25.0
@@ -173,9 +178,16 @@ def build_podcast_shortlist(
             + 20.0 * confidence_score
             - disagreement_penalty
         )
-        notes = "Monitor injuries, weather, and line movement"
+        caution = "Confirm injuries, weather, and the line before locking the pick."
         if max_market_gap >= 10:
-            notes = "Large football/market rating gap; extra caution"
+            caution = "Large football/market rating gap makes this a higher-variance candidate."
+        reasoning = (
+            f"The model's fair line is {game['edge_side']} {model_fair_line:+.1f}, compared with the best available "
+            f"{float(game['selected_best_spread']):+.1f}. The independent football rating and market-rating component "
+            f"both support {game['edge_side']} against the consensus line. The price is available across "
+            f"{int(float(game['book_count']))} tracked books, and line shopping improves the consensus spread by "
+            f"{shopping_value:.2f} points."
+        )
 
         rows.append(
             {
@@ -183,11 +195,7 @@ def build_podcast_shortlist(
                 "Kickoff": game.get("commence_time", ""),
                 "Matchup": f"{away_team} at {home_team}",
                 "Model Lean": str(game["edge_side"]),
-                "Model Fair Line": (
-                    float(game["model_home_spread"])
-                    if str(game["edge_side"]) == home_team
-                    else -float(game["model_home_spread"])
-                ),
+                "Model Fair Line": model_fair_line,
                 "Best Line": float(game["selected_best_spread"]),
                 "Price": int(float(game["selected_best_price"])),
                 "Book": str(game.get("selected_best_book", "")),
@@ -195,7 +203,8 @@ def build_podcast_shortlist(
                 "Books": int(float(game["book_count"])),
                 "Line Shopping Gain": shopping_value,
                 "Candidate Score": round(candidate_score, 1),
-                "Notes": notes,
+                "Reasoning": reasoning,
+                "Caution": caution,
             }
         )
 
@@ -694,7 +703,8 @@ def main() -> None:
             if podcast_shortlist.empty:
                 st.info("No games currently satisfy every podcast-shortlist safeguard.")
             else:
-                shortlist_display = podcast_shortlist.head(6).copy()
+                shortlist_details = podcast_shortlist.head(6).copy()
+                shortlist_display = shortlist_details.drop(columns=["Reasoning", "Caution"]).copy()
                 shortlist_display.insert(0, "Rank", range(1, len(shortlist_display) + 1))
                 shortlist_display["Kickoff"] = pd.to_datetime(shortlist_display["Kickoff"], errors="coerce", utc=True).dt.strftime(
                     "%a %I:%M %p UTC"
@@ -709,6 +719,14 @@ def main() -> None:
                     lambda value: f"{float(value):.2f}"
                 )
                 st.dataframe(shortlist_display, width="stretch", hide_index=True)
+                with st.expander("Why these games made the list"):
+                    for rank, (_, candidate) in enumerate(shortlist_details.iterrows(), start=1):
+                        st.markdown(
+                            f"**{rank}. {candidate['Model Lean']} {float(candidate['Best Line']):+.1f} "
+                            f"({int(candidate['Price']):+d}, {candidate['Book']})**"
+                        )
+                        st.write(candidate["Reasoning"])
+                        st.caption(f"Caution: {candidate['Caution']}")
                 st.warning(
                     "The Candidate Score ranks data quality and signal agreement; it is not a validated cover probability. "
                     "Confirm injuries, weather, and the available line before recording a podcast pick."

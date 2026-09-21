@@ -57,6 +57,8 @@ class PodcastShortlistTest(unittest.TestCase):
         self.assertEqual(len(shortlist), 1)
         self.assertEqual(shortlist.iloc[0]["Model Lean"], "Home")
         self.assertEqual(shortlist.iloc[0]["Model Fair Line"], -8.5)
+        self.assertIn("both support Home", shortlist.iloc[0]["Reasoning"])
+        self.assertIn("8 tracked books", shortlist.iloc[0]["Reasoning"])
 
 
 if __name__ == "__main__":
