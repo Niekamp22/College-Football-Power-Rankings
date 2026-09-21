@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import math
-from io import BytesIO
 from pathlib import Path
 
 import pandas as pd
@@ -10,7 +9,7 @@ import streamlit as st
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
 DEFAULT_BACKTEST_PATH = Path("output/backtests/weekly_backtest_2025_regular.csv")
-DEFAULT_EXCEL_PATH = Path("output/power_ratings_final.xlsx")
+DEFAULT_EXCEL_PATH = Path("output/power_ratings_master.xlsx")
 DEFAULT_WIN_TOTALS_PATH = Path("output/projections/projected_win_totals_2026.csv")
 DEFAULT_PROJECTED_GAMES_PATH = Path("output/projections/projected_games_2026.csv")
 DEFAULT_SCHEDULE_COVERAGE_PATH = Path("output/projections/schedule_coverage_2026.csv")
@@ -33,18 +32,6 @@ def load_csv(path: Path) -> pd.DataFrame:
     if not path.exists():
         return pd.DataFrame()
     return pd.read_csv(path)
-
-
-def load_uploaded_csv(uploaded_file) -> pd.DataFrame:
-    if uploaded_file is None:
-        return pd.DataFrame()
-    return pd.read_csv(uploaded_file)
-
-
-def discover_csv_options(root: Path) -> list[str]:
-    if not root.exists():
-        return []
-    return sorted(str(path) for path in root.rglob("*.csv"))
 
 
 def win_probability(spread: float, margin_std_dev: float = 16.0) -> float:
@@ -212,12 +199,12 @@ def main() -> None:
         page_title="College Football Power Ratings",
         page_icon="🏈",
         layout="wide",
+        initial_sidebar_state="collapsed",
     )
 
     st.title("College Football Power Ratings")
     st.caption("Market-calibrated college football power numbers with matchup and backtest views.")
 
-    discovered_csvs = discover_csv_options(Path("output"))
     ratings_default = str(DEFAULT_RATINGS_PATH)
     backtest_default = str(DEFAULT_BACKTEST_PATH)
     win_totals_default = str(DEFAULT_WIN_TOTALS_PATH)
@@ -234,76 +221,24 @@ def main() -> None:
     market_disagreements_default = str(DEFAULT_MARKET_DISAGREEMENTS_PATH)
     probability_calibration_default = str(DEFAULT_PROBABILITY_CALIBRATION_PATH)
 
-    st.sidebar.subheader("Data Sources")
-    ratings_path = st.sidebar.selectbox(
-        "Ratings CSV",
-        options=discovered_csvs if discovered_csvs else [ratings_default],
-        index=discovered_csvs.index(ratings_default) if ratings_default in discovered_csvs else 0,
-    )
-    backtest_options = [path for path in discovered_csvs if "backtest" in path.lower()]
-    backtest_path = st.sidebar.selectbox(
-        "Backtest CSV",
-        options=backtest_options if backtest_options else [backtest_default],
-        index=backtest_options.index(backtest_default) if backtest_default in backtest_options else 0,
-    )
-    projection_options = [path for path in discovered_csvs if "projected_win_totals" in path.lower()]
-    projected_games_options = [path for path in discovered_csvs if "projected_games" in path.lower()]
-    win_totals_path = st.sidebar.selectbox(
-        "Projected Win Totals CSV",
-        options=projection_options if projection_options else [win_totals_default],
-        index=projection_options.index(win_totals_default) if win_totals_default in projection_options else 0,
-    )
-    projected_games_path = st.sidebar.selectbox(
-        "Projected Games CSV",
-        options=projected_games_options if projected_games_options else [projected_games_default],
-        index=projected_games_options.index(projected_games_default) if projected_games_default in projected_games_options else 0,
-    )
-    schedule_coverage_options = [path for path in discovered_csvs if "schedule_coverage" in path.lower()]
-    schedule_coverage_path = st.sidebar.selectbox(
-        "Schedule Coverage CSV",
-        options=schedule_coverage_options if schedule_coverage_options else [schedule_coverage_default],
-        index=schedule_coverage_options.index(schedule_coverage_default) if schedule_coverage_default in schedule_coverage_options else 0,
-    )
-    odds_options = [path for path in discovered_csvs if "odds" in path.lower()]
-    odds_path = st.sidebar.selectbox(
-        "Odds Comparison CSV",
-        options=odds_options if odds_options else [odds_default],
-        index=odds_options.index(odds_default) if odds_default in odds_options else 0,
-    )
-    review_options = [path for path in discovered_csvs if "results_review" in path.lower() or "completed_games_review" in path.lower()]
-    weekly_review_path = st.sidebar.selectbox(
-        "Weekly Results Review CSV",
-        options=review_options if review_options else [weekly_review_default],
-        index=review_options.index(weekly_review_default) if weekly_review_default in review_options else 0,
-    )
-    completed_review_path = st.sidebar.selectbox(
-        "Completed Games Review CSV",
-        options=review_options if review_options else [completed_review_default],
-        index=review_options.index(completed_review_default) if completed_review_default in review_options else 0,
-    )
-    excel_path = st.sidebar.text_input("Excel Workbook", str(DEFAULT_EXCEL_PATH))
-
-    st.sidebar.subheader("Hosted Fallback")
-    uploaded_ratings = st.sidebar.file_uploader("Upload ratings CSV", type="csv")
-    uploaded_backtest = st.sidebar.file_uploader("Upload backtest CSV", type="csv")
-    uploaded_win_totals = st.sidebar.file_uploader("Upload projected win totals CSV", type="csv")
-    uploaded_projected_games = st.sidebar.file_uploader("Upload projected games CSV", type="csv")
-    uploaded_schedule_coverage = st.sidebar.file_uploader("Upload schedule coverage CSV", type="csv")
-    uploaded_odds = st.sidebar.file_uploader("Upload odds comparison CSV", type="csv")
-    uploaded_weekly_review = st.sidebar.file_uploader("Upload weekly results review CSV", type="csv")
-    uploaded_completed_review = st.sidebar.file_uploader("Upload completed games review CSV", type="csv")
-    uploaded_excel = st.sidebar.file_uploader("Upload Excel workbook", type=["xlsx"])
-
-    ratings = load_uploaded_csv(uploaded_ratings) if uploaded_ratings else load_csv(Path(ratings_path))
-    backtest = load_uploaded_csv(uploaded_backtest) if uploaded_backtest else load_csv(Path(backtest_path))
-    win_totals = load_uploaded_csv(uploaded_win_totals) if uploaded_win_totals else load_csv(Path(win_totals_path))
-    projected_games = load_uploaded_csv(uploaded_projected_games) if uploaded_projected_games else load_csv(Path(projected_games_path))
-    schedule_coverage = load_uploaded_csv(uploaded_schedule_coverage) if uploaded_schedule_coverage else load_csv(Path(schedule_coverage_path))
-    odds = load_uploaded_csv(uploaded_odds) if uploaded_odds else load_csv(Path(odds_path))
+    ratings_path = ratings_default
+    backtest_path = backtest_default
+    win_totals_path = win_totals_default
+    projected_games_path = projected_games_default
+    schedule_coverage_path = schedule_coverage_default
+    odds_path = odds_default
+    weekly_review_path = weekly_review_default
+    completed_review_path = completed_review_default
+    ratings = load_csv(DEFAULT_RATINGS_PATH)
+    backtest = load_csv(DEFAULT_BACKTEST_PATH)
+    win_totals = load_csv(DEFAULT_WIN_TOTALS_PATH)
+    projected_games = load_csv(DEFAULT_PROJECTED_GAMES_PATH)
+    schedule_coverage = load_csv(DEFAULT_SCHEDULE_COVERAGE_PATH)
+    odds = load_csv(DEFAULT_ODDS_COMPARISON_PATH)
     odds_history = load_csv(DEFAULT_ODDS_HISTORY_PATH)
     clv_summary = load_csv(DEFAULT_CLV_SUMMARY_PATH)
-    weekly_review = load_uploaded_csv(uploaded_weekly_review) if uploaded_weekly_review else load_csv(Path(weekly_review_path))
-    completed_review = load_uploaded_csv(uploaded_completed_review) if uploaded_completed_review else load_csv(Path(completed_review_path))
+    weekly_review = load_csv(DEFAULT_WEEKLY_RESULTS_REVIEW_PATH)
+    completed_review = load_csv(DEFAULT_COMPLETED_GAMES_REVIEW_PATH)
     edge_bucket_summary = load_csv(Path(edge_bucket_default))
     split_summary = load_csv(Path(split_summary_default))
     team_bias = load_csv(Path(team_bias_default))
@@ -313,9 +248,21 @@ def main() -> None:
     probability_calibration = load_csv(Path(probability_calibration_default))
     ats_validation = load_csv(DEFAULT_ATS_VALIDATION_PATH)
 
+    st.sidebar.header("2026 Power Ratings")
+    st.sidebar.caption("The app automatically uses the latest published model data.")
+    if DEFAULT_EXCEL_PATH.exists():
+        st.sidebar.download_button(
+            "Download full Excel workbook",
+            data=DEFAULT_EXCEL_PATH.read_bytes(),
+            file_name=DEFAULT_EXCEL_PATH.name,
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            width="stretch",
+        )
+    st.sidebar.caption("Open the sidebar whenever you need the workbook. No file setup is required.")
+
     if ratings.empty:
         render_missing_state(Path(ratings_path), "Ratings file")
-        st.info("On Streamlit Cloud, either commit the latest output files to the repo or upload them from the sidebar.")
+        st.info("The latest published model data is unavailable. Please try again after the next refresh.")
         st.stop()
 
     ratings = ratings.sort_values("rating", ascending=False).reset_index(drop=True)
@@ -341,19 +288,18 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, line_history_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab, files_tab = st.tabs(
+    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, line_history_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab = st.tabs(
         [
             "Rankings",
             "Matchup",
-            "Weekly Matchups",
-            "Projected Wins",
-            "Odds / Edges",
-            "Line History / CLV",
-            "Team Betting",
-            "Analytics",
-            "Results Review",
-            "Backtest",
-            "Files",
+            "Games",
+            "Win Totals",
+            "Odds",
+            "Line Tracking",
+            "Team Trends",
+            "Model Analysis",
+            "Results",
+            "Validation",
         ]
     )
 
@@ -373,31 +319,17 @@ def main() -> None:
         if watchlist_only:
             filtered = filtered[filtered["watchlist"] != ""]
 
-        display = filtered[
-            [
-                "team",
-                "conference",
-                "record",
-                "rating",
-                "football_rating",
-                "market_rating",
-                "market_gap",
-                "rating_confidence",
-                "watchlist",
-            ]
-        ].copy()
-        display.columns = [
-            "Team",
-            "Conference",
-            "Record",
-            "Final Rating",
-            "Football Rating",
-            "Market Rating",
-            "Market Gap",
-            "Confidence",
-            "Watchlist",
-        ]
-        st.dataframe(display, use_container_width=True, height=620)
+        show_components = st.checkbox("Show rating components", value=False)
+        display_columns = ["team", "conference", "record", "rating", "rating_confidence"]
+        display_labels = ["Team", "Conference", "Record", "Rating", "Confidence"]
+        if show_components:
+            display_columns += ["football_rating", "market_rating", "market_gap", "watchlist"]
+            display_labels += ["Football", "Market", "Market Gap", "Watchlist"]
+
+        display = filtered[display_columns].copy()
+        display.insert(0, "rank", filtered.index)
+        display.columns = ["Rank"] + display_labels
+        st.dataframe(display, width="stretch", hide_index=True, height=620)
 
     with matchup_tab:
         team_names = ratings["team"].astype(str).tolist()
@@ -450,7 +382,7 @@ def main() -> None:
                 },
             ]
         )
-        st.dataframe(comparison, use_container_width=True, hide_index=True)
+        st.dataframe(comparison, width="stretch", hide_index=True)
 
     with weekly_tab:
         if projected_games.empty:
@@ -516,7 +448,7 @@ def main() -> None:
                 "Opponent Rating",
             ]
             display["Home/Listed Team Win %"] = display["Home/Listed Team Win %"].map(lambda value: f"{float(value) * 100:.1f}%")
-            st.dataframe(display, use_container_width=True, hide_index=True, height=520)
+            st.dataframe(display, width="stretch", hide_index=True, height=520)
 
     with win_totals_tab:
         if win_totals.empty:
@@ -532,7 +464,7 @@ def main() -> None:
                     with st.expander("Incomplete schedule audit"):
                         st.dataframe(
                             incomplete[["team", "conference", "schedule_games", "missing_games"]],
-                            use_container_width=True,
+                            width="stretch",
                             hide_index=True,
                         )
 
@@ -547,7 +479,7 @@ def main() -> None:
                 "Projected SOS",
                 "Avg Game Win %",
             ]
-            st.dataframe(totals_display, use_container_width=True, height=520, hide_index=True)
+            st.dataframe(totals_display, width="stretch", height=520, hide_index=True)
 
             if not projected_games.empty:
                 team_names = totals_display["Team"].tolist()
@@ -582,7 +514,7 @@ def main() -> None:
                     "Favorite Spread",
                     "Win Probability",
                 ]
-                st.dataframe(team_games, use_container_width=True, hide_index=True)
+                st.dataframe(team_games, width="stretch", hide_index=True)
 
     with odds_tab:
         if odds.empty:
@@ -666,7 +598,8 @@ def main() -> None:
                     key="odds_search",
                 ).strip().lower()
 
-            advanced_col1, advanced_col2, advanced_col3, advanced_col4, advanced_col5, advanced_col6 = st.columns(6)
+            odds_advanced = st.expander("Advanced filters and sorting")
+            advanced_col1, advanced_col2, advanced_col3, advanced_col4, advanced_col5, advanced_col6 = odds_advanced.columns(6)
             with advanced_col1:
                 selected_market_statuses = st.multiselect(
                     "Market status",
@@ -697,7 +630,7 @@ def main() -> None:
             with advanced_col6:
                 hide_no_line_games = st.checkbox("Hide no-line games", value=False, key="odds_hide_no_line")
 
-            sort_col1, sort_col2, sort_col3 = st.columns([1.4, 1, 1])
+            sort_col1, sort_col2, sort_col3 = odds_advanced.columns([1.4, 1, 1])
             odds_sort_options = {
                 "Biggest edge": "absolute_edge_points",
                 "Kickoff": "commence_time",
@@ -854,10 +787,10 @@ def main() -> None:
                 "Books",
                 "Market Total",
             ]
-            st.dataframe(display, use_container_width=True, hide_index=True, height=520)
+            st.dataframe(display, width="stretch", hide_index=True, height=520)
 
             with st.expander("Raw odds comparison"):
-                st.dataframe(filtered_odds, use_container_width=True, hide_index=True)
+                st.dataframe(filtered_odds, width="stretch", hide_index=True)
 
     with line_history_tab:
         if clv_summary.empty:
@@ -973,10 +906,10 @@ def main() -> None:
                 "ATS Result",
                 "Betting Status",
             ]
-            st.dataframe(history_display, use_container_width=True, hide_index=True, height=520)
+            st.dataframe(history_display, width="stretch", hide_index=True, height=520)
 
             with st.expander("Raw odds snapshot history"):
-                st.dataframe(odds_history, use_container_width=True, hide_index=True)
+                st.dataframe(odds_history, width="stretch", hide_index=True)
 
     with team_betting_tab:
         if completed_review.empty:
@@ -1128,7 +1061,7 @@ def main() -> None:
                         "Model Error",
                         "Market Error",
                     ]
-                    st.dataframe(display, use_container_width=True, hide_index=True, height=520)
+                    st.dataframe(display, width="stretch", hide_index=True, height=520)
 
                     st.subheader("Team Game Log")
                     selected_team = st.selectbox(
@@ -1171,7 +1104,7 @@ def main() -> None:
                         "Model Picked Team",
                         "Edge Hit",
                     ]
-                    st.dataframe(detail_display, use_container_width=True, hide_index=True)
+                    st.dataframe(detail_display, width="stretch", hide_index=True)
 
     with analytics_tab:
         analytics_frames = [
@@ -1212,7 +1145,7 @@ def main() -> None:
                 else:
                     display = edge_bucket_summary.copy()
                     st.write("How model edge size has performed against the market and actual results.")
-                    st.dataframe(display, use_container_width=True, hide_index=True)
+                    st.dataframe(display, width="stretch", hide_index=True)
 
             elif analytics_section == "Splits":
                 if split_summary.empty:
@@ -1224,7 +1157,7 @@ def main() -> None:
                     if selected_split != "All":
                         display = display[display["split"] == selected_split]
                     st.write("Performance split by game type, pick role, pick site, and week.")
-                    st.dataframe(display, use_container_width=True, hide_index=True)
+                    st.dataframe(display, width="stretch", hide_index=True)
 
             elif analytics_section == "Probability Calibration":
                 if probability_calibration.empty:
@@ -1236,9 +1169,9 @@ def main() -> None:
                         chart[column] = pd.to_numeric(chart[column], errors="coerce")
                     st.line_chart(
                         chart.set_index("win_probability_bucket")[["average_model_probability", "actual_win_rate"]],
-                        use_container_width=True,
+                        width="stretch",
                     )
-                    st.dataframe(probability_calibration, use_container_width=True, hide_index=True)
+                    st.dataframe(probability_calibration, width="stretch", hide_index=True)
 
             elif analytics_section == "Team Bias":
                 if team_bias.empty:
@@ -1288,14 +1221,14 @@ def main() -> None:
                     else:
                         bias = bias.sort_values("ats_cover_rate", ascending=False)
                     st.write("Positive model bias means the model has overrated that team versus actual margins.")
-                    st.dataframe(bias.drop(columns=["abs_bias"], errors="ignore"), use_container_width=True, hide_index=True, height=520)
+                    st.dataframe(bias.drop(columns=["abs_bias"], errors="ignore"), width="stretch", hide_index=True, height=520)
 
             elif analytics_section == "Conference Summary":
                 if conference_summary.empty:
                     render_missing_state(Path(conference_summary_default), "Conference summary")
                 else:
                     st.write("Conference-level rollup of team bias and error metrics.")
-                    st.dataframe(conference_summary, use_container_width=True, hide_index=True)
+                    st.dataframe(conference_summary, width="stretch", hide_index=True)
 
             elif analytics_section == "Big Misses":
                 if big_misses.empty:
@@ -1306,14 +1239,14 @@ def main() -> None:
                     min_miss = st.slider("Minimum model error", min_value=20.0, max_value=60.0, value=20.0, step=1.0, key="analytics_min_miss")
                     miss = miss[miss["absolute_model_error"] >= min_miss].sort_values("absolute_model_error", ascending=False)
                     st.write("Games where the model missed the final margin badly enough to deserve review.")
-                    st.dataframe(miss, use_container_width=True, hide_index=True, height=520)
+                    st.dataframe(miss, width="stretch", hide_index=True, height=520)
 
             elif analytics_section == "Market Disagreements":
                 if market_disagreements.empty:
                     st.info("No games yet where the model and market disagreed on the winner.")
                 else:
                     st.write("Games where the model and market picked different outright winners.")
-                    st.dataframe(market_disagreements, use_container_width=True, hide_index=True)
+                    st.dataframe(market_disagreements, width="stretch", hide_index=True)
 
     with review_tab:
         if weekly_review.empty or completed_review.empty:
@@ -1387,7 +1320,7 @@ def main() -> None:
                 "Market Winner %",
                 "Edge Right-Side %",
             ]
-            st.dataframe(weekly_display, use_container_width=True, hide_index=True)
+            st.dataframe(weekly_display, width="stretch", hide_index=True)
 
             st.subheader("Game-Level Review")
             completed_games["matchup"] = completed_games.apply(
@@ -1447,7 +1380,8 @@ def main() -> None:
                     key="results_review_search",
                 ).strip().lower()
 
-            review_advanced_col1, review_advanced_col2, review_advanced_col3, review_advanced_col4, review_advanced_col5 = st.columns(5)
+            review_advanced = st.expander("Advanced filters and sorting")
+            review_advanced_col1, review_advanced_col2, review_advanced_col3, review_advanced_col4, review_advanced_col5 = review_advanced.columns(5)
             with review_advanced_col1:
                 edge_result_filter = st.selectbox("Edge Result", edge_result_options, index=0, key="results_review_edge_result")
             with review_advanced_col2:
@@ -1484,7 +1418,7 @@ def main() -> None:
                     key="results_review_min_edge_size",
                 )
 
-            review_sort_col1, review_sort_col2, review_sort_col3 = st.columns([1.4, 1, 1])
+            review_sort_col1, review_sort_col2, review_sort_col3 = review_advanced.columns([1.4, 1, 1])
             review_sort_options = {
                 "Biggest model error": "absolute_model_error",
                 "Biggest market error": "absolute_market_error",
@@ -1595,7 +1529,7 @@ def main() -> None:
                 "Winner Pick",
                 "Edge Result",
             ]
-            st.dataframe(review_game_display, use_container_width=True, hide_index=True, height=520)
+            st.dataframe(review_game_display, width="stretch", hide_index=True, height=520)
 
     with backtest_tab:
         if backtest.empty:
@@ -1612,43 +1546,8 @@ def main() -> None:
             chart_df = backtest.set_index("week")[
                 ["model_vs_market_mae", "model_vs_actual_mae", "actual_vs_market_mae"]
             ]
-            st.line_chart(chart_df, use_container_width=True)
-            st.dataframe(backtest, use_container_width=True, hide_index=True)
-
-    with files_tab:
-        st.write("These are the current file paths the app is reading.")
-        st.code(
-            "Ratings CSV: "
-            f"{ratings_path}\nBacktest CSV: {backtest_path}\nProjected Win Totals CSV: {win_totals_path}\n"
-            f"Projected Games CSV: {projected_games_path}\nSchedule Coverage CSV: {schedule_coverage_path}\n"
-            f"Odds Comparison CSV: {odds_path}\nWeekly Results Review CSV: {weekly_review_path}\n"
-            f"Odds History CSV: {DEFAULT_ODDS_HISTORY_PATH}\nCLV Summary CSV: {DEFAULT_CLV_SUMMARY_PATH}\n"
-            f"Completed Games Review CSV: {completed_review_path}\nEdge Buckets CSV: {edge_bucket_default}\n"
-            f"Split Summary CSV: {split_summary_default}\nTeam Bias CSV: {team_bias_default}\n"
-            f"Conference Summary CSV: {conference_summary_default}\nBig Misses CSV: {big_misses_default}\n"
-            f"Market Disagreements CSV: {market_disagreements_default}\n"
-            f"Probability Calibration CSV: {probability_calibration_default}\n"
-            f"ATS Validation CSV: {DEFAULT_ATS_VALIDATION_PATH}\nExcel Workbook: {excel_path}",
-            language="text",
-        )
-        excel_file = Path(excel_path)
-        if uploaded_excel is not None:
-            st.download_button(
-                "Download Excel workbook",
-                data=BytesIO(uploaded_excel.getvalue()),
-                file_name=uploaded_excel.name,
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            )
-        elif excel_file.exists():
-            st.download_button(
-                "Download Excel workbook",
-                data=excel_file.read_bytes(),
-                file_name=excel_file.name,
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            )
-        else:
-            render_missing_state(excel_file, "Excel workbook")
-
+            st.line_chart(chart_df, width="stretch")
+            st.dataframe(backtest, width="stretch", hide_index=True)
 
 if __name__ == "__main__":
     main()
