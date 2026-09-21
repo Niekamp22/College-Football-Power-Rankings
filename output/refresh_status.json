@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "generated_at_utc": "2026-09-21T21:22:18+00:00",
+  "errors": [],
+  "warnings": [
+    "8 teams have incomplete schedules; forecasts remain published with an in-app warning"
+  ],
+  "stats": {
+    "season": 2026,
+    "cfbd_power_ratings_current_rows": 138,
+    "projected_win_totals_2026_rows": 138,
+    "projected_games_2026_rows": 1649,
+    "unique_projected_games": 888,
+    "schedule_coverage_2026_rows": 138,
+    "incomplete_schedules": 8,
+    "completed_games_review_2026_rows": 260,
+    "forward_graded_games": 0,
+    "retrospective_games": 260,
+    "ncaaf_game_odds_comparison_rows": 42,
+    "odds_games": 42,
+    "odds_last_captured_utc": "2026-09-21T00:31:51+00:00",
+    "rating_snapshots": 1,
+    "latest_rating_snapshot": "week_04_ratings.csv",
+    "master_workbook_bytes": 390816
+  }
+}

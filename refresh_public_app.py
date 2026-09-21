@@ -29,6 +29,7 @@ DEFAULT_ODDS_OUTPUT = Path("output/odds/ncaaf_game_odds_comparison.csv")
 DEFAULT_ODDS_HISTORY = Path("output/odds/odds_history.csv")
 DEFAULT_CLV_SUMMARY = Path("output/odds/clv_summary.csv")
 DEFAULT_MASTER_WORKBOOK = Path("output/power_ratings_master.xlsx")
+DEFAULT_REFRESH_STATUS = Path("output/refresh_status.json")
 DEFAULT_ANALYTICS_OUTPUTS = [
     Path("output/analytics/edge_bucket_summary_2026.csv"),
     Path("output/analytics/split_summary_2026.csv"),
@@ -50,6 +51,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skip-cfbd-fetch", action="store_true")
     parser.add_argument("--skip-odds-fetch", action="store_true")
     parser.add_argument("--skip-backtest", action="store_true")
+    parser.add_argument("--skip-tests", action="store_true", help="Skip the pre-refresh unit test gate.")
     parser.add_argument("--commit", action="store_true", help="Commit refreshed deployable outputs if anything changed.")
     parser.add_argument("--push", action="store_true", help="Push the commit to origin/main. Implies --commit.")
     return parser.parse_args()
@@ -86,6 +88,9 @@ def main() -> None:
     ratings_lines = Path(f"data/cfbd/raw/{args.ratings_year}/lines.json")
     ratings_games = Path(f"data/cfbd/raw/{args.ratings_year}/games.json")
     python = sys.executable
+
+    if not args.skip_tests:
+        run([python, "-m", "unittest", "discover", "-p", "test*.py", "-q"])
 
     if not args.skip_cfbd_fetch:
         require_env("CFBD_API_KEY")
@@ -138,6 +143,7 @@ def main() -> None:
     run([python, "validate_ats_signal.py"])
     run([python, "margin_challenger.py"])
     run([python, "export_master_workbook.py"])
+    run([python, "validate_public_outputs.py", "--season", str(args.projection_year)])
 
     changes = changed_files()
     if not changes:
@@ -167,6 +173,7 @@ def main() -> None:
         DEFAULT_CLV_SUMMARY,
         *DEFAULT_ANALYTICS_OUTPUTS,
         DEFAULT_MASTER_WORKBOOK,
+        DEFAULT_REFRESH_STATUS,
         *sorted(Path("output/snapshots").glob(f"{args.ratings_year}/week_*")),
     ]
     existing_files = [str(path) for path in files_to_commit if path.exists()]

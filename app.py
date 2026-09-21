@@ -28,6 +28,7 @@ DEFAULT_MARKET_DISAGREEMENTS_PATH = Path("output/analytics/market_disagreements_
 DEFAULT_PROBABILITY_CALIBRATION_PATH = Path("output/analytics/probability_calibration_2026.csv")
 DEFAULT_ATS_VALIDATION_PATH = Path("output/analytics/ats_model_validation.csv")
 DEFAULT_MARGIN_CHALLENGER_PATH = Path("output/analytics/margin_challenger_validation.csv")
+DEFAULT_REFRESH_STATUS_PATH = Path("output/refresh_status.json")
 
 
 def load_csv(path: Path) -> pd.DataFrame:
@@ -115,6 +116,15 @@ def latest_snapshot_status(snapshot_root: Path = Path("output/snapshots/2026")) 
     week = metadata.get("prediction_week", "?")
     refreshed = format_eastern_time(metadata.get("created_at_utc"))
     return f"Ratings prepared for Week {week}", f"Updated {refreshed}"
+
+
+def load_refresh_status(path: Path = DEFAULT_REFRESH_STATUS_PATH) -> dict[str, object]:
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
 
 
 def win_probability(spread: float, margin_std_dev: float = 16.0) -> float:
@@ -482,6 +492,7 @@ def main() -> None:
     probability_calibration = load_csv(Path(probability_calibration_default))
     ats_validation = load_csv(DEFAULT_ATS_VALIDATION_PATH)
     margin_challenger_validation = load_csv(DEFAULT_MARGIN_CHALLENGER_PATH)
+    refresh_status = load_refresh_status()
 
     snapshot_label, refresh_label = latest_snapshot_status()
     completed_week = "No finals loaded"
@@ -490,10 +501,17 @@ def main() -> None:
     odds_update_label = "Odds refresh unavailable"
     if not odds.empty and "captured_at_utc" in odds.columns and odds["captured_at_utc"].notna().any():
         odds_update_label = f"Odds updated {format_eastern_time(odds['captured_at_utc'].dropna().max())}"
+    health_label = "Automated checks unavailable"
+    if refresh_status.get("status") == "passed":
+        incomplete_count = refresh_status.get("stats", {}).get("incomplete_schedules", 0)
+        health_label = f"Data checks passed | {incomplete_count} incomplete schedules"
+    elif refresh_status.get("status") == "failed":
+        health_label = "Data checks failed | previous published data retained"
     st.markdown(
         f'<div class="trust-bar"><span class="trust-pill">{snapshot_label}</span>'
         f'<span class="trust-pill">{completed_week}</span><span class="trust-pill">{refresh_label}</span>'
-        f'<span class="trust-pill">{odds_update_label}</span><span class="trust-pill">All kickoff times Eastern</span></div>',
+        f'<span class="trust-pill">{odds_update_label}</span><span class="trust-pill">{health_label}</span>'
+        '<span class="trust-pill">All kickoff times Eastern</span></div>',
         unsafe_allow_html=True,
     )
 

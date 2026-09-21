@@ -46,14 +46,37 @@ Current hosted mode does not require secrets because it reads committed output f
 
 ## Data refresh
 
-Refresh data locally, then commit the updated outputs:
+The production refresh runs automatically from `.github/workflows/weekly-refresh.yml` every Monday at 14:00 UTC. During daylight time that is 10:00 AM Eastern; during standard time it is 9:00 AM Eastern.
+
+### One-time GitHub setup
+
+In the GitHub repository, open **Settings > Secrets and variables > Actions** and add these repository secrets:
+
+- `CFBD_API_KEY`
+- `ODDS_API_KEY`
+
+Real keys must never be committed to the repository. The scheduled workflow verifies both secrets before making any API calls.
+
+### What the automation does
+
+1. Runs the complete unit test suite.
+2. Downloads current CFBD inputs and sportsbook odds.
+3. Rebuilds ratings, frozen weekly snapshots, projections, reviews, analytics, and Excel outputs.
+4. Runs `validate_public_outputs.py` as a publication gate.
+5. Treats incomplete schedules as warnings, not failures.
+6. Commits and pushes only validated outputs, causing Streamlit to redeploy automatically.
+7. Uploads a refresh log and `output/refresh_status.json` as a GitHub Actions artifact.
+
+If any command or validation check fails, the workflow exits before committing, leaving the previous good public data online.
+
+### Manual refresh
+
+Open the repository's **Actions** tab, choose **Weekly data refresh**, and select **Run workflow**. This uses the same guarded pipeline as the Monday schedule.
+
+For a local refresh:
 
 ```powershell
-py power_rankings.py --save output/cfbd_power_ratings_current.csv --excel output/power_ratings_final.xlsx
-py project_win_totals.py --season 2026
-py sync_odds_api.py
-py export_master_workbook.py
-git add output app.py requirements.txt .streamlit/config.toml
-git commit -m "Refresh model outputs"
-git push
+$env:CFBD_API_KEY="your-key"
+$env:ODDS_API_KEY="your-key"
+py refresh_public_app.py --ratings-year 2026 --projection-year 2026 --push
 ```
