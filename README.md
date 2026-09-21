@@ -135,6 +135,12 @@ In leakage-safe weekly replays across the 2023-2025 regular seasons, the dual sy
 
 Every refresh also runs `snapshot_rankings.py`. The first ratings generated for an upcoming week are saved under `output/snapshots/<season>` and are not overwritten. Completed-game review uses a matching weekly snapshot when available and labels older games without a snapshot as `current_retrospective`.
 
+## Odds history and CLV
+
+Every Odds API refresh appends a normalized snapshot to `output/odds/odds_history.csv`. The app compares every sportsbook, selects the best available spread and price for the model side, calculates the price-adjusted break-even probability, and reports the improvement over the consensus line.
+
+`output/odds/clv_summary.csv` tracks opening-to-latest movement and calculates closing-line value after kickoff. Positive CLV means the captured number was better than the final pregame consensus. The ATS classifier is guarded by `validate_ats_signal.py`; it is not deployed unless its held-out Brier score beats the baseline model.
+
 To tune the prior-blend settings across multiple seasons:
 
 ```powershell

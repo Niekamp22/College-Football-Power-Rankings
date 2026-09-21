@@ -17,6 +17,8 @@ DEFAULT_WIN_TOTALS_PATH = Path("output/projections/projected_win_totals_2026.csv
 DEFAULT_PROJECTED_GAMES_PATH = Path("output/projections/projected_games_2026.csv")
 DEFAULT_SCHEDULE_COVERAGE_PATH = Path("output/projections/schedule_coverage_2026.csv")
 DEFAULT_ODDS_COMPARISON_PATH = Path("output/odds/ncaaf_game_odds_comparison.csv")
+DEFAULT_ODDS_HISTORY_PATH = Path("output/odds/odds_history.csv")
+DEFAULT_CLV_SUMMARY_PATH = Path("output/odds/clv_summary.csv")
 DEFAULT_WEEKLY_RESULTS_REVIEW_PATH = Path("output/reviews/weekly_results_review_2026.csv")
 DEFAULT_COMPLETED_GAMES_REVIEW_PATH = Path("output/reviews/completed_games_review_2026.csv")
 DEFAULT_EDGE_BUCKET_SUMMARY_PATH = Path("output/analytics/edge_bucket_summary_2026.csv")
@@ -26,6 +28,7 @@ DEFAULT_CONFERENCE_SUMMARY_PATH = Path("output/analytics/conference_summary_2026
 DEFAULT_BIG_MISSES_PATH = Path("output/analytics/big_misses_2026.csv")
 DEFAULT_MARKET_DISAGREEMENTS_PATH = Path("output/analytics/market_disagreements_2026.csv")
 DEFAULT_PROBABILITY_CALIBRATION_PATH = Path("output/analytics/probability_calibration_2026.csv")
+DEFAULT_ATS_VALIDATION_PATH = Path("output/analytics/ats_model_validation.csv")
 DEFAULT_OUTPUT_PATH = Path("output/power_ratings_master.xlsx")
 
 
@@ -38,6 +41,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--projected-games", type=Path, default=DEFAULT_PROJECTED_GAMES_PATH)
     parser.add_argument("--schedule-coverage", type=Path, default=DEFAULT_SCHEDULE_COVERAGE_PATH)
     parser.add_argument("--odds-comparison", type=Path, default=DEFAULT_ODDS_COMPARISON_PATH)
+    parser.add_argument("--odds-history", type=Path, default=DEFAULT_ODDS_HISTORY_PATH)
+    parser.add_argument("--clv-summary", type=Path, default=DEFAULT_CLV_SUMMARY_PATH)
     parser.add_argument("--weekly-results-review", type=Path, default=DEFAULT_WEEKLY_RESULTS_REVIEW_PATH)
     parser.add_argument("--completed-games-review", type=Path, default=DEFAULT_COMPLETED_GAMES_REVIEW_PATH)
     parser.add_argument("--edge-bucket-summary", type=Path, default=DEFAULT_EDGE_BUCKET_SUMMARY_PATH)
@@ -47,6 +52,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--big-misses", type=Path, default=DEFAULT_BIG_MISSES_PATH)
     parser.add_argument("--market-disagreements", type=Path, default=DEFAULT_MARKET_DISAGREEMENTS_PATH)
     parser.add_argument("--probability-calibration", type=Path, default=DEFAULT_PROBABILITY_CALIBRATION_PATH)
+    parser.add_argument("--ats-validation", type=Path, default=DEFAULT_ATS_VALIDATION_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH)
     return parser.parse_args()
 
@@ -129,6 +135,8 @@ def main() -> None:
     projected_games = load_csv(args.projected_games)
     schedule_coverage = load_csv(args.schedule_coverage)
     odds_comparison = load_csv(args.odds_comparison)
+    odds_history = load_csv(args.odds_history)
+    clv_summary = load_csv(args.clv_summary)
     weekly_results_review = load_csv(args.weekly_results_review)
     completed_games_review = load_csv(args.completed_games_review)
     edge_bucket_summary = load_csv(args.edge_bucket_summary)
@@ -138,6 +146,7 @@ def main() -> None:
     big_misses = load_csv(args.big_misses)
     market_disagreements = load_csv(args.market_disagreements)
     probability_calibration = load_csv(args.probability_calibration)
+    ats_validation = load_csv(args.ats_validation)
 
     workbook = Workbook()
     workbook.remove(workbook.active)
@@ -148,6 +157,8 @@ def main() -> None:
     write_sheet(workbook, "WeeklyMatchups", projected_games)
     write_sheet(workbook, "ScheduleCoverage", schedule_coverage)
     write_sheet(workbook, "OddsEdges", odds_comparison)
+    write_sheet(workbook, "OddsHistory", odds_history)
+    write_sheet(workbook, "CLVSummary", clv_summary)
     write_sheet(workbook, "WeeklyReview", weekly_results_review)
     write_sheet(workbook, "CompletedGames", completed_games_review)
     write_sheet(workbook, "EdgeBuckets", edge_bucket_summary)
@@ -157,6 +168,7 @@ def main() -> None:
     write_sheet(workbook, "BigMisses", big_misses)
     write_sheet(workbook, "MarketDisagreements", market_disagreements)
     write_sheet(workbook, "ProbabilityCalibration", probability_calibration)
+    write_sheet(workbook, "ATSValidation", ats_validation)
     write_sheet(workbook, "BacktestWeekly", weekly_backtest)
     write_sheet(workbook, "BacktestGames", game_backtest)
 

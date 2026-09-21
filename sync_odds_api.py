@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 import os
 import re
 import urllib.parse
@@ -30,6 +31,8 @@ from project_win_totals import (
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
 DEFAULT_SCHEDULE_PATH = Path("data/cfbd/raw/2026/games.json")
 DEFAULT_OUTPUT_ROOT = Path("output/odds")
+DEFAULT_HISTORY_PATH = DEFAULT_OUTPUT_ROOT / "odds_history.csv"
+DEFAULT_CLV_SUMMARY_PATH = DEFAULT_OUTPUT_ROOT / "clv_summary.csv"
 ODDS_API_BASE_URL = "https://api.the-odds-api.com/v4"
 NCAAF_SPORT_KEY = "americanfootball_ncaaf"
 
@@ -94,6 +97,16 @@ def timestamp_label() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
 
 
+def parse_utc_datetime(value: str) -> datetime | None:
+    if not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+
+
 def normalize_team_name(name: str) -> str:
     normalized = name.lower()
     normalized = normalized.replace("&", "and")
@@ -135,13 +148,31 @@ def market_by_key(bookmaker: dict[str, Any], market_key: str) -> dict[str, Any] 
 
 
 def home_spread_for_book(bookmaker: dict[str, Any], home_api_name: str) -> tuple[float | None, int | None]:
+    return spread_for_book(bookmaker, home_api_name)
+
+
+def spread_for_book(bookmaker: dict[str, Any], team_api_name: str) -> tuple[float | None, int | None]:
     market = market_by_key(bookmaker, "spreads")
     if not market:
         return None, None
     for outcome in market.get("outcomes", []):
-        if outcome.get("name") == home_api_name and outcome.get("point") is not None:
+        if outcome.get("name") == team_api_name and outcome.get("point") is not None:
             return float(outcome["point"]), outcome.get("price")
     return None, None
+
+
+def best_spread_offer(offers: list[tuple[float, int | None, str]]) -> tuple[float | None, int | None, str]:
+    if not offers:
+        return None, None, ""
+    return max(offers, key=lambda offer: (offer[0], offer[1] if offer[1] is not None else -10000))
+
+
+def break_even_probability(american_price: int | None) -> float | None:
+    if american_price is None or american_price == 0:
+        return None
+    if american_price < 0:
+        return -american_price / (-american_price + 100)
+    return 100 / (american_price + 100)
 
 
 def total_for_book(bookmaker: dict[str, Any]) -> tuple[float | None, int | None, int | None]:
@@ -306,6 +337,7 @@ def compare_game_odds(
     odds_rows: list[dict[str, Any]],
     ratings_rows: list[dict[str, Any]],
     schedule_games: list[dict[str, Any]],
+    captured_at_utc: str,
 ) -> list[dict[str, Any]]:
     ratings = {row["team"]: parse_float(row["rating"]) for row in ratings_rows}
     team_names = set(ratings) | {game.get("homeTeam", "") for game in schedule_games} | {game.get("awayTeam", "") for game in schedule_games}
@@ -337,17 +369,25 @@ def compare_game_odds(
 
         spread_values: list[float] = []
         total_values: list[float] = []
+        home_offers: list[tuple[float, int | None, str]] = []
+        away_offers: list[tuple[float, int | None, str]] = []
         book_columns: dict[str, Any] = {}
         for bookmaker in event.get("bookmakers", []):
             book_key = bookmaker.get("key", "")
             home_spread, home_spread_price = home_spread_for_book(bookmaker, home_api_name)
+            away_spread, away_spread_price = spread_for_book(bookmaker, away_api_name)
             total, over_price, under_price = total_for_book(bookmaker)
             home_ml, away_ml = h2h_price_for_book(bookmaker, home_api_name, away_api_name)
 
             if home_spread is not None:
                 spread_values.append(home_spread)
+                home_offers.append((home_spread, home_spread_price, book_key))
                 book_columns[f"{book_key}_home_spread"] = home_spread
                 book_columns[f"{book_key}_home_spread_price"] = home_spread_price
+            if away_spread is not None:
+                away_offers.append((away_spread, away_spread_price, book_key))
+                book_columns[f"{book_key}_away_spread"] = away_spread
+                book_columns[f"{book_key}_away_spread_price"] = away_spread_price
             if total is not None:
                 total_values.append(total)
                 book_columns[f"{book_key}_total"] = total
@@ -371,10 +411,23 @@ def compare_game_odds(
         absolute_edge_points = abs(model_edge_home_points)
         model_favorite = home_team if model_home_margin >= 0 else away_team
         market_favorite = home_team if market_home_margin >= 0 else away_team
+        best_home_spread, best_home_price, best_home_book = best_spread_offer(home_offers)
+        best_away_spread, best_away_price, best_away_book = best_spread_offer(away_offers)
+        pick_home = model_edge_home_points > 0
+        selected_best_spread = best_home_spread if pick_home else best_away_spread
+        selected_best_price = best_home_price if pick_home else best_away_price
+        selected_best_book = best_home_book if pick_home else best_away_book
+        selected_consensus_spread = market_home_spread if pick_home else -market_home_spread
+        line_shopping_value = (
+            selected_best_spread - selected_consensus_spread
+            if selected_best_spread is not None
+            else None
+        )
 
         comparison_rows.append(
             {
                 "event_id": event.get("id"),
+                "captured_at_utc": captured_at_utc,
                 "commence_time": event.get("commence_time"),
                 "week": schedule_game.get("week", ""),
                 "display_week": display_week_for_game(schedule_game) if schedule_game else "",
@@ -405,6 +458,19 @@ def compare_game_odds(
                 "model_favorite": model_favorite,
                 "market_favorite": market_favorite,
                 "market_total": round(average(total_values), 2) if total_values else "",
+                "best_home_spread": best_home_spread if best_home_spread is not None else "",
+                "best_home_price": best_home_price if best_home_price is not None else "",
+                "best_home_book": best_home_book,
+                "best_away_spread": best_away_spread if best_away_spread is not None else "",
+                "best_away_price": best_away_price if best_away_price is not None else "",
+                "best_away_book": best_away_book,
+                "selected_best_spread": selected_best_spread if selected_best_spread is not None else "",
+                "selected_best_price": selected_best_price if selected_best_price is not None else "",
+                "selected_best_book": selected_best_book,
+                "break_even_probability": round(break_even_probability(selected_best_price), 4)
+                if break_even_probability(selected_best_price) is not None
+                else "",
+                "line_shopping_value": round(line_shopping_value, 2) if line_shopping_value is not None else "",
                 **book_columns,
             }
         )
@@ -418,6 +484,136 @@ def compare_game_odds(
         )
     )
     return comparison_rows
+
+
+HISTORY_FIELDS = [
+    "event_id",
+    "captured_at_utc",
+    "commence_time",
+    "week",
+    "display_week",
+    "week_label",
+    "game_type",
+    "home_team",
+    "away_team",
+    "book_count",
+    "model_home_spread",
+    "market_home_spread",
+    "edge_side",
+    "absolute_edge_points",
+    "betting_status",
+    "best_home_spread",
+    "best_home_price",
+    "best_home_book",
+    "best_away_spread",
+    "best_away_price",
+    "best_away_book",
+    "selected_best_spread",
+    "selected_best_price",
+    "selected_best_book",
+    "break_even_probability",
+    "line_shopping_value",
+]
+
+
+def append_odds_history(path: Path, comparison_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    existing = load_csv(path) if path.exists() else []
+    seen = {(row.get("event_id"), row.get("captured_at_utc")) for row in existing}
+    additions = []
+    for row in comparison_rows:
+        if row.get("market_status") != "open_market":
+            continue
+        key = (row.get("event_id"), row.get("captured_at_utc"))
+        if key in seen:
+            continue
+        additions.append({field: row.get(field, "") for field in HISTORY_FIELDS})
+        seen.add(key)
+    history = existing + additions
+    history.sort(key=lambda row: (str(row.get("event_id", "")), str(row.get("captured_at_utc", ""))))
+    write_csv(path, history)
+    return history
+
+
+def build_clv_summary(history: list[dict[str, Any]], schedule_games: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    schedule_lookup = {
+        (game.get("homeTeam"), game.get("awayTeam")): game
+        for game in schedule_games
+        if game.get("homeTeam") and game.get("awayTeam")
+    }
+    summaries: list[dict[str, Any]] = []
+    event_ids = sorted({str(row.get("event_id", "")) for row in history if row.get("event_id")})
+    for event_id in event_ids:
+        rows = sorted(
+            [row for row in history if str(row.get("event_id", "")) == event_id],
+            key=lambda row: str(row.get("captured_at_utc", "")),
+        )
+        opening = rows[0]
+        latest = rows[-1]
+        commence_time = str(latest.get("commence_time", ""))
+        kickoff = parse_utc_datetime(commence_time)
+        pregame_rows = [
+            row
+            for row in rows
+            if kickoff is not None
+            and parse_utc_datetime(str(row.get("captured_at_utc", ""))) is not None
+            and parse_utc_datetime(str(row.get("captured_at_utc", ""))) <= kickoff
+        ]
+        commenced = kickoff is not None and datetime.now(timezone.utc) >= kickoff
+        closing = pregame_rows[-1] if pregame_rows and commenced else None
+        schedule_game = schedule_lookup.get((latest.get("home_team"), latest.get("away_team")), {})
+        edge_side = latest.get("edge_side", "")
+        pick_home = edge_side == latest.get("home_team")
+
+        opening_home = parse_float(opening.get("market_home_spread"))
+        latest_home = parse_float(latest.get("market_home_spread"))
+        opening_side = opening_home if pick_home else -opening_home
+        latest_side = latest_home if pick_home else -latest_home
+        closing_side = None
+        if closing:
+            closing_home = parse_float(closing.get("market_home_spread"))
+            closing_side = closing_home if pick_home else -closing_home
+        best_selected = parse_float(latest.get("selected_best_spread"), float("nan"))
+
+        actual_home_margin = ""
+        ats_result = ""
+        if schedule_game.get("completed") and schedule_game.get("homePoints") is not None and schedule_game.get("awayPoints") is not None:
+            actual_home_margin = float(schedule_game["homePoints"]) - float(schedule_game["awayPoints"])
+            picked_actual_margin = actual_home_margin if pick_home else -actual_home_margin
+            if not math.isnan(best_selected):
+                cover_margin = picked_actual_margin + best_selected
+                ats_result = "win" if cover_margin > 0 else "loss" if cover_margin < 0 else "push"
+
+        summaries.append(
+            {
+                "event_id": event_id,
+                "week_label": latest.get("week_label", ""),
+                "commence_time": commence_time,
+                "away_team": latest.get("away_team", ""),
+                "home_team": latest.get("home_team", ""),
+                "snapshot_count": len(rows),
+                "first_captured_at_utc": opening.get("captured_at_utc", ""),
+                "latest_captured_at_utc": latest.get("captured_at_utc", ""),
+                "opening_market_home_spread": opening.get("market_home_spread", ""),
+                "latest_market_home_spread": latest.get("market_home_spread", ""),
+                "home_line_movement": round(latest_home - opening_home, 2),
+                "edge_side": edge_side,
+                "latest_model_edge": latest.get("absolute_edge_points", ""),
+                "selected_best_spread": latest.get("selected_best_spread", ""),
+                "selected_best_price": latest.get("selected_best_price", ""),
+                "selected_best_book": latest.get("selected_best_book", ""),
+                "break_even_probability": latest.get("break_even_probability", ""),
+                "line_shopping_value": latest.get("line_shopping_value", ""),
+                "opening_to_latest_value": round(opening_side - latest_side, 2),
+                "closing_side_spread": round(closing_side, 2) if closing_side is not None else "",
+                "best_line_clv": round(best_selected - closing_side, 2)
+                if closing_side is not None and not math.isnan(best_selected)
+                else "",
+                "actual_home_margin": actual_home_margin,
+                "ats_result": ats_result,
+                "betting_status": latest.get("betting_status", ""),
+            }
+        )
+    return sorted(summaries, key=lambda row: (str(row["week_label"]), str(row["commence_time"]), str(row["away_team"])))
 
 
 def main() -> None:
@@ -465,10 +661,17 @@ def main() -> None:
 
     ratings_rows = load_csv(args.ratings)
     schedule_games = load_json(args.schedule)
-    comparison_rows = compare_game_odds(odds_rows, ratings_rows, schedule_games)
+    captured_at_utc = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    comparison_rows = compare_game_odds(odds_rows, ratings_rows, schedule_games, captured_at_utc)
     comparison_path = args.output_root / "ncaaf_game_odds_comparison.csv"
     write_csv(comparison_path, comparison_rows)
+    history_path = args.output_root / DEFAULT_HISTORY_PATH.name
+    history_rows = append_odds_history(history_path, comparison_rows)
+    clv_summary_path = args.output_root / DEFAULT_CLV_SUMMARY_PATH.name
+    write_csv(clv_summary_path, build_clv_summary(history_rows, schedule_games))
     print(f"Saved game odds comparison to {comparison_path}")
+    print(f"Saved {len(history_rows)} odds snapshots to {history_path}")
+    print(f"Saved CLV summary to {clv_summary_path}")
     print(f"Compared {len(comparison_rows)} games.")
 
 

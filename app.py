@@ -15,6 +15,8 @@ DEFAULT_WIN_TOTALS_PATH = Path("output/projections/projected_win_totals_2026.csv
 DEFAULT_PROJECTED_GAMES_PATH = Path("output/projections/projected_games_2026.csv")
 DEFAULT_SCHEDULE_COVERAGE_PATH = Path("output/projections/schedule_coverage_2026.csv")
 DEFAULT_ODDS_COMPARISON_PATH = Path("output/odds/ncaaf_game_odds_comparison.csv")
+DEFAULT_ODDS_HISTORY_PATH = Path("output/odds/odds_history.csv")
+DEFAULT_CLV_SUMMARY_PATH = Path("output/odds/clv_summary.csv")
 DEFAULT_WEEKLY_RESULTS_REVIEW_PATH = Path("output/reviews/weekly_results_review_2026.csv")
 DEFAULT_COMPLETED_GAMES_REVIEW_PATH = Path("output/reviews/completed_games_review_2026.csv")
 DEFAULT_EDGE_BUCKET_SUMMARY_PATH = Path("output/analytics/edge_bucket_summary_2026.csv")
@@ -24,6 +26,7 @@ DEFAULT_CONFERENCE_SUMMARY_PATH = Path("output/analytics/conference_summary_2026
 DEFAULT_BIG_MISSES_PATH = Path("output/analytics/big_misses_2026.csv")
 DEFAULT_MARKET_DISAGREEMENTS_PATH = Path("output/analytics/market_disagreements_2026.csv")
 DEFAULT_PROBABILITY_CALIBRATION_PATH = Path("output/analytics/probability_calibration_2026.csv")
+DEFAULT_ATS_VALIDATION_PATH = Path("output/analytics/ats_model_validation.csv")
 
 
 def load_csv(path: Path) -> pd.DataFrame:
@@ -297,6 +300,8 @@ def main() -> None:
     projected_games = load_uploaded_csv(uploaded_projected_games) if uploaded_projected_games else load_csv(Path(projected_games_path))
     schedule_coverage = load_uploaded_csv(uploaded_schedule_coverage) if uploaded_schedule_coverage else load_csv(Path(schedule_coverage_path))
     odds = load_uploaded_csv(uploaded_odds) if uploaded_odds else load_csv(Path(odds_path))
+    odds_history = load_csv(DEFAULT_ODDS_HISTORY_PATH)
+    clv_summary = load_csv(DEFAULT_CLV_SUMMARY_PATH)
     weekly_review = load_uploaded_csv(uploaded_weekly_review) if uploaded_weekly_review else load_csv(Path(weekly_review_path))
     completed_review = load_uploaded_csv(uploaded_completed_review) if uploaded_completed_review else load_csv(Path(completed_review_path))
     edge_bucket_summary = load_csv(Path(edge_bucket_default))
@@ -306,6 +311,7 @@ def main() -> None:
     big_misses = load_csv(Path(big_misses_default))
     market_disagreements = load_csv(Path(market_disagreements_default))
     probability_calibration = load_csv(Path(probability_calibration_default))
+    ats_validation = load_csv(DEFAULT_ATS_VALIDATION_PATH)
 
     if ratings.empty:
         render_missing_state(Path(ratings_path), "Ratings file")
@@ -335,13 +341,14 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab, files_tab = st.tabs(
+    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, line_history_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab, files_tab = st.tabs(
         [
             "Rankings",
             "Matchup",
             "Weekly Matchups",
             "Projected Wins",
             "Odds / Edges",
+            "Line History / CLV",
             "Team Betting",
             "Analytics",
             "Results Review",
@@ -595,6 +602,10 @@ def main() -> None:
                 "actual_home_points",
                 "actual_away_points",
                 "actual_home_margin",
+                "selected_best_spread",
+                "selected_best_price",
+                "break_even_probability",
+                "line_shopping_value",
             ]
             for column in numeric_columns:
                 if column in odds_board.columns:
@@ -607,6 +618,16 @@ def main() -> None:
                 odds_board["betting_status"] = "Standard"
             if "schedule_match_status" not in odds_board.columns:
                 odds_board["schedule_match_status"] = ""
+            for column in [
+                "selected_best_spread",
+                "selected_best_price",
+                "break_even_probability",
+                "line_shopping_value",
+            ]:
+                if column not in odds_board.columns:
+                    odds_board[column] = pd.NA
+            if "selected_best_book" not in odds_board.columns:
+                odds_board["selected_best_book"] = ""
 
             live_odds = odds_board[odds_board["market_home_spread"].notna()].copy()
             no_current_odds = odds_board[odds_board["market_home_spread"].isna()].copy()
@@ -770,6 +791,18 @@ def main() -> None:
             filtered_odds["edge_display"] = filtered_odds["absolute_edge_points"].map(
                 lambda value: f"{float(value):.2f}" if pd.notna(value) else "N/A"
             )
+            filtered_odds["best_line"] = filtered_odds.apply(
+                lambda row: (
+                    f"{row.get('edge_side')} {float(row.get('selected_best_spread')):+.1f} "
+                    f"({int(row.get('selected_best_price')):+d}, {row.get('selected_best_book')})"
+                    if pd.notna(row.get("selected_best_spread")) and pd.notna(row.get("selected_best_price"))
+                    else "Unavailable"
+                ),
+                axis=1,
+            )
+            filtered_odds["break_even_display"] = filtered_odds["break_even_probability"].map(
+                lambda value: f"{float(value) * 100:.1f}%" if pd.notna(value) else "N/A"
+            )
             filtered_odds["result"] = filtered_odds.apply(
                 lambda row: (
                     f"{row.get('away_team')} {int(row.get('actual_away_points'))}, {row.get('home_team')} {int(row.get('actual_home_points'))}"
@@ -791,6 +824,9 @@ def main() -> None:
                     "betting_status",
                     "edge_review_flag",
                     "edge_display",
+                    "best_line",
+                    "break_even_display",
+                    "line_shopping_value",
                     "model_line",
                     "market_line",
                     "result",
@@ -809,6 +845,9 @@ def main() -> None:
                 "Betting Status",
                 "Review Flag",
                 "Edge Points",
+                "Best Available Line",
+                "Break-Even %",
+                "Line Shopping Value",
                 "Model Line",
                 "Market Line",
                 "Result",
@@ -819,6 +858,125 @@ def main() -> None:
 
             with st.expander("Raw odds comparison"):
                 st.dataframe(filtered_odds, use_container_width=True, hide_index=True)
+
+    with line_history_tab:
+        if clv_summary.empty:
+            render_missing_state(DEFAULT_CLV_SUMMARY_PATH, "CLV summary")
+        else:
+            ats_validated = (
+                not ats_validation.empty
+                and ats_validation["validated_for_deployment"].astype(str).str.lower().eq("true").any()
+            )
+            if not ats_validated:
+                st.warning(
+                    "No ATS probability model is deployed. The held-out 2025 classifier failed to beat the baseline Brier score, "
+                    "so this page shows prices, movement, and CLV without pretending the edge is a validated cover probability."
+                )
+            history = clv_summary.copy()
+            for column in [
+                "snapshot_count",
+                "opening_market_home_spread",
+                "latest_market_home_spread",
+                "home_line_movement",
+                "latest_model_edge",
+                "selected_best_spread",
+                "selected_best_price",
+                "break_even_probability",
+                "line_shopping_value",
+                "opening_to_latest_value",
+                "closing_side_spread",
+                "best_line_clv",
+            ]:
+                if column in history.columns:
+                    history[column] = pd.to_numeric(history[column], errors="coerce")
+
+            tracked_col1, tracked_col2, tracked_col3, tracked_col4 = st.columns(4)
+            tracked_col1.metric("Tracked Games", len(history))
+            tracked_col2.metric("Odds Snapshots", int(history["snapshot_count"].sum()))
+            tracked_col3.metric("Multiple Snapshots", int(history["snapshot_count"].gt(1).sum()))
+            tracked_col4.metric(
+                "Avg Line-Shop Gain",
+                f"{history['line_shopping_value'].mean():.2f}" if history["line_shopping_value"].notna().any() else "N/A",
+            )
+            st.caption(
+                "CLV compares the line captured when a pick was available with the final pregame consensus. "
+                "Positive CLV means we secured a better number than the closing market."
+            )
+
+            history_filter_col1, history_filter_col2 = st.columns([1, 2])
+            history_weeks = ["All"] + sorted(history["week_label"].dropna().astype(str).unique().tolist())
+            with history_filter_col1:
+                history_week = st.selectbox("Week", history_weeks, key="clv_week_filter")
+            with history_filter_col2:
+                history_search = st.text_input(
+                    "Search line history",
+                    placeholder="Search by team or edge side",
+                    key="clv_search",
+                ).strip().lower()
+
+            filtered_history = history.copy()
+            if history_week != "All":
+                filtered_history = filtered_history[filtered_history["week_label"] == history_week]
+            if history_search:
+                filtered_history = filtered_history[
+                    filtered_history.apply(
+                        lambda row: history_search in str(row.get("home_team", "")).lower()
+                        or history_search in str(row.get("away_team", "")).lower()
+                        or history_search in str(row.get("edge_side", "")).lower(),
+                        axis=1,
+                    )
+                ]
+            filtered_history["matchup"] = filtered_history.apply(
+                lambda row: f"{row.get('away_team')} at {row.get('home_team')}",
+                axis=1,
+            )
+            filtered_history["break_even_display"] = filtered_history["break_even_probability"].map(
+                lambda value: f"{float(value) * 100:.1f}%" if pd.notna(value) else "N/A"
+            )
+            history_display = filtered_history[
+                [
+                    "week_label",
+                    "matchup",
+                    "snapshot_count",
+                    "opening_market_home_spread",
+                    "latest_market_home_spread",
+                    "home_line_movement",
+                    "edge_side",
+                    "latest_model_edge",
+                    "selected_best_spread",
+                    "selected_best_price",
+                    "selected_best_book",
+                    "break_even_display",
+                    "line_shopping_value",
+                    "opening_to_latest_value",
+                    "best_line_clv",
+                    "ats_result",
+                    "betting_status",
+                ]
+            ].copy()
+            history_display.columns = [
+                "Week",
+                "Matchup",
+                "Snapshots",
+                "Opening Home Line",
+                "Latest Home Line",
+                "Home Line Move",
+                "Model Side",
+                "Latest Edge",
+                "Best Spread",
+                "Best Price",
+                "Best Book",
+                "Break-Even %",
+                "Line-Shop Gain",
+                "Opening Value",
+                "Closing-Line Value",
+                "ATS Result",
+                "Betting Status",
+            ]
+            st.dataframe(history_display, use_container_width=True, hide_index=True, height=520)
+
+            with st.expander("Raw odds snapshot history"):
+                st.dataframe(odds_history, use_container_width=True, hide_index=True)
 
     with team_betting_tab:
         if completed_review.empty:
@@ -1464,11 +1622,13 @@ def main() -> None:
             f"{ratings_path}\nBacktest CSV: {backtest_path}\nProjected Win Totals CSV: {win_totals_path}\n"
             f"Projected Games CSV: {projected_games_path}\nSchedule Coverage CSV: {schedule_coverage_path}\n"
             f"Odds Comparison CSV: {odds_path}\nWeekly Results Review CSV: {weekly_review_path}\n"
+            f"Odds History CSV: {DEFAULT_ODDS_HISTORY_PATH}\nCLV Summary CSV: {DEFAULT_CLV_SUMMARY_PATH}\n"
             f"Completed Games Review CSV: {completed_review_path}\nEdge Buckets CSV: {edge_bucket_default}\n"
             f"Split Summary CSV: {split_summary_default}\nTeam Bias CSV: {team_bias_default}\n"
             f"Conference Summary CSV: {conference_summary_default}\nBig Misses CSV: {big_misses_default}\n"
             f"Market Disagreements CSV: {market_disagreements_default}\n"
-            f"Probability Calibration CSV: {probability_calibration_default}\nExcel Workbook: {excel_path}",
+            f"Probability Calibration CSV: {probability_calibration_default}\n"
+            f"ATS Validation CSV: {DEFAULT_ATS_VALIDATION_PATH}\nExcel Workbook: {excel_path}",
             language="text",
         )
         excel_file = Path(excel_path)
