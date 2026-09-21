@@ -1,19 +1,19 @@
 split,value,games,edge_hit_rate,model_better_than_market_rate,model_margin_mae,market_margin_mae,average_edge
-Game Type,FBS vs FBS,157,0.6752,0.6561,8.678,10.93,4.867
-Game Type,FCS involved,103,0.4466,0.3981,14.931,12.738,8.308
-Pick Role,favorite,98,0.7041,0.6429,12.619,12.956,6.91
-Pick Role,underdog,162,0.5123,0.5,10.269,10.854,5.82
-Pick Site,away,142,0.507,0.493,9.912,10.575,5.402
-Pick Site,home,112,0.6696,0.6161,12.985,13.164,7.416
-Pick Site,neutral,6,0.8333,0.8333,6.408,8.668,3.72
-Betting Status,Pass - FCS extreme edge,15,0.4,0.2667,22.457,9.445,21.435
-Betting Status,Pass - FCS low edge,22,0.4545,0.4545,12.002,11.727,3.029
-Betting Status,Pass - FCS underdog,36,0.25,0.25,15.944,14.028,4.379
-Betting Status,Qualified FCS favorite,30,0.7,0.6,12.101,13.578,10.332
-Betting Status,Review - extreme edge,1,1.0,1.0,24.16,45.33,21.17
-Betting Status,Standard,156,0.6731,0.6538,8.578,10.709,4.763
-Rating Source,current_retrospective,260,0.5846,0.5538,11.155,11.646,6.23
-Week,Week 0,8,0.75,0.75,8.645,13.374,5.966
-Week,Week 1,91,0.5714,0.5165,13.711,13.568,7.283
-Week,Week 2,86,0.5233,0.5233,10.759,11.267,5.786
-Week,Week 3,75,0.6533,0.6133,8.776,9.564,5.491
+Game Type,FBS vs FBS,157,0.6624,0.6433,8.68,10.93,4.874
+Game Type,FCS involved,103,0.4466,0.3981,14.923,12.738,8.315
+Pick Role,favorite,99,0.6869,0.6263,12.508,12.84,6.84
+Pick Role,underdog,161,0.5093,0.4969,10.321,10.912,5.866
+Pick Site,away,143,0.5035,0.4895,9.847,10.511,5.375
+Pick Site,home,111,0.6667,0.6126,13.094,13.269,7.484
+Pick Site,neutral,6,0.6667,0.6667,6.412,8.668,3.73
+Betting Status,Pass - FCS extreme edge,14,0.3571,0.2143,24.009,9.119,21.914
+Betting Status,Pass - FCS low edge,21,0.4286,0.4286,10.984,10.476,2.945
+Betting Status,Pass - FCS underdog,36,0.25,0.25,15.916,14.028,4.389
+Betting Status,Qualified FCS favorite,32,0.7188,0.625,12.416,14.355,10.307
+Betting Status,Review - extreme edge,1,1.0,1.0,24.28,45.33,21.05
+Betting Status,Standard,156,0.6603,0.641,8.58,10.709,4.77
+Rating Source,current_retrospective,260,0.5769,0.5462,11.153,11.646,6.237
+Week,Week 0,8,0.75,0.75,8.615,13.374,6.014
+Week,Week 1,91,0.5714,0.5165,13.708,13.568,7.285
+Week,Week 2,86,0.5233,0.5233,10.756,11.267,5.787
+Week,Week 3,75,0.6267,0.5867,8.781,9.564,5.505
