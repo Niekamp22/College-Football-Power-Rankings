@@ -1,0 +1,3 @@
+stage,alpha,blend,correction_cap,games,market_mae,challenger_mae,mae_improvement,ats_picks,ats_hit_rate,average_abs_correction,deployed
+2024_validation,1.0,0.25,5.0,752.0,12.204233,12.199635,0.004598,0.0,0.0,0.352979,False
+2025_held_out_test,1.0,0.25,5.0,762.0,11.855971,11.873012,-0.017041,0.0,0.0,0.279194,False

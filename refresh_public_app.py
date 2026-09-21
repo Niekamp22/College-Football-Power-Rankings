@@ -38,6 +38,7 @@ DEFAULT_ANALYTICS_OUTPUTS = [
     Path("output/analytics/market_disagreements_2026.csv"),
     Path("output/analytics/probability_calibration_2026.csv"),
     Path("output/analytics/ats_model_validation.csv"),
+    Path("output/analytics/margin_challenger_validation.csv"),
 ]
 
 
@@ -135,6 +136,7 @@ def main() -> None:
 
     run([python, "betting_analytics.py", "--season", str(args.projection_year)])
     run([python, "validate_ats_signal.py"])
+    run([python, "margin_challenger.py"])
     run([python, "export_master_workbook.py"])
 
     changes = changed_files()

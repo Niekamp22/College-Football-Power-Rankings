@@ -27,6 +27,7 @@ The current model is a market-calibrated predictive power rating built for neutr
 - `review_completed_games.py`: grades completed games against the model, market lines, and final scores
 - `export_master_workbook.py`: combines current outputs into one spreadsheet workbook
 - `tune_model.py`: runs a small historical parameter sweep to look for better backtest settings
+- `margin_challenger.py`: validates matchup and market-residual features on a held-out season before production use
 - `data/sample_games.csv`: sample results you can replace with your own data
 - `CFBD_NOTES.md`: recommended CFBD data sources for this project
 
@@ -140,6 +141,10 @@ Every refresh also runs `snapshot_rankings.py`. The first ratings generated for 
 Every Odds API refresh appends a normalized snapshot to `output/odds/odds_history.csv`. The app compares every sportsbook, selects the best available spread and price for the model side, calculates the price-adjusted break-even probability, and reports the improvement over the consensus line.
 
 `output/odds/clv_summary.csv` tracks opening-to-latest movement and calculates closing-line value after kickoff. Positive CLV means the captured number was better than the final pregame consensus. The ATS classifier is guarded by `validate_ats_signal.py`; it is not deployed unless its held-out Brier score beats the baseline model.
+
+The podcast shortlist is intentionally stricter than the general odds board. Candidates must be FBS-only, have a moderate model edge, be offered by at least four books at `-120` or better, involve medium-or-better rating confidence, avoid spreads above 14 points and large internal rating gaps, and receive support from both rating components. These safeguards improve candidate quality but do not represent a validated ATS probability.
+
+Every refresh also runs `margin_challenger.py`. New matchup features remain research-only unless they improve held-out margin MAE and clear the ATS-side validation gate; failed experiments are retained in the Validation view instead of silently changing production.
 
 To tune the prior-blend settings across multiple seasons:
 

@@ -49,6 +49,8 @@ class PodcastShortlistTest(unittest.TestCase):
             [
                 {**common, "game_type": "FBS vs FBS"},
                 {**common, "game_type": "FCS involved", "away_team": "FCS Team"},
+                {**common, "game_type": "FBS vs FBS", "market_home_margin": 20.0},
+                {**common, "game_type": "FBS vs FBS", "selected_best_price": -125},
             ]
         )
 

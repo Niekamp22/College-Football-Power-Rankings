@@ -26,6 +26,7 @@ DEFAULT_BIG_MISSES_PATH = Path("output/analytics/big_misses_2026.csv")
 DEFAULT_MARKET_DISAGREEMENTS_PATH = Path("output/analytics/market_disagreements_2026.csv")
 DEFAULT_PROBABILITY_CALIBRATION_PATH = Path("output/analytics/probability_calibration_2026.csv")
 DEFAULT_ATS_VALIDATION_PATH = Path("output/analytics/ats_model_validation.csv")
+DEFAULT_MARGIN_CHALLENGER_PATH = Path("output/analytics/margin_challenger_validation.csv")
 
 
 def load_csv(path: Path) -> pd.DataFrame:
@@ -120,6 +121,8 @@ def build_podcast_shortlist(
         & board["selected_best_price"].notna()
         & board["absolute_edge_points"].between(min_edge, max_edge, inclusive="both")
         & (board["book_count"].fillna(0) >= min_books)
+        & (board["selected_best_price"] >= -120)
+        & (board["market_home_margin"].abs() <= 14.0)
         & board["game_type"].eq("FBS vs FBS")
         & board["betting_status"].eq("Standard")
     ].copy()
@@ -156,6 +159,8 @@ def build_podcast_shortlist(
 
         home_confidence = confidence_values.get(str(home.get("rating_confidence", "")), 0.4)
         away_confidence = confidence_values.get(str(away.get("rating_confidence", "")), 0.4)
+        if min(home_confidence, away_confidence) < confidence_values["Medium"]:
+            continue
         confidence_score = (home_confidence + away_confidence) / 2
         edge = float(game["absolute_edge_points"])
         edge_quality = max(0.0, 1.0 - abs(edge - 5.5) / 5.5)
@@ -164,7 +169,8 @@ def build_podcast_shortlist(
         shopping_value = float(raw_shopping_value) if pd.notna(raw_shopping_value) else 0.0
         shopping_score = min(max(shopping_value, 0.0) / 1.5, 1.0)
         max_market_gap = max(abs(float(home["market_gap"])), abs(float(away["market_gap"])))
-        disagreement_penalty = 10.0 if max_market_gap >= 10 else 0.0
+        if max_market_gap >= 10.0:
+            continue
         model_fair_line = (
             float(game["model_home_spread"])
             if str(game["edge_side"]) == home_team
@@ -176,11 +182,8 @@ def build_podcast_shortlist(
             + 15.0 * liquidity_score
             + 10.0 * shopping_score
             + 20.0 * confidence_score
-            - disagreement_penalty
         )
         caution = "Confirm injuries, weather, and the line before locking the pick."
-        if max_market_gap >= 10:
-            caution = "Large football/market rating gap makes this a higher-variance candidate."
         reasoning = (
             f"The model's fair line is {game['edge_side']} {model_fair_line:+.1f}, compared with the best available "
             f"{float(game['selected_best_spread']):+.1f}. The independent football rating and market-rating component "
@@ -373,6 +376,7 @@ def main() -> None:
     market_disagreements = load_csv(Path(market_disagreements_default))
     probability_calibration = load_csv(Path(probability_calibration_default))
     ats_validation = load_csv(DEFAULT_ATS_VALIDATION_PATH)
+    margin_challenger_validation = load_csv(DEFAULT_MARGIN_CHALLENGER_PATH)
 
     st.sidebar.header("2026 Power Ratings")
     st.sidebar.caption("The app automatically uses the latest published model data.")
@@ -697,7 +701,8 @@ def main() -> None:
             st.subheader("Podcast Shortlist")
             st.caption(
                 "A conservative starting list for discussion. It requires FBS games, 3-8.5 point edges, "
-                "at least four books, and agreement between the football and market rating components."
+                "at least four books, medium-or-better team confidence, prices of -120 or better, spreads no larger "
+                "than 14, small internal rating gaps, and agreement between both rating components."
             )
             podcast_shortlist = build_podcast_shortlist(odds_board, ratings)
             if podcast_shortlist.empty:
@@ -1696,6 +1701,24 @@ def main() -> None:
             st.dataframe(review_game_display, width="stretch", hide_index=True, height=520)
 
     with backtest_tab:
+        st.subheader("Margin Challenger Gate")
+        if margin_challenger_validation.empty:
+            render_missing_state(DEFAULT_MARGIN_CHALLENGER_PATH, "Margin challenger validation")
+        else:
+            held_out = margin_challenger_validation[
+                margin_challenger_validation["stage"].eq("2025_held_out_test")
+            ]
+            held_out = held_out.iloc[0] if not held_out.empty else margin_challenger_validation.iloc[-1]
+            challenger_col1, challenger_col2, challenger_col3 = st.columns(3)
+            challenger_col1.metric("Market Margin MAE", f"{float(held_out['market_mae']):.3f}")
+            challenger_col2.metric("Challenger Margin MAE", f"{float(held_out['challenger_mae']):.3f}")
+            challenger_col3.metric("Improvement", f"{float(held_out['mae_improvement']):+.3f}")
+            st.info(
+                "The matchup residual challenger remains research-only because it did not improve held-out 2025 "
+                "margin accuracy. Failed challengers are retained here instead of silently changing production."
+            )
+
+        st.subheader("Historical Weekly Backtest")
         if backtest.empty:
             render_missing_state(Path(backtest_path), "Backtest file")
         else:

@@ -29,6 +29,7 @@ DEFAULT_BIG_MISSES_PATH = Path("output/analytics/big_misses_2026.csv")
 DEFAULT_MARKET_DISAGREEMENTS_PATH = Path("output/analytics/market_disagreements_2026.csv")
 DEFAULT_PROBABILITY_CALIBRATION_PATH = Path("output/analytics/probability_calibration_2026.csv")
 DEFAULT_ATS_VALIDATION_PATH = Path("output/analytics/ats_model_validation.csv")
+DEFAULT_MARGIN_CHALLENGER_PATH = Path("output/analytics/margin_challenger_validation.csv")
 DEFAULT_OUTPUT_PATH = Path("output/power_ratings_master.xlsx")
 
 
@@ -53,6 +54,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--market-disagreements", type=Path, default=DEFAULT_MARKET_DISAGREEMENTS_PATH)
     parser.add_argument("--probability-calibration", type=Path, default=DEFAULT_PROBABILITY_CALIBRATION_PATH)
     parser.add_argument("--ats-validation", type=Path, default=DEFAULT_ATS_VALIDATION_PATH)
+    parser.add_argument("--margin-challenger", type=Path, default=DEFAULT_MARGIN_CHALLENGER_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH)
     return parser.parse_args()
 
@@ -147,6 +149,7 @@ def main() -> None:
     market_disagreements = load_csv(args.market_disagreements)
     probability_calibration = load_csv(args.probability_calibration)
     ats_validation = load_csv(args.ats_validation)
+    margin_challenger = load_csv(args.margin_challenger)
 
     workbook = Workbook()
     workbook.remove(workbook.active)
@@ -169,6 +172,7 @@ def main() -> None:
     write_sheet(workbook, "MarketDisagreements", market_disagreements)
     write_sheet(workbook, "ProbabilityCalibration", probability_calibration)
     write_sheet(workbook, "ATSValidation", ats_validation)
+    write_sheet(workbook, "MarginChallenger", margin_challenger)
     write_sheet(workbook, "BacktestWeekly", weekly_backtest)
     write_sheet(workbook, "BacktestGames", game_backtest)
 
