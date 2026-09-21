@@ -61,7 +61,7 @@ Real keys must never be committed to the repository. The scheduled workflow veri
 
 1. Runs the complete unit test suite.
 2. Downloads current CFBD inputs and sportsbook odds.
-3. Rebuilds current-season ratings, frozen weekly snapshots, projections, reviews, analytics, and Excel outputs. The fixed historical backtest is preserved rather than needlessly recomputed every Monday.
+3. Rebuilds current-season ratings, frozen weekly snapshots, projections, reviews, analytics, and Excel outputs. Fixed historical backtests and research-validation artifacts are preserved rather than needlessly recomputed every Monday.
 4. Runs `validate_public_outputs.py` as a publication gate.
 5. Treats incomplete schedules as warnings, not failures.
 6. Commits and pushes only validated outputs, causing Streamlit to redeploy automatically.

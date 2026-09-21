@@ -140,8 +140,9 @@ def main() -> None:
         run([python, "sync_odds_api.py"])
 
     run([python, "betting_analytics.py", "--season", str(args.projection_year)])
-    run([python, "validate_ats_signal.py"])
-    run([python, "margin_challenger.py"])
+    if not args.skip_backtest:
+        run([python, "validate_ats_signal.py"])
+        run([python, "margin_challenger.py"])
     run([python, "export_master_workbook.py"])
     run([python, "validate_public_outputs.py", "--season", str(args.projection_year)])
 
