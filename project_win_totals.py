@@ -92,10 +92,14 @@ def ensure_team(summary: dict[str, dict[str, Any]], ratings_lookup: dict[str, di
             "rating": round(parse_float(rating_row["rating"]), 2),
             "projected_wins": 0.0,
             "projected_losses": 0.0,
+            "actual_wins": 0.0,
+            "actual_losses": 0.0,
+            "remaining_expected_wins": 0.0,
+            "remaining_games": 0,
             "schedule_games": 0,
             "projected_strength_of_schedule": 0.0,
             "average_game_win_probability": 0.0,
-            "games": [],
+            "remaining_probabilities": [],
         }
     return summary[team_name]
 
@@ -140,13 +144,29 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
             game.get("awayClassification"),
         )
         home_win_prob = win_probability(home_spread, margin_std_dev)
+        completed = bool(game.get("completed")) and game.get("homePoints") is not None and game.get("awayPoints") is not None
+        if completed:
+            home_points = parse_float(game.get("homePoints"))
+            away_points = parse_float(game.get("awayPoints"))
+            realized_home_win = 1.0 if home_points > away_points else 0.0 if home_points < away_points else 0.5
+            game_status = "Final"
+            result = f"{away_team_name} {int(away_points)}, {home_team_name} {int(home_points)}"
+        else:
+            realized_home_win = None
+            game_status = "Upcoming"
+            result = ""
 
         if home_rating_row:
             home_team = ensure_team(summary, ratings_lookup, home_team_name)
-            home_team["projected_wins"] += home_win_prob
             home_team["schedule_games"] += 1
             home_team["projected_strength_of_schedule"] += away_rating
-            home_team["games"].append(home_win_prob)
+            if completed:
+                home_team["actual_wins"] += realized_home_win
+                home_team["actual_losses"] += 1.0 - realized_home_win
+            else:
+                home_team["remaining_expected_wins"] += home_win_prob
+                home_team["remaining_games"] += 1
+                home_team["remaining_probabilities"].append(home_win_prob)
 
         favorite = home_display_name if home_spread >= 0 else away_display_name
         favorite_spread = round(abs(home_spread), 2)
@@ -157,6 +177,13 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
                     "week": week,
                     "display_week": display_week,
                     "week_label": week_label(display_week),
+                    "start_date": game.get("startDate", ""),
+                    "game_id": game.get("id", ""),
+                    "status": game_status,
+                    "result": result,
+                    "home_team": home_team_name,
+                    "away_team": away_team_name,
+                    "home_win_probability": round(home_win_prob, 4),
                     "team": home_team_name,
                     "opponent": away_display_name,
                     "game_type": matchup_type,
@@ -175,16 +202,28 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
 
         if away_rating_row:
             away_team = ensure_team(summary, ratings_lookup, away_team_name)
-            away_team["projected_wins"] += 1 - home_win_prob
             away_team["schedule_games"] += 1
             away_team["projected_strength_of_schedule"] += home_rating
-            away_team["games"].append(1 - home_win_prob)
+            if completed:
+                away_team["actual_wins"] += 1.0 - realized_home_win
+                away_team["actual_losses"] += realized_home_win
+            else:
+                away_team["remaining_expected_wins"] += 1 - home_win_prob
+                away_team["remaining_games"] += 1
+                away_team["remaining_probabilities"].append(1 - home_win_prob)
 
             game_rows.append(
                 {
                     "week": week,
                     "display_week": display_week,
                     "week_label": week_label(display_week),
+                    "start_date": game.get("startDate", ""),
+                    "game_id": game.get("id", ""),
+                    "status": game_status,
+                    "result": result,
+                    "home_team": home_team_name,
+                    "away_team": away_team_name,
+                    "home_win_probability": round(home_win_prob, 4),
                     "team": away_team_name,
                     "opponent": home_display_name,
                     "game_type": matchup_type,
@@ -204,18 +243,23 @@ def build_projections(ratings_rows: list[dict[str, Any]], schedule_games: list[d
     summary_rows: list[dict[str, Any]] = []
     for team_name, row in summary.items():
         games = int(row["schedule_games"])
-        projected_wins = float(row["projected_wins"])
+        projected_wins = float(row["actual_wins"]) + float(row["remaining_expected_wins"])
         row["projected_wins"] = round(projected_wins, 2)
         row["projected_losses"] = round(max(0.0, games - projected_wins), 2)
+        row["actual_wins"] = round(float(row["actual_wins"]), 1)
+        row["actual_losses"] = round(float(row["actual_losses"]), 1)
+        row["remaining_expected_wins"] = round(float(row["remaining_expected_wins"]), 2)
         row["projected_strength_of_schedule"] = round(
             row["projected_strength_of_schedule"] / games if games else 0.0,
             2,
         )
         row["average_game_win_probability"] = round(
-            sum(row["games"]) / len(row["games"]) if row["games"] else 0.0,
+            sum(row["remaining_probabilities"]) / len(row["remaining_probabilities"])
+            if row["remaining_probabilities"]
+            else 0.0,
             4,
         )
-        del row["games"]
+        del row["remaining_probabilities"]
         summary_rows.append(row)
 
     summary_rows.sort(key=lambda row: (-float(row["projected_wins"]), -float(row["rating"]), row["team"]))

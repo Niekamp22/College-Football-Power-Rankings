@@ -189,9 +189,13 @@ def grade_games(
     game_rows.sort(key=lambda row: (int(row["display_week"]), str(row["start_date"]), row["away_team"], row["home_team"]))
 
     weekly_rows: list[dict[str, Any]] = []
-    weeks = sorted({int(row["display_week"]) for row in game_rows})
-    for display_week in weeks:
-        rows = [row for row in game_rows if int(row["display_week"]) == display_week]
+    week_sources = sorted({(int(row["display_week"]), str(row["rating_source"])) for row in game_rows})
+    for display_week, rating_source in week_sources:
+        rows = [
+            row
+            for row in game_rows
+            if int(row["display_week"]) == display_week and str(row["rating_source"]) == rating_source
+        ]
         rows_with_market = [row for row in rows if row["absolute_market_error"] != ""]
         edge_rows = [row for row in rows if row["edge_result"] in ("right_side", "wrong_side")]
         weekly_rows.append(
@@ -199,6 +203,7 @@ def grade_games(
                 "season": season,
                 "display_week": display_week,
                 "week_label": week_label(display_week),
+                "rating_source": rating_source,
                 "games": len(rows),
                 "games_with_market_line": len(rows_with_market),
                 "model_margin_mae": round(average([float(row["absolute_model_error"]) for row in rows]) or 0.0, 2),

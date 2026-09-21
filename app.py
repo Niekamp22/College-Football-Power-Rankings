@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -33,6 +34,87 @@ def load_csv(path: Path) -> pd.DataFrame:
     if not path.exists():
         return pd.DataFrame()
     return pd.read_csv(path)
+
+
+def format_eastern_time(value: object) -> str:
+    timestamp = pd.to_datetime(value, errors="coerce", utc=True)
+    if pd.isna(timestamp):
+        return "TBD"
+    eastern = timestamp.tz_convert("America/New_York")
+    return eastern.strftime("%a %b %d, %I:%M %p ET").replace(" 0", " ")
+
+
+def format_percent(value: object, decimals: int = 1) -> str:
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    return "N/A" if pd.isna(numeric) else f"{float(numeric) * 100:.{decimals}f}%"
+
+
+def friendly_book_name(value: object) -> str:
+    names = {
+        "betmgm": "BetMGM",
+        "betrivers": "BetRivers",
+        "betonlineag": "BetOnline",
+        "betus": "BetUS",
+        "draftkings": "DraftKings",
+        "fanduel": "FanDuel",
+        "lowvig": "LowVig",
+        "mybookieag": "MyBookie",
+    }
+    raw = str(value or "").strip()
+    return names.get(raw.lower(), raw.replace("_", " ").title())
+
+
+def is_frozen_rating_source(value: object) -> bool:
+    return str(value).startswith("week_") and str(value).endswith("_snapshot")
+
+
+def default_week_index(board: pd.DataFrame, now: pd.Timestamp | None = None) -> int:
+    """Choose the first week with an unplayed game, falling back to the latest week."""
+    if board.empty or "display_week" not in board.columns:
+        return 0
+    weeks = sorted(int(week) for week in board["display_week"].dropna().unique())
+    if not weeks:
+        return 0
+    current_time = now if now is not None else pd.Timestamp.now(tz="UTC")
+    if current_time.tzinfo is None:
+        current_time = current_time.tz_localize("UTC")
+    starts = pd.to_datetime(board.get("start_date"), errors="coerce", utc=True)
+    completed = board.get("status", pd.Series("", index=board.index)).astype(str).str.lower().eq("final")
+    upcoming = board[(~completed) & (starts >= current_time)]
+    target_week = int(upcoming["display_week"].min()) if not upcoming.empty else max(weeks)
+    return weeks.index(target_week)
+
+
+def summarize_completed_games(games: pd.DataFrame) -> pd.DataFrame:
+    if games.empty:
+        return pd.DataFrame()
+    rows: list[dict[str, object]] = []
+    for display_week, group in games.groupby("display_week", dropna=True):
+        market = group[group["absolute_market_error"].notna()]
+        edge = group[group["edge_result"].isin(["right_side", "wrong_side"])]
+        rows.append(
+            {
+                "week_label": f"Week {int(display_week)}",
+                "games": len(group),
+                "games_with_market_line": len(market),
+                "model_margin_mae": group["absolute_model_error"].mean(),
+                "market_margin_mae": market["absolute_market_error"].mean() if not market.empty else pd.NA,
+                "model_winner_accuracy": group["winner_model_result"].eq("correct").mean(),
+                "market_winner_accuracy": market["winner_market_result"].eq("correct").mean() if not market.empty else pd.NA,
+                "edge_right_side_rate": edge["edge_result"].eq("right_side").mean() if not edge.empty else pd.NA,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def latest_snapshot_status(snapshot_root: Path = Path("output/snapshots/2026")) -> tuple[str, str]:
+    metadata_paths = sorted(snapshot_root.glob("week_*_metadata.json"))
+    if not metadata_paths:
+        return "No snapshot", "Refresh time unavailable"
+    metadata = json.loads(metadata_paths[-1].read_text(encoding="utf-8"))
+    week = metadata.get("prediction_week", "?")
+    refreshed = format_eastern_time(metadata.get("created_at_utc"))
+    return f"Ratings prepared for Week {week}", f"Updated {refreshed}"
 
 
 def win_probability(spread: float, margin_std_dev: float = 16.0) -> float:
@@ -293,6 +375,7 @@ def build_team_betting_summary(completed_games: pd.DataFrame) -> tuple[pd.DataFr
                 {
                     "week_label": game.get("week_label", ""),
                     "display_week": game.get("display_week"),
+                    "start_date": game.get("start_date", ""),
                     "team": team,
                     "opponent": opponent,
                     "game_type": game.get("game_type", ""),
@@ -331,8 +414,30 @@ def main() -> None:
         initial_sidebar_state="collapsed",
     )
 
+    st.markdown(
+        """
+        <style>
+        .block-container {max-width: 1380px; padding-top: 2.1rem; padding-bottom: 3rem;}
+        h1, h2, h3 {color: #102a43; letter-spacing: -0.02em;}
+        [data-testid="stMetric"] {background: rgba(255,255,255,.58); border: 1px solid rgba(20,50,74,.12); padding: .8rem; border-radius: 14px;}
+        [data-baseweb="tab-list"] {gap: .25rem; overflow-x: auto; scrollbar-width: thin;}
+        [data-baseweb="tab"] {white-space: nowrap; min-width: fit-content;}
+        [data-testid="stDataFrame"] {border: 1px solid rgba(20,50,74,.12); border-radius: 12px; overflow: hidden;}
+        .trust-bar {display:flex; flex-wrap:wrap; gap:.55rem; margin:.7rem 0 1.15rem;}
+        .trust-pill {background:#efe4d2; border:1px solid rgba(20,50,74,.12); border-radius:999px; padding:.38rem .72rem; color:#31445a; font-size:.84rem;}
+        .rating-note {padding:.78rem 1rem; border-left:4px solid #b6461d; background:rgba(255,255,255,.5); border-radius:0 10px 10px 0; margin:.4rem 0 1rem;}
+        @media (max-width: 700px) {
+          .block-container {padding-left: 1rem; padding-right: 1rem; padding-top: 1.2rem;}
+          h1 {font-size: 2rem !important;}
+          [data-testid="stMetric"] {padding:.55rem;}
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     st.title("College Football Power Ratings")
-    st.caption("Market-calibrated college football power numbers with matchup and backtest views.")
+    st.caption("Neutral-field team strength, matchup projections, and transparent market comparisons for the 2026 season.")
 
     ratings_default = str(DEFAULT_RATINGS_PATH)
     backtest_default = str(DEFAULT_BACKTEST_PATH)
@@ -378,6 +483,20 @@ def main() -> None:
     ats_validation = load_csv(DEFAULT_ATS_VALIDATION_PATH)
     margin_challenger_validation = load_csv(DEFAULT_MARGIN_CHALLENGER_PATH)
 
+    snapshot_label, refresh_label = latest_snapshot_status()
+    completed_week = "No finals loaded"
+    if not completed_review.empty and "display_week" in completed_review.columns:
+        completed_week = f"Results through Week {int(pd.to_numeric(completed_review['display_week'], errors='coerce').max())}"
+    odds_update_label = "Odds refresh unavailable"
+    if not odds.empty and "captured_at_utc" in odds.columns and odds["captured_at_utc"].notna().any():
+        odds_update_label = f"Odds updated {format_eastern_time(odds['captured_at_utc'].dropna().max())}"
+    st.markdown(
+        f'<div class="trust-bar"><span class="trust-pill">{snapshot_label}</span>'
+        f'<span class="trust-pill">{completed_week}</span><span class="trust-pill">{refresh_label}</span>'
+        f'<span class="trust-pill">{odds_update_label}</span><span class="trust-pill">All kickoff times Eastern</span></div>',
+        unsafe_allow_html=True,
+    )
+
     st.sidebar.header("2026 Power Ratings")
     st.sidebar.caption("The app automatically uses the latest published model data.")
     if DEFAULT_EXCEL_PATH.exists():
@@ -412,7 +531,7 @@ def main() -> None:
         <div style="padding: 1rem 1.2rem; border-radius: 18px; background: linear-gradient(135deg, #14324a, #b6461d); color: white; margin-bottom: 1rem;">
           <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.85;">Current No. 1</div>
           <div style="font-size: 2rem; font-weight: 700;">{top_row['team']}</div>
-          <div style="font-size: 1rem; opacity: 0.92;">Final {top_row['rating']:.2f} | Football {top_row['football_rating']:.2f} | Market {top_row['market_rating']:.2f}</div>
+          <div style="font-size: 1rem; opacity: 0.92;">Power Rating {top_row['rating']:.2f} | Football {top_row['football_rating']:.2f} | Market {top_row['market_rating']:.2f}</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -421,20 +540,25 @@ def main() -> None:
     rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, line_history_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab = st.tabs(
         [
             "Rankings",
-            "Matchup",
-            "Games",
-            "Win Totals",
-            "Odds",
-            "Line Tracking",
-            "Team Trends",
-            "Model Analysis",
-            "Results",
-            "Validation",
+            "Matchup Lab",
+            "Weekly Board",
+            "Season Forecast",
+            "Betting Board",
+            "Line Movement",
+            "Team Profiles",
+            "Research",
+            "Performance",
+            "Methodology",
         ]
     )
 
     with rankings_tab:
-        st.caption("Final Rating blends 60% independent football strength with 40% market-implied strength. Market Gap is market minus football.")
+        st.markdown(
+            '<div class="rating-note"><strong>How to read the rating:</strong> +10 means a team is about 10 points better '
+            'than an average FBS team on a neutral field. The difference between two ratings is the projected neutral-field spread.</div>',
+            unsafe_allow_html=True,
+        )
+        st.caption("Final Rating blends 60% independent football strength with 40% market-implied strength. Market Gap is market minus football. Confidence reflects sample strength and agreement between model components.")
         conferences = ["All conferences"] + sorted(ratings["conference"].dropna().astype(str).unique().tolist())
         selected_conference = st.selectbox("Conference", conferences, index=0)
         search_term = st.text_input("Team search", placeholder="Start typing a team name")
@@ -482,7 +606,7 @@ def main() -> None:
         metric1.metric("Projected Spread", favorite_label)
         metric2.metric(f"{team_a_name} Win %", f"{team_a_prob * 100:.1f}%")
         metric3.metric(f"{team_b_name} Win %", f"{(1 - team_a_prob) * 100:.1f}%")
-        st.caption(f"Site setting: {game_site}")
+        st.caption(f"Site setting: {game_site}. Home field adds 2.5 points. Win probability is an estimate, not a guarantee.")
 
         comparison = pd.DataFrame(
             [
@@ -513,6 +637,12 @@ def main() -> None:
             ]
         )
         st.dataframe(comparison, width="stretch", hide_index=True)
+        with st.expander("What do these matchup numbers mean?"):
+            st.write(
+                "Football Rating is the independent on-field model. Market Rating is strength inferred from betting lines. "
+                "Market Gap shows where those two views disagree. Efficiency, Market, and Schedule are 0-100 component scores, "
+                "where a higher score is stronger within the current FBS field."
+            )
 
     with weekly_tab:
         if projected_games.empty:
@@ -525,7 +655,9 @@ def main() -> None:
             game_type_options = ["All"] + sorted(weekly_board["game_type"].dropna().astype(str).unique().tolist())
             filter_col1, filter_col2, filter_col3 = st.columns([1, 1, 2])
             with filter_col1:
-                selected_week_label = st.selectbox("Week", list(week_options), index=0, key="weekly_matchup_week")
+                selected_week_label = st.selectbox(
+                    "Week", list(week_options), index=default_week_index(weekly_board), key="weekly_matchup_week"
+                )
                 selected_week = week_options[selected_week_label]
             with filter_col2:
                 selected_game_type = st.selectbox("Game Type", game_type_options, index=0, key="weekly_game_type")
@@ -536,23 +668,29 @@ def main() -> None:
                     key="weekly_matchup_search",
                 ).strip().lower()
             board = weekly_board[weekly_board["display_week"] == selected_week].copy()
-            board = board[board["site"].isin(["home", "neutral"])].copy()
+            if "game_id" in board.columns and board["game_id"].notna().any():
+                board = board.drop_duplicates(subset="game_id", keep="first")
+            else:
+                board = board[board["site"].isin(["home", "neutral"])].copy()
             if selected_game_type != "All":
                 board = board[board["game_type"] == selected_game_type]
 
-            board["matchup"] = board.apply(
-                lambda row: f"{row['opponent']} vs {row['team']}" if row["site"] == "neutral" else f"{row['opponent']} at {row['team']}",
-                axis=1,
-            )
+            if {"home_team", "away_team"}.issubset(board.columns):
+                board["matchup"] = board.apply(
+                    lambda row: f"{row['away_team']} vs {row['home_team']}"
+                    if row["site"] == "neutral"
+                    else f"{row['away_team']} at {row['home_team']}",
+                    axis=1,
+                )
+            else:
+                board["matchup"] = board.apply(
+                    lambda row: f"{row['opponent']} vs {row['team']}" if row["site"] == "neutral" else f"{row['opponent']} at {row['team']}",
+                    axis=1,
+                )
             board["line"] = board.apply(
                 lambda row: f"{row['favorite']} -{float(row['favorite_spread']):.1f}",
                 axis=1,
             )
-            board["home_team"] = board["team"]
-            board["away_team"] = board["opponent"]
-            board.loc[board["site"] == "neutral", "home_team"] = ""
-            board.loc[board["site"] == "neutral", "away_team"] = ""
-
             if matchup_search:
                 board = board[
                     board.apply(
@@ -564,20 +702,19 @@ def main() -> None:
                     )
                 ]
 
-            display = board[
-                ["week_label", "matchup", "game_type", "site", "line", "win_probability", "team_rating", "opponent_rating"]
-            ].copy()
-            display.columns = [
-                "Week",
-                "Matchup",
-                "Game Type",
-                "Site",
-                "Projected Line",
-                "Home/Listed Team Win %",
-                "Listed Team Rating",
-                "Opponent Rating",
-            ]
-            display["Home/Listed Team Win %"] = display["Home/Listed Team Win %"].map(lambda value: f"{float(value) * 100:.1f}%")
+            probability_column = "home_win_probability" if "home_win_probability" in board.columns else "win_probability"
+            display_columns = ["week_label", "start_date", "matchup", "game_type", "site"]
+            if "status" in board.columns:
+                display_columns.append("status")
+            display_columns += ["line", probability_column]
+            display = board[display_columns].copy()
+            display["start_date"] = display["start_date"].map(format_eastern_time)
+            display_labels = ["Week", "Kickoff (ET)", "Matchup", "Game Type", "Site"]
+            if "status" in board.columns:
+                display_labels.append("Status")
+            display_labels += ["Projected Line", "Home Team Win %"]
+            display.columns = display_labels
+            display["Home Team Win %"] = display["Home Team Win %"].map(format_percent)
             st.dataframe(display, width="stretch", hide_index=True, height=520)
 
     with win_totals_tab:
@@ -598,17 +735,40 @@ def main() -> None:
                             hide_index=True,
                         )
 
-            totals_display = win_totals.copy().sort_values("projected_wins", ascending=False)
-            totals_display.columns = [
-                "Team",
-                "Conference",
-                "Rating",
-                "Projected Wins",
-                "Projected Losses",
-                "Schedule Games",
-                "Projected SOS",
-                "Avg Game Win %",
+            st.caption(
+                "Season forecast = actual wins already earned + expected wins in the remaining schedule. "
+                "An opponent rating of 0 represents an average FBS team."
+            )
+            totals_columns = [
+                "team",
+                "conference",
+                "actual_wins",
+                "actual_losses",
+                "remaining_games",
+                "remaining_expected_wins",
+                "projected_wins",
+                "projected_losses",
+                "projected_strength_of_schedule",
+                "average_game_win_probability",
             ]
+            totals_columns = [column for column in totals_columns if column in win_totals.columns]
+            totals_display = win_totals[totals_columns].copy().sort_values("projected_wins", ascending=False)
+            totals_display = totals_display.rename(
+                columns={
+                    "team": "Team",
+                    "conference": "Conference",
+                    "actual_wins": "Actual Wins",
+                    "actual_losses": "Actual Losses",
+                    "remaining_games": "Games Left",
+                    "remaining_expected_wins": "Expected Wins Left",
+                    "projected_wins": "Projected Wins",
+                    "projected_losses": "Projected Losses",
+                    "projected_strength_of_schedule": "Avg Opponent Rating",
+                    "average_game_win_probability": "Avg Remaining Win %",
+                }
+            )
+            if "Avg Remaining Win %" in totals_display.columns:
+                totals_display["Avg Remaining Win %"] = totals_display["Avg Remaining Win %"].map(format_percent)
             st.dataframe(totals_display, width="stretch", height=520, hide_index=True)
 
             if not projected_games.empty:
@@ -616,34 +776,16 @@ def main() -> None:
                 selected_team = st.selectbox("Schedule detail", team_names, key="schedule_detail_team")
                 team_games = add_game_type_column(add_week_display_columns(projected_games))
                 team_games = team_games[team_games["team"] == selected_team].copy().sort_values(["display_week", "week"])
-                team_games = team_games[
-                    [
-                        "week_label",
-                        "team",
-                        "opponent",
-                        "game_type",
-                        "site",
-                        "team_rating",
-                        "opponent_rating",
-                        "projected_spread",
-                        "favorite",
-                        "favorite_spread",
-                        "win_probability",
-                    ]
-                ].copy()
-                team_games.columns = [
-                    "Week",
-                    "Team",
-                    "Opponent",
-                    "Game Type",
-                    "Site",
-                    "Team Rating",
-                    "Opponent Rating",
-                    "Projected Spread",
-                    "Favorite",
-                    "Favorite Spread",
-                    "Win Probability",
-                ]
+                schedule_columns = ["week_label", "start_date"]
+                schedule_columns += [column for column in ["status", "result"] if column in team_games.columns]
+                schedule_columns += ["opponent", "game_type", "site", "projected_spread", "win_probability"]
+                team_games = team_games[schedule_columns].copy()
+                team_games["start_date"] = team_games["start_date"].map(format_eastern_time)
+                schedule_labels = ["Week", "Kickoff (ET)"]
+                schedule_labels += [label for column, label in [("status", "Status"), ("result", "Result")] if column in schedule_columns]
+                schedule_labels += ["Opponent", "Game Type", "Site", "Current Model Spread", "Current Model Win %"]
+                team_games.columns = schedule_labels
+                team_games["Current Model Win %"] = team_games["Current Model Win %"].map(format_percent)
                 st.dataframe(team_games, width="stretch", hide_index=True)
 
     with odds_tab:
@@ -693,12 +835,14 @@ def main() -> None:
 
             live_odds = odds_board[odds_board["market_home_spread"].notna()].copy()
             no_current_odds = odds_board[odds_board["market_home_spread"].isna()].copy()
+            upcoming_without_line = no_current_odds[~no_current_odds["market_status"].eq("completed_no_current_odds")]
             metric_col1, metric_col2, metric_col3 = st.columns(3)
             metric_col1.metric("Live Odds Games", f"{len(live_odds)}")
-            metric_col2.metric("Completed No-Odds", f"{len(no_current_odds)}")
-            metric_col3.metric("Largest Live Edge", f"{live_odds['absolute_edge_points'].max():.2f}" if not live_odds.empty else "N/A")
+            metric_col2.metric("Upcoming Without Line", f"{len(upcoming_without_line)}")
+            metric_col3.metric("Largest Model/Market Gap", f"{live_odds['absolute_edge_points'].max():.2f}" if not live_odds.empty else "N/A")
+            st.caption("Large gaps are review flags, not automatic bets. Always confirm the current line, injuries, weather, and availability.")
 
-            st.subheader("Podcast Shortlist")
+            st.subheader("Model Shortlist")
             st.caption(
                 "A conservative starting list for discussion. It requires FBS games, 3-8.5 point edges, "
                 "at least four books, medium-or-better team confidence, prices of -120 or better, spreads no larger "
@@ -706,14 +850,12 @@ def main() -> None:
             )
             podcast_shortlist = build_podcast_shortlist(odds_board, ratings)
             if podcast_shortlist.empty:
-                st.info("No games currently satisfy every podcast-shortlist safeguard.")
+                st.info("No games currently satisfy every shortlist safeguard.")
             else:
                 shortlist_details = podcast_shortlist.head(6).copy()
                 shortlist_display = shortlist_details.drop(columns=["Reasoning", "Caution"]).copy()
                 shortlist_display.insert(0, "Rank", range(1, len(shortlist_display) + 1))
-                shortlist_display["Kickoff"] = pd.to_datetime(shortlist_display["Kickoff"], errors="coerce", utc=True).dt.strftime(
-                    "%a %I:%M %p UTC"
-                )
+                shortlist_display["Kickoff"] = shortlist_display["Kickoff"].map(format_eastern_time)
                 shortlist_display["Model Fair Line"] = shortlist_display["Model Fair Line"].map(
                     lambda value: f"{float(value):+.1f}"
                 )
@@ -723,6 +865,7 @@ def main() -> None:
                 shortlist_display["Line Shopping Gain"] = shortlist_display["Line Shopping Gain"].map(
                     lambda value: f"{float(value):.2f}"
                 )
+                shortlist_display["Book"] = shortlist_display["Book"].map(friendly_book_name)
                 st.dataframe(shortlist_display, width="stretch", hide_index=True)
                 with st.expander("Why these games made the list"):
                     for rank, (_, candidate) in enumerate(shortlist_details.iterrows(), start=1):
@@ -936,6 +1079,7 @@ def main() -> None:
                     "market_total",
                 ]
             ].copy()
+            display["commence_time"] = display["commence_time"].map(format_eastern_time)
             display.columns = [
                 "Week",
                 "Kickoff",
@@ -1038,6 +1182,7 @@ def main() -> None:
             history_display = filtered_history[
                 [
                     "week_label",
+                    "commence_time",
                     "matchup",
                     "snapshot_count",
                     "opening_market_home_spread",
@@ -1056,8 +1201,10 @@ def main() -> None:
                     "betting_status",
                 ]
             ].copy()
+            history_display["commence_time"] = history_display["commence_time"].map(format_eastern_time)
             history_display.columns = [
                 "Week",
+                "Kickoff (ET)",
                 "Matchup",
                 "Snapshots",
                 "Opening Home Line",
@@ -1084,6 +1231,11 @@ def main() -> None:
         if completed_review.empty:
             render_missing_state(Path(completed_review_path), "Completed games review file")
         else:
+            if "rating_source" in completed_review.columns and not completed_review["rating_source"].map(is_frozen_rating_source).any():
+                st.warning(
+                    "Research view: these team trends currently use retrospective ratings. They can identify patterns, "
+                    "but they are not a verified forward betting record."
+                )
             team_summary, team_game_log = build_team_betting_summary(completed_review)
             if team_summary.empty or team_game_log.empty:
                 st.warning("No completed games with market lines are available for team betting analysis.")
@@ -1246,6 +1398,7 @@ def main() -> None:
                     detail_display = detail[
                         [
                             "week_label",
+                            "start_date",
                             "opponent",
                             "game_type",
                             "site",
@@ -1259,8 +1412,10 @@ def main() -> None:
                             "model_edge_hit",
                         ]
                     ].copy()
+                    detail_display["start_date"] = detail_display["start_date"].map(format_eastern_time)
                     detail_display.columns = [
                         "Week",
+                        "Kickoff (ET)",
                         "Opponent",
                         "Game Type",
                         "Site",
@@ -1276,6 +1431,10 @@ def main() -> None:
                     st.dataframe(detail_display, width="stretch", hide_index=True)
 
     with analytics_tab:
+        st.info(
+            "Research diagnostics explain where the model has been strong or weak. Unless explicitly labeled forward, "
+            "these summaries should not be interpreted as a live betting record."
+        )
         analytics_frames = [
             edge_bucket_summary,
             split_summary,
@@ -1421,7 +1580,6 @@ def main() -> None:
         if weekly_review.empty or completed_review.empty:
             render_missing_state(Path(completed_review_path), "Completed games review file")
         else:
-            weekly_results = add_week_display_columns(weekly_review)
             completed_games = add_game_type_column(add_week_display_columns(completed_review))
             if "betting_status" not in completed_games.columns:
                 completed_games["betting_status"] = "Standard"
@@ -1443,53 +1601,58 @@ def main() -> None:
                 "absolute_market_error",
                 "model_edge_home_points",
             ]:
-                if column in weekly_results.columns:
-                    weekly_results[column] = pd.to_numeric(weekly_results[column], errors="coerce")
                 if column in completed_games.columns:
                     completed_games[column] = pd.to_numeric(completed_games[column], errors="coerce")
 
+            frozen_games = completed_games[completed_games["rating_source"].map(is_frozen_rating_source)].copy()
+            retrospective_games = completed_games[~completed_games["rating_source"].map(is_frozen_rating_source)].copy()
+            weekly_results = summarize_completed_games(frozen_games)
+            st.caption("Forward performance uses only ratings frozen before kickoff. Retrospective diagnostics are never included in the headline record.")
+
             review_col1, review_col2, review_col3, review_col4 = st.columns(4)
-            total_completed = int(weekly_results["games"].sum())
-            market_games = int(weekly_results["games_with_market_line"].sum())
+            total_completed = len(frozen_games)
+            market_games = int(frozen_games["absolute_market_error"].notna().sum())
             weighted_model_mae = (
-                (weekly_results["model_margin_mae"] * weekly_results["games"]).sum() / total_completed
+                frozen_games["absolute_model_error"].mean()
                 if total_completed
                 else 0.0
             )
             weighted_market_mae = (
-                (weekly_results["market_margin_mae"] * weekly_results["games_with_market_line"]).sum() / market_games
+                frozen_games["absolute_market_error"].mean()
                 if market_games
                 else 0.0
             )
-            review_col1.metric("Completed Games", f"{total_completed}")
-            review_col2.metric("With Market Line", f"{market_games}")
-            review_col3.metric("Model Margin MAE", f"{weighted_model_mae:.2f}")
+            review_col1.metric("Forward-Graded Games", f"{total_completed}")
+            review_col2.metric("Forward Market Lines", f"{market_games}")
+            review_col3.metric("Forward Model MAE", f"{weighted_model_mae:.2f}" if total_completed else "N/A")
             review_col4.metric("Market Margin MAE", f"{weighted_market_mae:.2f}" if market_games else "N/A")
 
-            st.subheader("Weekly Sanity Check")
-            weekly_display = weekly_results[
-                [
-                    "week_label",
-                    "games",
-                    "games_with_market_line",
-                    "model_margin_mae",
-                    "market_margin_mae",
-                    "model_winner_accuracy",
-                    "market_winner_accuracy",
-                    "edge_right_side_rate",
-                ]
-            ].copy()
-            weekly_display.columns = [
-                "Week",
-                "Games",
-                "Market Games",
-                "Model Margin MAE",
-                "Market Margin MAE",
-                "Model Winner %",
-                "Market Winner %",
-                "Edge Right-Side %",
-            ]
-            st.dataframe(weekly_display, width="stretch", hide_index=True)
+            if frozen_games.empty:
+                st.info(
+                    "The trustworthy forward record begins with the Week 4 ratings snapshot. "
+                    f"The {len(retrospective_games)} earlier games remain available below as diagnostics, not claimed predictions."
+                )
+
+            st.subheader("Forward Record by Week")
+            if weekly_results.empty:
+                st.write("No frozen-prediction games have finished yet.")
+            else:
+                weekly_display = weekly_results.copy()
+                weekly_display = weekly_display.rename(
+                    columns={
+                        "week_label": "Week",
+                        "games": "Games",
+                        "games_with_market_line": "Market Games",
+                        "model_margin_mae": "Model Margin MAE",
+                        "market_margin_mae": "Market Margin MAE",
+                        "model_winner_accuracy": "Model Winner %",
+                        "market_winner_accuracy": "Market Winner %",
+                        "edge_right_side_rate": "Edge Right-Side %",
+                    }
+                )
+                for column in ["Model Winner %", "Market Winner %", "Edge Right-Side %"]:
+                    weekly_display[column] = weekly_display[column].map(format_percent)
+                st.dataframe(weekly_display, width="stretch", hide_index=True)
 
             st.subheader("Game-Level Review")
             completed_games["matchup"] = completed_games.apply(
@@ -1516,6 +1679,19 @@ def main() -> None:
                 lambda row: row["home_team"] if row["model_home_margin"] >= 0 else row["away_team"],
                 axis=1,
             )
+
+            show_retrospective = st.checkbox(
+                "Show retrospective diagnostic game log",
+                value=False,
+                help="These games use ratings calculated after the games and must not be treated as a betting record.",
+            )
+            completed_games = (
+                completed_games
+                if show_retrospective
+                else completed_games[completed_games["rating_source"].map(is_frozen_rating_source)].copy()
+            )
+            if show_retrospective:
+                st.warning("Diagnostic mode includes hindsight-assisted ratings. Use it to find model weaknesses, not to judge predictive performance.")
 
             available_review_weeks = sorted(int(week) for week in completed_games["display_week"].dropna().unique())
             review_week_options = {f"Week {week}": week for week in available_review_weeks}
@@ -1665,6 +1841,7 @@ def main() -> None:
             review_game_display = filtered_review.head(max_review_rows)[
                 [
                     "week_label",
+                    "start_date",
                     "matchup",
                     "game_type",
                     "rating_source",
@@ -1681,8 +1858,10 @@ def main() -> None:
                     "edge_result",
                 ]
             ].copy()
+            review_game_display["start_date"] = review_game_display["start_date"].map(format_eastern_time)
             review_game_display.columns = [
                 "Week",
+                "Kickoff (ET)",
                 "Matchup",
                 "Game Type",
                 "Rating Source",
@@ -1701,6 +1880,17 @@ def main() -> None:
             st.dataframe(review_game_display, width="stretch", hide_index=True, height=520)
 
     with backtest_tab:
+        st.subheader("How the model works")
+        st.write(
+            "The final power rating is measured in points above or below an average FBS team on a neutral field. "
+            "It blends 60% independent football performance with 40% market-implied strength, then adds 2.5 points "
+            "for the home team in matchup projections. CFBD supplies schedules, scores, and team data; live market "
+            "comparisons come from The Odds API."
+        )
+        st.caption(
+            "This site is an analytical tool, not financial advice. Lines move, data can be incomplete, and model edges can be wrong. "
+            "Use legal sportsbooks where available and bet responsibly."
+        )
         st.subheader("Margin Challenger Gate")
         if margin_challenger_validation.empty:
             render_missing_state(DEFAULT_MARGIN_CHALLENGER_PATH, "Margin challenger validation")
@@ -1723,16 +1913,26 @@ def main() -> None:
             render_missing_state(Path(backtest_path), "Backtest file")
         else:
             total_games = int(backtest["games"].sum())
-            weighted_mae = (backtest["model_vs_market_mae"] * backtest["games"]).sum() / total_games
+            model_market_distance = (backtest["model_vs_market_mae"] * backtest["games"]).sum() / total_games
+            model_actual_mae = (backtest["model_vs_actual_mae"] * backtest["games"]).sum() / total_games
+            market_actual_mae = (backtest["actual_vs_market_mae"] * backtest["games"]).sum() / total_games
             weighted_corr = (backtest["model_vs_market_corr"] * backtest["games"]).sum() / total_games
-            col1, col2, col3 = st.columns(3)
+            col1, col2, col3, col4 = st.columns(4)
             col1.metric("Tracked Games", f"{total_games}")
-            col2.metric("Weighted MAE", f"{weighted_mae:.3f}")
-            col3.metric("Weighted Corr", f"{weighted_corr:.3f}")
+            col2.metric("Model vs Actual MAE", f"{model_actual_mae:.2f}")
+            col3.metric("Market vs Actual MAE", f"{market_actual_mae:.2f}")
+            col4.metric("Model vs Market Gap", f"{model_market_distance:.2f}")
+            st.caption(f"Model/market spread correlation: {weighted_corr:.3f}. Lower MAE is better; the correlation only measures agreement with the market.")
 
             chart_df = backtest.set_index("week")[
                 ["model_vs_market_mae", "model_vs_actual_mae", "actual_vs_market_mae"]
-            ]
+            ].rename(
+                columns={
+                    "model_vs_market_mae": "Model vs Market Gap",
+                    "model_vs_actual_mae": "Model vs Actual Error",
+                    "actual_vs_market_mae": "Market vs Actual Error",
+                }
+            )
             st.line_chart(chart_df, width="stretch")
             st.dataframe(backtest, width="stretch", hide_index=True)
 
