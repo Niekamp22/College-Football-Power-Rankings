@@ -2,8 +2,9 @@ name: Weekly data refresh
 
 on:
   schedule:
-    # 10:00 AM Eastern during daylight time, 9:00 AM during standard time.
-    - cron: "0 14 * * 1"
+    # 10:17 AM Eastern during daylight time, 9:17 AM during standard time.
+    # Avoiding the top of the hour reduces GitHub scheduler congestion.
+    - cron: "17 14 * * 1"
   workflow_dispatch:
 
 permissions:
@@ -24,12 +25,12 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 

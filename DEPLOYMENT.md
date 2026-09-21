@@ -46,7 +46,7 @@ Current hosted mode does not require secrets because it reads committed output f
 
 ## Data refresh
 
-The production refresh runs automatically from `.github/workflows/weekly-refresh.yml` every Monday at 14:00 UTC. During daylight time that is 10:00 AM Eastern; during standard time it is 9:00 AM Eastern.
+The production refresh runs automatically from `.github/workflows/weekly-refresh.yml` every Monday at 14:17 UTC. During daylight time that is 10:17 AM Eastern; during standard time it is 9:17 AM Eastern. The off-hour start reduces GitHub scheduler congestion.
 
 ### One-time GitHub setup
 
