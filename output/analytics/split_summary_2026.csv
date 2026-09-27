@@ -1,19 +1,21 @@
 split,value,games,edge_hit_rate,model_better_than_market_rate,model_margin_mae,market_margin_mae,average_edge
-Game Type,FBS vs FBS,157,0.6624,0.6433,8.68,10.93,4.874
-Game Type,FCS involved,103,0.4466,0.3981,14.923,12.738,8.315
-Pick Role,favorite,99,0.6869,0.6263,12.508,12.84,6.84
-Pick Role,underdog,161,0.5093,0.4969,10.321,10.912,5.866
-Pick Site,away,143,0.5035,0.4895,9.847,10.511,5.375
-Pick Site,home,111,0.6667,0.6126,13.094,13.269,7.484
-Pick Site,neutral,6,0.6667,0.6667,6.412,8.668,3.73
-Betting Status,Pass - FCS extreme edge,14,0.3571,0.2143,24.009,9.119,21.914
-Betting Status,Pass - FCS low edge,21,0.4286,0.4286,10.984,10.476,2.945
-Betting Status,Pass - FCS underdog,36,0.25,0.25,15.916,14.028,4.389
-Betting Status,Qualified FCS favorite,32,0.7188,0.625,12.416,14.355,10.307
-Betting Status,Review - extreme edge,1,1.0,1.0,24.28,45.33,21.05
-Betting Status,Standard,156,0.6603,0.641,8.58,10.709,4.77
-Rating Source,current_retrospective,260,0.5769,0.5462,11.153,11.646,6.237
-Week,Week 0,8,0.75,0.75,8.615,13.374,6.014
-Week,Week 1,91,0.5714,0.5165,13.708,13.568,7.285
-Week,Week 2,86,0.5233,0.5233,10.756,11.267,5.787
-Week,Week 3,75,0.6267,0.5867,8.781,9.564,5.505
+Game Type,FBS vs FBS,215,0.6558,0.6093,9.605,11.031,4.585
+Game Type,FCS involved,116,0.4569,0.4052,14.958,12.716,8.045
+Pick Role,favorite,134,0.694,0.6343,12.035,12.44,5.879
+Pick Role,underdog,197,0.5127,0.4721,11.105,11.065,5.742
+Pick Site,away,170,0.5294,0.5059,10.68,11.049,5.356
+Pick Site,home,155,0.6452,0.5677,12.507,12.363,6.393
+Pick Site,neutral,6,0.6667,0.6667,7.66,8.708,2.922
+Betting Status,Pass - FCS extreme edge,16,0.5,0.375,20.857,10.453,21.738
+Betting Status,Pass - FCS low edge,24,0.5417,0.5417,11.201,11.833,2.92
+Betting Status,Pass - FCS underdog,44,0.2955,0.2955,15.56,13.341,4.735
+Betting Status,Qualified FCS favorite,32,0.5938,0.4688,13.998,13.648,9.593
+Betting Status,Review - extreme edge,2,1.0,0.5,15.99,24.625,20.125
+Betting Status,Standard,213,0.6526,0.6103,9.545,10.904,4.439
+Rating Source,current_retrospective,260,0.6,0.5577,11.148,11.634,6.356
+Rating Source,week_04_snapshot,71,0.5352,0.4648,12.702,11.577,3.754
+Week,Week 0,8,0.875,0.875,7.798,13.312,5.745
+Week,Week 1,91,0.5824,0.5275,13.833,13.558,7.571
+Week,Week 2,86,0.5698,0.5581,10.578,11.241,5.8
+Week,Week 3,75,0.6267,0.56,8.901,9.57,5.584
+Week,Week 4,71,0.5352,0.4648,12.702,11.577,3.754
