@@ -1,23 +1,22 @@
 week_label,game_type,away_team,home_team,model_favorite,market_favorite,winner_model_result,winner_market_result,model_home_margin,market_home_margin,actual_home_margin,absolute_model_error,absolute_market_error
-Week 2,FCS involved,Montana State,Nevada,Nevada,Montana State,wrong,correct,33.97,-5.0,-13.0,46.97,8.0
-Week 2,FBS vs FBS,UNLV,North Texas,North Texas,UNLV,correct,wrong,3.98,-2.75,38.0,34.02,40.75
-Week 2,FCS involved,Illinois State,Northern Illinois,Northern Illinois,Illinois State,wrong,correct,22.9,-2.5,-4.0,26.9,1.5
-Week 1,FBS vs FBS,Western Kentucky,Nevada,Nevada,Western Kentucky,correct,wrong,10.4,-0.25,35.0,24.6,35.25
+Week 2,FCS involved,Montana State,Nevada,Nevada,Montana State,wrong,correct,33.88,-5.0,-13.0,46.88,8.0
+Week 2,FBS vs FBS,UNLV,North Texas,North Texas,UNLV,correct,wrong,4.08,-2.75,38.0,33.92,40.75
+Week 2,FCS involved,Illinois State,Northern Illinois,Northern Illinois,Illinois State,wrong,correct,22.91,-2.5,-4.0,26.91,1.5
+Week 1,FBS vs FBS,Western Kentucky,Nevada,Nevada,Western Kentucky,correct,wrong,10.57,-0.25,35.0,24.43,35.25
 Week 4,FBS vs FBS,Oregon,USC,USC,Oregon,wrong,correct,3.66,-3.5,-14.0,17.66,10.5
-Week 3,FBS vs FBS,Wyoming,Central Michigan,Central Michigan,Wyoming,correct,wrong,1.48,-1.75,14.0,12.52,15.75
-Week 2,FBS vs FBS,Georgia State,Kennesaw State,Georgia State,Kennesaw State,correct,wrong,-3.02,7.5,-14.0,10.98,21.5
+Week 3,FBS vs FBS,Wyoming,Central Michigan,Central Michigan,Wyoming,correct,wrong,1.76,-1.75,14.0,12.24,15.75
+Week 2,FBS vs FBS,Georgia State,Kennesaw State,Georgia State,Kennesaw State,correct,wrong,-3.22,7.5,-14.0,10.78,21.5
 Week 4,FBS vs FBS,Air Force,Nevada,Nevada,Air Force,wrong,correct,5.45,-5.25,-3.0,8.45,2.25
 Week 4,FBS vs FBS,TCU,UCF,UCF,TCU,correct,wrong,0.37,-3.5,8.0,7.63,11.5
-Week 0,FBS vs FBS,Memphis,UNLV,Memphis,UNLV,correct,wrong,-0.07,4.75,-6.0,5.93,10.75
-Week 2,FBS vs FBS,Oklahoma,Michigan,Michigan,Oklahoma,correct,wrong,1.67,-5.0,7.0,5.33,12.0
-Week 3,FBS vs FBS,Mississippi State,South Carolina,Mississippi State,South Carolina,correct,wrong,-1.71,3.0,-7.0,5.29,10.0
-Week 2,FBS vs FBS,Navy,Florida Atlantic,Florida Atlantic,Navy,correct,wrong,2.8,-4.5,8.0,5.2,12.5
+Week 0,FBS vs FBS,Memphis,UNLV,Memphis,UNLV,correct,wrong,-0.55,4.75,-6.0,5.45,10.75
+Week 3,FBS vs FBS,Mississippi State,South Carolina,Mississippi State,South Carolina,correct,wrong,-1.66,3.0,-7.0,5.34,10.0
+Week 2,FBS vs FBS,Oklahoma,Michigan,Michigan,Oklahoma,correct,wrong,1.68,-5.0,7.0,5.32,12.0
+Week 2,FBS vs FBS,Navy,Florida Atlantic,Florida Atlantic,Navy,correct,wrong,2.94,-4.5,8.0,5.06,12.5
 Week 4,FBS vs FBS,Army,Temple,Temple,Army,wrong,correct,1.05,-4.0,-4.0,5.05,0.0
+Week 2,FBS vs FBS,UTSA,Texas State,UTSA,Texas State,correct,wrong,-0.24,1.5,-5.0,4.76,6.5
 Week 4,FBS vs FBS,UConn,Miami (OH),UConn,Miami (OH),wrong,correct,-1.44,2.5,3.0,4.44,0.5
-Week 2,FBS vs FBS,UTSA,Texas State,UTSA,Texas State,correct,wrong,-0.75,1.5,-5.0,4.25,6.5
-Week 3,FBS vs FBS,James Madison,San Diego State,James Madison,San Diego State,correct,wrong,-9.21,3.0,-13.0,3.79,16.0
-Week 1,FBS vs FBS,SMU,Florida State,Florida State,SMU,wrong,correct,0.06,-3.0,-3.0,3.06,0.0
-Week 1,FBS vs FBS,San José State,Eastern Michigan,San José State,Eastern Michigan,correct,wrong,-3.36,1.5,-6.0,2.64,7.5
-Week 2,FBS vs FBS,Jacksonville State,Ohio,Jacksonville State,Ohio,wrong,correct,-0.32,1.75,2.0,2.32,0.25
-Week 2,FBS vs FBS,South Florida,Army,South Florida,Army,correct,wrong,-3.17,3.0,-4.0,0.83,7.0
-Week 3,FBS vs FBS,East Carolina,Old Dominion,East Carolina,Old Dominion,correct,wrong,-2.28,2.5,-3.0,0.72,5.5
+Week 3,FBS vs FBS,James Madison,San Diego State,James Madison,San Diego State,correct,wrong,-9.94,3.0,-13.0,3.06,16.0
+Week 2,FBS vs FBS,Jacksonville State,Ohio,Jacksonville State,Ohio,wrong,correct,-0.61,1.75,2.0,2.61,0.25
+Week 1,FBS vs FBS,San José State,Eastern Michigan,San José State,Eastern Michigan,correct,wrong,-3.76,1.5,-6.0,2.24,7.5
+Week 2,FBS vs FBS,South Florida,Army,South Florida,Army,correct,wrong,-2.67,3.0,-4.0,1.33,7.0
+Week 3,FBS vs FBS,East Carolina,Old Dominion,East Carolina,Old Dominion,correct,wrong,-2.36,2.5,-3.0,0.64,5.5
