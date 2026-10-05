@@ -11,6 +11,7 @@ import pandas as pd
 DEFAULT_ODDS_PATH = Path("output/odds/ncaaf_game_odds_comparison.csv")
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
 DEFAULT_CLV_PATH = Path("output/odds/clv_summary.csv")
+DEFAULT_ODDS_HISTORY_PATH = Path("output/odds/odds_history.csv")
 DEFAULT_SCHEDULE_PATH = Path("data/cfbd/raw/2026/games.json")
 DEFAULT_LEDGER_PATH = Path("output/best_bets/best_bet_ledger_2026.csv")
 
@@ -19,6 +20,7 @@ LEDGER_COLUMNS = [
     "display_week",
     "week_label",
     "selection_rank",
+    "selection_source",
     "event_id",
     "captured_at_utc",
     "kickoff_utc",
@@ -244,6 +246,7 @@ def capture_current_week(ledger: pd.DataFrame, odds: pd.DataFrame, ratings: pd.D
                 "display_week": week,
                 "week_label": pick["Week"],
                 "selection_rank": rank,
+                "selection_source": "automated_frozen",
                 "event_id": pick["Event ID"],
                 "captured_at_utc": captured_at,
                 "kickoff_utc": pick["Kickoff"],
@@ -273,16 +276,104 @@ def capture_current_week(ledger: pd.DataFrame, odds: pd.DataFrame, ratings: pd.D
     return pd.concat([ledger, captured], ignore_index=True).reindex(columns=LEDGER_COLUMNS)
 
 
+def backfill_recorded_week(
+    ledger: pd.DataFrame,
+    odds_history_path: Path,
+    ratings_path: Path,
+    season: int,
+    week: int,
+    top: int,
+) -> pd.DataFrame:
+    """Recover picks only from recorded pregame snapshots, never current or postgame inputs."""
+    if not ledger.empty and (pd.to_numeric(ledger["display_week"], errors="coerce") == week).any():
+        return ledger
+    history = load_frame(odds_history_path)
+    ratings = load_frame(ratings_path)
+    if history.empty or ratings.empty:
+        return ledger
+
+    history["display_week"] = pd.to_numeric(history["display_week"], errors="coerce")
+    history["captured_at_utc"] = pd.to_datetime(history["captured_at_utc"], errors="coerce", utc=True)
+    history["commence_time"] = pd.to_datetime(history["commence_time"], errors="coerce", utc=True)
+    recorded = history[
+        history["display_week"].eq(week)
+        & history["captured_at_utc"].notna()
+        & history["commence_time"].notna()
+        & (history["captured_at_utc"] < history["commence_time"])
+    ].copy()
+    if recorded.empty:
+        return ledger
+
+    recorded = recorded.sort_values("captured_at_utc").groupby("event_id", as_index=False).tail(1).copy()
+    recorded["market_home_margin"] = -pd.to_numeric(recorded["market_home_spread"], errors="coerce")
+    recorded["edge_home_points"] = (
+        pd.to_numeric(recorded["market_home_spread"], errors="coerce")
+        - pd.to_numeric(recorded["model_home_spread"], errors="coerce")
+    )
+    recorded["game_type"] = "FBS vs FBS"
+    recorded["betting_status"] = "Standard"
+    recorded["neutral_site"] = False
+    shortlist = build_podcast_shortlist(recorded, ratings, week=week).head(top)
+    if shortlist.empty:
+        return ledger
+
+    new_rows: list[dict[str, object]] = []
+    for rank, (_, pick) in enumerate(shortlist.iterrows(), start=1):
+        history_row = recorded[recorded["event_id"].astype(str).eq(str(pick["Event ID"]))].iloc[0]
+        opponent = pick["Away Team"] if pick["Model Lean"] == pick["Home Team"] else pick["Home Team"]
+        new_rows.append(
+            {
+                "season": season,
+                "display_week": week,
+                "week_label": pick["Week"],
+                "selection_rank": rank,
+                "selection_source": "recorded_pregame_backfill",
+                "event_id": pick["Event ID"],
+                "captured_at_utc": history_row["captured_at_utc"].isoformat(),
+                "kickoff_utc": pick["Kickoff"],
+                "matchup": pick["Matchup"],
+                "away_team": pick["Away Team"],
+                "home_team": pick["Home Team"],
+                "pick_team": pick["Model Lean"],
+                "opponent": opponent,
+                "locked_spread": pick["Best Line"],
+                "locked_price": pick["Price"],
+                "locked_book": pick["Book"],
+                "model_fair_line": pick["Model Fair Line"],
+                "model_edge": pick["Model Edge"],
+                "candidate_score": pick["Candidate Score"],
+                "book_count": pick["Books"],
+                "line_shopping_gain": pick["Line Shopping Gain"],
+                "reasoning": pick["Reasoning"],
+                "status": "pending",
+                "units": 0.0,
+            }
+        )
+    backfill = pd.DataFrame(new_rows).reindex(columns=LEDGER_COLUMNS)
+    return pd.concat([ledger, backfill], ignore_index=True).reindex(columns=LEDGER_COLUMNS)
+
+
 def update_ledger(
     odds_path: Path = DEFAULT_ODDS_PATH,
     ratings_path: Path = DEFAULT_RATINGS_PATH,
     schedule_path: Path = DEFAULT_SCHEDULE_PATH,
     clv_path: Path = DEFAULT_CLV_PATH,
+    odds_history_path: Path = DEFAULT_ODDS_HISTORY_PATH,
     ledger_path: Path = DEFAULT_LEDGER_PATH,
     season: int = 2026,
     top: int = 4,
 ) -> pd.DataFrame:
     ledger = load_frame(ledger_path).reindex(columns=LEDGER_COLUMNS)
+    missing_source = ledger["selection_source"].isna() | ledger["selection_source"].astype(str).str.strip().eq("")
+    ledger.loc[missing_source, "selection_source"] = "automated_frozen"
+    ledger = backfill_recorded_week(
+        ledger,
+        odds_history_path,
+        Path(f"output/snapshots/{season}/week_05_ratings.csv"),
+        season,
+        week=5,
+        top=6,
+    )
     ledger = grade_ledger(ledger, schedule_path, clv_path)
     ledger = capture_current_week(ledger, load_frame(odds_path), load_frame(ratings_path), season, top)
     ledger = grade_ledger(ledger, schedule_path, clv_path)

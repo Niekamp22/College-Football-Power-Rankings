@@ -172,8 +172,8 @@ def validate_outputs(season: int) -> dict[str, object]:
         if duplicate_picks:
             errors.append(f"Best-bet ledger contains {int(duplicate_picks)} duplicate week/event picks")
         week_counts = best_bets.groupby("display_week").size()
-        if week_counts.gt(4).any():
-            errors.append("Best-bet ledger contains more than four picks in a week")
+        if week_counts.gt(6).any():
+            errors.append("Best-bet ledger contains more than six picks in a week")
         valid_statuses = {"pending", "graded"}
         invalid_statuses = set(best_bets["status"].dropna().astype(str)) - valid_statuses
         if invalid_statuses:

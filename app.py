@@ -1007,7 +1007,8 @@ def main() -> None:
         st.caption(
             "The first four qualifying recommendations for each week are frozen with the exact line, price, and book. "
             "They are later graded against the final score and closing market without rewriting history. Tracking begins "
-            "with the first published ledger week; earlier weeks are not reconstructed with hindsight."
+            "with Week 5, whose six picks were recovered from the saved pregame odds and frozen Week 5 ratings. "
+            "Weeks before Week 5 are not reconstructed with hindsight."
         )
         if best_bets.empty:
             render_missing_state(DEFAULT_BEST_BETS_PATH, "Best-bet ledger")
@@ -1084,6 +1085,7 @@ def main() -> None:
                 [
                     "week_label",
                     "selection_rank",
+                    "selection_source",
                     "kickoff_utc",
                     "matchup",
                     "pick_team",
@@ -1108,6 +1110,7 @@ def main() -> None:
             tracker_display.columns = [
                 "Week",
                 "Rank",
+                "Record Source",
                 "Kickoff (ET)",
                 "Matchup",
                 "Pick",

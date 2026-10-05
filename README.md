@@ -145,7 +145,7 @@ Every Odds API refresh appends a normalized snapshot to `output/odds/odds_histor
 
 The podcast shortlist is intentionally stricter than the general odds board. Candidates must be FBS-only, have a moderate model edge, be offered by at least four books at `-120` or better, involve medium-or-better rating confidence, avoid spreads above 14 points and large internal rating gaps, and receive support from both rating components. These safeguards improve candidate quality but do not represent a validated ATS probability.
 
-The first four qualifying candidates captured for a week are stored in `output/best_bets/best_bet_ledger_2026.csv`. Their pick-time spread, price, sportsbook, model edge, and reasoning are immutable. Later refreshes add final-score grading, closing-line value, units won or lost, and cumulative season results. Weeks before the ledger was introduced are not reconstructed with hindsight.
+Weekly candidates are stored in `output/best_bets/best_bet_ledger_2026.csv`. Their pick-time spread, price, sportsbook, model edge, and reasoning are immutable. Later refreshes add final-score grading, closing-line value, units won or lost, and cumulative season results. Week 5 contains six picks reconstructed only from the saved pregame odds history and frozen Week 5 ratings; weeks before Week 5 are not reconstructed with hindsight. Beginning with Week 6, the first four qualifying candidates are frozen automatically.
 
 Every refresh also runs `margin_challenger.py`. New matchup features remain research-only unless they improve held-out margin MAE and clear the ATS-side validation gate; failed experiments are retained in the Validation view instead of silently changing production.
 
