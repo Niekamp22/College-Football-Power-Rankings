@@ -7,7 +7,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 7,7,Week 7,2026-10-17T19:30:00.000Z,401864524,Upcoming,,Air Force,UNLV,0.504,Air Force,UNLV,FBS vs FBS,fbs,fbs,home,-4.06,-1.72,0.16,16.0,Air Force,0.16,0.504
 8,8,Week 8,2026-10-24T01:00:00.000Z,401864525,Upcoming,,Wyoming,Air Force,0.3759,Air Force,Wyoming,FBS vs FBS,fbs,fbs,away,-4.06,-11.62,5.06,16.0,Air Force,5.06,0.6241
 9,9,Week 9,2026-10-31T19:00:00.000Z,401861966,Upcoming,,Air Force,UConn,0.6307,Air Force,UConn,FBS vs FBS,fbs,fbs,home,-4.06,-6.9,5.34,16.0,Air Force,5.34,0.6307
-10,10,Week 10,2026-11-08T00:30:00.000Z,401862823,Upcoming,,Army,Air Force,0.5793,Air Force,Army,FBS vs FBS,fbs,fbs,away,-4.06,-3.36,-3.2,16.0,Army,3.2,0.4207
+10,10,Week 10,2026-11-08T00:30:00.000Z,401862823,Upcoming,,Army,Air Force,0.579,Air Force,Army,FBS vs FBS,fbs,fbs,away,-4.06,-3.37,-3.19,16.0,Army,3.19,0.421
 11,11,Week 11,2026-11-15T00:00:00.000Z,401864538,Upcoming,,Air Force,San José State,0.622,Air Force,San José State,FBS vs FBS,fbs,fbs,home,-4.06,-6.53,4.97,16.0,Air Force,4.97,0.622
 12,12,Week 12,2026-11-21T01:00:00.000Z,401864545,Upcoming,,Air Force,UTEP,0.8731,Air Force,UTEP,FBS vs FBS,fbs,fbs,home,-4.06,-19.82,18.26,16.0,Air Force,18.26,0.8731
 13,13,Week 13,2026-11-28T21:30:00.000Z,401864546,Upcoming,,New Mexico,Air Force,0.7722,Air Force,New Mexico,FBS vs FBS,fbs,fbs,away,-4.06,5.38,-11.94,16.0,New Mexico,11.94,0.2278
@@ -68,7 +68,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 8,8,Week 8,2026-10-24T04:00:00.000Z,401856839,Upcoming,,Arizona State,Kansas State,0.3669,Arizona State,Kansas State,FBS vs FBS,fbs,fbs,home,-1.26,6.68,-5.44,16.0,Kansas State,5.44,0.3669
 9,9,Week 9,2026-10-31T04:00:00.000Z,401856843,Upcoming,,BYU,Arizona State,0.8082,Arizona State,BYU,FBS vs FBS,fbs,fbs,away,-1.26,10.18,-13.94,16.0,BYU,13.94,0.1918
 10,10,Week 10,2026-11-07T05:00:00.000Z,401856852,Upcoming,,Arizona State,Colorado,0.605,Arizona State,Colorado,FBS vs FBS,fbs,fbs,home,-1.26,-3.02,4.26,16.0,Arizona State,4.26,0.605
-11,11,Week 11,2026-11-14T05:00:00.000Z,401856857,Upcoming,,UCF,Arizona State,0.6506,Arizona State,UCF,FBS vs FBS,fbs,fbs,away,-1.26,2.43,-6.19,16.0,UCF,6.19,0.3494
+11,11,Week 11,2026-11-14T05:00:00.000Z,401856857,Upcoming,,UCF,Arizona State,0.6508,Arizona State,UCF,FBS vs FBS,fbs,fbs,away,-1.26,2.44,-6.2,16.0,UCF,6.2,0.3492
 12,12,Week 12,2026-11-21T05:00:00.000Z,401856870,Upcoming,,Arizona State,Oklahoma State,0.4855,Arizona State,Oklahoma State,FBS vs FBS,fbs,fbs,home,-1.26,1.82,-0.58,16.0,Oklahoma State,0.58,0.4855
 13,13,Week 13,2026-11-28T05:00:00.000Z,401856873,Upcoming,,Arizona,Arizona State,0.766,Arizona State,Arizona,FBS vs FBS,fbs,fbs,away,-1.26,7.85,-11.61,16.0,Arizona,11.61,0.234
 1,1,Week 1,2026-09-05T20:15:00.000Z,401856635,Final,"North Alabama 14, Arkansas 31",Arkansas,North Alabama,0.9689,Arkansas,North Alabama (FCS baseline),FCS involved,fbs,fcs,home,-1.2,-36.0,37.3,20.0,Arkansas,37.3,0.9689
@@ -95,18 +95,18 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 11,11,Week 11,2026-11-14T05:00:00.000Z,401869937,Upcoming,,Coastal Carolina,Arkansas State,0.5012,Arkansas State,Coastal Carolina,FBS vs FBS,fbs,fbs,away,-8.23,-10.68,-0.05,16.0,Coastal Carolina,0.05,0.4988
 12,12,Week 12,2026-11-21T05:00:00.000Z,401869938,Upcoming,,Louisiana Tech,Arkansas State,0.5999,Arkansas State,Louisiana Tech,FBS vs FBS,fbs,fbs,away,-8.23,-6.68,-4.05,16.0,Louisiana Tech,4.05,0.4001
 13,13,Week 13,2026-11-28T20:00:00.000Z,401869939,Upcoming,,Arkansas State,Troy,0.4943,Arkansas State,Troy,FBS vs FBS,fbs,fbs,home,-8.23,-5.5,-0.23,16.0,Troy,0.23,0.4943
-1,1,Week 1,2026-09-05T16:00:00.000Z,401862701,Final,"Bryant 3, Army 59",Army,Bryant,0.9605,Army,Bryant (FCS baseline),FCS involved,fbs,fcs,home,-3.36,-36.0,35.14,20.0,Army,35.14,0.9605
-2,2,Week 2,2026-09-12T16:00:00.000Z,401862702,Final,"South Florida 28, Army 24",Army,South Florida,0.4689,Army,South Florida,FBS vs FBS,fbs,fbs,home,-3.36,0.39,-1.25,16.0,South Florida,1.25,0.4689
-4,4,Week 4,2026-09-25T20:00:00.000Z,401862779,Final,"Army 21, Temple 17",Temple,Army,0.5368,Army,Temple,FBS vs FBS,fbs,fbs,away,-3.36,-4.38,-1.48,16.0,Temple,1.48,0.4632
-5,5,Week 5,2026-10-03T23:30:00.000Z,401869842,Final,"Army 29, Louisiana Tech 31",Louisiana Tech,Army,0.4796,Army,Louisiana Tech,FBS vs FBS,fbs,fbs,away,-3.36,-6.68,0.82,16.0,Army,0.82,0.5204
-6,6,Week 6,2026-10-10T16:00:00.000Z,401862795,Upcoming,,Army,Tulane,0.5636,Army,Tulane,FBS vs FBS,fbs,fbs,home,-3.36,-3.42,2.56,16.0,Army,2.56,0.5636
-7,7,Week 7,2026-10-17T16:00:00.000Z,401862802,Upcoming,,Army,Florida Atlantic,0.6033,Army,Florida Atlantic,FBS vs FBS,fbs,fbs,home,-3.36,-5.05,4.19,16.0,Army,4.19,0.6033
-8,8,Week 8,2026-10-24T00:30:00.000Z,401862808,Upcoming,,Tulsa,Army,0.5022,Army,Tulsa,FBS vs FBS,fbs,fbs,away,-3.36,-5.77,-0.09,16.0,Tulsa,0.09,0.4978
-9,9,Week 9,2026-10-31T04:00:00.000Z,401862814,Upcoming,,Memphis,Army,0.7228,Army,Memphis,FBS vs FBS,fbs,fbs,away,-3.36,3.6,-9.46,16.0,Memphis,9.46,0.2772
-10,10,Week 10,2026-11-08T00:30:00.000Z,401862823,Upcoming,,Army,Air Force,0.5793,Army,Air Force,FBS vs FBS,fbs,fbs,home,-3.36,-4.06,3.2,16.0,Army,3.2,0.5793
-12,12,Week 12,2026-11-21T17:00:00.000Z,401862831,Upcoming,,Army,East Carolina,0.6093,Army,East Carolina,FBS vs FBS,fbs,fbs,home,-3.36,-5.3,4.44,16.0,Army,4.44,0.6093
-13,13,Week 13,2026-11-28T05:00:00.000Z,401862841,Upcoming,,Rice,Army,0.3881,Army,Rice,FBS vs FBS,fbs,fbs,away,-3.36,-10.41,4.55,16.0,Army,4.55,0.6119
-15,15,Week 15,2026-12-12T20:00:00.000Z,401862844,Upcoming,,Army,Navy,0.5502,Army,Navy,FBS vs FBS,fbs,fbs,neutral,-3.36,-5.38,2.02,16.0,Army,2.02,0.5502
+1,1,Week 1,2026-09-05T16:00:00.000Z,401862701,Final,"Bryant 3, Army 59",Army,Bryant,0.9605,Army,Bryant (FCS baseline),FCS involved,fbs,fcs,home,-3.37,-36.0,35.13,20.0,Army,35.13,0.9605
+2,2,Week 2,2026-09-12T16:00:00.000Z,401862702,Final,"South Florida 28, Army 24",Army,South Florida,0.4694,Army,South Florida,FBS vs FBS,fbs,fbs,home,-3.37,0.36,-1.23,16.0,South Florida,1.23,0.4694
+4,4,Week 4,2026-09-25T20:00:00.000Z,401862779,Final,"Army 21, Temple 17",Temple,Army,0.5368,Army,Temple,FBS vs FBS,fbs,fbs,away,-3.37,-4.39,-1.48,16.0,Temple,1.48,0.4632
+5,5,Week 5,2026-10-03T23:30:00.000Z,401869842,Final,"Army 29, Louisiana Tech 31",Louisiana Tech,Army,0.4798,Army,Louisiana Tech,FBS vs FBS,fbs,fbs,away,-3.37,-6.68,0.81,16.0,Army,0.81,0.5202
+6,6,Week 6,2026-10-10T16:00:00.000Z,401862795,Upcoming,,Army,Tulane,0.5633,Army,Tulane,FBS vs FBS,fbs,fbs,home,-3.37,-3.42,2.55,16.0,Army,2.55,0.5633
+7,7,Week 7,2026-10-17T16:00:00.000Z,401862802,Upcoming,,Army,Florida Atlantic,0.6031,Army,Florida Atlantic,FBS vs FBS,fbs,fbs,home,-3.37,-5.05,4.18,16.0,Army,4.18,0.6031
+8,8,Week 8,2026-10-24T00:30:00.000Z,401862808,Upcoming,,Tulsa,Army,0.5025,Army,Tulsa,FBS vs FBS,fbs,fbs,away,-3.37,-5.77,-0.1,16.0,Tulsa,0.1,0.4975
+9,9,Week 9,2026-10-31T04:00:00.000Z,401862814,Upcoming,,Memphis,Army,0.723,Army,Memphis,FBS vs FBS,fbs,fbs,away,-3.37,3.6,-9.47,16.0,Memphis,9.47,0.277
+10,10,Week 10,2026-11-08T00:30:00.000Z,401862823,Upcoming,,Army,Air Force,0.579,Army,Air Force,FBS vs FBS,fbs,fbs,home,-3.37,-4.06,3.19,16.0,Army,3.19,0.579
+12,12,Week 12,2026-11-21T17:00:00.000Z,401862831,Upcoming,,Army,East Carolina,0.6091,Army,East Carolina,FBS vs FBS,fbs,fbs,home,-3.37,-5.3,4.43,16.0,Army,4.43,0.6091
+13,13,Week 13,2026-11-28T05:00:00.000Z,401862841,Upcoming,,Rice,Army,0.3885,Army,Rice,FBS vs FBS,fbs,fbs,away,-3.37,-10.4,4.53,16.0,Army,4.53,0.6115
+15,15,Week 15,2026-12-12T20:00:00.000Z,401862844,Upcoming,,Army,Navy,0.55,Army,Navy,FBS vs FBS,fbs,fbs,neutral,-3.37,-5.38,2.01,16.0,Army,2.01,0.55
 1,1,Week 1,2026-09-05T19:30:00.000Z,401856636,Final,"Baylor 16, Auburn 17",Auburn,Baylor,0.5102,Auburn,Baylor,FBS vs FBS,fbs,fbs,neutral,8.69,8.28,0.41,16.0,Auburn,0.41,0.5102
 2,2,Week 2,2026-09-12T23:45:00.000Z,401856671,Final,"Southern Miss 8, Auburn 43",Auburn,Southern Miss,0.9492,Auburn,Southern Miss,FBS vs FBS,fbs,fbs,home,8.69,-15.01,26.2,16.0,Auburn,26.2,0.9492
 3,3,Week 3,2026-09-19T23:00:00.000Z,401856687,Final,"Florida 44, Auburn 39",Auburn,Florida,0.4419,Auburn,Florida,FBS vs FBS,fbs,fbs,home,8.69,13.53,-2.34,16.0,Florida,2.34,0.4419
@@ -125,7 +125,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 5,5,Week 5,2026-10-03T23:00:00.000Z,401856818,Final,"BYU 17, TCU 10",TCU,BYU,0.3909,BYU,TCU,FBS vs FBS,fbs,fbs,away,10.18,3.25,4.43,16.0,BYU,4.43,0.6091
 6,6,Week 6,2026-10-10T02:15:00.000Z,401856826,Upcoming,,BYU,Iowa State,0.6989,BYU,Iowa State,FBS vs FBS,fbs,fbs,home,10.18,4.34,8.34,16.0,BYU,8.34,0.6989
 7,7,Week 7,2026-10-17T04:00:00.000Z,401856809,Upcoming,,BYU,Notre Dame,0.2371,BYU,Notre Dame,FBS vs FBS,fbs,fbs,home,10.18,24.13,-11.45,16.0,Notre Dame,11.45,0.2371
-8,8,Week 8,2026-10-24T04:00:00.000Z,401856835,Upcoming,,UCF,BYU,0.3714,BYU,UCF,FBS vs FBS,fbs,fbs,away,10.18,2.43,5.25,16.0,BYU,5.25,0.6286
+8,8,Week 8,2026-10-24T04:00:00.000Z,401856835,Upcoming,,UCF,BYU,0.3716,BYU,UCF,FBS vs FBS,fbs,fbs,away,10.18,2.44,5.24,16.0,BYU,5.24,0.6284
 9,9,Week 9,2026-10-31T04:00:00.000Z,401856843,Upcoming,,BYU,Arizona State,0.8082,BYU,Arizona State,FBS vs FBS,fbs,fbs,home,10.18,-1.26,13.94,16.0,BYU,13.94,0.8082
 10,10,Week 10,2026-11-07T05:00:00.000Z,401856849,Upcoming,,Utah,BYU,0.7048,BYU,Utah,FBS vs FBS,fbs,fbs,away,10.18,16.29,-8.61,16.0,Utah,8.61,0.2952
 11,11,Week 11,2026-11-14T05:00:00.000Z,401856858,Upcoming,,BYU,Baylor,0.6083,BYU,Baylor,FBS vs FBS,fbs,fbs,home,10.18,8.28,4.4,16.0,BYU,4.4,0.6083
@@ -137,8 +137,8 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 4,4,Week 4,2026-09-26T16:00:00.000Z,401866425,Final,"Ball State 13, Kent State 26",Kent State,Ball State,0.6016,Ball State,Kent State,FBS vs FBS,fbs,fbs,away,-17.63,-16.01,-4.12,16.0,Kent State,4.12,0.3984
 5,5,Week 5,2026-10-03T18:00:00.000Z,401866431,Final,"Toledo 39, Ball State 24",Ball State,Toledo,0.1704,Ball State,Toledo,FBS vs FBS,fbs,fbs,home,-17.63,0.11,-15.24,16.0,Toledo,15.24,0.1704
 6,6,Week 6,2026-10-10T16:30:00.000Z,401858482,Upcoming,,Northwestern,Ball State,0.9774,Ball State,Northwestern,FBS vs FBS,fbs,fbs,away,-17.63,11.92,-32.05,16.0,Northwestern,32.05,0.0226
-7,7,Week 7,2026-10-17T04:00:00.000Z,401866441,Upcoming,,Bowling Green,Ball State,0.6529,Ball State,Bowling Green,FBS vs FBS,fbs,fbs,away,-17.63,-13.84,-6.29,16.0,Bowling Green,6.29,0.3471
-8,8,Week 8,2026-10-24T04:00:00.000Z,401866447,Upcoming,,Ball State,Sacramento State,0.5987,Ball State,Sacramento State,FBS vs FBS,fbs,fbs,home,-17.63,-19.13,4.0,16.0,Ball State,4.0,0.5987
+7,7,Week 7,2026-10-17T04:00:00.000Z,401866441,Upcoming,,Bowling Green,Ball State,0.6527,Ball State,Bowling Green,FBS vs FBS,fbs,fbs,away,-17.63,-13.85,-6.28,16.0,Bowling Green,6.28,0.3473
+8,8,Week 8,2026-10-24T04:00:00.000Z,401866447,Upcoming,,Ball State,Sacramento State,0.5989,Ball State,Sacramento State,FBS vs FBS,fbs,fbs,home,-17.63,-19.14,4.01,16.0,Ball State,4.01,0.5989
 10,10,Week 10,2026-11-04T05:00:00.000Z,401866455,Upcoming,,Massachusetts,Ball State,0.7342,Ball State,Massachusetts,FBS vs FBS,fbs,fbs,away,-17.63,-10.12,-10.01,16.0,Massachusetts,10.01,0.2658
 11,11,Week 11,2026-11-11T05:00:00.000Z,401866461,Upcoming,,Ball State,Buffalo,0.4513,Ball State,Buffalo,FBS vs FBS,fbs,fbs,home,-17.63,-13.17,-1.96,16.0,Buffalo,1.96,0.4513
 12,12,Week 12,2026-11-18T00:00:00.000Z,401866464,Upcoming,,Ohio,Ball State,0.7644,Ball State,Ohio,FBS vs FBS,fbs,fbs,away,-17.63,-8.6,-11.53,16.0,Ohio,11.53,0.2356
@@ -150,7 +150,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 5,5,Week 5,2026-10-04T02:30:00.000Z,401856817,Final,"Baylor 55, Arizona State 19",Arizona State,Baylor,0.33,Baylor,Arizona State,FBS vs FBS,fbs,fbs,away,8.28,-1.26,7.04,16.0,Baylor,7.04,0.67
 7,7,Week 7,2026-10-17T04:00:00.000Z,401856832,Upcoming,,Baylor,TCU,0.681,Baylor,TCU,FBS vs FBS,fbs,fbs,home,8.28,3.25,7.53,16.0,Baylor,7.53,0.681
 8,8,Week 8,2026-10-24T04:00:00.000Z,401856834,Upcoming,,Kansas,Baylor,0.3921,Baylor,Kansas,FBS vs FBS,fbs,fbs,away,8.28,1.4,4.38,16.0,Baylor,4.38,0.6079
-9,9,Week 9,2026-10-30T23:30:00.000Z,401856844,Upcoming,,UCF,Baylor,0.4171,Baylor,UCF,FBS vs FBS,fbs,fbs,away,8.28,2.43,3.35,16.0,Baylor,3.35,0.5829
+9,9,Week 9,2026-10-30T23:30:00.000Z,401856844,Upcoming,,UCF,Baylor,0.4173,Baylor,UCF,FBS vs FBS,fbs,fbs,away,8.28,2.44,3.34,16.0,Baylor,3.34,0.5827
 10,10,Week 10,2026-11-07T05:00:00.000Z,401856853,Upcoming,,Baylor,Iowa State,0.6563,Baylor,Iowa State,FBS vs FBS,fbs,fbs,home,8.28,4.34,6.44,16.0,Baylor,6.44,0.6563
 11,11,Week 11,2026-11-14T05:00:00.000Z,401856858,Upcoming,,BYU,Baylor,0.6083,Baylor,BYU,FBS vs FBS,fbs,fbs,away,8.28,10.18,-4.4,16.0,BYU,4.4,0.3917
 12,12,Week 12,2026-11-21T05:00:00.000Z,401856871,Upcoming,,Baylor,Texas Tech,0.3861,Baylor,Texas Tech,FBS vs FBS,fbs,fbs,home,8.28,15.41,-4.63,16.0,Texas Tech,4.63,0.3861
@@ -162,42 +162,42 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 5,5,Week 5,2026-10-03T23:30:00.000Z,401860898,Final,"Utah State 18, Boise State 37",Boise State,Utah State,0.8597,Boise State,Utah State,FBS vs FBS,fbs,fbs,home,9.56,-5.2,17.26,16.0,Boise State,17.26,0.8597
 6,6,Week 6,2026-10-11T02:30:00.000Z,401860901,Upcoming,,Fresno State,Boise State,0.3613,Boise State,Fresno State,FBS vs FBS,fbs,fbs,away,9.56,1.38,5.68,16.0,Boise State,5.68,0.6387
 8,8,Week 8,2026-10-24T22:00:00.000Z,401860907,Upcoming,,Washington State,Boise State,0.1847,Boise State,Washington State,FBS vs FBS,fbs,fbs,away,9.56,-7.3,14.36,16.0,Boise State,14.36,0.8153
-9,9,Week 9,2026-11-01T02:00:00.000Z,401860908,Upcoming,,Boise State,Texas State,0.7988,Boise State,Texas State,FBS vs FBS,fbs,fbs,home,9.56,-1.34,13.4,16.0,Boise State,13.4,0.7988
+9,9,Week 9,2026-11-01T02:00:00.000Z,401860908,Upcoming,,Boise State,Texas State,0.7987,Boise State,Texas State,FBS vs FBS,fbs,fbs,home,9.56,-1.33,13.39,16.0,Boise State,13.39,0.7987
 10,10,Week 10,2026-11-07T23:00:00.000Z,401860911,Upcoming,,Colorado State,Boise State,0.1441,Boise State,Colorado State,FBS vs FBS,fbs,fbs,away,9.56,-9.93,16.99,16.0,Boise State,16.99,0.8559
 11,11,Week 11,2026-11-14T23:00:00.000Z,401860914,Upcoming,,Boise State,Oregon State,0.7561,Boise State,Oregon State,FBS vs FBS,fbs,fbs,home,9.56,0.96,11.1,16.0,Boise State,11.1,0.7561
 12,12,Week 12,2026-11-22T02:30:00.000Z,401860925,Upcoming,,Boise State,San Diego State,0.8677,Boise State,San Diego State,FBS vs FBS,fbs,fbs,home,9.56,-5.79,17.85,16.0,Boise State,17.85,0.8677
-1,1,Week 1,2026-09-05T19:30:00.000Z,401856777,Final,"Boston College 15, Cincinnati 34",Cincinnati,Boston College,0.6752,Boston College,Cincinnati,FBS vs FBS,fbs,fbs,away,-5.62,-0.85,-7.27,16.0,Cincinnati,7.27,0.3248
-2,2,Week 2,2026-09-11T23:30:00.000Z,401858214,Final,"Rutgers 21, Boston College 28",Boston College,Rutgers,0.5623,Boston College,Rutgers,FBS vs FBS,fbs,fbs,home,-5.62,-5.63,2.51,16.0,Boston College,2.51,0.5623
-3,3,Week 3,2026-09-19T18:00:00.000Z,401858227,Final,"Maine 16, Boston College 22",Boston College,Maine,0.9499,Boston College,Maine (FCS baseline),FCS involved,fbs,fcs,home,-5.62,-36.0,32.88,20.0,Boston College,32.88,0.9499
-4,4,Week 4,2026-09-26T16:00:00.000Z,401858242,Final,"Virginia Tech 21, Boston College 14",Boston College,Virginia Tech,0.3105,Boston College,Virginia Tech,FBS vs FBS,fbs,fbs,home,-5.62,4.79,-7.91,16.0,Virginia Tech,7.91,0.3105
-5,5,Week 5,2026-10-03T16:00:00.000Z,401858246,Final,"Boston College 16, SMU 25",SMU,Boston College,0.8235,Boston College,SMU,FBS vs FBS,fbs,fbs,away,-5.62,6.74,-14.86,16.0,SMU,14.86,0.1765
-7,7,Week 7,2026-10-17T04:00:00.000Z,401858267,Upcoming,,Boston College,Pittsburgh,0.2674,Boston College,Pittsburgh,FBS vs FBS,fbs,fbs,home,-5.62,6.81,-9.93,16.0,Pittsburgh,9.93,0.2674
-8,8,Week 8,2026-10-24T04:00:00.000Z,401858273,Upcoming,,Georgia Tech,Boston College,0.6055,Boston College,Georgia Tech,FBS vs FBS,fbs,fbs,away,-5.62,-3.84,-4.28,16.0,Georgia Tech,4.28,0.3945
-9,9,Week 9,2026-10-31T04:00:00.000Z,401858279,Upcoming,,Duke,Boston College,0.8048,Boston College,Duke,FBS vs FBS,fbs,fbs,away,-5.62,5.62,-13.74,16.0,Duke,13.74,0.1952
-10,10,Week 10,2026-11-07T05:00:00.000Z,401858289,Upcoming,,Boston College,Florida State,0.2369,Boston College,Florida State,FBS vs FBS,fbs,fbs,home,-5.62,8.34,-11.46,16.0,Florida State,11.46,0.2369
-11,11,Week 11,2026-11-14T20:30:00.000Z,401858294,Upcoming,,Notre Dame,Boston College,0.9781,Boston College,Notre Dame,FBS vs FBS,fbs,fbs,away,-5.62,24.13,-32.25,16.0,Notre Dame,32.25,0.0219
-12,12,Week 12,2026-11-21T05:00:00.000Z,401858309,Upcoming,,Boston College,Syracuse,0.502,Boston College,Syracuse,FBS vs FBS,fbs,fbs,home,-5.62,-3.2,0.08,16.0,Boston College,0.08,0.502
-13,13,Week 13,2026-11-28T05:00:00.000Z,401858311,Upcoming,,Miami,Boston College,0.9711,Boston College,Miami,FBS vs FBS,fbs,fbs,away,-5.62,22.24,-30.36,16.0,Miami,30.36,0.0289
-1,1,Week 1,2026-09-05T16:00:00.000Z,401866410,Final,"Tarleton State 20, Bowling Green 13",Bowling Green,Tarleton State,0.8912,Bowling Green,Tarleton State (FCS baseline),FCS involved,fbs,fcs,home,-13.84,-36.0,24.66,20.0,Bowling Green,24.66,0.8912
-2,2,Week 2,2026-09-12T23:00:00.000Z,401858441,Final,"Bowling Green 7, Nebraska 56",Nebraska,Bowling Green,0.966,Bowling Green,Nebraska,FBS vs FBS,fbs,fbs,away,-13.84,12.87,-29.21,16.0,Nebraska,29.21,0.034
-3,3,Week 3,2026-09-19T16:00:00.000Z,401856798,Final,"Bowling Green 7, Iowa State 55",Iowa State,Bowling Green,0.9019,Bowling Green,Iowa State,FBS vs FBS,fbs,fbs,away,-13.84,4.34,-20.68,16.0,Iowa State,20.68,0.0981
-4,4,Week 4,2026-09-26T21:00:00.000Z,401862785,Final,"South Florida 14, Bowling Green 6",Bowling Green,South Florida,0.2317,Bowling Green,South Florida,FBS vs FBS,fbs,fbs,home,-13.84,0.39,-11.73,16.0,South Florida,11.73,0.2317
-5,5,Week 5,2026-10-03T19:30:00.000Z,401866477,Final,"Bowling Green 24, Miami (OH) 20",Miami (OH),Bowling Green,0.6584,Bowling Green,Miami (OH),FBS vs FBS,fbs,fbs,away,-13.84,-9.81,-6.53,16.0,Miami (OH),6.53,0.3416
-6,6,Week 6,2026-10-10T16:00:00.000Z,401866436,Upcoming,,Bowling Green,Sacramento State,0.6868,Bowling Green,Sacramento State,FBS vs FBS,fbs,fbs,home,-13.84,-19.13,7.79,16.0,Bowling Green,7.79,0.6868
-7,7,Week 7,2026-10-17T04:00:00.000Z,401866441,Upcoming,,Bowling Green,Ball State,0.6529,Bowling Green,Ball State,FBS vs FBS,fbs,fbs,home,-13.84,-17.63,6.29,16.0,Bowling Green,6.29,0.6529
-8,8,Week 8,2026-10-24T04:00:00.000Z,401866448,Upcoming,,Buffalo,Bowling Green,0.5785,Bowling Green,Buffalo,FBS vs FBS,fbs,fbs,away,-13.84,-13.17,-3.17,16.0,Buffalo,3.17,0.4215
-9,9,Week 9,2026-10-31T16:00:00.000Z,401866452,Upcoming,,Western Michigan,Bowling Green,0.7894,Bowling Green,Western Michigan,FBS vs FBS,fbs,fbs,away,-13.84,-3.47,-12.87,16.0,Western Michigan,12.87,0.2106
-11,11,Week 11,2026-11-11T00:00:00.000Z,401866459,Upcoming,,Bowling Green,Kent State,0.6148,Bowling Green,Kent State,FBS vs FBS,fbs,fbs,home,-13.84,-16.01,4.67,16.0,Bowling Green,4.67,0.6148
-12,12,Week 12,2026-11-21T00:30:00.000Z,401866468,Upcoming,,Toledo,Bowling Green,0.8481,Bowling Green,Toledo,FBS vs FBS,fbs,fbs,away,-13.84,0.11,-16.45,16.0,Toledo,16.45,0.1519
-13,13,Week 13,2026-11-28T17:00:00.000Z,401866475,Upcoming,,Bowling Green,Massachusetts,0.4696,Bowling Green,Massachusetts,FBS vs FBS,fbs,fbs,home,-13.84,-10.12,-1.22,16.0,Massachusetts,1.22,0.4696
+1,1,Week 1,2026-09-05T19:30:00.000Z,401856777,Final,"Boston College 15, Cincinnati 34",Cincinnati,Boston College,0.6754,Boston College,Cincinnati,FBS vs FBS,fbs,fbs,away,-5.63,-0.85,-7.28,16.0,Cincinnati,7.28,0.3246
+2,2,Week 2,2026-09-11T23:30:00.000Z,401858214,Final,"Rutgers 21, Boston College 28",Boston College,Rutgers,0.5621,Boston College,Rutgers,FBS vs FBS,fbs,fbs,home,-5.63,-5.63,2.5,16.0,Boston College,2.5,0.5621
+3,3,Week 3,2026-09-19T18:00:00.000Z,401858227,Final,"Maine 16, Boston College 22",Boston College,Maine,0.9499,Boston College,Maine (FCS baseline),FCS involved,fbs,fcs,home,-5.63,-36.0,32.87,20.0,Boston College,32.87,0.9499
+4,4,Week 4,2026-09-26T16:00:00.000Z,401858242,Final,"Virginia Tech 21, Boston College 14",Boston College,Virginia Tech,0.3103,Boston College,Virginia Tech,FBS vs FBS,fbs,fbs,home,-5.63,4.79,-7.92,16.0,Virginia Tech,7.92,0.3103
+5,5,Week 5,2026-10-03T16:00:00.000Z,401858246,Final,"Boston College 16, SMU 25",SMU,Boston College,0.8237,Boston College,SMU,FBS vs FBS,fbs,fbs,away,-5.63,6.74,-14.87,16.0,SMU,14.87,0.1763
+7,7,Week 7,2026-10-17T04:00:00.000Z,401858267,Upcoming,,Boston College,Pittsburgh,0.2672,Boston College,Pittsburgh,FBS vs FBS,fbs,fbs,home,-5.63,6.81,-9.94,16.0,Pittsburgh,9.94,0.2672
+8,8,Week 8,2026-10-24T04:00:00.000Z,401858273,Upcoming,,Georgia Tech,Boston College,0.6057,Boston College,Georgia Tech,FBS vs FBS,fbs,fbs,away,-5.63,-3.84,-4.29,16.0,Georgia Tech,4.29,0.3943
+9,9,Week 9,2026-10-31T04:00:00.000Z,401858279,Upcoming,,Duke,Boston College,0.8049,Boston College,Duke,FBS vs FBS,fbs,fbs,away,-5.63,5.62,-13.75,16.0,Duke,13.75,0.1951
+10,10,Week 10,2026-11-07T05:00:00.000Z,401858289,Upcoming,,Boston College,Florida State,0.2367,Boston College,Florida State,FBS vs FBS,fbs,fbs,home,-5.63,8.34,-11.47,16.0,Florida State,11.47,0.2367
+11,11,Week 11,2026-11-14T20:30:00.000Z,401858294,Upcoming,,Notre Dame,Boston College,0.9781,Boston College,Notre Dame,FBS vs FBS,fbs,fbs,away,-5.63,24.13,-32.26,16.0,Notre Dame,32.26,0.0219
+12,12,Week 12,2026-11-21T05:00:00.000Z,401858309,Upcoming,,Boston College,Syracuse,0.5017,Boston College,Syracuse,FBS vs FBS,fbs,fbs,home,-5.63,-3.2,0.07,16.0,Boston College,0.07,0.5017
+13,13,Week 13,2026-11-28T05:00:00.000Z,401858311,Upcoming,,Miami,Boston College,0.9712,Boston College,Miami,FBS vs FBS,fbs,fbs,away,-5.63,22.24,-30.37,16.0,Miami,30.37,0.0288
+1,1,Week 1,2026-09-05T16:00:00.000Z,401866410,Final,"Tarleton State 20, Bowling Green 13",Bowling Green,Tarleton State,0.8911,Bowling Green,Tarleton State (FCS baseline),FCS involved,fbs,fcs,home,-13.85,-36.0,24.65,20.0,Bowling Green,24.65,0.8911
+2,2,Week 2,2026-09-12T23:00:00.000Z,401858441,Final,"Bowling Green 7, Nebraska 56",Nebraska,Bowling Green,0.9661,Bowling Green,Nebraska,FBS vs FBS,fbs,fbs,away,-13.85,12.87,-29.22,16.0,Nebraska,29.22,0.0339
+3,3,Week 3,2026-09-19T16:00:00.000Z,401856798,Final,"Bowling Green 7, Iowa State 55",Iowa State,Bowling Green,0.902,Bowling Green,Iowa State,FBS vs FBS,fbs,fbs,away,-13.85,4.34,-20.69,16.0,Iowa State,20.69,0.098
+4,4,Week 4,2026-09-26T21:00:00.000Z,401862785,Final,"South Florida 14, Bowling Green 6",Bowling Green,South Florida,0.2321,Bowling Green,South Florida,FBS vs FBS,fbs,fbs,home,-13.85,0.36,-11.71,16.0,South Florida,11.71,0.2321
+5,5,Week 5,2026-10-03T19:30:00.000Z,401866477,Final,"Bowling Green 24, Miami (OH) 20",Miami (OH),Bowling Green,0.6586,Bowling Green,Miami (OH),FBS vs FBS,fbs,fbs,away,-13.85,-9.81,-6.54,16.0,Miami (OH),6.54,0.3414
+6,6,Week 6,2026-10-10T16:00:00.000Z,401866436,Upcoming,,Bowling Green,Sacramento State,0.6868,Bowling Green,Sacramento State,FBS vs FBS,fbs,fbs,home,-13.85,-19.14,7.79,16.0,Bowling Green,7.79,0.6868
+7,7,Week 7,2026-10-17T04:00:00.000Z,401866441,Upcoming,,Bowling Green,Ball State,0.6527,Bowling Green,Ball State,FBS vs FBS,fbs,fbs,home,-13.85,-17.63,6.28,16.0,Bowling Green,6.28,0.6527
+8,8,Week 8,2026-10-24T04:00:00.000Z,401866448,Upcoming,,Buffalo,Bowling Green,0.5788,Bowling Green,Buffalo,FBS vs FBS,fbs,fbs,away,-13.85,-13.17,-3.18,16.0,Buffalo,3.18,0.4212
+9,9,Week 9,2026-10-31T16:00:00.000Z,401866452,Upcoming,,Western Michigan,Bowling Green,0.7896,Bowling Green,Western Michigan,FBS vs FBS,fbs,fbs,away,-13.85,-3.47,-12.88,16.0,Western Michigan,12.88,0.2104
+11,11,Week 11,2026-11-11T00:00:00.000Z,401866459,Upcoming,,Bowling Green,Kent State,0.6146,Bowling Green,Kent State,FBS vs FBS,fbs,fbs,home,-13.85,-16.01,4.66,16.0,Bowling Green,4.66,0.6146
+12,12,Week 12,2026-11-21T00:30:00.000Z,401866468,Upcoming,,Toledo,Bowling Green,0.8482,Bowling Green,Toledo,FBS vs FBS,fbs,fbs,away,-13.85,0.11,-16.46,16.0,Toledo,16.46,0.1518
+13,13,Week 13,2026-11-28T17:00:00.000Z,401866475,Upcoming,,Bowling Green,Massachusetts,0.4694,Bowling Green,Massachusetts,FBS vs FBS,fbs,fbs,home,-13.85,-10.12,-1.23,16.0,Massachusetts,1.23,0.4694
 1,1,Week 1,2026-09-03T23:00:00.000Z,401866409,Final,"UAlbany 17, Buffalo 21",Buffalo,UAlbany,0.8973,Buffalo,UAlbany (FCS baseline),FCS involved,fbs,fcs,home,-13.17,-36.0,25.33,20.0,Buffalo,25.33,0.8973
-2,2,Week 2,2026-09-12T22:00:00.000Z,401866414,Final,"Buffalo 20, Florida International 33",Florida International,Buffalo,0.7241,Buffalo,Florida International,FBS vs FBS,fbs,fbs,away,-13.17,-6.15,-9.52,16.0,Florida International,9.52,0.2759
+2,2,Week 2,2026-09-12T22:00:00.000Z,401866414,Final,"Buffalo 20, Florida International 33",Florida International,Buffalo,0.7239,Buffalo,Florida International,FBS vs FBS,fbs,fbs,away,-13.17,-6.16,-9.51,16.0,Florida International,9.51,0.2761
 3,3,Week 3,2026-09-19T16:00:00.000Z,401858456,Final,"Buffalo 13, Penn State 55",Penn State,Buffalo,0.9631,Buffalo,Penn State,FBS vs FBS,fbs,fbs,away,-13.17,12.94,-28.61,16.0,Penn State,28.61,0.0369
 4,4,Week 4,2026-09-26T19:30:00.000Z,401866426,Final,"Robert Morris 28, Buffalo 31",Buffalo,Robert Morris,0.8973,Buffalo,Robert Morris (FCS baseline),FCS involved,fbs,fcs,home,-13.17,-36.0,25.33,20.0,Buffalo,25.33,0.8973
 5,5,Week 5,2026-10-03T17:00:00.000Z,401866432,Final,"Western Michigan 20, Buffalo 17",Buffalo,Western Michigan,0.3264,Buffalo,Western Michigan,FBS vs FBS,fbs,fbs,home,-13.17,-3.47,-7.2,16.0,Western Michigan,7.2,0.3264
 6,6,Week 6,2026-10-10T19:30:00.000Z,401866437,Upcoming,,Toledo,Buffalo,0.838,Buffalo,Toledo,FBS vs FBS,fbs,fbs,away,-13.17,0.11,-15.78,16.0,Toledo,15.78,0.162
 7,7,Week 7,2026-10-17T04:00:00.000Z,401866442,Upcoming,,Buffalo,Massachusetts,0.4863,Buffalo,Massachusetts,FBS vs FBS,fbs,fbs,home,-13.17,-10.12,-0.55,16.0,Massachusetts,0.55,0.4863
-8,8,Week 8,2026-10-24T04:00:00.000Z,401866448,Upcoming,,Buffalo,Bowling Green,0.5785,Buffalo,Bowling Green,FBS vs FBS,fbs,fbs,home,-13.17,-13.84,3.17,16.0,Buffalo,3.17,0.5785
+8,8,Week 8,2026-10-24T04:00:00.000Z,401866448,Upcoming,,Buffalo,Bowling Green,0.5788,Buffalo,Bowling Green,FBS vs FBS,fbs,fbs,home,-13.17,-13.85,3.18,16.0,Buffalo,3.18,0.5788
 10,10,Week 10,2026-11-04T00:00:00.000Z,401866454,Upcoming,,Miami (OH),Buffalo,0.6429,Buffalo,Miami (OH),FBS vs FBS,fbs,fbs,away,-13.17,-9.81,-5.86,16.0,Miami (OH),5.86,0.3571
 11,11,Week 11,2026-11-11T05:00:00.000Z,401866461,Upcoming,,Ball State,Buffalo,0.4513,Buffalo,Ball State,FBS vs FBS,fbs,fbs,away,-13.17,-17.63,1.96,16.0,Buffalo,1.96,0.5487
 12,12,Week 12,2026-11-18T05:00:00.000Z,401866469,Upcoming,,Buffalo,Central Michigan,0.4733,Buffalo,Central Michigan,FBS vs FBS,fbs,fbs,home,-13.17,-9.6,-1.07,16.0,Central Michigan,1.07,0.4733
@@ -223,7 +223,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 7,7,Week 7,2026-10-17T04:00:00.000Z,401866443,Upcoming,,Central Michigan,Western Michigan,0.4103,Central Michigan,Western Michigan,FBS vs FBS,fbs,fbs,home,-9.6,-3.47,-3.63,16.0,Western Michigan,3.63,0.4103
 8,8,Week 8,2026-10-24T04:00:00.000Z,401866476,Upcoming,,Central Michigan,Miami (OH),0.5672,Central Michigan,Miami (OH),FBS vs FBS,fbs,fbs,home,-9.6,-9.81,2.71,16.0,Central Michigan,2.71,0.5672
 10,10,Week 10,2026-11-04T05:00:00.000Z,401866456,Upcoming,,Eastern Michigan,Central Michigan,0.4908,Central Michigan,Eastern Michigan,FBS vs FBS,fbs,fbs,neutral,-9.6,-9.97,0.37,16.0,Central Michigan,0.37,0.5092
-11,11,Week 11,2026-11-11T05:00:00.000Z,401866462,Upcoming,,Central Michigan,Sacramento State,0.7739,Central Michigan,Sacramento State,FBS vs FBS,fbs,fbs,home,-9.6,-19.13,12.03,16.0,Central Michigan,12.03,0.7739
+11,11,Week 11,2026-11-11T05:00:00.000Z,401866462,Upcoming,,Central Michigan,Sacramento State,0.7741,Central Michigan,Sacramento State,FBS vs FBS,fbs,fbs,home,-9.6,-19.14,12.04,16.0,Central Michigan,12.04,0.7741
 12,12,Week 12,2026-11-18T05:00:00.000Z,401866469,Upcoming,,Buffalo,Central Michigan,0.4733,Central Michigan,Buffalo,FBS vs FBS,fbs,fbs,away,-9.6,-13.17,1.07,16.0,Central Michigan,1.07,0.5267
 13,13,Week 13,2026-11-28T17:00:00.000Z,401866474,Upcoming,,Ball State,Central Michigan,0.3648,Central Michigan,Ball State,FBS vs FBS,fbs,fbs,away,-9.6,-17.63,5.53,16.0,Central Michigan,5.53,0.6352
 1,1,Week 1,2026-09-05T19:30:00.000Z,401862694,Final,"The Citadel 43, Charlotte 41",Charlotte,The Citadel,0.8204,Charlotte,The Citadel (FCS baseline),FCS involved,fbs,fcs,home,-20.16,-36.0,18.34,20.0,Charlotte,18.34,0.8204
@@ -232,13 +232,13 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 4,4,Week 4,2026-09-26T22:30:00.000Z,401862780,Final,"Louisiana 34, Charlotte 7",Charlotte,Louisiana,0.1992,Charlotte,Louisiana,FBS vs FBS,fbs,fbs,home,-20.16,-4.15,-13.51,16.0,Louisiana,13.51,0.1992
 5,5,Week 5,2026-10-03T15:00:00.000Z,401862787,Final,"Memphis 59, Charlotte 8",Charlotte,Memphis,0.092,Charlotte,Memphis,FBS vs FBS,fbs,fbs,home,-20.16,3.6,-21.26,16.0,Memphis,21.26,0.092
 6,6,Week 6,2026-10-10T19:30:00.000Z,401862796,Upcoming,,North Texas,Charlotte,0.9219,Charlotte,North Texas,FBS vs FBS,fbs,fbs,away,-20.16,0.03,-22.69,16.0,North Texas,22.69,0.0781
-7,7,Week 7,2026-10-17T04:00:00.000Z,401862803,Upcoming,,Temple,Charlotte,0.8734,Charlotte,Temple,FBS vs FBS,fbs,fbs,away,-20.16,-4.38,-18.28,16.0,Temple,18.28,0.1266
+7,7,Week 7,2026-10-17T04:00:00.000Z,401862803,Upcoming,,Temple,Charlotte,0.8732,Charlotte,Temple,FBS vs FBS,fbs,fbs,away,-20.16,-4.39,-18.27,16.0,Temple,18.27,0.1268
 9,9,Week 9,2026-10-30T23:00:00.000Z,401862813,Upcoming,,Charlotte,Tulane,0.1867,Charlotte,Tulane,FBS vs FBS,fbs,fbs,home,-20.16,-3.42,-14.24,16.0,Tulane,14.24,0.1867
 10,10,Week 10,2026-11-07T05:00:00.000Z,401862819,Upcoming,,UAB,Charlotte,0.7997,Charlotte,UAB,FBS vs FBS,fbs,fbs,away,-20.16,-9.21,-13.45,16.0,UAB,13.45,0.2003
 11,11,Week 11,2026-11-14T05:00:00.000Z,401862825,Upcoming,,Charlotte,East Carolina,0.2199,Charlotte,East Carolina,FBS vs FBS,fbs,fbs,home,-20.16,-5.3,-12.36,16.0,East Carolina,12.36,0.2199
 12,12,Week 12,2026-11-21T05:00:00.000Z,401862832,Upcoming,,Tulsa,Charlotte,0.8544,Charlotte,Tulsa,FBS vs FBS,fbs,fbs,away,-20.16,-5.77,-16.89,16.0,Tulsa,16.89,0.1456
 13,13,Week 13,2026-11-28T05:00:00.000Z,401862842,Upcoming,,Charlotte,Navy,0.2214,Charlotte,Navy,FBS vs FBS,fbs,fbs,home,-20.16,-5.38,-12.28,16.0,Navy,12.28,0.2214
-1,1,Week 1,2026-09-05T19:30:00.000Z,401856777,Final,"Boston College 15, Cincinnati 34",Cincinnati,Boston College,0.6752,Cincinnati,Boston College,FBS vs FBS,fbs,fbs,home,-0.85,-5.62,7.27,16.0,Cincinnati,7.27,0.6752
+1,1,Week 1,2026-09-05T19:30:00.000Z,401856777,Final,"Boston College 15, Cincinnati 34",Cincinnati,Boston College,0.6754,Cincinnati,Boston College,FBS vs FBS,fbs,fbs,home,-0.85,-5.63,7.28,16.0,Cincinnati,7.28,0.6754
 2,2,Week 2,2026-09-12T23:00:00.000Z,401856786,Final,"Western Carolina 10, Cincinnati 62",Cincinnati,Western Carolina,0.9701,Cincinnati,Western Carolina (FCS baseline),FCS involved,fbs,fcs,home,-0.85,-36.0,37.65,20.0,Cincinnati,37.65,0.9701
 3,3,Week 3,2026-09-19T19:30:00.000Z,401856797,Final,"Miami (OH) 31, Cincinnati 35",Cincinnati,Miami (OH),0.7631,Cincinnati,Miami (OH),FBS vs FBS,fbs,fbs,home,-0.85,-9.81,11.46,16.0,Cincinnati,11.46,0.7631
 4,4,Week 4,2026-09-26T23:00:00.000Z,401856814,Final,"Kansas State 26, Cincinnati 31",Cincinnati,Kansas State,0.3766,Cincinnati,Kansas State,FBS vs FBS,fbs,fbs,home,-0.85,6.68,-5.03,16.0,Kansas State,5.03,0.3766
@@ -285,13 +285,13 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 10,10,Week 10,2026-11-07T05:00:00.000Z,401856852,Upcoming,,Arizona State,Colorado,0.605,Colorado,Arizona State,FBS vs FBS,fbs,fbs,away,-3.02,-1.26,-4.26,16.0,Arizona State,4.26,0.395
 11,11,Week 11,2026-11-14T03:15:00.000Z,401856860,Upcoming,,Colorado,Houston,0.2761,Colorado,Houston,FBS vs FBS,fbs,fbs,home,-3.02,8.99,-9.51,16.0,Houston,9.51,0.2761
 12,12,Week 12,2026-11-21T05:00:00.000Z,401856867,Upcoming,,Cincinnati,Colorado,0.6148,Colorado,Cincinnati,FBS vs FBS,fbs,fbs,away,-3.02,-0.85,-4.67,16.0,Cincinnati,4.67,0.3852
-13,13,Week 13,2026-11-28T05:00:00.000Z,401856875,Upcoming,,Colorado,UCF,0.4269,Colorado,UCF,FBS vs FBS,fbs,fbs,home,-3.02,2.43,-2.95,16.0,UCF,2.95,0.4269
+13,13,Week 13,2026-11-28T05:00:00.000Z,401856875,Upcoming,,Colorado,UCF,0.4266,Colorado,UCF,FBS vs FBS,fbs,fbs,home,-3.02,2.44,-2.96,16.0,UCF,2.96,0.4266
 1,1,Week 1,2026-09-05T22:00:00.000Z,401860878,Final,"Wyoming 13, Colorado State 35",Colorado State,Wyoming,0.6033,Colorado State,Wyoming,FBS vs FBS,fbs,fbs,home,-9.93,-11.62,4.19,16.0,Colorado State,4.19,0.6033
 2,2,Week 2,2026-09-12T23:00:00.000Z,401860882,Final,"Southern Utah 24, Colorado State 58",Colorado State,Southern Utah,0.9234,Colorado State,Southern Utah (FCS baseline),FCS involved,fbs,fcs,home,-9.93,-36.0,28.57,20.0,Colorado State,28.57,0.9234
 3,3,Week 3,2026-09-19T23:30:00.000Z,401856795,Final,"BYU 41, Colorado State 23",Colorado State,BYU,0.1355,Colorado State,BYU,FBS vs FBS,fbs,fbs,home,-9.93,10.18,-17.61,16.0,BYU,17.61,0.1355
-4,4,Week 4,2026-09-26T16:00:00.000Z,401860896,Final,"Colorado State 45, UTSA 59",UTSA,Colorado State,0.7925,Colorado State,UTSA,FBS vs FBS,fbs,fbs,away,-9.93,0.61,-13.04,16.0,UTSA,13.04,0.2075
+4,4,Week 4,2026-09-26T16:00:00.000Z,401860896,Final,"Colorado State 45, UTSA 59",UTSA,Colorado State,0.793,Colorado State,UTSA,FBS vs FBS,fbs,fbs,away,-9.93,0.64,-13.07,16.0,UTSA,13.07,0.207
 5,5,Week 5,2026-10-03T22:00:00.000Z,401860899,Final,"Oregon State 56, Colorado State 26",Colorado State,Oregon State,0.3,Colorado State,Oregon State,FBS vs FBS,fbs,fbs,home,-9.93,0.96,-8.39,16.0,Oregon State,8.39,0.3
-7,7,Week 7,2026-10-16T00:00:00.000Z,401860923,Upcoming,,Texas State,Colorado State,0.7559,Colorado State,Texas State,FBS vs FBS,fbs,fbs,away,-9.93,-1.34,-11.09,16.0,Texas State,11.09,0.2441
+7,7,Week 7,2026-10-16T00:00:00.000Z,401860923,Upcoming,,Texas State,Colorado State,0.7561,Colorado State,Texas State,FBS vs FBS,fbs,fbs,away,-9.93,-1.33,-11.1,16.0,Texas State,11.1,0.2439
 8,8,Week 8,2026-10-24T22:30:00.000Z,401860905,Upcoming,,Colorado State,San Diego State,0.4592,Colorado State,San Diego State,FBS vs FBS,fbs,fbs,home,-9.93,-5.79,-1.64,16.0,San Diego State,1.64,0.4592
 9,9,Week 9,2026-10-31T19:30:00.000Z,401860910,Upcoming,,Utah State,Colorado State,0.6743,Colorado State,Utah State,FBS vs FBS,fbs,fbs,away,-9.93,-5.2,-7.23,16.0,Utah State,7.23,0.3257
 10,10,Week 10,2026-11-07T23:00:00.000Z,401860911,Upcoming,,Colorado State,Boise State,0.1441,Colorado State,Boise State,FBS vs FBS,fbs,fbs,home,-9.93,9.56,-16.99,16.0,Boise State,16.99,0.1441
@@ -306,7 +306,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 8,8,Week 8,2026-10-20T23:00:00.000Z,401871069,Upcoming,,Delaware,Missouri State,0.6018,Delaware,Missouri State,FBS vs FBS,fbs,fbs,home,-10.31,-11.94,4.13,16.0,Delaware,4.13,0.6018
 9,9,Week 9,2026-10-27T23:00:00.000Z,401871071,Upcoming,,Western Kentucky,Delaware,0.4689,Delaware,Western Kentucky,FBS vs FBS,fbs,fbs,away,-10.31,-14.06,1.25,16.0,Delaware,1.25,0.5311
 10,10,Week 10,2026-11-07T20:00:00.000Z,401871073,Upcoming,,Kennesaw State,Delaware,0.5475,Delaware,Kennesaw State,FBS vs FBS,fbs,fbs,away,-10.31,-10.9,-1.91,16.0,Kennesaw State,1.91,0.4525
-11,11,Week 11,2026-11-14T20:00:00.000Z,401871060,Upcoming,,Delaware,Florida International,0.4587,Delaware,Florida International,FBS vs FBS,fbs,fbs,home,-10.31,-6.15,-1.66,16.0,Florida International,1.66,0.4587
+11,11,Week 11,2026-11-14T20:00:00.000Z,401871060,Upcoming,,Delaware,Florida International,0.4589,Delaware,Florida International,FBS vs FBS,fbs,fbs,home,-10.31,-6.16,-1.65,16.0,Florida International,1.65,0.4589
 12,12,Week 12,2026-11-21T20:00:00.000Z,401871077,Upcoming,,New Mexico State,Delaware,0.5463,Delaware,New Mexico State,FBS vs FBS,fbs,fbs,away,-10.31,-10.95,-1.86,16.0,New Mexico State,1.86,0.4537
 13,13,Week 13,2026-11-28T20:30:00.000Z,401871062,Upcoming,,Delaware,Jacksonville State,0.45,Delaware,Jacksonville State,FBS vs FBS,fbs,fbs,home,-10.31,-5.8,-2.01,16.0,Jacksonville State,2.01,0.45
 1,1,Week 1,2026-09-05T19:30:00.000Z,401858209,Final,"Tulane 3, Duke 17",Duke,Tulane,0.7646,Duke,Tulane,FBS vs FBS,fbs,fbs,home,5.62,-3.42,11.54,16.0,Duke,11.54,0.7646
@@ -316,7 +316,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 6,6,Week 6,2026-10-10T19:30:00.000Z,401858255,Upcoming,,Georgia Tech,Duke,0.3318,Duke,Georgia Tech,FBS vs FBS,fbs,fbs,away,5.62,-3.84,6.96,16.0,Duke,6.96,0.6682
 7,7,Week 7,2026-10-17T04:00:00.000Z,401858266,Upcoming,,Duke,North Carolina,0.6375,Duke,North Carolina,FBS vs FBS,fbs,fbs,home,5.62,2.49,5.63,16.0,Duke,5.63,0.6375
 8,8,Week 8,2026-10-23T23:00:00.000Z,401858271,Upcoming,,Virginia,Duke,0.5234,Duke,Virginia,FBS vs FBS,fbs,fbs,away,5.62,4.06,-0.94,16.0,Virginia,0.94,0.4766
-9,9,Week 9,2026-10-31T04:00:00.000Z,401858279,Upcoming,,Duke,Boston College,0.8048,Duke,Boston College,FBS vs FBS,fbs,fbs,home,5.62,-5.62,13.74,16.0,Duke,13.74,0.8048
+9,9,Week 9,2026-10-31T04:00:00.000Z,401858279,Upcoming,,Duke,Boston College,0.8049,Duke,Boston College,FBS vs FBS,fbs,fbs,home,5.62,-5.63,13.75,16.0,Duke,13.75,0.8049
 10,10,Week 10,2026-11-07T05:00:00.000Z,401858286,Upcoming,,NC State,Duke,0.4313,Duke,NC State,FBS vs FBS,fbs,fbs,away,5.62,0.35,2.77,16.0,Duke,2.77,0.5687
 11,11,Week 11,2026-11-14T05:00:00.000Z,401858296,Upcoming,,Miami,Duke,0.884,Duke,Miami,FBS vs FBS,fbs,fbs,away,5.62,22.24,-19.12,16.0,Miami,19.12,0.116
 12,12,Week 12,2026-11-21T00:30:00.000Z,401858303,Upcoming,,Duke,Clemson,0.6107,Duke,Clemson,FBS vs FBS,fbs,fbs,home,5.62,3.62,4.5,16.0,Duke,4.5,0.6107
@@ -325,15 +325,15 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 2,2,Week 2,2026-09-12T16:00:00.000Z,401864571,Final,"App State 27, East Carolina 24",East Carolina,App State,0.5922,East Carolina,App State,FBS vs FBS,fbs,fbs,home,-5.3,-6.53,3.73,16.0,East Carolina,3.73,0.5922
 3,3,Week 3,2026-09-19T22:00:00.000Z,401862710,Final,"East Carolina 20, Old Dominion 17",Old Dominion,East Carolina,0.383,East Carolina,Old Dominion,FBS vs FBS,fbs,fbs,away,-5.3,-12.56,4.76,16.0,East Carolina,4.76,0.617
 4,4,Week 4,2026-09-26T20:00:00.000Z,401862781,Final,"North Carolina Central 9, East Carolina 42",East Carolina,North Carolina Central,0.9515,East Carolina,North Carolina Central (FCS baseline),FCS involved,fbs,fcs,home,-5.3,-36.0,33.2,20.0,East Carolina,33.2,0.9515
-6,6,Week 6,2026-10-10T20:00:00.000Z,401862797,Upcoming,,East Carolina,Rice,0.6828,East Carolina,Rice,FBS vs FBS,fbs,fbs,home,-5.3,-10.41,7.61,16.0,East Carolina,7.61,0.6828
+6,6,Week 6,2026-10-10T20:00:00.000Z,401862797,Upcoming,,East Carolina,Rice,0.6826,East Carolina,Rice,FBS vs FBS,fbs,fbs,home,-5.3,-10.4,7.6,16.0,East Carolina,7.6,0.6826
 7,7,Week 7,2026-10-15T23:30:00.000Z,401862800,Upcoming,,UAB,East Carolina,0.4649,East Carolina,UAB,FBS vs FBS,fbs,fbs,away,-5.3,-9.21,1.41,16.0,East Carolina,1.41,0.5351
 8,8,Week 8,2026-10-22T23:30:00.000Z,401862807,Upcoming,,Memphis,East Carolina,0.7619,East Carolina,Memphis,FBS vs FBS,fbs,fbs,away,-5.3,3.6,-11.4,16.0,Memphis,11.4,0.2381
-9,9,Week 9,2026-10-31T04:00:00.000Z,401862815,Upcoming,,East Carolina,Temple,0.5393,East Carolina,Temple,FBS vs FBS,fbs,fbs,home,-5.3,-4.38,1.58,16.0,East Carolina,1.58,0.5393
-10,10,Week 10,2026-11-07T00:30:00.000Z,401862818,Upcoming,,East Carolina,South Florida,0.421,East Carolina,South Florida,FBS vs FBS,fbs,fbs,home,-5.3,0.39,-3.19,16.0,South Florida,3.19,0.421
+9,9,Week 9,2026-10-31T04:00:00.000Z,401862815,Upcoming,,East Carolina,Temple,0.5396,East Carolina,Temple,FBS vs FBS,fbs,fbs,home,-5.3,-4.39,1.59,16.0,East Carolina,1.59,0.5396
+10,10,Week 10,2026-11-07T00:30:00.000Z,401862818,Upcoming,,East Carolina,South Florida,0.4217,East Carolina,South Florida,FBS vs FBS,fbs,fbs,home,-5.3,0.36,-3.16,16.0,South Florida,3.16,0.4217
 11,11,Week 11,2026-11-14T05:00:00.000Z,401862825,Upcoming,,Charlotte,East Carolina,0.2199,East Carolina,Charlotte,FBS vs FBS,fbs,fbs,away,-5.3,-20.16,12.36,16.0,East Carolina,12.36,0.7801
-12,12,Week 12,2026-11-21T17:00:00.000Z,401862831,Upcoming,,Army,East Carolina,0.6093,East Carolina,Army,FBS vs FBS,fbs,fbs,away,-5.3,-3.36,-4.44,16.0,Army,4.44,0.3907
+12,12,Week 12,2026-11-21T17:00:00.000Z,401862831,Upcoming,,Army,East Carolina,0.6091,East Carolina,Army,FBS vs FBS,fbs,fbs,away,-5.3,-3.37,-4.43,16.0,Army,4.43,0.3909
 13,13,Week 13,2026-11-27T05:00:00.000Z,401862837,Upcoming,,East Carolina,Florida Atlantic,0.5559,East Carolina,Florida Atlantic,FBS vs FBS,fbs,fbs,home,-5.3,-5.05,2.25,16.0,East Carolina,2.25,0.5559
-1,0,Week 0,2026-08-29T22:30:00.000Z,401866408,Final,"Sacramento State 17, Eastern Michigan 28",Eastern Michigan,Sacramento State,0.7669,Eastern Michigan,Sacramento State,FBS vs FBS,fbs,fbs,home,-9.97,-19.13,11.66,16.0,Eastern Michigan,11.66,0.7669
+1,0,Week 0,2026-08-29T22:30:00.000Z,401866408,Final,"Sacramento State 17, Eastern Michigan 28",Eastern Michigan,Sacramento State,0.7671,Eastern Michigan,Sacramento State,FBS vs FBS,fbs,fbs,home,-9.97,-19.14,11.67,16.0,Eastern Michigan,11.67,0.7671
 1,1,Week 1,2026-09-04T22:30:00.000Z,401864495,Final,"San José State 27, Eastern Michigan 21",Eastern Michigan,San José State,0.4766,Eastern Michigan,San José State,FBS vs FBS,fbs,fbs,home,-9.97,-6.53,-0.94,16.0,San José State,0.94,0.4766
 2,2,Week 2,2026-09-12T19:30:00.000Z,401858440,Final,"Eastern Michigan 7, Michigan State 35",Michigan State,Eastern Michigan,0.8089,Eastern Michigan,Michigan State,FBS vs FBS,fbs,fbs,away,-9.97,1.51,-13.98,16.0,Michigan State,13.98,0.1911
 3,3,Week 3,2026-09-19T16:30:00.000Z,401858460,Final,"Eastern Michigan 10, Wisconsin 54",Wisconsin,Eastern Michigan,0.9243,Eastern Michigan,Wisconsin,FBS vs FBS,fbs,fbs,away,-9.97,10.48,-22.95,16.0,Wisconsin,22.95,0.0757
@@ -359,28 +359,28 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 13,13,Week 13,2026-11-27T20:30:00.000Z,401856759,Upcoming,,Florida State,Florida,0.4332,Florida,Florida State,FBS vs FBS,fbs,fbs,away,13.53,8.34,2.69,16.0,Florida,2.69,0.5668
 1,1,Week 1,2026-09-05T23:45:00.000Z,401856637,Final,"Florida Atlantic 21, Florida 66",Florida,Florida Atlantic,0.9062,Florida Atlantic,Florida,FBS vs FBS,fbs,fbs,away,-5.05,13.53,-21.08,16.0,Florida,21.08,0.0938
 2,2,Week 2,2026-09-12T23:30:00.000Z,401862703,Final,"Navy 30, Florida Atlantic 38",Florida Atlantic,Navy,0.5702,Florida Atlantic,Navy,FBS vs FBS,fbs,fbs,home,-5.05,-5.38,2.83,16.0,Florida Atlantic,2.83,0.5702
-3,3,Week 3,2026-09-19T22:00:00.000Z,401862771,Final,"Florida International 10, Florida Atlantic 16",Florida Atlantic,Florida International,0.589,Florida Atlantic,Florida International,FBS vs FBS,fbs,fbs,home,-5.05,-6.15,3.6,16.0,Florida Atlantic,3.6,0.589
+3,3,Week 3,2026-09-19T22:00:00.000Z,401862771,Final,"Florida International 10, Florida Atlantic 16",Florida Atlantic,Florida International,0.5893,Florida Atlantic,Florida International,FBS vs FBS,fbs,fbs,home,-5.05,-6.16,3.61,16.0,Florida Atlantic,3.61,0.5893
 4,4,Week 4,2026-09-27T00:00:00.000Z,401862782,Final,"Florida Atlantic 45, UL Monroe 17",UL Monroe,Florida Atlantic,0.249,Florida Atlantic,UL Monroe,FBS vs FBS,fbs,fbs,away,-5.05,-18.39,10.84,16.0,Florida Atlantic,10.84,0.751
 5,5,Week 5,2026-10-03T22:00:00.000Z,401862790,Final,"Texas Southern 10, Florida Atlantic 66",Florida Atlantic,Texas Southern,0.9528,Florida Atlantic,Texas Southern (FCS baseline),FCS involved,fbs,fcs,home,-5.05,-36.0,33.45,20.0,Florida Atlantic,33.45,0.9528
-7,7,Week 7,2026-10-17T16:00:00.000Z,401862802,Upcoming,,Army,Florida Atlantic,0.6033,Florida Atlantic,Army,FBS vs FBS,fbs,fbs,away,-5.05,-3.36,-4.19,16.0,Army,4.19,0.3967
-8,8,Week 8,2026-10-24T04:00:00.000Z,401862809,Upcoming,,Florida Atlantic,Rice,0.6884,Florida Atlantic,Rice,FBS vs FBS,fbs,fbs,home,-5.05,-10.41,7.86,16.0,Florida Atlantic,7.86,0.6884
+7,7,Week 7,2026-10-17T16:00:00.000Z,401862802,Upcoming,,Army,Florida Atlantic,0.6031,Florida Atlantic,Army,FBS vs FBS,fbs,fbs,away,-5.05,-3.37,-4.18,16.0,Army,4.18,0.3969
+8,8,Week 8,2026-10-24T04:00:00.000Z,401862809,Upcoming,,Florida Atlantic,Rice,0.6882,Florida Atlantic,Rice,FBS vs FBS,fbs,fbs,home,-5.05,-10.4,7.85,16.0,Florida Atlantic,7.85,0.6882
 9,9,Week 9,2026-10-29T23:30:00.000Z,401862812,Upcoming,,North Texas,Florida Atlantic,0.6822,Florida Atlantic,North Texas,FBS vs FBS,fbs,fbs,away,-5.05,0.03,-7.58,16.0,North Texas,7.58,0.3178
-10,10,Week 10,2026-11-06T01:00:00.000Z,401862817,Upcoming,,Florida Atlantic,UTSA,0.4217,Florida Atlantic,UTSA,FBS vs FBS,fbs,fbs,home,-5.05,0.61,-3.16,16.0,UTSA,3.16,0.4217
+10,10,Week 10,2026-11-06T01:00:00.000Z,401862817,Upcoming,,Florida Atlantic,UTSA,0.421,Florida Atlantic,UTSA,FBS vs FBS,fbs,fbs,home,-5.05,0.64,-3.19,16.0,UTSA,3.19,0.421
 11,11,Week 11,2026-11-14T05:00:00.000Z,401862826,Upcoming,,Tulsa,Florida Atlantic,0.5443,Florida Atlantic,Tulsa,FBS vs FBS,fbs,fbs,away,-5.05,-5.77,-1.78,16.0,Tulsa,1.78,0.4557
-12,12,Week 12,2026-11-21T05:00:00.000Z,401862833,Upcoming,,Florida Atlantic,South Florida,0.4271,Florida Atlantic,South Florida,FBS vs FBS,fbs,fbs,home,-5.05,0.39,-2.94,16.0,South Florida,2.94,0.4271
+12,12,Week 12,2026-11-21T05:00:00.000Z,401862833,Upcoming,,Florida Atlantic,South Florida,0.4278,Florida Atlantic,South Florida,FBS vs FBS,fbs,fbs,home,-5.05,0.36,-2.91,16.0,South Florida,2.91,0.4278
 13,13,Week 13,2026-11-27T05:00:00.000Z,401862837,Upcoming,,East Carolina,Florida Atlantic,0.5559,Florida Atlantic,East Carolina,FBS vs FBS,fbs,fbs,away,-5.05,-5.3,-2.25,16.0,East Carolina,2.25,0.4441
-1,1,Week 1,2026-09-05T23:00:00.000Z,401862699,Final,"Florida International 9, South Florida 19",South Florida,Florida International,0.714,Florida International,South Florida,FBS vs FBS,fbs,fbs,away,-6.15,0.39,-9.04,16.0,South Florida,9.04,0.286
-2,2,Week 2,2026-09-12T22:00:00.000Z,401866414,Final,"Buffalo 20, Florida International 33",Florida International,Buffalo,0.7241,Florida International,Buffalo,FBS vs FBS,fbs,fbs,home,-6.15,-13.17,9.52,16.0,Florida International,9.52,0.7241
-3,3,Week 3,2026-09-19T22:00:00.000Z,401862771,Final,"Florida International 10, Florida Atlantic 16",Florida Atlantic,Florida International,0.589,Florida International,Florida Atlantic,FBS vs FBS,fbs,fbs,away,-6.15,-5.05,-3.6,16.0,Florida Atlantic,3.6,0.411
-4,4,Week 4,2026-09-26T22:00:00.000Z,401867909,Final,"Long Island University 3, Florida International 20",Florida International,Long Island University,0.9471,Florida International,Long Island University (FCS baseline),FCS involved,fbs,fcs,home,-6.15,-36.0,32.35,20.0,Florida International,32.35,0.9471
-6,6,Week 6,2026-10-07T23:30:00.000Z,401871066,Upcoming,,Florida International,New Mexico State,0.6759,Florida International,New Mexico State,FBS vs FBS,fbs,fbs,home,-6.15,-10.95,7.3,16.0,Florida International,7.3,0.6759
-7,7,Week 7,2026-10-14T00:00:00.000Z,401871053,Upcoming,,Jacksonville State,Florida International,0.5707,Florida International,Jacksonville State,FBS vs FBS,fbs,fbs,away,-6.15,-5.8,-2.85,16.0,Jacksonville State,2.85,0.4293
-8,8,Week 8,2026-10-20T23:00:00.000Z,401871055,Upcoming,,Florida International,Middle Tennessee,0.7052,Florida International,Middle Tennessee,FBS vs FBS,fbs,fbs,home,-6.15,-12.28,8.63,16.0,Florida International,8.63,0.7052
-9,9,Week 9,2026-10-31T19:30:00.000Z,401871059,Upcoming,,Liberty,Florida International,0.7865,Florida International,Liberty,FBS vs FBS,fbs,fbs,away,-6.15,4.06,-12.71,16.0,Liberty,12.71,0.2135
-10,10,Week 10,2026-11-07T21:00:00.000Z,401871074,Upcoming,,Florida International,Missouri State,0.6978,Florida International,Missouri State,FBS vs FBS,fbs,fbs,home,-6.15,-11.94,8.29,16.0,Florida International,8.29,0.6978
-11,11,Week 11,2026-11-14T20:00:00.000Z,401871060,Upcoming,,Delaware,Florida International,0.4587,Florida International,Delaware,FBS vs FBS,fbs,fbs,away,-6.15,-10.31,1.66,16.0,Florida International,1.66,0.5413
-12,12,Week 12,2026-11-21T20:00:00.000Z,401871078,Upcoming,,Kennesaw State,Florida International,0.4441,Florida International,Kennesaw State,FBS vs FBS,fbs,fbs,away,-6.15,-10.9,2.25,16.0,Florida International,2.25,0.5559
-13,13,Week 13,2026-11-28T19:00:00.000Z,401871082,Upcoming,,Florida International,Sam Houston,0.7237,Florida International,Sam Houston,FBS vs FBS,fbs,fbs,home,-6.15,-13.15,9.5,16.0,Florida International,9.5,0.7237
+1,1,Week 1,2026-09-05T23:00:00.000Z,401862699,Final,"Florida International 9, South Florida 19",South Florida,Florida International,0.7135,Florida International,South Florida,FBS vs FBS,fbs,fbs,away,-6.16,0.36,-9.02,16.0,South Florida,9.02,0.2865
+2,2,Week 2,2026-09-12T22:00:00.000Z,401866414,Final,"Buffalo 20, Florida International 33",Florida International,Buffalo,0.7239,Florida International,Buffalo,FBS vs FBS,fbs,fbs,home,-6.16,-13.17,9.51,16.0,Florida International,9.51,0.7239
+3,3,Week 3,2026-09-19T22:00:00.000Z,401862771,Final,"Florida International 10, Florida Atlantic 16",Florida Atlantic,Florida International,0.5893,Florida International,Florida Atlantic,FBS vs FBS,fbs,fbs,away,-6.16,-5.05,-3.61,16.0,Florida Atlantic,3.61,0.4107
+4,4,Week 4,2026-09-26T22:00:00.000Z,401867909,Final,"Long Island University 3, Florida International 20",Florida International,Long Island University,0.9471,Florida International,Long Island University (FCS baseline),FCS involved,fbs,fcs,home,-6.16,-36.0,32.34,20.0,Florida International,32.34,0.9471
+6,6,Week 6,2026-10-07T23:30:00.000Z,401871066,Upcoming,,Florida International,New Mexico State,0.6757,Florida International,New Mexico State,FBS vs FBS,fbs,fbs,home,-6.16,-10.95,7.29,16.0,Florida International,7.29,0.6757
+7,7,Week 7,2026-10-14T00:00:00.000Z,401871053,Upcoming,,Jacksonville State,Florida International,0.5709,Florida International,Jacksonville State,FBS vs FBS,fbs,fbs,away,-6.16,-5.8,-2.86,16.0,Jacksonville State,2.86,0.4291
+8,8,Week 8,2026-10-20T23:00:00.000Z,401871055,Upcoming,,Florida International,Middle Tennessee,0.705,Florida International,Middle Tennessee,FBS vs FBS,fbs,fbs,home,-6.16,-12.28,8.62,16.0,Florida International,8.62,0.705
+9,9,Week 9,2026-10-31T19:30:00.000Z,401871059,Upcoming,,Liberty,Florida International,0.7867,Florida International,Liberty,FBS vs FBS,fbs,fbs,away,-6.16,4.06,-12.72,16.0,Liberty,12.72,0.2133
+10,10,Week 10,2026-11-07T21:00:00.000Z,401871074,Upcoming,,Florida International,Missouri State,0.6976,Florida International,Missouri State,FBS vs FBS,fbs,fbs,home,-6.16,-11.94,8.28,16.0,Florida International,8.28,0.6976
+11,11,Week 11,2026-11-14T20:00:00.000Z,401871060,Upcoming,,Delaware,Florida International,0.4589,Florida International,Delaware,FBS vs FBS,fbs,fbs,away,-6.16,-10.31,1.65,16.0,Florida International,1.65,0.5411
+12,12,Week 12,2026-11-21T20:00:00.000Z,401871078,Upcoming,,Kennesaw State,Florida International,0.4443,Florida International,Kennesaw State,FBS vs FBS,fbs,fbs,away,-6.16,-10.9,2.24,16.0,Florida International,2.24,0.5557
+13,13,Week 13,2026-11-28T19:00:00.000Z,401871082,Upcoming,,Florida International,Sam Houston,0.7235,Florida International,Sam Houston,FBS vs FBS,fbs,fbs,home,-6.16,-13.15,9.49,16.0,Florida International,9.49,0.7235
 1,0,Week 0,2026-08-29T23:00:00.000Z,401864570,Final,"New Mexico State 17, Florida State 34",Florida State,New Mexico State,0.9134,Florida State,New Mexico State,FBS vs FBS,fbs,fbs,home,8.34,-10.95,21.79,16.0,Florida State,21.79,0.9134
 1,1,Week 1,2026-09-07T23:30:00.000Z,401858212,Final,"SMU 27, Florida State 24",Florida State,SMU,0.6011,Florida State,SMU,FBS vs FBS,fbs,fbs,home,8.34,6.74,4.1,16.0,Florida State,4.1,0.6011
 3,3,Week 3,2026-09-19T19:30:00.000Z,401856685,Final,"Florida State 36, Alabama 50",Alabama,Florida State,0.8697,Florida State,Alabama,FBS vs FBS,fbs,fbs,away,8.34,23.84,-18.0,16.0,Alabama,18.0,0.1303
@@ -389,20 +389,20 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 6,6,Week 6,2026-10-09T23:00:00.000Z,401858254,Upcoming,,Louisville,Florida State,0.5227,Florida State,Louisville,FBS vs FBS,fbs,fbs,away,8.34,6.75,-0.91,16.0,Louisville,0.91,0.4773
 7,7,Week 7,2026-10-17T04:00:00.000Z,401858263,Upcoming,,Miami,Florida State,0.8473,Florida State,Miami,FBS vs FBS,fbs,fbs,away,8.34,22.24,-16.4,16.0,Miami,16.4,0.1527
 9,9,Week 9,2026-10-31T04:00:00.000Z,401858280,Upcoming,,Florida State,Clemson,0.6741,Florida State,Clemson,FBS vs FBS,fbs,fbs,home,8.34,3.62,7.22,16.0,Florida State,7.22,0.6741
-10,10,Week 10,2026-11-07T05:00:00.000Z,401858289,Upcoming,,Boston College,Florida State,0.2369,Florida State,Boston College,FBS vs FBS,fbs,fbs,away,8.34,-5.62,11.46,16.0,Florida State,11.46,0.7631
+10,10,Week 10,2026-11-07T05:00:00.000Z,401858289,Upcoming,,Boston College,Florida State,0.2367,Florida State,Boston College,FBS vs FBS,fbs,fbs,away,8.34,-5.63,11.47,16.0,Florida State,11.47,0.7633
 11,11,Week 11,2026-11-14T00:00:00.000Z,401858293,Upcoming,,Pittsburgh,Florida State,0.5242,Florida State,Pittsburgh,FBS vs FBS,fbs,fbs,away,8.34,6.81,-0.97,16.0,Pittsburgh,0.97,0.4758
 12,12,Week 12,2026-11-21T05:00:00.000Z,401858304,Upcoming,,Florida State,NC State,0.744,Florida State,NC State,FBS vs FBS,fbs,fbs,home,8.34,0.35,10.49,16.0,Florida State,10.49,0.744
 13,13,Week 13,2026-11-27T20:30:00.000Z,401856759,Upcoming,,Florida State,Florida,0.4332,Florida State,Florida,FBS vs FBS,fbs,fbs,home,8.34,13.53,-2.69,16.0,Florida,2.69,0.4332
 1,1,Week 1,2026-09-05T01:00:00.000Z,401858436,Final,"Fresno State 0, USC 39",USC,Fresno State,0.8144,Fresno State,USC,FBS vs FBS,fbs,fbs,away,1.38,13.19,-14.31,16.0,USC,14.31,0.1856
-2,2,Week 2,2026-09-13T02:30:00.000Z,401860883,Final,"Sacramento State 3, Fresno State 49",Fresno State,Sacramento State,0.9248,Fresno State,Sacramento State,FBS vs FBS,fbs,fbs,home,1.38,-19.13,23.01,16.0,Fresno State,23.01,0.9248
+2,2,Week 2,2026-09-13T02:30:00.000Z,401860883,Final,"Sacramento State 3, Fresno State 49",Fresno State,Sacramento State,0.9249,Fresno State,Sacramento State,FBS vs FBS,fbs,fbs,home,1.38,-19.14,23.02,16.0,Fresno State,23.02,0.9249
 3,3,Week 3,2026-09-20T03:00:00.000Z,401860888,Final,"Fresno State 26, San José State 10",San José State,Fresno State,0.3676,Fresno State,San José State,FBS vs FBS,fbs,fbs,away,1.38,-6.53,5.41,16.0,Fresno State,5.41,0.6324
-4,4,Week 4,2026-09-27T02:00:00.000Z,401860891,Final,"Rice 24, Fresno State 38",Fresno State,Rice,0.8141,Fresno State,Rice,FBS vs FBS,fbs,fbs,home,1.38,-10.41,14.29,16.0,Fresno State,14.29,0.8141
+4,4,Week 4,2026-09-27T02:00:00.000Z,401860891,Final,"Rice 24, Fresno State 38",Fresno State,Rice,0.8139,Fresno State,Rice,FBS vs FBS,fbs,fbs,home,1.38,-10.4,14.28,16.0,Fresno State,14.28,0.8139
 5,5,Week 5,2026-10-04T01:30:00.000Z,401860921,Final,"Fresno State 26, Washington State 6",Washington State,Fresno State,0.3497,Fresno State,Washington State,FBS vs FBS,fbs,fbs,away,1.38,-7.3,6.18,16.0,Fresno State,6.18,0.6503
 6,6,Week 6,2026-10-11T02:30:00.000Z,401860901,Upcoming,,Fresno State,Boise State,0.3613,Fresno State,Boise State,FBS vs FBS,fbs,fbs,home,1.38,9.56,-5.68,16.0,Boise State,5.68,0.3613
 7,7,Week 7,2026-10-18T02:30:00.000Z,401860904,Upcoming,,San Diego State,Fresno State,0.3852,Fresno State,San Diego State,FBS vs FBS,fbs,fbs,away,1.38,-5.79,4.67,16.0,Fresno State,4.67,0.6148
 9,9,Week 9,2026-10-31T04:00:00.000Z,401860924,Upcoming,,Fresno State,Oregon State,0.5724,Fresno State,Oregon State,FBS vs FBS,fbs,fbs,home,1.38,0.96,2.92,16.0,Fresno State,2.92,0.5724
 10,10,Week 10,2026-11-08T02:30:00.000Z,401860913,Upcoming,,Utah State,Fresno State,0.3994,Fresno State,Utah State,FBS vs FBS,fbs,fbs,away,1.38,-5.2,4.08,16.0,Fresno State,4.08,0.6006
-11,11,Week 11,2026-11-14T21:00:00.000Z,401860916,Upcoming,,Texas State,Fresno State,0.4945,Fresno State,Texas State,FBS vs FBS,fbs,fbs,away,1.38,-1.34,0.22,16.0,Fresno State,0.22,0.5055
+11,11,Week 11,2026-11-14T21:00:00.000Z,401860916,Upcoming,,Texas State,Fresno State,0.4948,Fresno State,Texas State,FBS vs FBS,fbs,fbs,away,1.38,-1.33,0.21,16.0,Fresno State,0.21,0.5052
 12,12,Week 12,2026-11-22T00:30:00.000Z,401860918,Upcoming,,Fresno State,Colorado State,0.806,Fresno State,Colorado State,FBS vs FBS,fbs,fbs,home,1.38,-9.93,13.81,16.0,Fresno State,13.81,0.806
 1,1,Week 1,2026-09-05T19:00:00.000Z,401856658,Final,"Tennessee State 3, Georgia 63",Georgia,Tennessee State,0.999,Georgia,Tennessee State (FCS baseline),FCS involved,fbs,fcs,home,23.08,-36.0,61.58,20.0,Georgia,61.58,0.999
 2,2,Week 2,2026-09-12T16:45:00.000Z,401856673,Final,"Western Kentucky 20, Georgia 70",Georgia,Western Kentucky,0.9934,Georgia,Western Kentucky,FBS vs FBS,fbs,fbs,home,23.08,-14.06,39.64,16.0,Georgia,39.64,0.9934
@@ -430,7 +430,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 13,13,Week 13,2026-11-28T05:00:00.000Z,401869954,Upcoming,,Georgia Southern,Louisiana Tech,0.5712,Georgia Southern,Louisiana Tech,FBS vs FBS,fbs,fbs,home,-6.31,-6.68,2.87,16.0,Georgia Southern,2.87,0.5712
 1,1,Week 1,2026-09-04T23:00:00.000Z,401866623,Final,"North Carolina A&T 10, Georgia State 59",Georgia State,North Carolina A&T,0.9595,Georgia State,North Carolina A&T (FCS baseline),FCS involved,fbs,fcs,home,-3.61,-36.0,34.89,20.0,Georgia State,34.89,0.9595
 2,2,Week 2,2026-09-12T23:00:00.000Z,401869955,Final,"Georgia State 31, Kennesaw State 17",Kennesaw State,Georgia State,0.3823,Georgia State,Kennesaw State,FBS vs FBS,fbs,fbs,away,-3.61,-10.9,4.79,16.0,Georgia State,4.79,0.6177
-3,3,Week 3,2026-09-19T23:00:00.000Z,401856800,Final,"Georgia State 30, UCF 44",UCF,Georgia State,0.7032,Georgia State,UCF,FBS vs FBS,fbs,fbs,away,-3.61,2.43,-8.54,16.0,UCF,8.54,0.2968
+3,3,Week 3,2026-09-19T23:00:00.000Z,401856800,Final,"Georgia State 30, UCF 44",UCF,Georgia State,0.7035,Georgia State,UCF,FBS vs FBS,fbs,fbs,away,-3.61,2.44,-8.55,16.0,UCF,8.55,0.2965
 4,4,Week 4,2026-09-26T18:00:00.000Z,401864511,Final,"Northern Illinois 14, Georgia State 35",Georgia State,Northern Illinois,0.8041,Georgia State,Northern Illinois,FBS vs FBS,fbs,fbs,home,-3.61,-14.81,13.7,16.0,Georgia State,13.7,0.8041
 5,5,Week 5,2026-10-03T19:30:00.000Z,401869956,Final,"Old Dominion 10, Georgia State 42",Georgia State,Old Dominion,0.7629,Georgia State,Old Dominion,FBS vs FBS,fbs,fbs,home,-3.61,-12.56,11.45,16.0,Georgia State,11.45,0.7629
 7,7,Week 7,2026-10-17T04:00:00.000Z,401869957,Upcoming,,James Madison,Georgia State,0.7981,Georgia State,James Madison,FBS vs FBS,fbs,fbs,away,-3.61,7.25,-13.36,16.0,James Madison,13.36,0.2019
@@ -446,7 +446,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 4,4,Week 4,2026-09-27T02:30:00.000Z,401858240,Final,"Georgia Tech 27, Stanford 34",Stanford,Georgia Tech,0.4254,Georgia Tech,Stanford,FBS vs FBS,fbs,fbs,away,-3.84,-9.35,3.01,16.0,Georgia Tech,3.01,0.5746
 6,6,Week 6,2026-10-10T19:30:00.000Z,401858255,Upcoming,,Georgia Tech,Duke,0.3318,Georgia Tech,Duke,FBS vs FBS,fbs,fbs,home,-3.84,5.62,-6.96,16.0,Duke,6.96,0.3318
 7,7,Week 7,2026-10-17T04:00:00.000Z,401858264,Upcoming,,Virginia Tech,Georgia Tech,0.7567,Georgia Tech,Virginia Tech,FBS vs FBS,fbs,fbs,away,-3.84,4.79,-11.13,16.0,Virginia Tech,11.13,0.2433
-8,8,Week 8,2026-10-24T04:00:00.000Z,401858273,Upcoming,,Georgia Tech,Boston College,0.6055,Georgia Tech,Boston College,FBS vs FBS,fbs,fbs,home,-3.84,-5.62,4.28,16.0,Georgia Tech,4.28,0.6055
+8,8,Week 8,2026-10-24T04:00:00.000Z,401858273,Upcoming,,Georgia Tech,Boston College,0.6057,Georgia Tech,Boston College,FBS vs FBS,fbs,fbs,home,-3.84,-5.63,4.29,16.0,Georgia Tech,4.29,0.6057
 9,9,Week 9,2026-10-31T04:00:00.000Z,401858281,Upcoming,,Pittsburgh,Georgia Tech,0.7944,Georgia Tech,Pittsburgh,FBS vs FBS,fbs,fbs,away,-3.84,6.81,-13.15,16.0,Pittsburgh,13.15,0.2056
 10,10,Week 10,2026-11-07T05:00:00.000Z,401858287,Upcoming,,Georgia Tech,Louisville,0.3066,Georgia Tech,Louisville,FBS vs FBS,fbs,fbs,home,-3.84,6.75,-8.09,16.0,Louisville,8.09,0.3066
 11,11,Week 11,2026-11-14T05:00:00.000Z,401858297,Upcoming,,Clemson,Georgia Tech,0.7332,Georgia Tech,Clemson,FBS vs FBS,fbs,fbs,away,-3.84,3.62,-9.96,16.0,Clemson,9.96,0.2668
@@ -463,12 +463,12 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 10,10,Week 10,2026-11-07T05:00:00.000Z,401864532,Upcoming,,UTEP,Hawai'i,0.3341,Hawai'i,UTEP,FBS vs FBS,fbs,fbs,away,-10.46,-19.82,6.86,16.0,Hawai'i,6.86,0.6659
 11,11,Week 11,2026-11-15T04:59:00.000Z,401864537,Upcoming,,Hawai'i,North Dakota State,0.2061,Hawai'i,North Dakota State,FBS vs FBS,fbs,fbs,home,-10.46,5.16,-13.12,16.0,North Dakota State,13.12,0.2061
 12,12,Week 12,2026-11-21T05:00:00.000Z,401864541,Upcoming,,Nevada,Hawai'i,0.6802,Hawai'i,Nevada,FBS vs FBS,fbs,fbs,away,-10.46,-5.47,-7.49,16.0,Nevada,7.49,0.3198
-13,13,Week 13,2026-11-29T04:00:00.000Z,401864547,Upcoming,,Hawai'i,Sacramento State,0.7575,Hawai'i,Sacramento State,FBS vs FBS,fbs,fbs,home,-10.46,-19.13,11.17,16.0,Hawai'i,11.17,0.7575
+13,13,Week 13,2026-11-29T04:00:00.000Z,401864547,Upcoming,,Hawai'i,Sacramento State,0.7576,Hawai'i,Sacramento State,FBS vs FBS,fbs,fbs,home,-10.46,-19.14,11.18,16.0,Hawai'i,11.18,0.7576
 1,1,Week 1,2026-09-05T16:00:00.000Z,401856778,Final,"Oregon State 20, Houston 33",Houston,Oregon State,0.7448,Houston,Oregon State,FBS vs FBS,fbs,fbs,home,8.99,0.96,10.53,16.0,Houston,10.53,0.7448
 2,2,Week 2,2026-09-12T23:00:00.000Z,401856787,Final,"Southern 6, Houston 77",Houston,Southern,0.9912,Houston,Southern (FCS baseline),FCS involved,fbs,fcs,home,8.99,-36.0,47.49,20.0,Houston,47.49,0.9912
 3,3,Week 3,2026-09-19T00:00:00.000Z,401856811,Final,"Houston 26, Texas Tech 28",Texas Tech,Houston,0.7114,Houston,Texas Tech,FBS vs FBS,fbs,fbs,away,8.99,15.41,-8.92,16.0,Texas Tech,8.92,0.2886
 4,4,Week 4,2026-09-26T20:00:00.000Z,401856806,Final,"Houston 42, Georgia Southern 28",Georgia Southern,Houston,0.2119,Houston,Georgia Southern,FBS vs FBS,fbs,fbs,away,8.99,-6.31,12.8,16.0,Houston,12.8,0.7881
-5,5,Week 5,2026-10-03T16:00:00.000Z,401856819,Final,"UCF 17, Houston 27",Houston,UCF,0.7144,Houston,UCF,FBS vs FBS,fbs,fbs,home,8.99,2.43,9.06,16.0,Houston,9.06,0.7144
+5,5,Week 5,2026-10-03T16:00:00.000Z,401856819,Final,"UCF 17, Houston 27",Houston,UCF,0.7142,Houston,UCF,FBS vs FBS,fbs,fbs,home,8.99,2.44,9.05,16.0,Houston,9.05,0.7142
 6,6,Week 6,2026-10-10T19:30:00.000Z,401856825,Upcoming,,Kansas State,Houston,0.5047,Houston,Kansas State,FBS vs FBS,fbs,fbs,away,8.99,6.68,-0.19,16.0,Kansas State,0.19,0.4953
 7,7,Week 7,2026-10-17T04:00:00.000Z,401856831,Upcoming,,Houston,Oklahoma State,0.7272,Houston,Oklahoma State,FBS vs FBS,fbs,fbs,home,8.99,1.82,9.67,16.0,Houston,9.67,0.7272
 8,8,Week 8,2026-10-24T04:00:00.000Z,401856837,Upcoming,,Utah,Houston,0.7299,Houston,Utah,FBS vs FBS,fbs,fbs,away,8.99,16.29,-9.8,16.0,Utah,9.8,0.2701
@@ -514,7 +514,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 13,13,Week 13,2026-11-27T17:00:00.000Z,401858536,Upcoming,,Iowa,Nebraska,0.4798,Iowa,Nebraska,FBS vs FBS,fbs,fbs,home,9.56,12.87,-0.81,16.0,Nebraska,0.81,0.4798
 1,1,Week 1,2026-09-05T17:00:00.000Z,401856779,Final,"Southeast Missouri State 10, Iowa State 38",Iowa State,Southeast Missouri State,0.9839,Iowa State,Southeast Missouri State (FCS baseline),FCS involved,fbs,fcs,home,4.34,-36.0,42.84,20.0,Iowa State,42.84,0.9839
 2,2,Week 2,2026-09-12T23:30:00.000Z,401856788,Final,"Iowa State 13, Iowa 16",Iowa,Iowa State,0.6853,Iowa State,Iowa,FBS vs FBS,fbs,fbs,away,4.34,9.56,-7.72,16.0,Iowa,7.72,0.3147
-3,3,Week 3,2026-09-19T16:00:00.000Z,401856798,Final,"Bowling Green 7, Iowa State 55",Iowa State,Bowling Green,0.9019,Iowa State,Bowling Green,FBS vs FBS,fbs,fbs,home,4.34,-13.84,20.68,16.0,Iowa State,20.68,0.9019
+3,3,Week 3,2026-09-19T16:00:00.000Z,401856798,Final,"Bowling Green 7, Iowa State 55",Iowa State,Bowling Green,0.902,Iowa State,Bowling Green,FBS vs FBS,fbs,fbs,home,4.34,-13.85,20.69,16.0,Iowa State,20.69,0.902
 4,4,Week 4,2026-09-26T19:30:00.000Z,401856816,Final,"Utah 31, Iowa State 17",Iowa State,Utah,0.2774,Iowa State,Utah,FBS vs FBS,fbs,fbs,home,4.34,16.29,-9.45,16.0,Utah,9.45,0.2774
 5,5,Week 5,2026-10-03T16:00:00.000Z,401856822,Final,"West Virginia 42, Iowa State 45",Iowa State,West Virginia,0.6754,Iowa State,West Virginia,FBS vs FBS,fbs,fbs,home,4.34,-0.44,7.28,16.0,Iowa State,7.28,0.6754
 6,6,Week 6,2026-10-10T02:15:00.000Z,401856826,Upcoming,,BYU,Iowa State,0.6989,Iowa State,BYU,FBS vs FBS,fbs,fbs,away,4.34,10.18,-8.34,16.0,BYU,8.34,0.3011
@@ -522,7 +522,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 9,9,Week 9,2026-10-31T04:00:00.000Z,401856847,Upcoming,,Iowa State,Oklahoma State,0.6231,Iowa State,Oklahoma State,FBS vs FBS,fbs,fbs,home,4.34,1.82,5.02,16.0,Iowa State,5.02,0.6231
 10,10,Week 10,2026-11-07T05:00:00.000Z,401856853,Upcoming,,Baylor,Iowa State,0.6563,Iowa State,Baylor,FBS vs FBS,fbs,fbs,away,4.34,8.28,-6.44,16.0,Baylor,6.44,0.3437
 11,11,Week 11,2026-11-14T05:00:00.000Z,401856859,Upcoming,,Iowa State,Cincinnati,0.6846,Iowa State,Cincinnati,FBS vs FBS,fbs,fbs,home,4.34,-0.85,7.69,16.0,Iowa State,7.69,0.6846
-12,12,Week 12,2026-11-20T23:00:00.000Z,401856869,Upcoming,,UCF,Iowa State,0.5147,Iowa State,UCF,FBS vs FBS,fbs,fbs,away,4.34,2.43,-0.59,16.0,UCF,0.59,0.4853
+12,12,Week 12,2026-11-20T23:00:00.000Z,401856869,Upcoming,,UCF,Iowa State,0.515,Iowa State,UCF,FBS vs FBS,fbs,fbs,away,4.34,2.44,-0.6,16.0,UCF,0.6,0.485
 13,13,Week 13,2026-11-28T05:00:00.000Z,401856878,Upcoming,,Iowa State,Kansas State,0.504,Iowa State,Kansas State,FBS vs FBS,fbs,fbs,home,4.34,6.68,0.16,16.0,Iowa State,0.16,0.504
 1,0,Week 0,2026-08-29T21:30:00.000Z,401864577,Final,"Jacksonville State 7, North Dakota State 33",North Dakota State,Jacksonville State,0.7999,Jacksonville State,North Dakota State,FBS vs FBS,fbs,fbs,away,-5.8,5.16,-13.46,16.0,North Dakota State,13.46,0.2001
 1,1,Week 1,2026-09-05T23:00:00.000Z,401868140,Final,"Eastern Kentucky 7, Jacksonville State 49",Jacksonville State,Eastern Kentucky,0.949,Jacksonville State,Eastern Kentucky (FCS baseline),FCS involved,fbs,fcs,home,-5.8,-36.0,32.7,20.0,Jacksonville State,32.7,0.949
@@ -530,7 +530,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 3,3,Week 3,2026-09-19T23:00:00.000Z,401869948,Final,"Georgia Southern 27, Jacksonville State 31",Jacksonville State,Georgia Southern,0.5746,Jacksonville State,Georgia Southern,FBS vs FBS,fbs,fbs,home,-5.8,-6.31,3.01,16.0,Jacksonville State,3.01,0.5746
 4,4,Week 4,2026-09-26T23:00:00.000Z,401871048,Final,"Middle Tennessee 13, Jacksonville State 23",Jacksonville State,Middle Tennessee,0.7127,Jacksonville State,Middle Tennessee,FBS vs FBS,fbs,fbs,home,-5.8,-12.28,8.98,16.0,Jacksonville State,8.98,0.7127
 6,6,Week 6,2026-10-07T23:00:00.000Z,401871051,Upcoming,,Kennesaw State,Jacksonville State,0.4355,Jacksonville State,Kennesaw State,FBS vs FBS,fbs,fbs,away,-5.8,-10.9,2.6,16.0,Jacksonville State,2.6,0.5645
-7,7,Week 7,2026-10-14T00:00:00.000Z,401871053,Upcoming,,Jacksonville State,Florida International,0.5707,Jacksonville State,Florida International,FBS vs FBS,fbs,fbs,home,-5.8,-6.15,2.85,16.0,Jacksonville State,2.85,0.5707
+7,7,Week 7,2026-10-14T00:00:00.000Z,401871053,Upcoming,,Jacksonville State,Florida International,0.5709,Jacksonville State,Florida International,FBS vs FBS,fbs,fbs,home,-5.8,-6.16,2.86,16.0,Jacksonville State,2.86,0.5709
 9,9,Week 9,2026-10-29T00:00:00.000Z,401871057,Upcoming,,New Mexico State,Jacksonville State,0.4342,Jacksonville State,New Mexico State,FBS vs FBS,fbs,fbs,away,-5.8,-10.95,2.65,16.0,Jacksonville State,2.65,0.5658
 10,10,Week 10,2026-11-08T00:00:00.000Z,401871075,Upcoming,,Jacksonville State,Sam Houston,0.7309,Jacksonville State,Sam Houston,FBS vs FBS,fbs,fbs,home,-5.8,-13.15,9.85,16.0,Jacksonville State,9.85,0.7309
 11,11,Week 11,2026-11-14T20:30:00.000Z,401870752,Upcoming,,Western Kentucky,Jacksonville State,0.3594,Jacksonville State,Western Kentucky,FBS vs FBS,fbs,fbs,away,-5.8,-14.06,5.76,16.0,Jacksonville State,5.76,0.6406
@@ -556,7 +556,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 7,7,Week 7,2026-10-17T04:00:00.000Z,401856830,Upcoming,,Kansas State,Kansas,0.6866,Kansas,Kansas State,FBS vs FBS,fbs,fbs,away,1.4,6.68,-7.78,16.0,Kansas State,7.78,0.3134
 8,8,Week 8,2026-10-24T04:00:00.000Z,401856834,Upcoming,,Kansas,Baylor,0.3921,Kansas,Baylor,FBS vs FBS,fbs,fbs,home,1.4,8.28,-4.38,16.0,Baylor,4.38,0.3921
 9,9,Week 9,2026-10-31T04:00:00.000Z,401856845,Upcoming,,TCU,Kansas,0.6071,Kansas,TCU,FBS vs FBS,fbs,fbs,away,1.4,3.25,-4.35,16.0,TCU,4.35,0.3929
-10,10,Week 10,2026-11-07T05:00:00.000Z,401856850,Upcoming,,Kansas,UCF,0.5366,Kansas,UCF,FBS vs FBS,fbs,fbs,home,1.4,2.43,1.47,16.0,Kansas,1.47,0.5366
+10,10,Week 10,2026-11-07T05:00:00.000Z,401856850,Upcoming,,Kansas,UCF,0.5364,Kansas,UCF,FBS vs FBS,fbs,fbs,home,1.4,2.44,1.46,16.0,Kansas,1.46,0.5364
 11,11,Week 11,2026-11-14T05:00:00.000Z,401856861,Upcoming,,West Virginia,Kansas,0.5165,Kansas,West Virginia,FBS vs FBS,fbs,fbs,away,1.4,-0.44,-0.66,16.0,West Virginia,0.66,0.4835
 12,12,Week 12,2026-11-21T05:00:00.000Z,401856866,Upcoming,,Kansas,BYU,0.3473,Kansas,BYU,FBS vs FBS,fbs,fbs,home,1.4,10.18,-6.28,16.0,BYU,6.28,0.3473
 13,13,Week 13,2026-11-28T05:00:00.000Z,401856877,Upcoming,,Oklahoma State,Kansas,0.5724,Kansas,Oklahoma State,FBS vs FBS,fbs,fbs,away,1.4,1.82,-2.92,16.0,Oklahoma State,2.92,0.4276
@@ -582,7 +582,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 9,9,Week 9,2026-10-28T23:00:00.000Z,401871058,Upcoming,,Middle Tennessee,Kennesaw State,0.5279,Kennesaw State,Middle Tennessee,FBS vs FBS,fbs,fbs,away,-10.9,-12.28,-1.12,16.0,Middle Tennessee,1.12,0.4721
 10,10,Week 10,2026-11-07T20:00:00.000Z,401871073,Upcoming,,Kennesaw State,Delaware,0.5475,Kennesaw State,Delaware,FBS vs FBS,fbs,fbs,home,-10.9,-10.31,1.91,16.0,Kennesaw State,1.91,0.5475
 11,11,Week 11,2026-11-14T19:00:00.000Z,401870769,Upcoming,,Sam Houston,Kennesaw State,0.5062,Kennesaw State,Sam Houston,FBS vs FBS,fbs,fbs,away,-10.9,-13.15,-0.25,16.0,Sam Houston,0.25,0.4938
-12,12,Week 12,2026-11-21T20:00:00.000Z,401871078,Upcoming,,Kennesaw State,Florida International,0.4441,Kennesaw State,Florida International,FBS vs FBS,fbs,fbs,home,-10.9,-6.15,-2.25,16.0,Florida International,2.25,0.4441
+12,12,Week 12,2026-11-21T20:00:00.000Z,401871078,Upcoming,,Kennesaw State,Florida International,0.4443,Kennesaw State,Florida International,FBS vs FBS,fbs,fbs,home,-10.9,-6.16,-2.24,16.0,Florida International,2.24,0.4443
 13,13,Week 13,2026-11-28T18:00:00.000Z,401870804,Upcoming,,Western Kentucky,Kennesaw State,0.4835,Kennesaw State,Western Kentucky,FBS vs FBS,fbs,fbs,away,-10.9,-14.06,0.66,16.0,Kennesaw State,0.66,0.5165
 1,1,Week 1,2026-09-05T16:45:00.000Z,401856665,Final,"Kent State 0, South Carolina 57",South Carolina,Kent State,0.9408,Kent State,South Carolina,FBS vs FBS,fbs,fbs,away,-16.01,6.48,-24.99,16.0,South Carolina,24.99,0.0592
 2,2,Week 2,2026-09-12T16:00:00.000Z,401866416,Final,"Wofford 15, Kent State 36",Kent State,Wofford,0.8696,Kent State,Wofford (FCS baseline),FCS involved,fbs,fcs,home,-16.01,-36.0,22.49,20.0,Kent State,22.49,0.8696
@@ -590,10 +590,10 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 4,4,Week 4,2026-09-26T16:00:00.000Z,401866425,Final,"Ball State 13, Kent State 26",Kent State,Ball State,0.6016,Kent State,Ball State,FBS vs FBS,fbs,fbs,home,-16.01,-17.63,4.12,16.0,Kent State,4.12,0.6016
 5,5,Week 5,2026-10-03T19:30:00.000Z,401866434,Final,"Ohio 13, Kent State 10",Kent State,Ohio,0.3795,Kent State,Ohio,FBS vs FBS,fbs,fbs,home,-16.01,-8.6,-4.91,16.0,Ohio,4.91,0.3795
 6,6,Week 6,2026-10-10T19:30:00.000Z,401866439,Upcoming,,Western Michigan,Kent State,0.8264,Kent State,Western Michigan,FBS vs FBS,fbs,fbs,away,-16.01,-3.47,-15.04,16.0,Western Michigan,15.04,0.1736
-7,7,Week 7,2026-10-17T04:00:00.000Z,401862806,Upcoming,,South Florida,Kent State,0.8812,Kent State,South Florida,FBS vs FBS,fbs,fbs,away,-16.01,0.39,-18.9,16.0,South Florida,18.9,0.1188
+7,7,Week 7,2026-10-17T04:00:00.000Z,401862806,Upcoming,,South Florida,Kent State,0.8809,Kent State,South Florida,FBS vs FBS,fbs,fbs,away,-16.01,0.36,-18.87,16.0,South Florida,18.87,0.1191
 8,8,Week 8,2026-10-24T04:00:00.000Z,401866446,Upcoming,,Kent State,Akron,0.6766,Kent State,Akron,FBS vs FBS,fbs,fbs,home,-16.01,-20.84,7.33,16.0,Kent State,7.33,0.6766
-9,9,Week 9,2026-10-31T02:30:00.000Z,401866451,Upcoming,,Sacramento State,Kent State,0.4845,Kent State,Sacramento State,FBS vs FBS,fbs,fbs,away,-16.01,-19.13,0.62,16.0,Kent State,0.62,0.5155
-11,11,Week 11,2026-11-11T00:00:00.000Z,401866459,Upcoming,,Bowling Green,Kent State,0.6148,Kent State,Bowling Green,FBS vs FBS,fbs,fbs,away,-16.01,-13.84,-4.67,16.0,Bowling Green,4.67,0.3852
+9,9,Week 9,2026-10-31T02:30:00.000Z,401866451,Upcoming,,Sacramento State,Kent State,0.4843,Kent State,Sacramento State,FBS vs FBS,fbs,fbs,away,-16.01,-19.14,0.63,16.0,Kent State,0.63,0.5157
+11,11,Week 11,2026-11-11T00:00:00.000Z,401866459,Upcoming,,Bowling Green,Kent State,0.6146,Kent State,Bowling Green,FBS vs FBS,fbs,fbs,away,-16.01,-13.85,-4.66,16.0,Bowling Green,4.66,0.3854
 12,12,Week 12,2026-11-18T00:00:00.000Z,401866466,Upcoming,,Kent State,Miami (OH),0.4086,Kent State,Miami (OH),FBS vs FBS,fbs,fbs,home,-16.01,-9.81,-3.7,16.0,Miami (OH),3.7,0.4086
 13,13,Week 13,2026-11-25T00:00:00.000Z,401866470,Upcoming,,Eastern Michigan,Kent State,0.7032,Kent State,Eastern Michigan,FBS vs FBS,fbs,fbs,away,-16.01,-9.97,-8.54,16.0,Eastern Michigan,8.54,0.2968
 1,1,Week 1,2026-09-05T17:00:00.000Z,401856659,Final,"Youngstown State 13, Kentucky 45",Kentucky,Youngstown State,0.9888,Kentucky,Youngstown State (FCS baseline),FCS involved,fbs,fcs,home,7.17,-36.0,45.67,20.0,Kentucky,45.67,0.9888
@@ -627,7 +627,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 5,5,Week 5,2026-10-02T23:00:00.000Z,401871050,Final,"Liberty 30, Delaware 14",Delaware,Liberty,0.2291,Liberty,Delaware,FBS vs FBS,fbs,fbs,away,4.06,-10.31,11.87,16.0,Liberty,11.87,0.7709
 6,6,Week 6,2026-10-08T23:00:00.000Z,401870766,Upcoming,,Liberty,Sam Houston,0.891,Liberty,Sam Houston,FBS vs FBS,fbs,fbs,home,4.06,-13.15,19.71,16.0,Liberty,19.71,0.891
 8,8,Week 8,2026-10-22T23:00:00.000Z,401871056,Upcoming,,Kennesaw State,Liberty,0.2181,Liberty,Kennesaw State,FBS vs FBS,fbs,fbs,away,4.06,-10.9,12.46,16.0,Liberty,12.46,0.7819
-9,9,Week 9,2026-10-31T19:30:00.000Z,401871059,Upcoming,,Liberty,Florida International,0.7865,Liberty,Florida International,FBS vs FBS,fbs,fbs,home,4.06,-6.15,12.71,16.0,Liberty,12.71,0.7865
+9,9,Week 9,2026-10-31T19:30:00.000Z,401871059,Upcoming,,Liberty,Florida International,0.7867,Liberty,Florida International,FBS vs FBS,fbs,fbs,home,4.06,-6.16,12.72,16.0,Liberty,12.72,0.7867
 10,10,Week 10,2026-11-07T22:00:00.000Z,401870795,Upcoming,,New Mexico State,Liberty,0.2171,Liberty,New Mexico State,FBS vs FBS,fbs,fbs,away,4.06,-10.95,12.51,16.0,Liberty,12.51,0.7829
 11,11,Week 11,2026-11-14T20:30:00.000Z,401871061,Upcoming,,Liberty,Middle Tennessee,0.8805,Liberty,Middle Tennessee,FBS vs FBS,fbs,fbs,home,4.06,-12.28,18.84,16.0,Liberty,18.84,0.8805
 12,12,Week 12,2026-11-21T18:00:00.000Z,401871080,Upcoming,,Liberty,Western Kentucky,0.9013,Liberty,Western Kentucky,FBS vs FBS,fbs,fbs,home,4.06,-14.06,20.62,16.0,Liberty,20.62,0.9013
@@ -647,7 +647,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 1,1,Week 1,2026-09-05T23:30:00.000Z,401869129,Final,"Northwestern State 6, Louisiana Tech 80",Louisiana Tech,Northwestern State,0.9442,Louisiana Tech,Northwestern State (FCS baseline),FCS involved,fbs,fcs,home,-6.68,-36.0,31.82,20.0,Louisiana Tech,31.82,0.9442
 2,2,Week 2,2026-09-12T23:30:00.000Z,401867796,Final,"Louisiana Tech 14, LSU 45",LSU,Louisiana Tech,0.9563,Louisiana Tech,LSU,FBS vs FBS,fbs,fbs,away,-6.68,18.17,-27.35,16.0,LSU,27.35,0.0437
 3,3,Week 3,2026-09-19T20:00:00.000Z,401867804,Final,"Louisiana Tech 19, Baylor 36",Baylor,Louisiana Tech,0.8624,Louisiana Tech,Baylor,FBS vs FBS,fbs,fbs,away,-6.68,8.28,-17.46,16.0,Baylor,17.46,0.1376
-5,5,Week 5,2026-10-03T23:30:00.000Z,401869842,Final,"Army 29, Louisiana Tech 31",Louisiana Tech,Army,0.4796,Louisiana Tech,Army,FBS vs FBS,fbs,fbs,home,-6.68,-3.36,-0.82,16.0,Army,0.82,0.4796
+5,5,Week 5,2026-10-03T23:30:00.000Z,401869842,Final,"Army 29, Louisiana Tech 31",Louisiana Tech,Army,0.4798,Louisiana Tech,Army,FBS vs FBS,fbs,fbs,home,-6.68,-3.37,-0.81,16.0,Army,0.81,0.4798
 6,6,Week 6,2026-10-10T23:30:00.000Z,401869965,Upcoming,,Louisiana Tech,Louisiana,0.4993,Louisiana Tech,Louisiana,FBS vs FBS,fbs,fbs,home,-6.68,-4.15,-0.03,16.0,Louisiana,0.03,0.4993
 7,7,Week 7,2026-10-17T04:00:00.000Z,401871091,Upcoming,,UL Monroe,Louisiana Tech,0.2824,Louisiana Tech,UL Monroe,FBS vs FBS,fbs,fbs,away,-6.68,-18.39,9.21,16.0,Louisiana Tech,9.21,0.7176
 8,8,Week 8,2026-10-24T04:00:00.000Z,401871093,Upcoming,,Louisiana Tech,Old Dominion,0.6998,Louisiana Tech,Old Dominion,FBS vs FBS,fbs,fbs,home,-6.68,-12.56,8.38,16.0,Louisiana Tech,8.38,0.6998
@@ -695,7 +695,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 1,1,Week 1,2026-09-03T22:00:00.000Z,401858423,Final,"Massachusetts 37, Rutgers 21",Rutgers,Massachusetts,0.6689,Massachusetts,Rutgers,FBS vs FBS,fbs,fbs,away,-10.12,-5.63,-6.99,16.0,Rutgers,6.99,0.3311
 2,2,Week 2,2026-09-12T19:30:00.000Z,401866420,Final,"Sacred Heart 10, Massachusetts 37",Massachusetts,Sacred Heart,0.9221,Massachusetts,Sacred Heart (FCS baseline),FCS involved,fbs,fcs,home,-10.12,-36.0,28.38,20.0,Massachusetts,28.38,0.9221
 3,3,Week 3,2026-09-19T19:30:00.000Z,401866424,Final,"Stonehill 14, Massachusetts 36",Massachusetts,Stonehill,0.9221,Massachusetts,Stonehill (FCS baseline),FCS involved,fbs,fcs,home,-10.12,-36.0,28.38,20.0,Massachusetts,28.38,0.9221
-4,4,Week 4,2026-09-27T01:00:00.000Z,401866429,Final,"Massachusetts 35, Sacramento State 6",Sacramento State,Massachusetts,0.342,Massachusetts,Sacramento State,FBS vs FBS,fbs,fbs,away,-10.12,-19.13,6.51,16.0,Massachusetts,6.51,0.658
+4,4,Week 4,2026-09-27T01:00:00.000Z,401866429,Final,"Massachusetts 35, Sacramento State 6",Sacramento State,Massachusetts,0.3418,Massachusetts,Sacramento State,FBS vs FBS,fbs,fbs,away,-10.12,-19.14,6.52,16.0,Massachusetts,6.52,0.6582
 5,5,Week 5,2026-10-03T19:30:00.000Z,401866433,Final,"Eastern Michigan 38, Massachusetts 14",Massachusetts,Eastern Michigan,0.5584,Massachusetts,Eastern Michigan,FBS vs FBS,fbs,fbs,home,-10.12,-9.97,2.35,16.0,Massachusetts,2.35,0.5584
 6,6,Week 6,2026-10-10T18:00:00.000Z,401866440,Upcoming,,Massachusetts,Miami (OH),0.5544,Massachusetts,Miami (OH),FBS vs FBS,fbs,fbs,home,-10.12,-9.81,2.19,16.0,Massachusetts,2.19,0.5544
 7,7,Week 7,2026-10-17T04:00:00.000Z,401866442,Upcoming,,Buffalo,Massachusetts,0.4863,Massachusetts,Buffalo,FBS vs FBS,fbs,fbs,away,-10.12,-13.17,0.55,16.0,Massachusetts,0.55,0.5137
@@ -703,7 +703,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 10,10,Week 10,2026-11-04T05:00:00.000Z,401866455,Upcoming,,Massachusetts,Ball State,0.7342,Massachusetts,Ball State,FBS vs FBS,fbs,fbs,home,-10.12,-17.63,10.01,16.0,Massachusetts,10.01,0.7342
 11,11,Week 11,2026-11-11T05:00:00.000Z,401866463,Upcoming,,Toledo,Massachusetts,0.7869,Massachusetts,Toledo,FBS vs FBS,fbs,fbs,away,-10.12,0.11,-12.73,16.0,Toledo,12.73,0.2131
 12,12,Week 12,2026-11-18T05:00:00.000Z,401866467,Upcoming,,Massachusetts,Akron,0.7957,Massachusetts,Akron,FBS vs FBS,fbs,fbs,home,-10.12,-20.84,13.22,16.0,Massachusetts,13.22,0.7957
-13,13,Week 13,2026-11-28T17:00:00.000Z,401866475,Upcoming,,Bowling Green,Massachusetts,0.4696,Massachusetts,Bowling Green,FBS vs FBS,fbs,fbs,away,-10.12,-13.84,1.22,16.0,Massachusetts,1.22,0.5304
+13,13,Week 13,2026-11-28T17:00:00.000Z,401866475,Upcoming,,Bowling Green,Massachusetts,0.4694,Massachusetts,Bowling Green,FBS vs FBS,fbs,fbs,away,-10.12,-13.85,1.23,16.0,Massachusetts,1.23,0.5306
 1,0,Week 0,2026-08-30T02:00:00.000Z,401862693,Final,"Memphis 27, UNLV 21",UNLV,Memphis,0.43,Memphis,UNLV,FBS vs FBS,fbs,fbs,away,3.6,-1.72,2.82,16.0,Memphis,2.82,0.57
 1,1,Week 1,2026-09-05T23:00:00.000Z,401862695,Final,"Arkansas State 24, Memphis 42",Memphis,Arkansas State,0.8148,Memphis,Arkansas State,FBS vs FBS,fbs,fbs,home,3.6,-8.23,14.33,16.0,Memphis,14.33,0.8148
 2,2,Week 2,2026-09-12T22:00:00.000Z,401860881,Final,"Memphis 20, Boise State 38",Boise State,Memphis,0.7015,Memphis,Boise State,FBS vs FBS,fbs,fbs,away,3.6,9.56,-8.46,16.0,Boise State,8.46,0.2985
@@ -712,10 +712,10 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 6,6,Week 6,2026-10-10T23:00:00.000Z,401862798,Upcoming,,Memphis,UAB,0.8307,Memphis,UAB,FBS vs FBS,fbs,fbs,home,3.6,-9.21,15.31,16.0,Memphis,15.31,0.8307
 7,7,Week 7,2026-10-16T23:30:00.000Z,401862801,Upcoming,,Tulane,Memphis,0.3888,Memphis,Tulane,FBS vs FBS,fbs,fbs,away,3.6,-3.42,4.52,16.0,Memphis,4.52,0.6112
 8,8,Week 8,2026-10-22T23:30:00.000Z,401862807,Upcoming,,Memphis,East Carolina,0.7619,Memphis,East Carolina,FBS vs FBS,fbs,fbs,home,3.6,-5.3,11.4,16.0,Memphis,11.4,0.7619
-9,9,Week 9,2026-10-31T04:00:00.000Z,401862814,Upcoming,,Memphis,Army,0.7228,Memphis,Army,FBS vs FBS,fbs,fbs,home,3.6,-3.36,9.46,16.0,Memphis,9.46,0.7228
-11,11,Week 11,2026-11-13T01:00:00.000Z,401862824,Upcoming,,South Florida,Memphis,0.4823,Memphis,South Florida,FBS vs FBS,fbs,fbs,away,3.6,0.39,0.71,16.0,Memphis,0.71,0.5177
+9,9,Week 9,2026-10-31T04:00:00.000Z,401862814,Upcoming,,Memphis,Army,0.723,Memphis,Army,FBS vs FBS,fbs,fbs,home,3.6,-3.37,9.47,16.0,Memphis,9.47,0.723
+11,11,Week 11,2026-11-13T01:00:00.000Z,401862824,Upcoming,,South Florida,Memphis,0.4816,Memphis,South Florida,FBS vs FBS,fbs,fbs,away,3.6,0.36,0.74,16.0,Memphis,0.74,0.5184
 12,12,Week 12,2026-11-21T17:00:00.000Z,401862834,Upcoming,,Navy,Memphis,0.3427,Memphis,Navy,FBS vs FBS,fbs,fbs,away,3.6,-5.38,6.48,16.0,Memphis,6.48,0.6573
-13,13,Week 13,2026-11-27T05:00:00.000Z,401862838,Upcoming,,Memphis,Temple,0.7438,Memphis,Temple,FBS vs FBS,fbs,fbs,home,3.6,-4.38,10.48,16.0,Memphis,10.48,0.7438
+13,13,Week 13,2026-11-27T05:00:00.000Z,401862838,Upcoming,,Memphis,Temple,0.744,Memphis,Temple,FBS vs FBS,fbs,fbs,home,3.6,-4.39,10.49,16.0,Memphis,10.49,0.744
 1,1,Week 1,2026-09-05T01:00:00.000Z,401858206,Final,"Miami 45, Stanford 6",Stanford,Miami,0.0345,Miami,Stanford,FBS vs FBS,fbs,fbs,away,22.24,-9.35,29.09,16.0,Miami,29.09,0.9655
 2,2,Week 2,2026-09-11T00:00:00.000Z,401858213,Final,"Florida A&M 7, Miami 77",Miami,Florida A&M,0.9988,Miami,Florida A&M (FCS baseline),FCS involved,fbs,fcs,home,22.24,-36.0,60.74,20.0,Miami,60.74,0.9988
 3,3,Week 3,2026-09-18T23:30:00.000Z,401858226,Final,"Miami 33, Wake Forest 20",Wake Forest,Miami,0.1857,Miami,Wake Forest,FBS vs FBS,fbs,fbs,away,22.24,5.44,14.3,16.0,Miami,14.3,0.8143
@@ -727,12 +727,12 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 10,10,Week 10,2026-11-08T00:30:00.000Z,401858291,Upcoming,,Notre Dame,Miami,0.6081,Miami,Notre Dame,FBS vs FBS,fbs,fbs,away,22.24,24.13,-4.39,16.0,Notre Dame,4.39,0.3919
 11,11,Week 11,2026-11-14T05:00:00.000Z,401858296,Upcoming,,Miami,Duke,0.884,Miami,Duke,FBS vs FBS,fbs,fbs,home,22.24,5.62,19.12,16.0,Miami,19.12,0.884
 12,12,Week 12,2026-11-21T05:00:00.000Z,401858302,Upcoming,,Miami,Virginia Tech,0.8938,Miami,Virginia Tech,FBS vs FBS,fbs,fbs,home,22.24,4.79,19.95,16.0,Miami,19.95,0.8938
-13,13,Week 13,2026-11-28T05:00:00.000Z,401858311,Upcoming,,Miami,Boston College,0.9711,Miami,Boston College,FBS vs FBS,fbs,fbs,home,22.24,-5.62,30.36,16.0,Miami,30.36,0.9711
+13,13,Week 13,2026-11-28T05:00:00.000Z,401858311,Upcoming,,Miami,Boston College,0.9712,Miami,Boston College,FBS vs FBS,fbs,fbs,home,22.24,-5.63,30.37,16.0,Miami,30.37,0.9712
 1,1,Week 1,2026-09-05T16:30:00.000Z,401858207,Final,"Miami (OH) 14, Pittsburgh 59",Pittsburgh,Miami (OH),0.884,Miami (OH),Pittsburgh,FBS vs FBS,fbs,fbs,away,-9.81,6.81,-19.12,16.0,Pittsburgh,19.12,0.116
 2,2,Week 2,2026-09-12T17:00:00.000Z,401866417,Final,"Holy Cross 7, Miami (OH) 45",Miami (OH),Holy Cross,0.9243,Miami (OH),Holy Cross (FCS baseline),FCS involved,fbs,fcs,home,-9.81,-36.0,28.69,20.0,Miami (OH),28.69,0.9243
 3,3,Week 3,2026-09-19T19:30:00.000Z,401856797,Final,"Miami (OH) 31, Cincinnati 35",Cincinnati,Miami (OH),0.7631,Miami (OH),Cincinnati,FBS vs FBS,fbs,fbs,away,-9.81,-0.85,-11.46,16.0,Cincinnati,11.46,0.2369
 4,4,Week 4,2026-09-26T19:30:00.000Z,401861970,Final,"UConn 21, Miami (OH) 24",Miami (OH),UConn,0.4898,Miami (OH),UConn,FBS vs FBS,fbs,fbs,home,-9.81,-6.9,-0.41,16.0,UConn,0.41,0.4898
-5,5,Week 5,2026-10-03T19:30:00.000Z,401866477,Final,"Bowling Green 24, Miami (OH) 20",Miami (OH),Bowling Green,0.6584,Miami (OH),Bowling Green,FBS vs FBS,fbs,fbs,home,-9.81,-13.84,6.53,16.0,Miami (OH),6.53,0.6584
+5,5,Week 5,2026-10-03T19:30:00.000Z,401866477,Final,"Bowling Green 24, Miami (OH) 20",Miami (OH),Bowling Green,0.6586,Miami (OH),Bowling Green,FBS vs FBS,fbs,fbs,home,-9.81,-13.85,6.54,16.0,Miami (OH),6.54,0.6586
 6,6,Week 6,2026-10-10T18:00:00.000Z,401866440,Upcoming,,Massachusetts,Miami (OH),0.5544,Miami (OH),Massachusetts,FBS vs FBS,fbs,fbs,away,-9.81,-10.12,-2.19,16.0,Massachusetts,2.19,0.4456
 7,7,Week 7,2026-10-17T04:00:00.000Z,401866478,Upcoming,,Miami (OH),Akron,0.8011,Miami (OH),Akron,FBS vs FBS,fbs,fbs,home,-9.81,-20.84,13.53,16.0,Miami (OH),13.53,0.8011
 8,8,Week 8,2026-10-24T04:00:00.000Z,401866476,Upcoming,,Central Michigan,Miami (OH),0.5672,Miami (OH),Central Michigan,FBS vs FBS,fbs,fbs,away,-9.81,-9.6,-2.71,16.0,Central Michigan,2.71,0.4328
@@ -770,7 +770,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 4,4,Week 4,2026-09-26T23:00:00.000Z,401871048,Final,"Middle Tennessee 13, Jacksonville State 23",Jacksonville State,Middle Tennessee,0.7127,Middle Tennessee,Jacksonville State,FBS vs FBS,fbs,fbs,away,-12.28,-5.8,-8.98,16.0,Jacksonville State,8.98,0.2873
 5,5,Week 5,2026-10-03T16:00:00.000Z,401856807,Final,"Middle Tennessee 0, Kansas 55",Kansas,Middle Tennessee,0.8441,Middle Tennessee,Kansas,FBS vs FBS,fbs,fbs,away,-12.28,1.4,-16.18,16.0,Kansas,16.18,0.1559
 7,7,Week 7,2026-10-13T23:00:00.000Z,401871067,Upcoming,,Middle Tennessee,Delaware,0.5132,Middle Tennessee,Delaware,FBS vs FBS,fbs,fbs,home,-12.28,-10.31,0.53,16.0,Middle Tennessee,0.53,0.5132
-8,8,Week 8,2026-10-20T23:00:00.000Z,401871055,Upcoming,,Florida International,Middle Tennessee,0.7052,Middle Tennessee,Florida International,FBS vs FBS,fbs,fbs,away,-12.28,-6.15,-8.63,16.0,Florida International,8.63,0.2948
+8,8,Week 8,2026-10-20T23:00:00.000Z,401871055,Upcoming,,Florida International,Middle Tennessee,0.705,Middle Tennessee,Florida International,FBS vs FBS,fbs,fbs,away,-12.28,-6.16,-8.62,16.0,Florida International,8.62,0.295
 9,9,Week 9,2026-10-28T23:00:00.000Z,401871058,Upcoming,,Middle Tennessee,Kennesaw State,0.5279,Middle Tennessee,Kennesaw State,FBS vs FBS,fbs,fbs,home,-12.28,-10.9,1.12,16.0,Middle Tennessee,1.12,0.5279
 10,10,Week 10,2026-11-07T20:30:00.000Z,401871076,Upcoming,,Middle Tennessee,Western Kentucky,0.6055,Middle Tennessee,Western Kentucky,FBS vs FBS,fbs,fbs,home,-12.28,-14.06,4.28,16.0,Middle Tennessee,4.28,0.6055
 11,11,Week 11,2026-11-14T20:30:00.000Z,401871061,Upcoming,,Liberty,Middle Tennessee,0.8805,Middle Tennessee,Liberty,FBS vs FBS,fbs,fbs,away,-12.28,4.06,-18.84,16.0,Liberty,18.84,0.1195
@@ -820,7 +820,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 7,7,Week 7,2026-10-14T23:30:00.000Z,401871054,Upcoming,,Missouri State,Kennesaw State,0.5364,Missouri State,Kennesaw State,FBS vs FBS,fbs,fbs,home,-11.94,-10.9,1.46,16.0,Missouri State,1.46,0.5364
 8,8,Week 8,2026-10-20T23:00:00.000Z,401871069,Upcoming,,Delaware,Missouri State,0.6018,Missouri State,Delaware,FBS vs FBS,fbs,fbs,away,-11.94,-10.31,-4.13,16.0,Delaware,4.13,0.3982
 9,9,Week 9,2026-10-28T00:00:00.000Z,401871072,Upcoming,,Missouri State,Sam Houston,0.5917,Missouri State,Sam Houston,FBS vs FBS,fbs,fbs,home,-11.94,-13.15,3.71,16.0,Missouri State,3.71,0.5917
-10,10,Week 10,2026-11-07T21:00:00.000Z,401871074,Upcoming,,Florida International,Missouri State,0.6978,Missouri State,Florida International,FBS vs FBS,fbs,fbs,away,-11.94,-6.15,-8.29,16.0,Florida International,8.29,0.3022
+10,10,Week 10,2026-11-07T21:00:00.000Z,401871074,Upcoming,,Florida International,Missouri State,0.6976,Missouri State,Florida International,FBS vs FBS,fbs,fbs,away,-11.94,-6.16,-8.28,16.0,Florida International,8.28,0.3024
 11,11,Week 11,2026-11-14T20:00:00.000Z,401870796,Upcoming,,Missouri State,New Mexico State,0.5376,Missouri State,New Mexico State,FBS vs FBS,fbs,fbs,home,-11.94,-10.95,1.51,16.0,Missouri State,1.51,0.5376
 12,12,Week 12,2026-11-21T19:00:00.000Z,401871079,Upcoming,,Jacksonville State,Missouri State,0.7054,Missouri State,Jacksonville State,FBS vs FBS,fbs,fbs,away,-11.94,-5.8,-8.64,16.0,Jacksonville State,8.64,0.2946
 13,13,Week 13,2026-11-28T19:00:00.000Z,401871063,Upcoming,,Missouri State,Liberty,0.1994,Missouri State,Liberty,FBS vs FBS,fbs,fbs,home,-11.94,4.06,-13.5,16.0,Liberty,13.5,0.1994
@@ -841,15 +841,15 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 4,4,Week 4,2026-09-25T23:00:00.000Z,401862778,Final,"Navy 20, UAB 24",UAB,Navy,0.4669,Navy,UAB,FBS vs FBS,fbs,fbs,away,-5.38,-9.21,1.33,16.0,Navy,1.33,0.5331
 5,5,Week 5,2026-10-03T16:00:00.000Z,401862791,Final,"Navy 9, Air Force 14",Air Force,Navy,0.5944,Navy,Air Force,FBS vs FBS,fbs,fbs,away,-5.38,-4.06,-3.82,16.0,Air Force,3.82,0.4056
 6,6,Week 6,2026-10-10T19:30:00.000Z,401862799,Upcoming,,Navy,Tulsa,0.5717,Navy,Tulsa,FBS vs FBS,fbs,fbs,home,-5.38,-5.77,2.89,16.0,Navy,2.89,0.5717
-7,7,Week 7,2026-10-17T04:00:00.000Z,401862804,Upcoming,,UTSA,Navy,0.7022,Navy,UTSA,FBS vs FBS,fbs,fbs,away,-5.38,0.61,-8.49,16.0,UTSA,8.49,0.2978
+7,7,Week 7,2026-10-17T04:00:00.000Z,401862804,Upcoming,,UTSA,Navy,0.7028,Navy,UTSA,FBS vs FBS,fbs,fbs,away,-5.38,0.64,-8.52,16.0,UTSA,8.52,0.2972
 8,8,Week 8,2026-10-24T19:30:00.000Z,401862810,Upcoming,,Navy,North Texas,0.4278,Navy,North Texas,FBS vs FBS,fbs,fbs,home,-5.38,0.03,-2.91,16.0,North Texas,2.91,0.4278
 9,9,Week 9,2026-10-31T16:00:00.000Z,401859185,Upcoming,,Navy,Notre Dame,0.0326,Navy,Notre Dame,FBS vs FBS,fbs,fbs,neutral,-5.38,24.13,-29.51,16.0,Notre Dame,29.51,0.0326
-10,10,Week 10,2026-11-07T20:30:00.000Z,401862820,Upcoming,,Navy,Temple,0.5373,Navy,Temple,FBS vs FBS,fbs,fbs,home,-5.38,-4.38,1.5,16.0,Navy,1.5,0.5373
+10,10,Week 10,2026-11-07T20:30:00.000Z,401862820,Upcoming,,Navy,Temple,0.5376,Navy,Temple,FBS vs FBS,fbs,fbs,home,-5.38,-4.39,1.51,16.0,Navy,1.51,0.5376
 12,12,Week 12,2026-11-21T17:00:00.000Z,401862834,Upcoming,,Navy,Memphis,0.3427,Navy,Memphis,FBS vs FBS,fbs,fbs,home,-5.38,3.6,-6.48,16.0,Memphis,6.48,0.3427
 13,13,Week 13,2026-11-28T05:00:00.000Z,401862842,Upcoming,,Charlotte,Navy,0.2214,Navy,Charlotte,FBS vs FBS,fbs,fbs,away,-5.38,-20.16,12.28,16.0,Navy,12.28,0.7786
-15,15,Week 15,2026-12-12T20:00:00.000Z,401862844,Upcoming,,Army,Navy,0.5502,Navy,Army,FBS vs FBS,fbs,fbs,neutral,-5.38,-3.36,-2.02,16.0,Army,2.02,0.4498
+15,15,Week 15,2026-12-12T20:00:00.000Z,401862844,Upcoming,,Army,Navy,0.55,Navy,Army,FBS vs FBS,fbs,fbs,neutral,-5.38,-3.37,-2.01,16.0,Army,2.01,0.45
 1,1,Week 1,2026-09-05T16:00:00.000Z,401858430,Final,"Ohio 21, Nebraska 49",Nebraska,Ohio,0.9329,Nebraska,Ohio,FBS vs FBS,fbs,fbs,home,12.87,-8.6,23.97,16.0,Nebraska,23.97,0.9329
-2,2,Week 2,2026-09-12T23:00:00.000Z,401858441,Final,"Bowling Green 7, Nebraska 56",Nebraska,Bowling Green,0.966,Nebraska,Bowling Green,FBS vs FBS,fbs,fbs,home,12.87,-13.84,29.21,16.0,Nebraska,29.21,0.966
+2,2,Week 2,2026-09-12T23:00:00.000Z,401858441,Final,"Bowling Green 7, Nebraska 56",Nebraska,Bowling Green,0.9661,Nebraska,Bowling Green,FBS vs FBS,fbs,fbs,home,12.87,-13.85,29.22,16.0,Nebraska,29.22,0.9661
 3,3,Week 3,2026-09-19T23:15:00.000Z,401858452,Final,"North Dakota 7, Nebraska 34",Nebraska,North Dakota,0.9949,Nebraska,North Dakota (FCS baseline),FCS involved,fbs,fcs,home,12.87,-36.0,51.37,20.0,Nebraska,51.37,0.9949
 4,4,Week 4,2026-09-26T21:00:00.000Z,401858464,Final,"Nebraska 31, Michigan State 13",Michigan State,Nebraska,0.2899,Nebraska,Michigan State,FBS vs FBS,fbs,fbs,away,12.87,1.51,8.86,16.0,Nebraska,8.86,0.7101
 5,5,Week 5,2026-10-03T20:00:00.000Z,401858475,Final,"Maryland 23, Nebraska 48",Nebraska,Maryland,0.8739,Nebraska,Maryland,FBS vs FBS,fbs,fbs,home,12.87,-2.95,18.32,16.0,Nebraska,18.32,0.8739
@@ -889,7 +889,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 2,2,Week 2,2026-09-13T03:59:00.000Z,401864578,Final,"New Mexico State 19, Hawai'i 29",Hawai'i,New Mexico State,0.5741,New Mexico State,Hawai'i,FBS vs FBS,fbs,fbs,away,-10.95,-10.46,-2.99,16.0,Hawai'i,2.99,0.4259
 4,4,Week 4,2026-09-26T19:30:00.000Z,401864579,Final,"New Mexico 42, New Mexico State 18",New Mexico State,New Mexico,0.1937,New Mexico State,New Mexico,FBS vs FBS,fbs,fbs,home,-10.95,5.38,-13.83,16.0,New Mexico,13.83,0.1937
 5,5,Week 5,2026-10-02T00:00:00.000Z,401871049,Final,"Western Kentucky 13, New Mexico State 34",New Mexico State,Western Kentucky,0.6371,New Mexico State,Western Kentucky,FBS vs FBS,fbs,fbs,home,-10.95,-14.06,5.61,16.0,New Mexico State,5.61,0.6371
-6,6,Week 6,2026-10-07T23:30:00.000Z,401871066,Upcoming,,Florida International,New Mexico State,0.6759,New Mexico State,Florida International,FBS vs FBS,fbs,fbs,away,-10.95,-6.15,-7.3,16.0,Florida International,7.3,0.3241
+6,6,Week 6,2026-10-07T23:30:00.000Z,401871066,Upcoming,,Florida International,New Mexico State,0.6757,New Mexico State,Florida International,FBS vs FBS,fbs,fbs,away,-10.95,-6.16,-7.29,16.0,Florida International,7.29,0.3243
 8,8,Week 8,2026-10-22T00:00:00.000Z,401871070,Upcoming,,Sam Houston,New Mexico State,0.5075,New Mexico State,Sam Houston,FBS vs FBS,fbs,fbs,away,-10.95,-13.15,-0.3,16.0,Sam Houston,0.3,0.4925
 9,9,Week 9,2026-10-29T00:00:00.000Z,401871057,Upcoming,,New Mexico State,Jacksonville State,0.4342,New Mexico State,Jacksonville State,FBS vs FBS,fbs,fbs,home,-10.95,-5.8,-2.65,16.0,Jacksonville State,2.65,0.4342
 10,10,Week 10,2026-11-07T22:00:00.000Z,401870795,Upcoming,,New Mexico State,Liberty,0.2171,New Mexico State,Liberty,FBS vs FBS,fbs,fbs,home,-10.95,4.06,-12.51,16.0,Liberty,12.51,0.2171
@@ -911,7 +911,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 1,0,Week 0,2026-08-29T21:30:00.000Z,401864577,Final,"Jacksonville State 7, North Dakota State 33",North Dakota State,Jacksonville State,0.7999,North Dakota State,Jacksonville State,FBS vs FBS,fbs,fbs,home,5.16,-5.8,13.46,16.0,North Dakota State,13.46,0.7999
 1,1,Week 1,2026-09-05T19:30:00.000Z,401864499,Final,"Fordham 0, North Dakota State 38",North Dakota State,Fordham,0.9855,North Dakota State,Fordham (FCS baseline),FCS involved,fbs,fcs,home,5.16,-36.0,43.66,20.0,North Dakota State,43.66,0.9855
 2,2,Week 2,2026-09-13T02:00:00.000Z,401864502,Final,"North Dakota State 38, Air Force 32",Air Force,North Dakota State,0.3372,North Dakota State,Air Force,FBS vs FBS,fbs,fbs,away,5.16,-4.06,6.72,16.0,North Dakota State,6.72,0.6628
-3,3,Week 3,2026-09-20T02:30:00.000Z,401864507,Final,"North Dakota State 31, Sacramento State 10",Sacramento State,North Dakota State,0.0866,North Dakota State,Sacramento State,FBS vs FBS,fbs,fbs,away,5.16,-19.13,21.79,16.0,North Dakota State,21.79,0.9134
+3,3,Week 3,2026-09-20T02:30:00.000Z,401864507,Final,"North Dakota State 31, Sacramento State 10",Sacramento State,North Dakota State,0.0865,North Dakota State,Sacramento State,FBS vs FBS,fbs,fbs,away,5.16,-19.14,21.8,16.0,North Dakota State,21.8,0.9135
 5,5,Week 5,2026-10-03T19:30:00.000Z,401864515,Final,"Wyoming 0, North Dakota State 28",North Dakota State,Wyoming,0.8859,North Dakota State,Wyoming,FBS vs FBS,fbs,fbs,home,5.16,-11.62,19.28,16.0,North Dakota State,19.28,0.8859
 6,6,Week 6,2026-10-10T23:00:00.000Z,401864518,Upcoming,,UNLV,North Dakota State,0.3921,North Dakota State,UNLV,FBS vs FBS,fbs,fbs,away,5.16,-1.72,4.38,16.0,North Dakota State,4.38,0.6079
 7,7,Week 7,2026-10-17T23:00:00.000Z,401864520,Upcoming,,North Dakota State,Nevada,0.7941,North Dakota State,Nevada,FBS vs FBS,fbs,fbs,home,5.16,-5.47,13.13,16.0,North Dakota State,13.13,0.7941
@@ -922,14 +922,14 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 13,13,Week 13,2026-11-27T20:30:00.000Z,401864549,Upcoming,,San José State,North Dakota State,0.2829,North Dakota State,San José State,FBS vs FBS,fbs,fbs,away,5.16,-6.53,9.19,16.0,North Dakota State,9.19,0.7171
 1,1,Week 1,2026-09-05T16:00:00.000Z,401858425,Final,"North Texas 16, Indiana 52",Indiana,North Texas,0.9397,North Texas,Indiana,FBS vs FBS,fbs,fbs,away,0.03,22.37,-24.84,16.0,Indiana,24.84,0.0603
 2,2,Week 2,2026-09-12T19:45:00.000Z,401862705,Final,"UNLV 6, North Texas 44",North Texas,UNLV,0.6047,North Texas,UNLV,FBS vs FBS,fbs,fbs,home,0.03,-1.72,4.25,16.0,North Texas,4.25,0.6047
-3,3,Week 3,2026-09-19T16:00:00.000Z,401860889,Final,"North Texas 35, Texas State 49",Texas State,North Texas,0.5282,North Texas,Texas State,FBS vs FBS,fbs,fbs,away,0.03,-1.34,-1.13,16.0,Texas State,1.13,0.4718
+3,3,Week 3,2026-09-19T16:00:00.000Z,401860889,Final,"North Texas 35, Texas State 49",Texas State,North Texas,0.5284,North Texas,Texas State,FBS vs FBS,fbs,fbs,away,0.03,-1.33,-1.14,16.0,Texas State,1.14,0.4716
 4,4,Week 4,2026-09-26T23:30:00.000Z,401862783,Final,"Houston Christian 14, North Texas 63",North Texas,Houston Christian,0.973,North Texas,Houston Christian (FCS baseline),FCS involved,fbs,fcs,home,0.03,-36.0,38.53,20.0,North Texas,38.53,0.973
 5,5,Week 5,2026-10-02T01:00:00.000Z,401862786,Final,"North Texas 45, Tulsa 44",Tulsa,North Texas,0.4183,North Texas,Tulsa,FBS vs FBS,fbs,fbs,away,0.03,-5.77,3.3,16.0,North Texas,3.3,0.5817
 6,6,Week 6,2026-10-10T19:30:00.000Z,401862796,Upcoming,,North Texas,Charlotte,0.9219,North Texas,Charlotte,FBS vs FBS,fbs,fbs,home,0.03,-20.16,22.69,16.0,North Texas,22.69,0.9219
 8,8,Week 8,2026-10-24T19:30:00.000Z,401862810,Upcoming,,Navy,North Texas,0.4278,North Texas,Navy,FBS vs FBS,fbs,fbs,away,0.03,-5.38,2.91,16.0,North Texas,2.91,0.5722
 9,9,Week 9,2026-10-29T23:30:00.000Z,401862812,Upcoming,,North Texas,Florida Atlantic,0.6822,North Texas,Florida Atlantic,FBS vs FBS,fbs,fbs,home,0.03,-5.05,7.58,16.0,North Texas,7.58,0.6822
-10,10,Week 10,2026-11-07T05:00:00.000Z,401862821,Upcoming,,North Texas,Rice,0.7907,North Texas,Rice,FBS vs FBS,fbs,fbs,home,0.03,-10.41,12.94,16.0,North Texas,12.94,0.7907
-11,11,Week 11,2026-11-14T05:00:00.000Z,401862827,Upcoming,,UTSA,North Texas,0.5763,North Texas,UTSA,FBS vs FBS,fbs,fbs,away,0.03,0.61,-3.08,16.0,UTSA,3.08,0.4237
+10,10,Week 10,2026-11-07T05:00:00.000Z,401862821,Upcoming,,North Texas,Rice,0.7905,North Texas,Rice,FBS vs FBS,fbs,fbs,home,0.03,-10.4,12.93,16.0,North Texas,12.93,0.7905
+11,11,Week 11,2026-11-14T05:00:00.000Z,401862827,Upcoming,,UTSA,North Texas,0.5771,North Texas,UTSA,FBS vs FBS,fbs,fbs,away,0.03,0.64,-3.11,16.0,UTSA,3.11,0.4229
 12,12,Week 12,2026-11-21T05:00:00.000Z,401862835,Upcoming,,Tulane,North Texas,0.4763,North Texas,Tulane,FBS vs FBS,fbs,fbs,away,0.03,-3.42,0.95,16.0,North Texas,0.95,0.5237
 13,13,Week 13,2026-11-28T05:00:00.000Z,401862843,Upcoming,,North Texas,UAB,0.7684,North Texas,UAB,FBS vs FBS,fbs,fbs,home,0.03,-9.21,11.74,16.0,North Texas,11.74,0.7684
 1,1,Week 1,2026-09-05T20:15:00.000Z,401858426,Final,"Northern Illinois 0, Iowa 40",Iowa,Northern Illinois,0.9535,Northern Illinois,Iowa,FBS vs FBS,fbs,fbs,away,-14.81,9.56,-26.87,16.0,Iowa,26.87,0.0465
@@ -957,7 +957,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 12,12,Week 12,2026-11-21T05:00:00.000Z,401858530,Upcoming,,Minnesota,Northwestern,0.325,Northwestern,Minnesota,FBS vs FBS,fbs,fbs,away,11.92,2.16,7.26,16.0,Northwestern,7.26,0.675
 13,13,Week 13,2026-11-28T05:00:00.000Z,401858537,Upcoming,,Northwestern,Illinois,0.7698,Northwestern,Illinois,FBS vs FBS,fbs,fbs,home,11.92,2.61,11.81,16.0,Northwestern,11.81,0.7698
 1,1,Week 1,2026-09-06T23:30:00.000Z,401858438,Final,"Wisconsin 13, Notre Dame 41",Notre Dame,Wisconsin,0.8032,Notre Dame,Wisconsin,FBS vs FBS,fbs,fbs,neutral,24.13,10.48,13.65,16.0,Notre Dame,13.65,0.8032
-2,2,Week 2,2026-09-12T19:30:00.000Z,401859184,Final,"Rice 0, Notre Dame 52",Notre Dame,Rice,0.9897,Notre Dame,Rice,FBS vs FBS,fbs,fbs,home,24.13,-10.41,37.04,16.0,Notre Dame,37.04,0.9897
+2,2,Week 2,2026-09-12T19:30:00.000Z,401859184,Final,"Rice 0, Notre Dame 52",Notre Dame,Rice,0.9897,Notre Dame,Rice,FBS vs FBS,fbs,fbs,home,24.13,-10.4,37.03,16.0,Notre Dame,37.03,0.9897
 3,3,Week 3,2026-09-19T23:30:00.000Z,401858453,Final,"Michigan State 10, Notre Dame 27",Notre Dame,Michigan State,0.9418,Notre Dame,Michigan State,FBS vs FBS,fbs,fbs,home,24.13,1.51,25.12,16.0,Notre Dame,25.12,0.9418
 4,4,Week 4,2026-09-26T18:00:00.000Z,401858467,Final,"Notre Dame 49, Purdue 10",Purdue,Notre Dame,0.0684,Notre Dame,Purdue,FBS vs FBS,fbs,fbs,away,24.13,-2.18,23.81,16.0,Notre Dame,23.81,0.9316
 5,5,Week 5,2026-10-03T16:00:00.000Z,401858250,Final,"Notre Dame 37, North Carolina 26",North Carolina,Notre Dame,0.1158,Notre Dame,North Carolina,FBS vs FBS,fbs,fbs,away,24.13,2.49,19.14,16.0,Notre Dame,19.14,0.8842
@@ -965,7 +965,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 7,7,Week 7,2026-10-17T04:00:00.000Z,401856809,Upcoming,,BYU,Notre Dame,0.2371,Notre Dame,BYU,FBS vs FBS,fbs,fbs,away,24.13,10.18,11.45,16.0,Notre Dame,11.45,0.7629
 9,9,Week 9,2026-10-31T16:00:00.000Z,401859185,Upcoming,,Navy,Notre Dame,0.0326,Notre Dame,Navy,FBS vs FBS,fbs,fbs,neutral,24.13,-5.38,29.51,16.0,Notre Dame,29.51,0.9674
 10,10,Week 10,2026-11-08T00:30:00.000Z,401858291,Upcoming,,Notre Dame,Miami,0.6081,Notre Dame,Miami,FBS vs FBS,fbs,fbs,home,24.13,22.24,4.39,16.0,Notre Dame,4.39,0.6081
-11,11,Week 11,2026-11-14T20:30:00.000Z,401858294,Upcoming,,Notre Dame,Boston College,0.9781,Notre Dame,Boston College,FBS vs FBS,fbs,fbs,home,24.13,-5.62,32.25,16.0,Notre Dame,32.25,0.9781
+11,11,Week 11,2026-11-14T20:30:00.000Z,401858294,Upcoming,,Notre Dame,Boston College,0.9781,Notre Dame,Boston College,FBS vs FBS,fbs,fbs,home,24.13,-5.63,32.26,16.0,Notre Dame,32.26,0.9781
 12,12,Week 12,2026-11-22T00:30:00.000Z,401858307,Upcoming,,Notre Dame,SMU,0.8931,Notre Dame,SMU,FBS vs FBS,fbs,fbs,home,24.13,6.74,19.89,16.0,Notre Dame,19.89,0.8931
 13,13,Week 13,2026-11-28T05:00:00.000Z,401858314,Upcoming,,Syracuse,Notre Dame,0.0603,Notre Dame,Syracuse,FBS vs FBS,fbs,fbs,away,24.13,-3.2,24.83,16.0,Notre Dame,24.83,0.9397
 1,1,Week 1,2026-09-05T16:00:00.000Z,401858430,Final,"Ohio 21, Nebraska 49",Nebraska,Ohio,0.9329,Ohio,Nebraska,FBS vs FBS,fbs,fbs,away,-8.6,12.87,-23.97,16.0,Nebraska,23.97,0.0671
@@ -974,7 +974,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 4,4,Week 4,2026-09-26T19:30:00.000Z,401866428,Final,"Stonehill 7, Ohio 35",Ohio,Stonehill,0.9325,Ohio,Stonehill (FCS baseline),FCS involved,fbs,fcs,home,-8.6,-36.0,29.9,20.0,Ohio,29.9,0.9325
 5,5,Week 5,2026-10-03T19:30:00.000Z,401866434,Final,"Ohio 13, Kent State 10",Kent State,Ohio,0.3795,Ohio,Kent State,FBS vs FBS,fbs,fbs,away,-8.6,-16.01,4.91,16.0,Ohio,4.91,0.6205
 6,6,Week 6,2026-10-10T19:30:00.000Z,401866438,Upcoming,,Ohio,Central Michigan,0.5866,Ohio,Central Michigan,FBS vs FBS,fbs,fbs,home,-8.6,-9.6,3.5,16.0,Ohio,3.5,0.5866
-7,7,Week 7,2026-10-17T04:00:00.000Z,401866445,Upcoming,,Sacramento State,Ohio,0.3079,Ohio,Sacramento State,FBS vs FBS,fbs,fbs,away,-8.6,-19.13,8.03,16.0,Ohio,8.03,0.6921
+7,7,Week 7,2026-10-17T04:00:00.000Z,401866445,Upcoming,,Sacramento State,Ohio,0.3077,Ohio,Sacramento State,FBS vs FBS,fbs,fbs,away,-8.6,-19.14,8.04,16.0,Ohio,8.04,0.6923
 8,8,Week 8,2026-10-24T04:00:00.000Z,401866449,Upcoming,,Ohio,Eastern Michigan,0.5956,Ohio,Eastern Michigan,FBS vs FBS,fbs,fbs,home,-8.6,-9.97,3.87,16.0,Ohio,3.87,0.5956
 10,10,Week 10,2026-11-04T00:00:00.000Z,401866453,Upcoming,,Akron,Ohio,0.2713,Ohio,Akron,FBS vs FBS,fbs,fbs,away,-8.6,-20.84,9.74,16.0,Ohio,9.74,0.7287
 11,11,Week 11,2026-11-11T00:00:00.000Z,401866460,Upcoming,,Miami (OH),Ohio,0.5321,Ohio,Miami (OH),FBS vs FBS,fbs,fbs,away,-8.6,-9.81,-1.29,16.0,Miami (OH),1.29,0.4679
@@ -1008,7 +1008,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 2,2,Week 2,2026-09-12T16:00:00.000Z,401856782,Final,"Oregon 31, Oklahoma State 39",Oklahoma State,Oregon,0.2068,Oklahoma State,Oregon,FBS vs FBS,fbs,fbs,home,1.82,17.4,-13.08,16.0,Oregon,13.08,0.2068
 3,3,Week 3,2026-09-19T23:00:00.000Z,401856803,Final,"Murray State 0, Oklahoma State 59",Oklahoma State,Murray State,0.9781,Oklahoma State,Murray State (FCS baseline),FCS involved,fbs,fcs,home,1.82,-36.0,40.32,20.0,Oklahoma State,40.32,0.9781
 4,4,Week 4,2026-09-26T23:00:00.000Z,401856881,Final,"Oklahoma State 41, West Virginia 24",West Virginia,Oklahoma State,0.506,Oklahoma State,West Virginia,FBS vs FBS,fbs,fbs,away,1.82,-0.44,-0.24,16.0,West Virginia,0.24,0.494
-6,6,Week 6,2026-10-10T16:00:00.000Z,401856824,Upcoming,,Oklahoma State,UCF,0.547,Oklahoma State,UCF,FBS vs FBS,fbs,fbs,home,1.82,2.43,1.89,16.0,Oklahoma State,1.89,0.547
+6,6,Week 6,2026-10-10T16:00:00.000Z,401856824,Upcoming,,Oklahoma State,UCF,0.5468,Oklahoma State,UCF,FBS vs FBS,fbs,fbs,home,1.82,2.44,1.88,16.0,Oklahoma State,1.88,0.5468
 7,7,Week 7,2026-10-17T04:00:00.000Z,401856831,Upcoming,,Houston,Oklahoma State,0.7272,Oklahoma State,Houston,FBS vs FBS,fbs,fbs,away,1.82,8.99,-9.67,16.0,Houston,9.67,0.2728
 8,8,Week 8,2026-10-24T04:00:00.000Z,401856836,Upcoming,,Oklahoma State,Colorado,0.6768,Oklahoma State,Colorado,FBS vs FBS,fbs,fbs,home,1.82,-3.02,7.34,16.0,Oklahoma State,7.34,0.6768
 9,9,Week 9,2026-10-31T04:00:00.000Z,401856847,Upcoming,,Iowa State,Oklahoma State,0.6231,Oklahoma State,Iowa State,FBS vs FBS,fbs,fbs,away,1.82,4.34,-5.02,16.0,Iowa State,5.02,0.3769
@@ -1060,11 +1060,11 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 6,6,Week 6,2026-10-10T22:00:00.000Z,401860902,Upcoming,,Oregon State,San Diego State,0.7184,Oregon State,San Diego State,FBS vs FBS,fbs,fbs,home,0.96,-5.79,9.25,16.0,Oregon State,9.25,0.7184
 7,7,Week 7,2026-10-17T22:00:00.000Z,401860903,Upcoming,,Oregon State,Washington State,0.7494,Oregon State,Washington State,FBS vs FBS,fbs,fbs,home,0.96,-7.3,10.76,16.0,Oregon State,10.76,0.7494
 9,9,Week 9,2026-10-31T04:00:00.000Z,401860924,Upcoming,,Fresno State,Oregon State,0.5724,Oregon State,Fresno State,FBS vs FBS,fbs,fbs,away,0.96,1.38,-2.92,16.0,Fresno State,2.92,0.4276
-10,10,Week 10,2026-11-08T03:30:00.000Z,401860912,Upcoming,,Oregon State,Texas State,0.6179,Oregon State,Texas State,FBS vs FBS,fbs,fbs,home,0.96,-1.34,4.8,16.0,Oregon State,4.8,0.6179
+10,10,Week 10,2026-11-08T03:30:00.000Z,401860912,Upcoming,,Oregon State,Texas State,0.6177,Oregon State,Texas State,FBS vs FBS,fbs,fbs,home,0.96,-1.33,4.79,16.0,Oregon State,4.79,0.6177
 11,11,Week 11,2026-11-14T23:00:00.000Z,401860914,Upcoming,,Boise State,Oregon State,0.7561,Oregon State,Boise State,FBS vs FBS,fbs,fbs,away,0.96,9.56,-11.1,16.0,Boise State,11.1,0.2439
 12,12,Week 12,2026-11-22T03:30:00.000Z,401860919,Upcoming,,Oregon State,Utah State,0.7058,Oregon State,Utah State,FBS vs FBS,fbs,fbs,home,0.96,-5.2,8.66,16.0,Oregon State,8.66,0.7058
 1,1,Week 1,2026-09-05T19:30:00.000Z,401858434,Final,"Marshall 0, Penn State 45",Penn State,Marshall,0.9282,Penn State,Marshall,FBS vs FBS,fbs,fbs,home,12.94,-7.96,23.4,16.0,Penn State,23.4,0.9282
-2,2,Week 2,2026-09-12T16:00:00.000Z,401858442,Final,"Penn State 27, Temple 9",Temple,Penn State,0.1772,Penn State,Temple,FBS vs FBS,fbs,fbs,away,12.94,-4.38,14.82,16.0,Penn State,14.82,0.8228
+2,2,Week 2,2026-09-12T16:00:00.000Z,401858442,Final,"Penn State 27, Temple 9",Temple,Penn State,0.177,Penn State,Temple,FBS vs FBS,fbs,fbs,away,12.94,-4.39,14.83,16.0,Penn State,14.83,0.823
 3,3,Week 3,2026-09-19T16:00:00.000Z,401858456,Final,"Buffalo 13, Penn State 55",Penn State,Buffalo,0.9631,Penn State,Buffalo,FBS vs FBS,fbs,fbs,home,12.94,-13.17,28.61,16.0,Penn State,28.61,0.9631
 4,4,Week 4,2026-09-26T21:00:00.000Z,401858466,Final,"Wisconsin 24, Penn State 20",Penn State,Wisconsin,0.6217,Penn State,Wisconsin,FBS vs FBS,fbs,fbs,home,12.94,10.48,4.96,16.0,Penn State,4.96,0.6217
 5,5,Week 5,2026-10-03T00:00:00.000Z,401858476,Final,"Penn State 13, Northwestern 34",Northwestern,Penn State,0.5368,Penn State,Northwestern,FBS vs FBS,fbs,fbs,away,12.94,11.92,-1.48,16.0,Northwestern,1.48,0.4632
@@ -1076,12 +1076,12 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 12,12,Week 12,2026-11-21T05:00:00.000Z,401858532,Upcoming,,Penn State,Rutgers,0.9061,Penn State,Rutgers,FBS vs FBS,fbs,fbs,home,12.94,-5.63,21.07,16.0,Penn State,21.07,0.9061
 13,13,Week 13,2026-11-28T05:00:00.000Z,401858539,Upcoming,,Maryland,Penn State,0.2013,Penn State,Maryland,FBS vs FBS,fbs,fbs,away,12.94,-2.95,13.39,16.0,Penn State,13.39,0.7987
 1,1,Week 1,2026-09-05T16:30:00.000Z,401858207,Final,"Miami (OH) 14, Pittsburgh 59",Pittsburgh,Miami (OH),0.884,Pittsburgh,Miami (OH),FBS vs FBS,fbs,fbs,home,6.81,-9.81,19.12,16.0,Pittsburgh,19.12,0.884
-2,2,Week 2,2026-09-12T19:30:00.000Z,401856790,Final,"UCF 7, Pittsburgh 12",Pittsburgh,UCF,0.6664,Pittsburgh,UCF,FBS vs FBS,fbs,fbs,home,6.81,2.43,6.88,16.0,Pittsburgh,6.88,0.6664
+2,2,Week 2,2026-09-12T19:30:00.000Z,401856790,Final,"UCF 7, Pittsburgh 12",Pittsburgh,UCF,0.6662,Pittsburgh,UCF,FBS vs FBS,fbs,fbs,home,6.81,2.44,6.87,16.0,Pittsburgh,6.87,0.6662
 3,3,Week 3,2026-09-17T23:30:00.000Z,401858225,Final,"Syracuse 13, Pittsburgh 27",Pittsburgh,Syracuse,0.7829,Pittsburgh,Syracuse,FBS vs FBS,fbs,fbs,home,6.81,-3.2,12.51,16.0,Pittsburgh,12.51,0.7829
 4,4,Week 4,2026-09-26T16:00:00.000Z,401858236,Final,"Bucknell 0, Pittsburgh 59",Pittsburgh,Bucknell,0.9883,Pittsburgh,Bucknell (FCS baseline),FCS involved,fbs,fcs,home,6.81,-36.0,45.31,20.0,Pittsburgh,45.31,0.9883
 5,5,Week 5,2026-10-02T23:00:00.000Z,401858245,Final,"Pittsburgh 35, Virginia Tech 33",Virginia Tech,Pittsburgh,0.512,Pittsburgh,Virginia Tech,FBS vs FBS,fbs,fbs,away,6.81,4.79,-0.48,16.0,Virginia Tech,0.48,0.488
 6,6,Week 6,2026-10-10T16:00:00.000Z,401858256,Upcoming,,Pittsburgh,North Carolina,0.665,Pittsburgh,North Carolina,FBS vs FBS,fbs,fbs,home,6.81,2.49,6.82,16.0,Pittsburgh,6.82,0.665
-7,7,Week 7,2026-10-17T04:00:00.000Z,401858267,Upcoming,,Boston College,Pittsburgh,0.2674,Pittsburgh,Boston College,FBS vs FBS,fbs,fbs,away,6.81,-5.62,9.93,16.0,Pittsburgh,9.93,0.7326
+7,7,Week 7,2026-10-17T04:00:00.000Z,401858267,Upcoming,,Boston College,Pittsburgh,0.2672,Pittsburgh,Boston College,FBS vs FBS,fbs,fbs,away,6.81,-5.63,9.94,16.0,Pittsburgh,9.94,0.7328
 8,8,Week 8,2026-10-24T04:00:00.000Z,401858274,Upcoming,,Miami,Pittsburgh,0.8688,Pittsburgh,Miami,FBS vs FBS,fbs,fbs,away,6.81,22.24,-17.93,16.0,Miami,17.93,0.1312
 9,9,Week 9,2026-10-31T04:00:00.000Z,401858281,Upcoming,,Pittsburgh,Georgia Tech,0.7944,Pittsburgh,Georgia Tech,FBS vs FBS,fbs,fbs,home,6.81,-3.84,13.15,16.0,Pittsburgh,13.15,0.7944
 11,11,Week 11,2026-11-14T00:00:00.000Z,401858293,Upcoming,,Pittsburgh,Florida State,0.5242,Pittsburgh,Florida State,FBS vs FBS,fbs,fbs,home,6.81,8.34,0.97,16.0,Pittsburgh,0.97,0.5242
@@ -1099,20 +1099,20 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 11,11,Week 11,2026-11-14T05:00:00.000Z,401858519,Upcoming,,Iowa,Purdue,0.8133,Purdue,Iowa,FBS vs FBS,fbs,fbs,away,-2.18,9.56,-14.24,16.0,Iowa,14.24,0.1867
 12,12,Week 12,2026-11-21T05:00:00.000Z,401858533,Upcoming,,Purdue,Wisconsin,0.2627,Purdue,Wisconsin,FBS vs FBS,fbs,fbs,home,-2.18,10.48,-10.16,16.0,Wisconsin,10.16,0.2627
 13,13,Week 13,2026-11-28T05:00:00.000Z,401858538,Upcoming,,Indiana,Purdue,0.9545,Purdue,Indiana,FBS vs FBS,fbs,fbs,away,-2.18,22.37,-27.05,16.0,Indiana,27.05,0.0455
-1,1,Week 1,2026-09-05T23:00:00.000Z,401862697,Final,"Houston Christian 3, Rice 31",Rice,Houston Christian,0.9199,Rice,Houston Christian (FCS baseline),FCS involved,fbs,fcs,home,-10.41,-36.0,28.09,20.0,Rice,28.09,0.9199
-2,2,Week 2,2026-09-12T19:30:00.000Z,401859184,Final,"Rice 0, Notre Dame 52",Notre Dame,Rice,0.9897,Rice,Notre Dame,FBS vs FBS,fbs,fbs,away,-10.41,24.13,-37.04,16.0,Notre Dame,37.04,0.0103
-3,3,Week 3,2026-09-19T23:00:00.000Z,401862773,Final,"Western Michigan 28, Rice 21",Rice,Western Michigan,0.3907,Rice,Western Michigan,FBS vs FBS,fbs,fbs,home,-10.41,-3.47,-4.44,16.0,Western Michigan,4.44,0.3907
-4,4,Week 4,2026-09-27T02:00:00.000Z,401860891,Final,"Rice 24, Fresno State 38",Fresno State,Rice,0.8141,Rice,Fresno State,FBS vs FBS,fbs,fbs,away,-10.41,1.38,-14.29,16.0,Fresno State,14.29,0.1859
-5,5,Week 5,2026-10-03T23:00:00.000Z,401862788,Final,"UTSA 16, Rice 14",Rice,UTSA,0.2972,Rice,UTSA,FBS vs FBS,fbs,fbs,home,-10.41,0.61,-8.52,16.0,UTSA,8.52,0.2972
-6,6,Week 6,2026-10-10T20:00:00.000Z,401862797,Upcoming,,East Carolina,Rice,0.6828,Rice,East Carolina,FBS vs FBS,fbs,fbs,away,-10.41,-5.3,-7.61,16.0,East Carolina,7.61,0.3172
-7,7,Week 7,2026-10-17T04:00:00.000Z,401862805,Upcoming,,Rice,Tulsa,0.4468,Rice,Tulsa,FBS vs FBS,fbs,fbs,home,-10.41,-5.77,-2.14,16.0,Tulsa,2.14,0.4468
-8,8,Week 8,2026-10-24T04:00:00.000Z,401862809,Upcoming,,Florida Atlantic,Rice,0.6884,Rice,Florida Atlantic,FBS vs FBS,fbs,fbs,away,-10.41,-5.05,-7.86,16.0,Florida Atlantic,7.86,0.3116
-10,10,Week 10,2026-11-07T05:00:00.000Z,401862821,Upcoming,,North Texas,Rice,0.7907,Rice,North Texas,FBS vs FBS,fbs,fbs,away,-10.41,0.03,-12.94,16.0,North Texas,12.94,0.2093
-11,11,Week 11,2026-11-14T05:00:00.000Z,401862828,Upcoming,,Rice,Tulane,0.3895,Rice,Tulane,FBS vs FBS,fbs,fbs,home,-10.41,-3.42,-4.49,16.0,Tulane,4.49,0.3895
-12,12,Week 12,2026-11-20T00:30:00.000Z,401862830,Upcoming,,Temple,Rice,0.703,Rice,Temple,FBS vs FBS,fbs,fbs,away,-10.41,-4.38,-8.53,16.0,Temple,8.53,0.297
-13,13,Week 13,2026-11-28T05:00:00.000Z,401862841,Upcoming,,Rice,Army,0.3881,Rice,Army,FBS vs FBS,fbs,fbs,home,-10.41,-3.36,-4.55,16.0,Army,4.55,0.3881
+1,1,Week 1,2026-09-05T23:00:00.000Z,401862697,Final,"Houston Christian 3, Rice 31",Rice,Houston Christian,0.92,Rice,Houston Christian (FCS baseline),FCS involved,fbs,fcs,home,-10.4,-36.0,28.1,20.0,Rice,28.1,0.92
+2,2,Week 2,2026-09-12T19:30:00.000Z,401859184,Final,"Rice 0, Notre Dame 52",Notre Dame,Rice,0.9897,Rice,Notre Dame,FBS vs FBS,fbs,fbs,away,-10.4,24.13,-37.03,16.0,Notre Dame,37.03,0.0103
+3,3,Week 3,2026-09-19T23:00:00.000Z,401862773,Final,"Western Michigan 28, Rice 21",Rice,Western Michigan,0.3909,Rice,Western Michigan,FBS vs FBS,fbs,fbs,home,-10.4,-3.47,-4.43,16.0,Western Michigan,4.43,0.3909
+4,4,Week 4,2026-09-27T02:00:00.000Z,401860891,Final,"Rice 24, Fresno State 38",Fresno State,Rice,0.8139,Rice,Fresno State,FBS vs FBS,fbs,fbs,away,-10.4,1.38,-14.28,16.0,Fresno State,14.28,0.1861
+5,5,Week 5,2026-10-03T23:00:00.000Z,401862788,Final,"UTSA 16, Rice 14",Rice,UTSA,0.2968,Rice,UTSA,FBS vs FBS,fbs,fbs,home,-10.4,0.64,-8.54,16.0,UTSA,8.54,0.2968
+6,6,Week 6,2026-10-10T20:00:00.000Z,401862797,Upcoming,,East Carolina,Rice,0.6826,Rice,East Carolina,FBS vs FBS,fbs,fbs,away,-10.4,-5.3,-7.6,16.0,East Carolina,7.6,0.3174
+7,7,Week 7,2026-10-17T04:00:00.000Z,401862805,Upcoming,,Rice,Tulsa,0.447,Rice,Tulsa,FBS vs FBS,fbs,fbs,home,-10.4,-5.77,-2.13,16.0,Tulsa,2.13,0.447
+8,8,Week 8,2026-10-24T04:00:00.000Z,401862809,Upcoming,,Florida Atlantic,Rice,0.6882,Rice,Florida Atlantic,FBS vs FBS,fbs,fbs,away,-10.4,-5.05,-7.85,16.0,Florida Atlantic,7.85,0.3118
+10,10,Week 10,2026-11-07T05:00:00.000Z,401862821,Upcoming,,North Texas,Rice,0.7905,Rice,North Texas,FBS vs FBS,fbs,fbs,away,-10.4,0.03,-12.93,16.0,North Texas,12.93,0.2095
+11,11,Week 11,2026-11-14T05:00:00.000Z,401862828,Upcoming,,Rice,Tulane,0.3897,Rice,Tulane,FBS vs FBS,fbs,fbs,home,-10.4,-3.42,-4.48,16.0,Tulane,4.48,0.3897
+12,12,Week 12,2026-11-20T00:30:00.000Z,401862830,Upcoming,,Temple,Rice,0.7026,Rice,Temple,FBS vs FBS,fbs,fbs,away,-10.4,-4.39,-8.51,16.0,Temple,8.51,0.2974
+13,13,Week 13,2026-11-28T05:00:00.000Z,401862841,Upcoming,,Rice,Army,0.3885,Rice,Army,FBS vs FBS,fbs,fbs,home,-10.4,-3.37,-4.53,16.0,Army,4.53,0.3885
 1,1,Week 1,2026-09-03T22:00:00.000Z,401858423,Final,"Massachusetts 37, Rutgers 21",Rutgers,Massachusetts,0.6689,Rutgers,Massachusetts,FBS vs FBS,fbs,fbs,home,-5.63,-10.12,6.99,16.0,Rutgers,6.99,0.6689
-2,2,Week 2,2026-09-11T23:30:00.000Z,401858214,Final,"Rutgers 21, Boston College 28",Boston College,Rutgers,0.5623,Rutgers,Boston College,FBS vs FBS,fbs,fbs,away,-5.63,-5.62,-2.51,16.0,Boston College,2.51,0.4377
+2,2,Week 2,2026-09-11T23:30:00.000Z,401858214,Final,"Rutgers 21, Boston College 28",Boston College,Rutgers,0.5621,Rutgers,Boston College,FBS vs FBS,fbs,fbs,away,-5.63,-5.63,-2.5,16.0,Boston College,2.5,0.4379
 3,3,Week 3,2026-09-19T19:30:00.000Z,401858457,Final,"USC 42, Rutgers 35",Rutgers,USC,0.1539,Rutgers,USC,FBS vs FBS,fbs,fbs,home,-5.63,13.19,-16.32,16.0,USC,16.32,0.1539
 4,4,Week 4,2026-09-25T23:00:00.000Z,401858468,Final,"Howard 7, Rutgers 58",Rutgers,Howard,0.9499,Rutgers,Howard (FCS baseline),FCS involved,fbs,fcs,home,-5.63,-36.0,32.87,20.0,Rutgers,32.87,0.9499
 5,5,Week 5,2026-10-04T00:00:00.000Z,401858477,Final,"Indiana 47, Rutgers 15",Rutgers,Indiana,0.0555,Rutgers,Indiana,FBS vs FBS,fbs,fbs,home,-5.63,22.37,-25.5,16.0,Indiana,25.5,0.0555
@@ -1127,7 +1127,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 2,2,Week 2,2026-09-12T20:00:00.000Z,401858223,Final,"UC Davis 10, SMU 56",SMU,UC Davis,0.9882,SMU,UC Davis (FCS baseline),FCS involved,fbs,fcs,home,6.74,-36.0,45.24,20.0,SMU,45.24,0.9882
 3,3,Week 3,2026-09-19T19:30:00.000Z,401858230,Final,"SMU 31, Louisville 41",Louisville,SMU,0.5623,SMU,Louisville,FBS vs FBS,fbs,fbs,away,6.74,6.75,-2.51,16.0,Louisville,2.51,0.4377
 4,4,Week 4,2026-09-27T01:00:00.000Z,401858241,Final,"Missouri State 24, SMU 34",SMU,Missouri State,0.9072,SMU,Missouri State,FBS vs FBS,fbs,fbs,home,6.74,-11.94,21.18,16.0,SMU,21.18,0.9072
-5,5,Week 5,2026-10-03T16:00:00.000Z,401858246,Final,"Boston College 16, SMU 25",SMU,Boston College,0.8235,SMU,Boston College,FBS vs FBS,fbs,fbs,home,6.74,-5.62,14.86,16.0,SMU,14.86,0.8235
+5,5,Week 5,2026-10-03T16:00:00.000Z,401858246,Final,"Boston College 16, SMU 25",SMU,Boston College,0.8237,SMU,Boston College,FBS vs FBS,fbs,fbs,home,6.74,-5.63,14.87,16.0,SMU,14.87,0.8237
 7,7,Week 7,2026-10-17T04:00:00.000Z,401858268,Upcoming,,SMU,Virginia,0.6269,SMU,Virginia,FBS vs FBS,fbs,fbs,home,6.74,4.06,5.18,16.0,SMU,5.18,0.6269
 8,8,Week 8,2026-10-24T04:00:00.000Z,401858270,Upcoming,,SMU,California,0.799,SMU,California,FBS vs FBS,fbs,fbs,home,6.74,-4.17,13.41,16.0,SMU,13.41,0.799
 9,9,Week 9,2026-10-31T04:00:00.000Z,401858278,Upcoming,,Syracuse,SMU,0.321,SMU,Syracuse,FBS vs FBS,fbs,fbs,away,6.74,-3.2,7.44,16.0,SMU,7.44,0.679
@@ -1135,18 +1135,18 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 11,11,Week 11,2026-11-14T05:00:00.000Z,401858301,Upcoming,,SMU,Wake Forest,0.5939,SMU,Wake Forest,FBS vs FBS,fbs,fbs,home,6.74,5.44,3.8,16.0,SMU,3.8,0.5939
 12,12,Week 12,2026-11-22T00:30:00.000Z,401858307,Upcoming,,Notre Dame,SMU,0.8931,SMU,Notre Dame,FBS vs FBS,fbs,fbs,away,6.74,24.13,-19.89,16.0,Notre Dame,19.89,0.1069
 13,13,Week 13,2026-11-28T05:00:00.000Z,401858316,Upcoming,,Stanford,SMU,0.1978,SMU,Stanford,FBS vs FBS,fbs,fbs,away,6.74,-9.35,13.59,16.0,SMU,13.59,0.8022
-1,0,Week 0,2026-08-29T22:30:00.000Z,401866408,Final,"Sacramento State 17, Eastern Michigan 28",Eastern Michigan,Sacramento State,0.7669,Sacramento State,Eastern Michigan,FBS vs FBS,fbs,fbs,away,-19.13,-9.97,-11.66,16.0,Eastern Michigan,11.66,0.2331
-1,1,Week 1,2026-09-06T02:00:00.000Z,401866411,Final,"Mississippi Valley State 0, Sacramento State 52",Sacramento State,Mississippi Valley State,0.8336,Sacramento State,Mississippi Valley State (FCS baseline),FCS involved,fbs,fcs,home,-19.13,-36.0,19.37,20.0,Sacramento State,19.37,0.8336
-2,2,Week 2,2026-09-13T02:30:00.000Z,401860883,Final,"Sacramento State 3, Fresno State 49",Fresno State,Sacramento State,0.9248,Sacramento State,Fresno State,FBS vs FBS,fbs,fbs,away,-19.13,1.38,-23.01,16.0,Fresno State,23.01,0.0752
-3,3,Week 3,2026-09-20T02:30:00.000Z,401864507,Final,"North Dakota State 31, Sacramento State 10",Sacramento State,North Dakota State,0.0866,Sacramento State,North Dakota State,FBS vs FBS,fbs,fbs,home,-19.13,5.16,-21.79,16.0,North Dakota State,21.79,0.0866
-4,4,Week 4,2026-09-27T01:00:00.000Z,401866429,Final,"Massachusetts 35, Sacramento State 6",Sacramento State,Massachusetts,0.342,Sacramento State,Massachusetts,FBS vs FBS,fbs,fbs,home,-19.13,-10.12,-6.51,16.0,Massachusetts,6.51,0.342
-6,6,Week 6,2026-10-10T16:00:00.000Z,401866436,Upcoming,,Bowling Green,Sacramento State,0.6868,Sacramento State,Bowling Green,FBS vs FBS,fbs,fbs,away,-19.13,-13.84,-7.79,16.0,Bowling Green,7.79,0.3132
-7,7,Week 7,2026-10-17T04:00:00.000Z,401866445,Upcoming,,Sacramento State,Ohio,0.3079,Sacramento State,Ohio,FBS vs FBS,fbs,fbs,home,-19.13,-8.6,-8.03,16.0,Ohio,8.03,0.3079
-8,8,Week 8,2026-10-24T04:00:00.000Z,401866447,Upcoming,,Ball State,Sacramento State,0.5987,Sacramento State,Ball State,FBS vs FBS,fbs,fbs,away,-19.13,-17.63,-4.0,16.0,Ball State,4.0,0.4013
-9,9,Week 9,2026-10-31T02:30:00.000Z,401866451,Upcoming,,Sacramento State,Kent State,0.4845,Sacramento State,Kent State,FBS vs FBS,fbs,fbs,home,-19.13,-16.01,-0.62,16.0,Kent State,0.62,0.4845
-10,10,Week 10,2026-11-04T05:00:00.000Z,401866457,Upcoming,,Sacramento State,Toledo,0.1477,Sacramento State,Toledo,FBS vs FBS,fbs,fbs,home,-19.13,0.11,-16.74,16.0,Toledo,16.74,0.1477
-11,11,Week 11,2026-11-11T05:00:00.000Z,401866462,Upcoming,,Central Michigan,Sacramento State,0.7739,Sacramento State,Central Michigan,FBS vs FBS,fbs,fbs,away,-19.13,-9.6,-12.03,16.0,Central Michigan,12.03,0.2261
-13,13,Week 13,2026-11-29T04:00:00.000Z,401864547,Upcoming,,Hawai'i,Sacramento State,0.7575,Sacramento State,Hawai'i,FBS vs FBS,fbs,fbs,away,-19.13,-10.46,-11.17,16.0,Hawai'i,11.17,0.2425
+1,0,Week 0,2026-08-29T22:30:00.000Z,401866408,Final,"Sacramento State 17, Eastern Michigan 28",Eastern Michigan,Sacramento State,0.7671,Sacramento State,Eastern Michigan,FBS vs FBS,fbs,fbs,away,-19.14,-9.97,-11.67,16.0,Eastern Michigan,11.67,0.2329
+1,1,Week 1,2026-09-06T02:00:00.000Z,401866411,Final,"Mississippi Valley State 0, Sacramento State 52",Sacramento State,Mississippi Valley State,0.8335,Sacramento State,Mississippi Valley State (FCS baseline),FCS involved,fbs,fcs,home,-19.14,-36.0,19.36,20.0,Sacramento State,19.36,0.8335
+2,2,Week 2,2026-09-13T02:30:00.000Z,401860883,Final,"Sacramento State 3, Fresno State 49",Fresno State,Sacramento State,0.9249,Sacramento State,Fresno State,FBS vs FBS,fbs,fbs,away,-19.14,1.38,-23.02,16.0,Fresno State,23.02,0.0751
+3,3,Week 3,2026-09-20T02:30:00.000Z,401864507,Final,"North Dakota State 31, Sacramento State 10",Sacramento State,North Dakota State,0.0865,Sacramento State,North Dakota State,FBS vs FBS,fbs,fbs,home,-19.14,5.16,-21.8,16.0,North Dakota State,21.8,0.0865
+4,4,Week 4,2026-09-27T01:00:00.000Z,401866429,Final,"Massachusetts 35, Sacramento State 6",Sacramento State,Massachusetts,0.3418,Sacramento State,Massachusetts,FBS vs FBS,fbs,fbs,home,-19.14,-10.12,-6.52,16.0,Massachusetts,6.52,0.3418
+6,6,Week 6,2026-10-10T16:00:00.000Z,401866436,Upcoming,,Bowling Green,Sacramento State,0.6868,Sacramento State,Bowling Green,FBS vs FBS,fbs,fbs,away,-19.14,-13.85,-7.79,16.0,Bowling Green,7.79,0.3132
+7,7,Week 7,2026-10-17T04:00:00.000Z,401866445,Upcoming,,Sacramento State,Ohio,0.3077,Sacramento State,Ohio,FBS vs FBS,fbs,fbs,home,-19.14,-8.6,-8.04,16.0,Ohio,8.04,0.3077
+8,8,Week 8,2026-10-24T04:00:00.000Z,401866447,Upcoming,,Ball State,Sacramento State,0.5989,Sacramento State,Ball State,FBS vs FBS,fbs,fbs,away,-19.14,-17.63,-4.01,16.0,Ball State,4.01,0.4011
+9,9,Week 9,2026-10-31T02:30:00.000Z,401866451,Upcoming,,Sacramento State,Kent State,0.4843,Sacramento State,Kent State,FBS vs FBS,fbs,fbs,home,-19.14,-16.01,-0.63,16.0,Kent State,0.63,0.4843
+10,10,Week 10,2026-11-04T05:00:00.000Z,401866457,Upcoming,,Sacramento State,Toledo,0.1476,Sacramento State,Toledo,FBS vs FBS,fbs,fbs,home,-19.14,0.11,-16.75,16.0,Toledo,16.75,0.1476
+11,11,Week 11,2026-11-11T05:00:00.000Z,401866462,Upcoming,,Central Michigan,Sacramento State,0.7741,Sacramento State,Central Michigan,FBS vs FBS,fbs,fbs,away,-19.14,-9.6,-12.04,16.0,Central Michigan,12.04,0.2259
+13,13,Week 13,2026-11-29T04:00:00.000Z,401864547,Upcoming,,Hawai'i,Sacramento State,0.7576,Sacramento State,Hawai'i,FBS vs FBS,fbs,fbs,away,-19.14,-10.46,-11.18,16.0,Hawai'i,11.18,0.2424
 1,1,Week 1,2026-09-05T23:00:00.000Z,401870763,Final,"Sam Houston 21, Troy 24",Troy,Sam Houston,0.7371,Sam Houston,Troy,FBS vs FBS,fbs,fbs,away,-13.15,-5.5,-10.15,16.0,Troy,10.15,0.2629
 2,2,Week 2,2026-09-12T23:00:00.000Z,401862707,Final,"Tulsa 23, Sam Houston 17",Sam Houston,Tulsa,0.3802,Sam Houston,Tulsa,FBS vs FBS,fbs,fbs,home,-13.15,-5.77,-4.88,16.0,Tulsa,4.88,0.3802
 3,3,Week 3,2026-09-19T23:00:00.000Z,401870764,Final,"Nicholls 0, Sam Houston 59",Sam Houston,Nicholls,0.8975,Sam Houston,Nicholls (FCS baseline),FCS involved,fbs,fcs,home,-13.15,-36.0,25.35,20.0,Sam Houston,25.35,0.8975
@@ -1158,12 +1158,12 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 10,10,Week 10,2026-11-08T00:00:00.000Z,401871075,Upcoming,,Jacksonville State,Sam Houston,0.7309,Sam Houston,Jacksonville State,FBS vs FBS,fbs,fbs,away,-13.15,-5.8,-9.85,16.0,Jacksonville State,9.85,0.2691
 11,11,Week 11,2026-11-14T19:00:00.000Z,401870769,Upcoming,,Sam Houston,Kennesaw State,0.5062,Sam Houston,Kennesaw State,FBS vs FBS,fbs,fbs,home,-13.15,-10.9,0.25,16.0,Sam Houston,0.25,0.5062
 12,12,Week 12,2026-11-21T19:00:00.000Z,401871081,Upcoming,,Sam Houston,Middle Tennessee,0.5406,Sam Houston,Middle Tennessee,FBS vs FBS,fbs,fbs,home,-13.15,-12.28,1.63,16.0,Sam Houston,1.63,0.5406
-13,13,Week 13,2026-11-28T19:00:00.000Z,401871082,Upcoming,,Florida International,Sam Houston,0.7237,Sam Houston,Florida International,FBS vs FBS,fbs,fbs,away,-13.15,-6.15,-9.5,16.0,Florida International,9.5,0.2763
+13,13,Week 13,2026-11-28T19:00:00.000Z,401871082,Upcoming,,Florida International,Sam Houston,0.7235,Sam Houston,Florida International,FBS vs FBS,fbs,fbs,away,-13.15,-6.16,-9.49,16.0,Florida International,9.49,0.2765
 1,1,Week 1,2026-09-06T01:30:00.000Z,401860879,Final,"Portland State 20, San Diego State 53",San Diego State,Portland State,0.949,San Diego State,Portland State (FCS baseline),FCS involved,fbs,fcs,home,-5.79,-36.0,32.71,20.0,San Diego State,32.71,0.949
 2,2,Week 2,2026-09-12T23:15:00.000Z,401858443,Final,"San Diego State 10, UCLA 28",UCLA,San Diego State,0.878,San Diego State,UCLA,FBS vs FBS,fbs,fbs,away,-5.79,10.35,-18.64,16.0,UCLA,18.64,0.122
 3,3,Week 3,2026-09-20T02:00:00.000Z,401860887,Final,"James Madison 26, San Diego State 13",San Diego State,James Madison,0.255,San Diego State,James Madison,FBS vs FBS,fbs,fbs,home,-5.79,7.25,-10.54,16.0,James Madison,10.54,0.255
 4,4,Week 4,2026-09-26T16:00:00.000Z,401860893,Final,"San Diego State 16, Toledo 41",Toledo,San Diego State,0.7002,San Diego State,Toledo,FBS vs FBS,fbs,fbs,away,-5.79,0.11,-8.4,16.0,Toledo,8.4,0.2998
-5,5,Week 5,2026-10-04T02:30:00.000Z,401860900,Final,"Texas State 29, San Diego State 31",San Diego State,Texas State,0.4515,San Diego State,Texas State,FBS vs FBS,fbs,fbs,home,-5.79,-1.34,-1.95,16.0,Texas State,1.95,0.4515
+5,5,Week 5,2026-10-04T02:30:00.000Z,401860900,Final,"Texas State 29, San Diego State 31",San Diego State,Texas State,0.4513,San Diego State,Texas State,FBS vs FBS,fbs,fbs,home,-5.79,-1.33,-1.96,16.0,Texas State,1.96,0.4513
 6,6,Week 6,2026-10-10T22:00:00.000Z,401860902,Upcoming,,Oregon State,San Diego State,0.7184,San Diego State,Oregon State,FBS vs FBS,fbs,fbs,away,-5.79,0.96,-9.25,16.0,Oregon State,9.25,0.2816
 7,7,Week 7,2026-10-18T02:30:00.000Z,401860904,Upcoming,,San Diego State,Fresno State,0.3852,San Diego State,Fresno State,FBS vs FBS,fbs,fbs,home,-5.79,1.38,-4.67,16.0,Fresno State,4.67,0.3852
 8,8,Week 8,2026-10-24T22:30:00.000Z,401860905,Upcoming,,Colorado State,San Diego State,0.4592,San Diego State,Colorado State,FBS vs FBS,fbs,fbs,away,-5.79,-9.93,1.64,16.0,San Diego State,1.64,0.5408
@@ -1207,18 +1207,18 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 11,11,Week 11,2026-11-14T05:00:00.000Z,401856882,Upcoming,,Arkansas,South Carolina,0.3731,South Carolina,Arkansas,FBS vs FBS,fbs,fbs,away,6.48,-1.2,5.18,16.0,South Carolina,5.18,0.6269
 12,12,Week 12,2026-11-21T05:00:00.000Z,401856753,Upcoming,,South Carolina,Georgia,0.1891,South Carolina,Georgia,FBS vs FBS,fbs,fbs,home,6.48,23.08,-14.1,16.0,Georgia,14.1,0.1891
 13,13,Week 13,2026-11-28T05:00:00.000Z,401856764,Upcoming,,Clemson,South Carolina,0.491,South Carolina,Clemson,FBS vs FBS,fbs,fbs,away,6.48,3.62,0.36,16.0,South Carolina,0.36,0.509
-1,1,Week 1,2026-09-05T23:00:00.000Z,401862699,Final,"Florida International 9, South Florida 19",South Florida,Florida International,0.714,South Florida,Florida International,FBS vs FBS,fbs,fbs,home,0.39,-6.15,9.04,16.0,South Florida,9.04,0.714
-2,2,Week 2,2026-09-12T16:00:00.000Z,401862702,Final,"South Florida 28, Army 24",Army,South Florida,0.4689,South Florida,Army,FBS vs FBS,fbs,fbs,away,0.39,-3.36,1.25,16.0,South Florida,1.25,0.5311
-3,3,Week 3,2026-09-19T23:00:00.000Z,401862777,Final,"Delaware State 17, South Florida 59",South Florida,Delaware State,0.9741,South Florida,Delaware State (FCS baseline),FCS involved,fbs,fcs,home,0.39,-36.0,38.89,20.0,South Florida,38.89,0.9741
-4,4,Week 4,2026-09-26T21:00:00.000Z,401862785,Final,"South Florida 14, Bowling Green 6",Bowling Green,South Florida,0.2317,South Florida,Bowling Green,FBS vs FBS,fbs,fbs,away,0.39,-13.84,11.73,16.0,South Florida,11.73,0.7683
-5,5,Week 5,2026-10-03T23:30:00.000Z,401862792,Final,"Temple 17, South Florida 13",South Florida,Temple,0.6752,South Florida,Temple,FBS vs FBS,fbs,fbs,home,0.39,-4.38,7.27,16.0,South Florida,7.27,0.6752
-6,6,Week 6,2026-10-08T23:30:00.000Z,401862794,Upcoming,,UTSA,South Florida,0.5675,South Florida,UTSA,FBS vs FBS,fbs,fbs,away,0.39,0.61,-2.72,16.0,UTSA,2.72,0.4325
-7,7,Week 7,2026-10-17T04:00:00.000Z,401862806,Upcoming,,South Florida,Kent State,0.8812,South Florida,Kent State,FBS vs FBS,fbs,fbs,home,0.39,-16.01,18.9,16.0,South Florida,18.9,0.8812
-9,9,Week 9,2026-10-31T04:00:00.000Z,401862816,Upcoming,,South Florida,UAB,0.7753,South Florida,UAB,FBS vs FBS,fbs,fbs,home,0.39,-9.21,12.1,16.0,South Florida,12.1,0.7753
-10,10,Week 10,2026-11-07T00:30:00.000Z,401862818,Upcoming,,East Carolina,South Florida,0.421,South Florida,East Carolina,FBS vs FBS,fbs,fbs,away,0.39,-5.3,3.19,16.0,South Florida,3.19,0.579
-11,11,Week 11,2026-11-13T01:00:00.000Z,401862824,Upcoming,,South Florida,Memphis,0.4823,South Florida,Memphis,FBS vs FBS,fbs,fbs,home,0.39,3.6,-0.71,16.0,Memphis,0.71,0.4823
-12,12,Week 12,2026-11-21T05:00:00.000Z,401862833,Upcoming,,Florida Atlantic,South Florida,0.4271,South Florida,Florida Atlantic,FBS vs FBS,fbs,fbs,away,0.39,-5.05,2.94,16.0,South Florida,2.94,0.5729
-13,13,Week 13,2026-11-27T05:00:00.000Z,401862839,Upcoming,,South Florida,Tulane,0.6533,South Florida,Tulane,FBS vs FBS,fbs,fbs,home,0.39,-3.42,6.31,16.0,South Florida,6.31,0.6533
+1,1,Week 1,2026-09-05T23:00:00.000Z,401862699,Final,"Florida International 9, South Florida 19",South Florida,Florida International,0.7135,South Florida,Florida International,FBS vs FBS,fbs,fbs,home,0.36,-6.16,9.02,16.0,South Florida,9.02,0.7135
+2,2,Week 2,2026-09-12T16:00:00.000Z,401862702,Final,"South Florida 28, Army 24",Army,South Florida,0.4694,South Florida,Army,FBS vs FBS,fbs,fbs,away,0.36,-3.37,1.23,16.0,South Florida,1.23,0.5306
+3,3,Week 3,2026-09-19T23:00:00.000Z,401862777,Final,"Delaware State 17, South Florida 59",South Florida,Delaware State,0.974,South Florida,Delaware State (FCS baseline),FCS involved,fbs,fcs,home,0.36,-36.0,38.86,20.0,South Florida,38.86,0.974
+4,4,Week 4,2026-09-26T21:00:00.000Z,401862785,Final,"South Florida 14, Bowling Green 6",Bowling Green,South Florida,0.2321,South Florida,Bowling Green,FBS vs FBS,fbs,fbs,away,0.36,-13.85,11.71,16.0,South Florida,11.71,0.7679
+5,5,Week 5,2026-10-03T23:30:00.000Z,401862792,Final,"Temple 17, South Florida 13",South Florida,Temple,0.6748,South Florida,Temple,FBS vs FBS,fbs,fbs,home,0.36,-4.39,7.25,16.0,South Florida,7.25,0.6748
+6,6,Week 6,2026-10-08T23:30:00.000Z,401862794,Upcoming,,UTSA,South Florida,0.569,South Florida,UTSA,FBS vs FBS,fbs,fbs,away,0.36,0.64,-2.78,16.0,UTSA,2.78,0.431
+7,7,Week 7,2026-10-17T04:00:00.000Z,401862806,Upcoming,,South Florida,Kent State,0.8809,South Florida,Kent State,FBS vs FBS,fbs,fbs,home,0.36,-16.01,18.87,16.0,South Florida,18.87,0.8809
+9,9,Week 9,2026-10-31T04:00:00.000Z,401862816,Upcoming,,South Florida,UAB,0.7747,South Florida,UAB,FBS vs FBS,fbs,fbs,home,0.36,-9.21,12.07,16.0,South Florida,12.07,0.7747
+10,10,Week 10,2026-11-07T00:30:00.000Z,401862818,Upcoming,,East Carolina,South Florida,0.4217,South Florida,East Carolina,FBS vs FBS,fbs,fbs,away,0.36,-5.3,3.16,16.0,South Florida,3.16,0.5783
+11,11,Week 11,2026-11-13T01:00:00.000Z,401862824,Upcoming,,South Florida,Memphis,0.4816,South Florida,Memphis,FBS vs FBS,fbs,fbs,home,0.36,3.6,-0.74,16.0,Memphis,0.74,0.4816
+12,12,Week 12,2026-11-21T05:00:00.000Z,401862833,Upcoming,,Florida Atlantic,South Florida,0.4278,South Florida,Florida Atlantic,FBS vs FBS,fbs,fbs,away,0.36,-5.05,2.91,16.0,South Florida,2.91,0.5722
+13,13,Week 13,2026-11-27T05:00:00.000Z,401862839,Upcoming,,South Florida,Tulane,0.6527,South Florida,Tulane,FBS vs FBS,fbs,fbs,home,0.36,-3.42,6.28,16.0,South Florida,6.28,0.6527
 1,1,Week 1,2026-09-05T21:00:00.000Z,401868356,Final,"Alcorn State 3, Southern Miss 49",Southern Miss,Alcorn State,0.8799,Southern Miss,Alcorn State (FCS baseline),FCS involved,fbs,fcs,home,-15.01,-36.0,23.49,20.0,Southern Miss,23.49,0.8799
 2,2,Week 2,2026-09-12T23:45:00.000Z,401856671,Final,"Southern Miss 8, Auburn 43",Auburn,Southern Miss,0.9492,Southern Miss,Auburn,FBS vs FBS,fbs,fbs,away,-15.01,8.69,-26.2,16.0,Auburn,26.2,0.0508
 3,3,Week 3,2026-09-19T23:00:00.000Z,401861963,Final,"UConn 48, Southern Miss 20",Southern Miss,UConn,0.3629,Southern Miss,UConn,FBS vs FBS,fbs,fbs,home,-15.01,-6.9,-5.61,16.0,UConn,5.61,0.3629
@@ -1253,12 +1253,12 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 9,9,Week 9,2026-10-31T04:00:00.000Z,401858278,Upcoming,,Syracuse,SMU,0.321,Syracuse,SMU,FBS vs FBS,fbs,fbs,home,-3.2,6.74,-7.44,16.0,SMU,7.44,0.321
 10,10,Week 10,2026-11-07T05:00:00.000Z,401858285,Upcoming,,Syracuse,Clemson,0.3936,Syracuse,Clemson,FBS vs FBS,fbs,fbs,home,-3.2,3.62,-4.32,16.0,Clemson,4.32,0.3936
 11,11,Week 11,2026-11-14T05:00:00.000Z,401858300,Upcoming,,NC State,Syracuse,0.6473,Syracuse,NC State,FBS vs FBS,fbs,fbs,away,-3.2,0.35,-6.05,16.0,NC State,6.05,0.3527
-12,12,Week 12,2026-11-21T05:00:00.000Z,401858309,Upcoming,,Boston College,Syracuse,0.502,Syracuse,Boston College,FBS vs FBS,fbs,fbs,away,-3.2,-5.62,-0.08,16.0,Boston College,0.08,0.498
+12,12,Week 12,2026-11-21T05:00:00.000Z,401858309,Upcoming,,Boston College,Syracuse,0.5017,Syracuse,Boston College,FBS vs FBS,fbs,fbs,away,-3.2,-5.63,-0.07,16.0,Boston College,0.07,0.4983
 13,13,Week 13,2026-11-28T05:00:00.000Z,401858314,Upcoming,,Syracuse,Notre Dame,0.0603,Syracuse,Notre Dame,FBS vs FBS,fbs,fbs,home,-3.2,24.13,-24.83,16.0,Notre Dame,24.83,0.0603
 1,0,Week 0,2026-08-29T16:00:00.000Z,401856766,Final,"North Carolina 15, TCU 10",TCU,North Carolina,0.5189,TCU,North Carolina,FBS vs FBS,fbs,fbs,neutral,3.25,2.49,0.76,16.0,TCU,0.76,0.5189
 2,2,Week 2,2026-09-13T00:00:00.000Z,401856789,Final,"Grambling 7, TCU 63",TCU,Grambling,0.9816,TCU,Grambling (FCS baseline),FCS involved,fbs,fcs,home,3.25,-36.0,41.75,20.0,TCU,41.75,0.9816
 3,3,Week 3,2026-09-20T00:00:00.000Z,401856799,Final,"Arkansas State 7, TCU 31",TCU,Arkansas State,0.8089,TCU,Arkansas State,FBS vs FBS,fbs,fbs,home,3.25,-8.23,13.98,16.0,TCU,13.98,0.8089
-4,4,Week 4,2026-09-26T19:30:00.000Z,401856815,Final,"TCU 13, UCF 21",UCF,TCU,0.5418,TCU,UCF,FBS vs FBS,fbs,fbs,away,3.25,2.43,-1.68,16.0,UCF,1.68,0.4582
+4,4,Week 4,2026-09-26T19:30:00.000Z,401856815,Final,"TCU 13, UCF 21",UCF,TCU,0.5421,TCU,UCF,FBS vs FBS,fbs,fbs,away,3.25,2.44,-1.69,16.0,UCF,1.69,0.4579
 5,5,Week 5,2026-10-03T23:00:00.000Z,401856818,Final,"BYU 17, TCU 10",TCU,BYU,0.3909,TCU,BYU,FBS vs FBS,fbs,fbs,home,3.25,10.18,-4.43,16.0,BYU,4.43,0.3909
 7,7,Week 7,2026-10-17T04:00:00.000Z,401856832,Upcoming,,Baylor,TCU,0.681,TCU,Baylor,FBS vs FBS,fbs,fbs,away,3.25,8.28,-7.53,16.0,Baylor,7.53,0.319
 8,8,Week 8,2026-10-24T04:00:00.000Z,401856841,Upcoming,,TCU,West Virginia,0.6506,TCU,West Virginia,FBS vs FBS,fbs,fbs,home,3.25,-0.44,6.19,16.0,TCU,6.19,0.6506
@@ -1267,18 +1267,18 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 11,11,Week 11,2026-11-14T05:00:00.000Z,401856862,Upcoming,,TCU,Kansas State,0.4768,TCU,Kansas State,FBS vs FBS,fbs,fbs,home,3.25,6.68,-0.93,16.0,Kansas State,0.93,0.4768
 12,12,Week 12,2026-11-21T05:00:00.000Z,401856872,Upcoming,,TCU,Utah,0.255,TCU,Utah,FBS vs FBS,fbs,fbs,home,3.25,16.29,-10.54,16.0,Utah,10.54,0.255
 13,13,Week 13,2026-11-27T01:00:00.000Z,401856879,Upcoming,,Texas Tech,TCU,0.8202,TCU,Texas Tech,FBS vs FBS,fbs,fbs,away,3.25,15.41,-14.66,16.0,Texas Tech,14.66,0.1798
-1,1,Week 1,2026-09-05T18:00:00.000Z,401862698,Final,"Rhode Island 14, Temple 38",Temple,Rhode Island,0.956,Temple,Rhode Island (FCS baseline),FCS involved,fbs,fcs,home,-4.38,-36.0,34.12,20.0,Temple,34.12,0.956
-2,2,Week 2,2026-09-12T16:00:00.000Z,401858442,Final,"Penn State 27, Temple 9",Temple,Penn State,0.1772,Temple,Penn State,FBS vs FBS,fbs,fbs,home,-4.38,12.94,-14.82,16.0,Penn State,14.82,0.1772
-3,3,Week 3,2026-09-19T19:00:00.000Z,401862774,Final,"Temple 48, Toledo 49",Toledo,Temple,0.6689,Temple,Toledo,FBS vs FBS,fbs,fbs,away,-4.38,0.11,-6.99,16.0,Toledo,6.99,0.3311
-4,4,Week 4,2026-09-25T20:00:00.000Z,401862779,Final,"Army 21, Temple 17",Temple,Army,0.5368,Temple,Army,FBS vs FBS,fbs,fbs,home,-4.38,-3.36,1.48,16.0,Temple,1.48,0.5368
-5,5,Week 5,2026-10-03T23:30:00.000Z,401862792,Final,"Temple 17, South Florida 13",South Florida,Temple,0.6752,Temple,South Florida,FBS vs FBS,fbs,fbs,away,-4.38,0.39,-7.27,16.0,South Florida,7.27,0.3248
-6,6,Week 6,2026-10-10T19:45:00.000Z,401861964,Upcoming,,Temple,UConn,0.6231,Temple,UConn,FBS vs FBS,fbs,fbs,home,-4.38,-6.9,5.02,16.0,Temple,5.02,0.6231
-7,7,Week 7,2026-10-17T04:00:00.000Z,401862803,Upcoming,,Temple,Charlotte,0.8734,Temple,Charlotte,FBS vs FBS,fbs,fbs,home,-4.38,-20.16,18.28,16.0,Temple,18.28,0.8734
-9,9,Week 9,2026-10-31T04:00:00.000Z,401862815,Upcoming,,East Carolina,Temple,0.5393,Temple,East Carolina,FBS vs FBS,fbs,fbs,away,-4.38,-5.3,-1.58,16.0,East Carolina,1.58,0.4607
-10,10,Week 10,2026-11-07T20:30:00.000Z,401862820,Upcoming,,Navy,Temple,0.5373,Temple,Navy,FBS vs FBS,fbs,fbs,away,-4.38,-5.38,-1.5,16.0,Navy,1.5,0.4627
-11,11,Week 11,2026-11-14T05:00:00.000Z,401862829,Upcoming,,Temple,UAB,0.6766,Temple,UAB,FBS vs FBS,fbs,fbs,home,-4.38,-9.21,7.33,16.0,Temple,7.33,0.6766
-12,12,Week 12,2026-11-20T00:30:00.000Z,401862830,Upcoming,,Temple,Rice,0.703,Temple,Rice,FBS vs FBS,fbs,fbs,home,-4.38,-10.41,8.53,16.0,Temple,8.53,0.703
-13,13,Week 13,2026-11-27T05:00:00.000Z,401862838,Upcoming,,Memphis,Temple,0.7438,Temple,Memphis,FBS vs FBS,fbs,fbs,away,-4.38,3.6,-10.48,16.0,Memphis,10.48,0.2562
+1,1,Week 1,2026-09-05T18:00:00.000Z,401862698,Final,"Rhode Island 14, Temple 38",Temple,Rhode Island,0.9559,Temple,Rhode Island (FCS baseline),FCS involved,fbs,fcs,home,-4.39,-36.0,34.11,20.0,Temple,34.11,0.9559
+2,2,Week 2,2026-09-12T16:00:00.000Z,401858442,Final,"Penn State 27, Temple 9",Temple,Penn State,0.177,Temple,Penn State,FBS vs FBS,fbs,fbs,home,-4.39,12.94,-14.83,16.0,Penn State,14.83,0.177
+3,3,Week 3,2026-09-19T19:00:00.000Z,401862774,Final,"Temple 48, Toledo 49",Toledo,Temple,0.6691,Temple,Toledo,FBS vs FBS,fbs,fbs,away,-4.39,0.11,-7.0,16.0,Toledo,7.0,0.3309
+4,4,Week 4,2026-09-25T20:00:00.000Z,401862779,Final,"Army 21, Temple 17",Temple,Army,0.5368,Temple,Army,FBS vs FBS,fbs,fbs,home,-4.39,-3.37,1.48,16.0,Temple,1.48,0.5368
+5,5,Week 5,2026-10-03T23:30:00.000Z,401862792,Final,"Temple 17, South Florida 13",South Florida,Temple,0.6748,Temple,South Florida,FBS vs FBS,fbs,fbs,away,-4.39,0.36,-7.25,16.0,South Florida,7.25,0.3252
+6,6,Week 6,2026-10-10T19:45:00.000Z,401861964,Upcoming,,Temple,UConn,0.6229,Temple,UConn,FBS vs FBS,fbs,fbs,home,-4.39,-6.9,5.01,16.0,Temple,5.01,0.6229
+7,7,Week 7,2026-10-17T04:00:00.000Z,401862803,Upcoming,,Temple,Charlotte,0.8732,Temple,Charlotte,FBS vs FBS,fbs,fbs,home,-4.39,-20.16,18.27,16.0,Temple,18.27,0.8732
+9,9,Week 9,2026-10-31T04:00:00.000Z,401862815,Upcoming,,East Carolina,Temple,0.5396,Temple,East Carolina,FBS vs FBS,fbs,fbs,away,-4.39,-5.3,-1.59,16.0,East Carolina,1.59,0.4604
+10,10,Week 10,2026-11-07T20:30:00.000Z,401862820,Upcoming,,Navy,Temple,0.5376,Temple,Navy,FBS vs FBS,fbs,fbs,away,-4.39,-5.38,-1.51,16.0,Navy,1.51,0.4624
+11,11,Week 11,2026-11-14T05:00:00.000Z,401862829,Upcoming,,Temple,UAB,0.6763,Temple,UAB,FBS vs FBS,fbs,fbs,home,-4.39,-9.21,7.32,16.0,Temple,7.32,0.6763
+12,12,Week 12,2026-11-20T00:30:00.000Z,401862830,Upcoming,,Temple,Rice,0.7026,Temple,Rice,FBS vs FBS,fbs,fbs,home,-4.39,-10.4,8.51,16.0,Temple,8.51,0.7026
+13,13,Week 13,2026-11-27T05:00:00.000Z,401862838,Upcoming,,Memphis,Temple,0.744,Temple,Memphis,FBS vs FBS,fbs,fbs,away,-4.39,3.6,-10.49,16.0,Memphis,10.49,0.256
 1,1,Week 1,2026-09-05T19:30:00.000Z,401856666,Final,"Furman 9, Tennessee 56",Tennessee,Furman,0.9956,Tennessee,Furman (FCS baseline),FCS involved,fbs,fcs,home,13.88,-36.0,52.38,20.0,Tennessee,52.38,0.9956
 2,2,Week 2,2026-09-12T23:00:00.000Z,401856681,Final,"Tennessee 45, Georgia Tech 24",Georgia Tech,Tennessee,0.1707,Tennessee,Georgia Tech,FBS vs FBS,fbs,fbs,away,13.88,-3.84,15.22,16.0,Tennessee,15.22,0.8293
 3,3,Week 3,2026-09-19T23:45:00.000Z,401856692,Final,"Kennesaw State 9, Tennessee 42",Tennessee,Kennesaw State,0.9559,Tennessee,Kennesaw State,FBS vs FBS,fbs,fbs,home,13.88,-10.9,27.28,16.0,Tennessee,27.28,0.9559
@@ -1291,9 +1291,9 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 11,11,Week 11,2026-11-14T05:00:00.000Z,401856888,Upcoming,,Texas A&M,Tennessee,0.5269,Tennessee,Texas A&M,FBS vs FBS,fbs,fbs,away,13.88,12.46,-1.08,16.0,Texas A&M,1.08,0.4731
 12,12,Week 12,2026-11-21T05:00:00.000Z,401856754,Upcoming,,Tennessee,LSU,0.4555,Tennessee,LSU,FBS vs FBS,fbs,fbs,home,13.88,18.17,-1.79,16.0,LSU,1.79,0.4555
 13,13,Week 13,2026-11-28T05:00:00.000Z,401856765,Upcoming,,Vanderbilt,Tennessee,0.3068,Tennessee,Vanderbilt,FBS vs FBS,fbs,fbs,away,13.88,3.3,8.08,16.0,Tennessee,8.08,0.6932
-1,1,Week 1,2026-09-05T19:30:00.000Z,401856667,Final,"Texas State 7, Texas 59",Texas,Texas State,0.9401,Texas,Texas State,FBS vs FBS,fbs,fbs,home,21.05,-1.34,24.89,16.0,Texas,24.89,0.9401
+1,1,Week 1,2026-09-05T19:30:00.000Z,401856667,Final,"Texas State 7, Texas 59",Texas,Texas State,0.94,Texas,Texas State,FBS vs FBS,fbs,fbs,home,21.05,-1.33,24.88,16.0,Texas,24.88,0.94
 2,2,Week 2,2026-09-12T23:30:00.000Z,401856682,Final,"Ohio State 23, Texas 24",Texas,Ohio State,0.5232,Texas,Ohio State,FBS vs FBS,fbs,fbs,home,21.05,22.62,0.93,16.0,Texas,0.93,0.5232
-3,3,Week 3,2026-09-20T00:00:00.000Z,401856693,Final,"UTSA 6, Texas 30",Texas,UTSA,0.9242,Texas,UTSA,FBS vs FBS,fbs,fbs,home,21.05,0.61,22.94,16.0,Texas,22.94,0.9242
+3,3,Week 3,2026-09-20T00:00:00.000Z,401856693,Final,"UTSA 6, Texas 30",Texas,UTSA,0.9239,Texas,UTSA,FBS vs FBS,fbs,fbs,home,21.05,0.64,22.91,16.0,Texas,22.91,0.9239
 4,4,Week 4,2026-09-26T16:00:00.000Z,401856704,Final,"Texas 20, Tennessee 17",Tennessee,Texas,0.3852,Texas,Tennessee,FBS vs FBS,fbs,fbs,away,21.05,13.88,4.67,16.0,Texas,4.67,0.6148
 6,6,Week 6,2026-10-10T19:30:00.000Z,401856717,Upcoming,,Oklahoma,Texas,0.2552,Texas,Oklahoma,FBS vs FBS,fbs,fbs,neutral,21.05,10.52,10.53,16.0,Texas,10.53,0.7448
 7,7,Week 7,2026-10-17T04:00:00.000Z,401856724,Upcoming,,Texas,Florida,0.7344,Texas,Florida,FBS vs FBS,fbs,fbs,home,21.05,13.53,10.02,16.0,Texas,10.02,0.7344
@@ -1315,17 +1315,17 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 11,11,Week 11,2026-11-14T05:00:00.000Z,401856888,Upcoming,,Texas A&M,Tennessee,0.5269,Texas A&M,Tennessee,FBS vs FBS,fbs,fbs,home,12.46,13.88,1.08,16.0,Texas A&M,1.08,0.5269
 12,12,Week 12,2026-11-21T05:00:00.000Z,401856752,Upcoming,,Oklahoma,Texas A&M,0.514,Texas A&M,Oklahoma,FBS vs FBS,fbs,fbs,away,12.46,10.52,-0.56,16.0,Oklahoma,0.56,0.486
 13,13,Week 13,2026-11-28T00:30:00.000Z,401856756,Upcoming,,Texas A&M,Texas,0.3517,Texas A&M,Texas,FBS vs FBS,fbs,fbs,home,12.46,21.05,-6.09,16.0,Texas,6.09,0.3517
-1,1,Week 1,2026-09-05T19:30:00.000Z,401856667,Final,"Texas State 7, Texas 59",Texas,Texas State,0.9401,Texas State,Texas,FBS vs FBS,fbs,fbs,away,-1.34,21.05,-24.89,16.0,Texas,24.89,0.0599
-2,2,Week 2,2026-09-12T19:30:00.000Z,401860884,Final,"UTSA 31, Texas State 26",Texas State,UTSA,0.5137,Texas State,UTSA,FBS vs FBS,fbs,fbs,home,-1.34,0.61,0.55,16.0,Texas State,0.55,0.5137
-3,3,Week 3,2026-09-19T16:00:00.000Z,401860889,Final,"North Texas 35, Texas State 49",Texas State,North Texas,0.5282,Texas State,North Texas,FBS vs FBS,fbs,fbs,home,-1.34,0.03,1.13,16.0,Texas State,1.13,0.5282
-4,4,Week 4,2026-09-26T22:00:00.000Z,401860892,Final,"Incarnate Word 10, Texas State 63",Texas State,Incarnate Word,0.9684,Texas State,Incarnate Word (FCS baseline),FCS involved,fbs,fcs,home,-1.34,-36.0,37.16,20.0,Texas State,37.16,0.9684
-5,5,Week 5,2026-10-04T02:30:00.000Z,401860900,Final,"Texas State 29, San Diego State 31",San Diego State,Texas State,0.4515,Texas State,San Diego State,FBS vs FBS,fbs,fbs,away,-1.34,-5.79,1.95,16.0,Texas State,1.95,0.5485
-7,7,Week 7,2026-10-16T00:00:00.000Z,401860923,Upcoming,,Texas State,Colorado State,0.7559,Texas State,Colorado State,FBS vs FBS,fbs,fbs,home,-1.34,-9.93,11.09,16.0,Texas State,11.09,0.7559
-8,8,Week 8,2026-10-24T23:30:00.000Z,401860906,Upcoming,,Texas State,Utah State,0.6545,Texas State,Utah State,FBS vs FBS,fbs,fbs,home,-1.34,-5.2,6.36,16.0,Texas State,6.36,0.6545
-9,9,Week 9,2026-11-01T02:00:00.000Z,401860908,Upcoming,,Boise State,Texas State,0.7988,Texas State,Boise State,FBS vs FBS,fbs,fbs,away,-1.34,9.56,-13.4,16.0,Boise State,13.4,0.2012
-10,10,Week 10,2026-11-08T03:30:00.000Z,401860912,Upcoming,,Oregon State,Texas State,0.6179,Texas State,Oregon State,FBS vs FBS,fbs,fbs,away,-1.34,0.96,-4.8,16.0,Oregon State,4.8,0.3821
-11,11,Week 11,2026-11-14T21:00:00.000Z,401860916,Upcoming,,Texas State,Fresno State,0.4945,Texas State,Fresno State,FBS vs FBS,fbs,fbs,home,-1.34,1.38,-0.22,16.0,Fresno State,0.22,0.4945
-12,12,Week 12,2026-11-21T23:00:00.000Z,401860920,Upcoming,,Texas State,Washington State,0.7015,Texas State,Washington State,FBS vs FBS,fbs,fbs,home,-1.34,-7.3,8.46,16.0,Texas State,8.46,0.7015
+1,1,Week 1,2026-09-05T19:30:00.000Z,401856667,Final,"Texas State 7, Texas 59",Texas,Texas State,0.94,Texas State,Texas,FBS vs FBS,fbs,fbs,away,-1.33,21.05,-24.88,16.0,Texas,24.88,0.06
+2,2,Week 2,2026-09-12T19:30:00.000Z,401860884,Final,"UTSA 31, Texas State 26",Texas State,UTSA,0.5132,Texas State,UTSA,FBS vs FBS,fbs,fbs,home,-1.33,0.64,0.53,16.0,Texas State,0.53,0.5132
+3,3,Week 3,2026-09-19T16:00:00.000Z,401860889,Final,"North Texas 35, Texas State 49",Texas State,North Texas,0.5284,Texas State,North Texas,FBS vs FBS,fbs,fbs,home,-1.33,0.03,1.14,16.0,Texas State,1.14,0.5284
+4,4,Week 4,2026-09-26T22:00:00.000Z,401860892,Final,"Incarnate Word 10, Texas State 63",Texas State,Incarnate Word,0.9685,Texas State,Incarnate Word (FCS baseline),FCS involved,fbs,fcs,home,-1.33,-36.0,37.17,20.0,Texas State,37.17,0.9685
+5,5,Week 5,2026-10-04T02:30:00.000Z,401860900,Final,"Texas State 29, San Diego State 31",San Diego State,Texas State,0.4513,Texas State,San Diego State,FBS vs FBS,fbs,fbs,away,-1.33,-5.79,1.96,16.0,Texas State,1.96,0.5487
+7,7,Week 7,2026-10-16T00:00:00.000Z,401860923,Upcoming,,Texas State,Colorado State,0.7561,Texas State,Colorado State,FBS vs FBS,fbs,fbs,home,-1.33,-9.93,11.1,16.0,Texas State,11.1,0.7561
+8,8,Week 8,2026-10-24T23:30:00.000Z,401860906,Upcoming,,Texas State,Utah State,0.6547,Texas State,Utah State,FBS vs FBS,fbs,fbs,home,-1.33,-5.2,6.37,16.0,Texas State,6.37,0.6547
+9,9,Week 9,2026-11-01T02:00:00.000Z,401860908,Upcoming,,Boise State,Texas State,0.7987,Texas State,Boise State,FBS vs FBS,fbs,fbs,away,-1.33,9.56,-13.39,16.0,Boise State,13.39,0.2013
+10,10,Week 10,2026-11-08T03:30:00.000Z,401860912,Upcoming,,Oregon State,Texas State,0.6177,Texas State,Oregon State,FBS vs FBS,fbs,fbs,away,-1.33,0.96,-4.79,16.0,Oregon State,4.79,0.3823
+11,11,Week 11,2026-11-14T21:00:00.000Z,401860916,Upcoming,,Texas State,Fresno State,0.4948,Texas State,Fresno State,FBS vs FBS,fbs,fbs,home,-1.33,1.38,-0.21,16.0,Fresno State,0.21,0.4948
+12,12,Week 12,2026-11-21T23:00:00.000Z,401860920,Upcoming,,Texas State,Washington State,0.7017,Texas State,Washington State,FBS vs FBS,fbs,fbs,home,-1.33,-7.3,8.47,16.0,Texas State,8.47,0.7017
 1,1,Week 1,2026-09-05T23:00:00.000Z,401856770,Final,"Abilene Christian 10, Texas Tech 33",Texas Tech,Abilene Christian,0.9965,Texas Tech,Abilene Christian (FCS baseline),FCS involved,fbs,fcs,home,15.41,-36.0,53.91,20.0,Texas Tech,53.91,0.9965
 2,2,Week 2,2026-09-12T23:30:00.000Z,401856783,Final,"Texas Tech 35, Oregon State 24",Oregon State,Texas Tech,0.2276,Texas Tech,Oregon State,FBS vs FBS,fbs,fbs,away,15.41,0.96,11.95,16.0,Texas Tech,11.95,0.7724
 3,3,Week 3,2026-09-19T00:00:00.000Z,401856811,Final,"Houston 26, Texas Tech 28",Texas Tech,Houston,0.7114,Texas Tech,Houston,FBS vs FBS,fbs,fbs,home,15.41,8.99,8.92,16.0,Texas Tech,8.92,0.7114
@@ -1340,15 +1340,15 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 13,13,Week 13,2026-11-27T01:00:00.000Z,401856879,Upcoming,,Texas Tech,TCU,0.8202,Texas Tech,TCU,FBS vs FBS,fbs,fbs,home,15.41,3.25,14.66,16.0,Texas Tech,14.66,0.8202
 1,1,Week 1,2026-09-05T00:00:00.000Z,401858429,Final,"Toledo 20, Michigan State 30",Michigan State,Toledo,0.5963,Toledo,Michigan State,FBS vs FBS,fbs,fbs,away,0.11,1.51,-3.9,16.0,Michigan State,3.9,0.4037
 2,2,Week 2,2026-09-12T19:30:00.000Z,401866419,Final,"Central Connecticut 10, Toledo 63",Toledo,Central Connecticut,0.9732,Toledo,Central Connecticut (FCS baseline),FCS involved,fbs,fcs,home,0.11,-36.0,38.61,20.0,Toledo,38.61,0.9732
-3,3,Week 3,2026-09-19T19:00:00.000Z,401862774,Final,"Temple 48, Toledo 49",Toledo,Temple,0.6689,Toledo,Temple,FBS vs FBS,fbs,fbs,home,0.11,-4.38,6.99,16.0,Toledo,6.99,0.6689
+3,3,Week 3,2026-09-19T19:00:00.000Z,401862774,Final,"Temple 48, Toledo 49",Toledo,Temple,0.6691,Toledo,Temple,FBS vs FBS,fbs,fbs,home,0.11,-4.39,7.0,16.0,Toledo,7.0,0.6691
 4,4,Week 4,2026-09-26T16:00:00.000Z,401860893,Final,"San Diego State 16, Toledo 41",Toledo,San Diego State,0.7002,Toledo,San Diego State,FBS vs FBS,fbs,fbs,home,0.11,-5.79,8.4,16.0,Toledo,8.4,0.7002
 5,5,Week 5,2026-10-03T18:00:00.000Z,401866431,Final,"Toledo 39, Ball State 24",Ball State,Toledo,0.1704,Toledo,Ball State,FBS vs FBS,fbs,fbs,away,0.11,-17.63,15.24,16.0,Toledo,15.24,0.8296
 6,6,Week 6,2026-10-10T19:30:00.000Z,401866437,Upcoming,,Toledo,Buffalo,0.838,Toledo,Buffalo,FBS vs FBS,fbs,fbs,home,0.11,-13.17,15.78,16.0,Toledo,15.78,0.838
 7,7,Week 7,2026-10-17T04:00:00.000Z,401866444,Upcoming,,Eastern Michigan,Toledo,0.3178,Toledo,Eastern Michigan,FBS vs FBS,fbs,fbs,away,0.11,-9.97,7.58,16.0,Toledo,7.58,0.6822
 8,8,Week 8,2026-10-24T04:00:00.000Z,401866450,Upcoming,,Toledo,Western Michigan,0.648,Toledo,Western Michigan,FBS vs FBS,fbs,fbs,home,0.11,-3.47,6.08,16.0,Toledo,6.08,0.648
-10,10,Week 10,2026-11-04T05:00:00.000Z,401866457,Upcoming,,Sacramento State,Toledo,0.1477,Toledo,Sacramento State,FBS vs FBS,fbs,fbs,away,0.11,-19.13,16.74,16.0,Toledo,16.74,0.8523
+10,10,Week 10,2026-11-04T05:00:00.000Z,401866457,Upcoming,,Sacramento State,Toledo,0.1476,Toledo,Sacramento State,FBS vs FBS,fbs,fbs,away,0.11,-19.14,16.75,16.0,Toledo,16.75,0.8524
 11,11,Week 11,2026-11-11T05:00:00.000Z,401866463,Upcoming,,Toledo,Massachusetts,0.7869,Toledo,Massachusetts,FBS vs FBS,fbs,fbs,home,0.11,-10.12,12.73,16.0,Toledo,12.73,0.7869
-12,12,Week 12,2026-11-21T00:30:00.000Z,401866468,Upcoming,,Toledo,Bowling Green,0.8481,Toledo,Bowling Green,FBS vs FBS,fbs,fbs,home,0.11,-13.84,16.45,16.0,Toledo,16.45,0.8481
+12,12,Week 12,2026-11-21T00:30:00.000Z,401866468,Upcoming,,Toledo,Bowling Green,0.8482,Toledo,Bowling Green,FBS vs FBS,fbs,fbs,home,0.11,-13.85,16.46,16.0,Toledo,16.46,0.8482
 13,13,Week 13,2026-11-27T17:00:00.000Z,401866473,Upcoming,,Ohio,Toledo,0.349,Toledo,Ohio,FBS vs FBS,fbs,fbs,away,0.11,-8.6,6.21,16.0,Toledo,6.21,0.651
 1,1,Week 1,2026-09-05T23:00:00.000Z,401870763,Final,"Sam Houston 21, Troy 24",Troy,Sam Houston,0.7371,Troy,Sam Houston,FBS vs FBS,fbs,fbs,home,-5.5,-13.15,10.15,16.0,Troy,10.15,0.7371
 2,2,Week 2,2026-09-12T20:00:00.000Z,401868326,Final,"Alabama State 17, Troy 34",Troy,Alabama State,0.9505,Troy,Alabama State (FCS baseline),FCS involved,fbs,fcs,home,-5.5,-36.0,33.0,20.0,Troy,33.0,0.9505
@@ -1366,26 +1366,26 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 2,2,Week 2,2026-09-12T23:00:00.000Z,401864575,Final,"South Alabama 24, Tulane 28",Tulane,South Alabama,0.6434,Tulane,South Alabama,FBS vs FBS,fbs,fbs,home,-3.42,-6.8,5.88,16.0,Tulane,5.88,0.6434
 3,3,Week 3,2026-09-19T16:00:00.000Z,401856792,Final,"Tulane 20, Kansas State 31",Kansas State,Tulane,0.7845,Tulane,Kansas State,FBS vs FBS,fbs,fbs,away,-3.42,6.68,-12.6,16.0,Kansas State,12.6,0.2155
 4,4,Week 4,2026-09-26T23:00:00.000Z,401862784,Final,"Southern Miss 21, Tulane 24",Tulane,Southern Miss,0.8107,Tulane,Southern Miss,FBS vs FBS,fbs,fbs,home,-3.42,-15.01,14.09,16.0,Tulane,14.09,0.8107
-6,6,Week 6,2026-10-10T16:00:00.000Z,401862795,Upcoming,,Army,Tulane,0.5636,Tulane,Army,FBS vs FBS,fbs,fbs,away,-3.42,-3.36,-2.56,16.0,Army,2.56,0.4364
+6,6,Week 6,2026-10-10T16:00:00.000Z,401862795,Upcoming,,Army,Tulane,0.5633,Tulane,Army,FBS vs FBS,fbs,fbs,away,-3.42,-3.37,-2.55,16.0,Army,2.55,0.4367
 7,7,Week 7,2026-10-16T23:30:00.000Z,401862801,Upcoming,,Tulane,Memphis,0.3888,Tulane,Memphis,FBS vs FBS,fbs,fbs,home,-3.42,3.6,-4.52,16.0,Memphis,4.52,0.3888
-8,8,Week 8,2026-10-24T04:00:00.000Z,401862811,Upcoming,,Tulane,UTSA,0.4619,Tulane,UTSA,FBS vs FBS,fbs,fbs,home,-3.42,0.61,-1.53,16.0,UTSA,1.53,0.4619
+8,8,Week 8,2026-10-24T04:00:00.000Z,401862811,Upcoming,,Tulane,UTSA,0.4612,Tulane,UTSA,FBS vs FBS,fbs,fbs,home,-3.42,0.64,-1.56,16.0,UTSA,1.56,0.4612
 9,9,Week 9,2026-10-30T23:00:00.000Z,401862813,Upcoming,,Charlotte,Tulane,0.1867,Tulane,Charlotte,FBS vs FBS,fbs,fbs,away,-3.42,-20.16,14.24,16.0,Tulane,14.24,0.8133
 10,10,Week 10,2026-11-07T05:00:00.000Z,401862822,Upcoming,,Tulane,Tulsa,0.6191,Tulane,Tulsa,FBS vs FBS,fbs,fbs,home,-3.42,-5.77,4.85,16.0,Tulane,4.85,0.6191
-11,11,Week 11,2026-11-14T05:00:00.000Z,401862828,Upcoming,,Rice,Tulane,0.3895,Tulane,Rice,FBS vs FBS,fbs,fbs,away,-3.42,-10.41,4.49,16.0,Tulane,4.49,0.6105
+11,11,Week 11,2026-11-14T05:00:00.000Z,401862828,Upcoming,,Rice,Tulane,0.3897,Tulane,Rice,FBS vs FBS,fbs,fbs,away,-3.42,-10.4,4.48,16.0,Tulane,4.48,0.6103
 12,12,Week 12,2026-11-21T05:00:00.000Z,401862835,Upcoming,,Tulane,North Texas,0.4763,Tulane,North Texas,FBS vs FBS,fbs,fbs,home,-3.42,0.03,-0.95,16.0,North Texas,0.95,0.4763
-13,13,Week 13,2026-11-27T05:00:00.000Z,401862839,Upcoming,,South Florida,Tulane,0.6533,Tulane,South Florida,FBS vs FBS,fbs,fbs,away,-3.42,0.39,-6.31,16.0,South Florida,6.31,0.3467
+13,13,Week 13,2026-11-27T05:00:00.000Z,401862839,Upcoming,,South Florida,Tulane,0.6527,Tulane,South Florida,FBS vs FBS,fbs,fbs,away,-3.42,0.36,-6.28,16.0,South Florida,6.28,0.3473
 1,1,Week 1,2026-09-05T19:45:00.000Z,401856772,Final,"Oklahoma State 10, Tulsa 24",Tulsa,Oklahoma State,0.3752,Tulsa,Oklahoma State,FBS vs FBS,fbs,fbs,home,-5.77,1.82,-5.09,16.0,Oklahoma State,5.09,0.3752
 2,2,Week 2,2026-09-12T23:00:00.000Z,401862707,Final,"Tulsa 23, Sam Houston 17",Sam Houston,Tulsa,0.3802,Tulsa,Sam Houston,FBS vs FBS,fbs,fbs,away,-5.77,-13.15,4.88,16.0,Tulsa,4.88,0.6198
 3,3,Week 3,2026-09-20T00:00:00.000Z,401862775,Final,"East Texas A&M 0, Tulsa 42",Tulsa,East Texas A&M,0.9491,Tulsa,East Texas A&M (FCS baseline),FCS involved,fbs,fcs,home,-5.77,-36.0,32.73,20.0,Tulsa,32.73,0.9491
 4,4,Week 4,2026-09-27T00:00:00.000Z,401856697,Final,"Tulsa 6, Arkansas 34",Arkansas,Tulsa,0.6707,Tulsa,Arkansas,FBS vs FBS,fbs,fbs,away,-5.77,-1.2,-7.07,16.0,Arkansas,7.07,0.3293
 5,5,Week 5,2026-10-02T01:00:00.000Z,401862786,Final,"North Texas 45, Tulsa 44",Tulsa,North Texas,0.4183,Tulsa,North Texas,FBS vs FBS,fbs,fbs,home,-5.77,0.03,-3.3,16.0,North Texas,3.3,0.4183
 6,6,Week 6,2026-10-10T19:30:00.000Z,401862799,Upcoming,,Navy,Tulsa,0.5717,Tulsa,Navy,FBS vs FBS,fbs,fbs,away,-5.77,-5.38,-2.89,16.0,Navy,2.89,0.4283
-7,7,Week 7,2026-10-17T04:00:00.000Z,401862805,Upcoming,,Rice,Tulsa,0.4468,Tulsa,Rice,FBS vs FBS,fbs,fbs,away,-5.77,-10.41,2.14,16.0,Tulsa,2.14,0.5532
-8,8,Week 8,2026-10-24T00:30:00.000Z,401862808,Upcoming,,Tulsa,Army,0.5022,Tulsa,Army,FBS vs FBS,fbs,fbs,home,-5.77,-3.36,0.09,16.0,Tulsa,0.09,0.5022
+7,7,Week 7,2026-10-17T04:00:00.000Z,401862805,Upcoming,,Rice,Tulsa,0.447,Tulsa,Rice,FBS vs FBS,fbs,fbs,away,-5.77,-10.4,2.13,16.0,Tulsa,2.13,0.553
+8,8,Week 8,2026-10-24T00:30:00.000Z,401862808,Upcoming,,Tulsa,Army,0.5025,Tulsa,Army,FBS vs FBS,fbs,fbs,home,-5.77,-3.37,0.1,16.0,Tulsa,0.1,0.5025
 10,10,Week 10,2026-11-07T05:00:00.000Z,401862822,Upcoming,,Tulane,Tulsa,0.6191,Tulsa,Tulane,FBS vs FBS,fbs,fbs,away,-5.77,-3.42,-4.85,16.0,Tulane,4.85,0.3809
 11,11,Week 11,2026-11-14T05:00:00.000Z,401862826,Upcoming,,Tulsa,Florida Atlantic,0.5443,Tulsa,Florida Atlantic,FBS vs FBS,fbs,fbs,home,-5.77,-5.05,1.78,16.0,Tulsa,1.78,0.5443
 12,12,Week 12,2026-11-21T05:00:00.000Z,401862832,Upcoming,,Tulsa,Charlotte,0.8544,Tulsa,Charlotte,FBS vs FBS,fbs,fbs,home,-5.77,-20.16,16.89,16.0,Tulsa,16.89,0.8544
-13,13,Week 13,2026-11-28T05:00:00.000Z,401862840,Upcoming,,UTSA,Tulsa,0.7106,Tulsa,UTSA,FBS vs FBS,fbs,fbs,away,-5.77,0.61,-8.88,16.0,UTSA,8.88,0.2894
+13,13,Week 13,2026-11-28T05:00:00.000Z,401862840,Upcoming,,UTSA,Tulsa,0.7112,Tulsa,UTSA,FBS vs FBS,fbs,fbs,away,-5.77,0.64,-8.91,16.0,UTSA,8.91,0.2888
 1,1,Week 1,2026-09-04T01:00:00.000Z,401858424,Final,"UAB 23, Illinois 42",Illinois,UAB,0.8146,UAB,Illinois,FBS vs FBS,fbs,fbs,away,-9.21,2.61,-14.32,16.0,Illinois,14.32,0.1854
 2,2,Week 2,2026-09-12T19:30:00.000Z,401862708,Final,"UL Monroe 20, UAB 26",UAB,UL Monroe,0.7673,UAB,UL Monroe,FBS vs FBS,fbs,fbs,home,-9.21,-18.39,11.68,16.0,UAB,11.68,0.7673
 3,3,Week 3,2026-09-20T00:00:00.000Z,401862776,Final,"UAB 14, Louisiana 21",Louisiana,UAB,0.6817,UAB,Louisiana,FBS vs FBS,fbs,fbs,away,-9.21,-4.15,-7.56,16.0,Louisiana,7.56,0.3183
@@ -1393,23 +1393,23 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 5,5,Week 5,2026-10-03T19:30:00.000Z,401862793,Final,"Samford 14, UAB 33",UAB,Samford,0.9285,UAB,Samford (FCS baseline),FCS involved,fbs,fcs,home,-9.21,-36.0,29.29,20.0,UAB,29.29,0.9285
 6,6,Week 6,2026-10-10T23:00:00.000Z,401862798,Upcoming,,Memphis,UAB,0.8307,UAB,Memphis,FBS vs FBS,fbs,fbs,away,-9.21,3.6,-15.31,16.0,Memphis,15.31,0.1693
 7,7,Week 7,2026-10-15T23:30:00.000Z,401862800,Upcoming,,UAB,East Carolina,0.4649,UAB,East Carolina,FBS vs FBS,fbs,fbs,home,-9.21,-5.3,-1.41,16.0,East Carolina,1.41,0.4649
-9,9,Week 9,2026-10-31T04:00:00.000Z,401862816,Upcoming,,South Florida,UAB,0.7753,UAB,South Florida,FBS vs FBS,fbs,fbs,away,-9.21,0.39,-12.1,16.0,South Florida,12.1,0.2247
+9,9,Week 9,2026-10-31T04:00:00.000Z,401862816,Upcoming,,South Florida,UAB,0.7747,UAB,South Florida,FBS vs FBS,fbs,fbs,away,-9.21,0.36,-12.07,16.0,South Florida,12.07,0.2253
 10,10,Week 10,2026-11-07T05:00:00.000Z,401862819,Upcoming,,UAB,Charlotte,0.7997,UAB,Charlotte,FBS vs FBS,fbs,fbs,home,-9.21,-20.16,13.45,16.0,UAB,13.45,0.7997
-11,11,Week 11,2026-11-14T05:00:00.000Z,401862829,Upcoming,,Temple,UAB,0.6766,UAB,Temple,FBS vs FBS,fbs,fbs,away,-9.21,-4.38,-7.33,16.0,Temple,7.33,0.3234
-12,12,Week 12,2026-11-21T05:00:00.000Z,401862836,Upcoming,,UAB,UTSA,0.3237,UAB,UTSA,FBS vs FBS,fbs,fbs,home,-9.21,0.61,-7.32,16.0,UTSA,7.32,0.3237
+11,11,Week 11,2026-11-14T05:00:00.000Z,401862829,Upcoming,,Temple,UAB,0.6763,UAB,Temple,FBS vs FBS,fbs,fbs,away,-9.21,-4.39,-7.32,16.0,Temple,7.32,0.3237
+12,12,Week 12,2026-11-21T05:00:00.000Z,401862836,Upcoming,,UAB,UTSA,0.323,UAB,UTSA,FBS vs FBS,fbs,fbs,home,-9.21,0.64,-7.35,16.0,UTSA,7.35,0.323
 13,13,Week 13,2026-11-28T05:00:00.000Z,401862843,Upcoming,,North Texas,UAB,0.7684,UAB,North Texas,FBS vs FBS,fbs,fbs,away,-9.21,0.03,-11.74,16.0,North Texas,11.74,0.2316
-1,1,Week 1,2026-09-03T23:00:00.000Z,401856767,Final,"Bethune-Cookman 6, UCF 73",UCF,Bethune-Cookman,0.9796,UCF,Bethune-Cookman (FCS baseline),FCS involved,fbs,fcs,home,2.43,-36.0,40.93,20.0,UCF,40.93,0.9796
-2,2,Week 2,2026-09-12T19:30:00.000Z,401856790,Final,"UCF 7, Pittsburgh 12",Pittsburgh,UCF,0.6664,UCF,Pittsburgh,FBS vs FBS,fbs,fbs,away,2.43,6.81,-6.88,16.0,Pittsburgh,6.88,0.3336
-3,3,Week 3,2026-09-19T23:00:00.000Z,401856800,Final,"Georgia State 30, UCF 44",UCF,Georgia State,0.7032,UCF,Georgia State,FBS vs FBS,fbs,fbs,home,2.43,-3.61,8.54,16.0,UCF,8.54,0.7032
-4,4,Week 4,2026-09-26T19:30:00.000Z,401856815,Final,"TCU 13, UCF 21",UCF,TCU,0.5418,UCF,TCU,FBS vs FBS,fbs,fbs,home,2.43,3.25,1.68,16.0,UCF,1.68,0.5418
-5,5,Week 5,2026-10-03T16:00:00.000Z,401856819,Final,"UCF 17, Houston 27",Houston,UCF,0.7144,UCF,Houston,FBS vs FBS,fbs,fbs,away,2.43,8.99,-9.06,16.0,Houston,9.06,0.2856
-6,6,Week 6,2026-10-10T16:00:00.000Z,401856824,Upcoming,,Oklahoma State,UCF,0.547,UCF,Oklahoma State,FBS vs FBS,fbs,fbs,away,2.43,1.82,-1.89,16.0,Oklahoma State,1.89,0.453
-8,8,Week 8,2026-10-24T04:00:00.000Z,401856835,Upcoming,,UCF,BYU,0.3714,UCF,BYU,FBS vs FBS,fbs,fbs,home,2.43,10.18,-5.25,16.0,BYU,5.25,0.3714
-9,9,Week 9,2026-10-30T23:30:00.000Z,401856844,Upcoming,,UCF,Baylor,0.4171,UCF,Baylor,FBS vs FBS,fbs,fbs,home,2.43,8.28,-3.35,16.0,Baylor,3.35,0.4171
-10,10,Week 10,2026-11-07T05:00:00.000Z,401856850,Upcoming,,Kansas,UCF,0.5366,UCF,Kansas,FBS vs FBS,fbs,fbs,away,2.43,1.4,-1.47,16.0,Kansas,1.47,0.4634
-11,11,Week 11,2026-11-14T05:00:00.000Z,401856857,Upcoming,,UCF,Arizona State,0.6506,UCF,Arizona State,FBS vs FBS,fbs,fbs,home,2.43,-1.26,6.19,16.0,UCF,6.19,0.6506
-12,12,Week 12,2026-11-20T23:00:00.000Z,401856869,Upcoming,,UCF,Iowa State,0.5147,UCF,Iowa State,FBS vs FBS,fbs,fbs,home,2.43,4.34,0.59,16.0,UCF,0.59,0.5147
-13,13,Week 13,2026-11-28T05:00:00.000Z,401856875,Upcoming,,Colorado,UCF,0.4269,UCF,Colorado,FBS vs FBS,fbs,fbs,away,2.43,-3.02,2.95,16.0,UCF,2.95,0.5731
+1,1,Week 1,2026-09-03T23:00:00.000Z,401856767,Final,"Bethune-Cookman 6, UCF 73",UCF,Bethune-Cookman,0.9797,UCF,Bethune-Cookman (FCS baseline),FCS involved,fbs,fcs,home,2.44,-36.0,40.94,20.0,UCF,40.94,0.9797
+2,2,Week 2,2026-09-12T19:30:00.000Z,401856790,Final,"UCF 7, Pittsburgh 12",Pittsburgh,UCF,0.6662,UCF,Pittsburgh,FBS vs FBS,fbs,fbs,away,2.44,6.81,-6.87,16.0,Pittsburgh,6.87,0.3338
+3,3,Week 3,2026-09-19T23:00:00.000Z,401856800,Final,"Georgia State 30, UCF 44",UCF,Georgia State,0.7035,UCF,Georgia State,FBS vs FBS,fbs,fbs,home,2.44,-3.61,8.55,16.0,UCF,8.55,0.7035
+4,4,Week 4,2026-09-26T19:30:00.000Z,401856815,Final,"TCU 13, UCF 21",UCF,TCU,0.5421,UCF,TCU,FBS vs FBS,fbs,fbs,home,2.44,3.25,1.69,16.0,UCF,1.69,0.5421
+5,5,Week 5,2026-10-03T16:00:00.000Z,401856819,Final,"UCF 17, Houston 27",Houston,UCF,0.7142,UCF,Houston,FBS vs FBS,fbs,fbs,away,2.44,8.99,-9.05,16.0,Houston,9.05,0.2858
+6,6,Week 6,2026-10-10T16:00:00.000Z,401856824,Upcoming,,Oklahoma State,UCF,0.5468,UCF,Oklahoma State,FBS vs FBS,fbs,fbs,away,2.44,1.82,-1.88,16.0,Oklahoma State,1.88,0.4532
+8,8,Week 8,2026-10-24T04:00:00.000Z,401856835,Upcoming,,UCF,BYU,0.3716,UCF,BYU,FBS vs FBS,fbs,fbs,home,2.44,10.18,-5.24,16.0,BYU,5.24,0.3716
+9,9,Week 9,2026-10-30T23:30:00.000Z,401856844,Upcoming,,UCF,Baylor,0.4173,UCF,Baylor,FBS vs FBS,fbs,fbs,home,2.44,8.28,-3.34,16.0,Baylor,3.34,0.4173
+10,10,Week 10,2026-11-07T05:00:00.000Z,401856850,Upcoming,,Kansas,UCF,0.5364,UCF,Kansas,FBS vs FBS,fbs,fbs,away,2.44,1.4,-1.46,16.0,Kansas,1.46,0.4636
+11,11,Week 11,2026-11-14T05:00:00.000Z,401856857,Upcoming,,UCF,Arizona State,0.6508,UCF,Arizona State,FBS vs FBS,fbs,fbs,home,2.44,-1.26,6.2,16.0,UCF,6.2,0.6508
+12,12,Week 12,2026-11-20T23:00:00.000Z,401856869,Upcoming,,UCF,Iowa State,0.515,UCF,Iowa State,FBS vs FBS,fbs,fbs,home,2.44,4.34,0.6,16.0,UCF,0.6,0.515
+13,13,Week 13,2026-11-28T05:00:00.000Z,401856875,Upcoming,,Colorado,UCF,0.4266,UCF,Colorado,FBS vs FBS,fbs,fbs,away,2.44,-3.02,2.96,16.0,UCF,2.96,0.5734
 1,1,Week 1,2026-09-06T02:30:00.000Z,401858210,Final,"UCLA 45, California 24",California,UCLA,0.2263,UCLA,California,FBS vs FBS,fbs,fbs,away,10.35,-4.17,12.02,16.0,UCLA,12.02,0.7737
 2,2,Week 2,2026-09-12T23:15:00.000Z,401858443,Final,"San Diego State 10, UCLA 28",UCLA,San Diego State,0.878,UCLA,San Diego State,FBS vs FBS,fbs,fbs,home,10.35,-5.79,18.64,16.0,UCLA,18.64,0.878
 3,3,Week 3,2026-09-20T03:00:00.000Z,401858458,Final,"Purdue 38, UCLA 52",UCLA,Purdue,0.8262,UCLA,Purdue,FBS vs FBS,fbs,fbs,home,10.35,-2.18,15.03,16.0,UCLA,15.03,0.8262
@@ -1427,7 +1427,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 3,3,Week 3,2026-09-19T23:00:00.000Z,401861963,Final,"UConn 48, Southern Miss 20",Southern Miss,UConn,0.3629,UConn,Southern Miss,FBS vs FBS,fbs,fbs,away,-6.9,-15.01,5.61,16.0,UConn,5.61,0.6371
 4,4,Week 4,2026-09-26T19:30:00.000Z,401861970,Final,"UConn 21, Miami (OH) 24",Miami (OH),UConn,0.4898,UConn,Miami (OH),FBS vs FBS,fbs,fbs,away,-6.9,-9.81,0.41,16.0,UConn,0.41,0.5102
 5,5,Week 5,2026-10-03T16:00:00.000Z,401858252,Final,"Syracuse 42, UConn 41",UConn,Syracuse,0.4701,UConn,Syracuse,FBS vs FBS,fbs,fbs,home,-6.9,-3.2,-1.2,16.0,Syracuse,1.2,0.4701
-6,6,Week 6,2026-10-10T19:45:00.000Z,401861964,Upcoming,,Temple,UConn,0.6231,UConn,Temple,FBS vs FBS,fbs,fbs,away,-6.9,-4.38,-5.02,16.0,Temple,5.02,0.3769
+6,6,Week 6,2026-10-10T19:45:00.000Z,401861964,Upcoming,,Temple,UConn,0.6229,UConn,Temple,FBS vs FBS,fbs,fbs,away,-6.9,-4.39,-5.01,16.0,Temple,5.01,0.3771
 8,8,Week 8,2026-10-23T23:00:00.000Z,401861965,Upcoming,,UConn,Massachusetts,0.6396,UConn,Massachusetts,FBS vs FBS,fbs,fbs,home,-6.9,-10.12,5.72,16.0,UConn,5.72,0.6396
 9,9,Week 9,2026-10-31T19:00:00.000Z,401861966,Upcoming,,Air Force,UConn,0.6307,UConn,Air Force,FBS vs FBS,fbs,fbs,away,-6.9,-4.06,-5.34,16.0,Air Force,5.34,0.3693
 10,10,Week 10,2026-11-07T17:00:00.000Z,401858292,Upcoming,,UConn,North Carolina,0.3334,UConn,North Carolina,FBS vs FBS,fbs,fbs,home,-6.9,2.49,-6.89,16.0,North Carolina,6.89,0.3334
@@ -1482,18 +1482,18 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 11,11,Week 11,2026-11-14T05:00:00.000Z,401864540,Upcoming,,UTEP,Wyoming,0.3608,UTEP,Wyoming,FBS vs FBS,fbs,fbs,home,-19.82,-11.62,-5.7,16.0,Wyoming,5.7,0.3608
 12,12,Week 12,2026-11-21T01:00:00.000Z,401864545,Upcoming,,Air Force,UTEP,0.8731,UTEP,Air Force,FBS vs FBS,fbs,fbs,away,-19.82,-4.06,-18.26,16.0,Air Force,18.26,0.1269
 13,13,Week 13,2026-11-28T05:00:00.000Z,401864550,Upcoming,,Northern Illinois,UTEP,0.6806,UTEP,Northern Illinois,FBS vs FBS,fbs,fbs,away,-19.82,-14.81,-7.51,16.0,Northern Illinois,7.51,0.3194
-1,1,Week 1,2026-09-05T19:30:00.000Z,401862700,Final,"UT Rio Grande Valley 16, UTSA 45",UTSA,UT Rio Grande Valley,0.9747,UTSA,UT Rio Grande Valley (FCS baseline),FCS involved,fbs,fcs,home,0.61,-36.0,39.11,20.0,UTSA,39.11,0.9747
-2,2,Week 2,2026-09-12T19:30:00.000Z,401860884,Final,"UTSA 31, Texas State 26",Texas State,UTSA,0.5137,UTSA,Texas State,FBS vs FBS,fbs,fbs,away,0.61,-1.34,-0.55,16.0,Texas State,0.55,0.4863
-3,3,Week 3,2026-09-20T00:00:00.000Z,401856693,Final,"UTSA 6, Texas 30",Texas,UTSA,0.9242,UTSA,Texas,FBS vs FBS,fbs,fbs,away,0.61,21.05,-22.94,16.0,Texas,22.94,0.0758
-4,4,Week 4,2026-09-26T16:00:00.000Z,401860896,Final,"Colorado State 45, UTSA 59",UTSA,Colorado State,0.7925,UTSA,Colorado State,FBS vs FBS,fbs,fbs,home,0.61,-9.93,13.04,16.0,UTSA,13.04,0.7925
-5,5,Week 5,2026-10-03T23:00:00.000Z,401862788,Final,"UTSA 16, Rice 14",Rice,UTSA,0.2972,UTSA,Rice,FBS vs FBS,fbs,fbs,away,0.61,-10.41,8.52,16.0,UTSA,8.52,0.7028
-6,6,Week 6,2026-10-08T23:30:00.000Z,401862794,Upcoming,,UTSA,South Florida,0.5675,UTSA,South Florida,FBS vs FBS,fbs,fbs,home,0.61,0.39,2.72,16.0,UTSA,2.72,0.5675
-7,7,Week 7,2026-10-17T04:00:00.000Z,401862804,Upcoming,,UTSA,Navy,0.7022,UTSA,Navy,FBS vs FBS,fbs,fbs,home,0.61,-5.38,8.49,16.0,UTSA,8.49,0.7022
-8,8,Week 8,2026-10-24T04:00:00.000Z,401862811,Upcoming,,Tulane,UTSA,0.4619,UTSA,Tulane,FBS vs FBS,fbs,fbs,away,0.61,-3.42,1.53,16.0,UTSA,1.53,0.5381
-10,10,Week 10,2026-11-06T01:00:00.000Z,401862817,Upcoming,,Florida Atlantic,UTSA,0.4217,UTSA,Florida Atlantic,FBS vs FBS,fbs,fbs,away,0.61,-5.05,3.16,16.0,UTSA,3.16,0.5783
-11,11,Week 11,2026-11-14T05:00:00.000Z,401862827,Upcoming,,UTSA,North Texas,0.5763,UTSA,North Texas,FBS vs FBS,fbs,fbs,home,0.61,0.03,3.08,16.0,UTSA,3.08,0.5763
-12,12,Week 12,2026-11-21T05:00:00.000Z,401862836,Upcoming,,UAB,UTSA,0.3237,UTSA,UAB,FBS vs FBS,fbs,fbs,away,0.61,-9.21,7.32,16.0,UTSA,7.32,0.6763
-13,13,Week 13,2026-11-28T05:00:00.000Z,401862840,Upcoming,,UTSA,Tulsa,0.7106,UTSA,Tulsa,FBS vs FBS,fbs,fbs,home,0.61,-5.77,8.88,16.0,UTSA,8.88,0.7106
+1,1,Week 1,2026-09-05T19:30:00.000Z,401862700,Final,"UT Rio Grande Valley 16, UTSA 45",UTSA,UT Rio Grande Valley,0.9748,UTSA,UT Rio Grande Valley (FCS baseline),FCS involved,fbs,fcs,home,0.64,-36.0,39.14,20.0,UTSA,39.14,0.9748
+2,2,Week 2,2026-09-12T19:30:00.000Z,401860884,Final,"UTSA 31, Texas State 26",Texas State,UTSA,0.5132,UTSA,Texas State,FBS vs FBS,fbs,fbs,away,0.64,-1.33,-0.53,16.0,Texas State,0.53,0.4868
+3,3,Week 3,2026-09-20T00:00:00.000Z,401856693,Final,"UTSA 6, Texas 30",Texas,UTSA,0.9239,UTSA,Texas,FBS vs FBS,fbs,fbs,away,0.64,21.05,-22.91,16.0,Texas,22.91,0.0761
+4,4,Week 4,2026-09-26T16:00:00.000Z,401860896,Final,"Colorado State 45, UTSA 59",UTSA,Colorado State,0.793,UTSA,Colorado State,FBS vs FBS,fbs,fbs,home,0.64,-9.93,13.07,16.0,UTSA,13.07,0.793
+5,5,Week 5,2026-10-03T23:00:00.000Z,401862788,Final,"UTSA 16, Rice 14",Rice,UTSA,0.2968,UTSA,Rice,FBS vs FBS,fbs,fbs,away,0.64,-10.4,8.54,16.0,UTSA,8.54,0.7032
+6,6,Week 6,2026-10-08T23:30:00.000Z,401862794,Upcoming,,UTSA,South Florida,0.569,UTSA,South Florida,FBS vs FBS,fbs,fbs,home,0.64,0.36,2.78,16.0,UTSA,2.78,0.569
+7,7,Week 7,2026-10-17T04:00:00.000Z,401862804,Upcoming,,UTSA,Navy,0.7028,UTSA,Navy,FBS vs FBS,fbs,fbs,home,0.64,-5.38,8.52,16.0,UTSA,8.52,0.7028
+8,8,Week 8,2026-10-24T04:00:00.000Z,401862811,Upcoming,,Tulane,UTSA,0.4612,UTSA,Tulane,FBS vs FBS,fbs,fbs,away,0.64,-3.42,1.56,16.0,UTSA,1.56,0.5388
+10,10,Week 10,2026-11-06T01:00:00.000Z,401862817,Upcoming,,Florida Atlantic,UTSA,0.421,UTSA,Florida Atlantic,FBS vs FBS,fbs,fbs,away,0.64,-5.05,3.19,16.0,UTSA,3.19,0.579
+11,11,Week 11,2026-11-14T05:00:00.000Z,401862827,Upcoming,,UTSA,North Texas,0.5771,UTSA,North Texas,FBS vs FBS,fbs,fbs,home,0.64,0.03,3.11,16.0,UTSA,3.11,0.5771
+12,12,Week 12,2026-11-21T05:00:00.000Z,401862836,Upcoming,,UAB,UTSA,0.323,UTSA,UAB,FBS vs FBS,fbs,fbs,away,0.64,-9.21,7.35,16.0,UTSA,7.35,0.677
+13,13,Week 13,2026-11-28T05:00:00.000Z,401862840,Upcoming,,UTSA,Tulsa,0.7112,UTSA,Tulsa,FBS vs FBS,fbs,fbs,home,0.64,-5.77,8.91,16.0,UTSA,8.91,0.7112
 1,1,Week 1,2026-09-04T01:00:00.000Z,401856768,Final,"Idaho 14, Utah 66",Utah,Idaho,0.9969,Utah,Idaho (FCS baseline),FCS involved,fbs,fcs,home,16.29,-36.0,54.79,20.0,Utah,54.79,0.9969
 2,2,Week 2,2026-09-13T02:15:00.000Z,401856670,Final,"Arkansas 10, Utah 43",Utah,Arkansas,0.8942,Utah,Arkansas,FBS vs FBS,fbs,fbs,home,16.29,-1.2,19.99,16.0,Utah,19.99,0.8942
 3,3,Week 3,2026-09-19T19:30:00.000Z,401856801,Final,"Utah State 0, Utah 33",Utah,Utah State,0.9331,Utah,Utah State,FBS vs FBS,fbs,fbs,home,16.29,-5.2,23.99,16.0,Utah,23.99,0.9331
@@ -1512,7 +1512,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 4,4,Week 4,2026-09-26T23:30:00.000Z,401860894,Final,"Troy 10, Utah State 21",Utah State,Troy,0.5695,Utah State,Troy,FBS vs FBS,fbs,fbs,home,-5.2,-5.5,2.8,16.0,Utah State,2.8,0.5695
 5,5,Week 5,2026-10-03T23:30:00.000Z,401860898,Final,"Utah State 18, Boise State 37",Boise State,Utah State,0.8597,Utah State,Boise State,FBS vs FBS,fbs,fbs,away,-5.2,9.56,-17.26,16.0,Boise State,17.26,0.1403
 6,6,Week 6,2026-10-10T01:00:00.000Z,401860922,Upcoming,,Utah State,Washington State,0.6131,Utah State,Washington State,FBS vs FBS,fbs,fbs,home,-5.2,-7.3,4.6,16.0,Utah State,4.6,0.6131
-8,8,Week 8,2026-10-24T23:30:00.000Z,401860906,Upcoming,,Texas State,Utah State,0.6545,Utah State,Texas State,FBS vs FBS,fbs,fbs,away,-5.2,-1.34,-6.36,16.0,Texas State,6.36,0.3455
+8,8,Week 8,2026-10-24T23:30:00.000Z,401860906,Upcoming,,Texas State,Utah State,0.6547,Utah State,Texas State,FBS vs FBS,fbs,fbs,away,-5.2,-1.33,-6.37,16.0,Texas State,6.37,0.3453
 9,9,Week 9,2026-10-31T19:30:00.000Z,401860910,Upcoming,,Utah State,Colorado State,0.6743,Utah State,Colorado State,FBS vs FBS,fbs,fbs,home,-5.2,-9.93,7.23,16.0,Utah State,7.23,0.6743
 10,10,Week 10,2026-11-08T02:30:00.000Z,401860913,Upcoming,,Utah State,Fresno State,0.3994,Utah State,Fresno State,FBS vs FBS,fbs,fbs,home,-5.2,1.38,-4.08,16.0,Fresno State,4.08,0.3994
 11,11,Week 11,2026-11-15T02:30:00.000Z,401860915,Upcoming,,San Diego State,Utah State,0.5475,Utah State,San Diego State,FBS vs FBS,fbs,fbs,away,-5.2,-5.79,-1.91,16.0,San Diego State,1.91,0.4525
@@ -1544,7 +1544,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 1,1,Week 1,2026-09-05T23:30:00.000Z,401858211,Final,"VMI 3, Virginia Tech 73",Virginia Tech,VMI,0.9848,Virginia Tech,VMI (FCS baseline),FCS involved,fbs,fcs,home,4.79,-36.0,43.29,20.0,Virginia Tech,43.29,0.9848
 2,2,Week 2,2026-09-12T16:00:00.000Z,401858221,Final,"Old Dominion 21, Virginia Tech 44",Virginia Tech,Old Dominion,0.8926,Virginia Tech,Old Dominion,FBS vs FBS,fbs,fbs,home,4.79,-12.56,19.85,16.0,Virginia Tech,19.85,0.8926
 3,3,Week 3,2026-09-19T23:30:00.000Z,401858232,Final,"Virginia Tech 35, Maryland 26",Maryland,Virginia Tech,0.3716,Virginia Tech,Maryland,FBS vs FBS,fbs,fbs,away,4.79,-2.95,5.24,16.0,Virginia Tech,5.24,0.6284
-4,4,Week 4,2026-09-26T16:00:00.000Z,401858242,Final,"Virginia Tech 21, Boston College 14",Boston College,Virginia Tech,0.3105,Virginia Tech,Boston College,FBS vs FBS,fbs,fbs,away,4.79,-5.62,7.91,16.0,Virginia Tech,7.91,0.6895
+4,4,Week 4,2026-09-26T16:00:00.000Z,401858242,Final,"Virginia Tech 21, Boston College 14",Boston College,Virginia Tech,0.3103,Virginia Tech,Boston College,FBS vs FBS,fbs,fbs,away,4.79,-5.63,7.92,16.0,Virginia Tech,7.92,0.6897
 5,5,Week 5,2026-10-02T23:00:00.000Z,401858245,Final,"Pittsburgh 35, Virginia Tech 33",Virginia Tech,Pittsburgh,0.512,Virginia Tech,Pittsburgh,FBS vs FBS,fbs,fbs,home,4.79,6.81,0.48,16.0,Virginia Tech,0.48,0.512
 6,6,Week 6,2026-10-10T19:30:00.000Z,401858259,Upcoming,,California,Virginia Tech,0.3432,Virginia Tech,California,FBS vs FBS,fbs,fbs,away,4.79,-4.17,6.46,16.0,Virginia Tech,6.46,0.6568
 7,7,Week 7,2026-10-17T04:00:00.000Z,401858264,Upcoming,,Virginia Tech,Georgia Tech,0.7567,Virginia Tech,Georgia Tech,FBS vs FBS,fbs,fbs,home,4.79,-3.84,11.13,16.0,Virginia Tech,11.13,0.7567
@@ -1587,7 +1587,7 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 8,8,Week 8,2026-10-24T22:00:00.000Z,401860907,Upcoming,,Washington State,Boise State,0.1847,Washington State,Boise State,FBS vs FBS,fbs,fbs,home,-7.3,9.56,-14.36,16.0,Boise State,14.36,0.1847
 9,9,Week 9,2026-10-31T23:00:00.000Z,401860909,Upcoming,,San Diego State,Washington State,0.5989,Washington State,San Diego State,FBS vs FBS,fbs,fbs,away,-7.3,-5.79,-4.01,16.0,San Diego State,4.01,0.4011
 11,11,Week 11,2026-11-15T03:30:00.000Z,401860917,Upcoming,,Washington State,Colorado State,0.6258,Washington State,Colorado State,FBS vs FBS,fbs,fbs,home,-7.3,-9.93,5.13,16.0,Washington State,5.13,0.6258
-12,12,Week 12,2026-11-21T23:00:00.000Z,401860920,Upcoming,,Texas State,Washington State,0.7015,Washington State,Texas State,FBS vs FBS,fbs,fbs,away,-7.3,-1.34,-8.46,16.0,Texas State,8.46,0.2985
+12,12,Week 12,2026-11-21T23:00:00.000Z,401860920,Upcoming,,Texas State,Washington State,0.7017,Washington State,Texas State,FBS vs FBS,fbs,fbs,away,-7.3,-1.33,-8.47,16.0,Texas State,8.47,0.2983
 1,1,Week 1,2026-09-05T16:00:00.000Z,401856780,Final,"Coastal Carolina 24, West Virginia 31",West Virginia,Coastal Carolina,0.7871,West Virginia,Coastal Carolina,FBS vs FBS,fbs,fbs,home,-0.44,-10.68,12.74,16.0,West Virginia,12.74,0.7871
 2,2,Week 2,2026-09-12T17:00:00.000Z,401856791,Final,"UT Martin 7, West Virginia 52",West Virginia,UT Martin,0.9715,West Virginia,UT Martin (FCS baseline),FCS involved,fbs,fcs,home,-0.44,-36.0,38.06,20.0,West Virginia,38.06,0.9715
 3,3,Week 3,2026-09-19T23:30:00.000Z,401856802,Final,"West Virginia 38, Virginia 27",Virginia,West Virginia,0.6107,West Virginia,Virginia,FBS vs FBS,fbs,fbs,neutral,-0.44,4.06,-4.5,16.0,Virginia,4.5,0.3893
@@ -1614,13 +1614,13 @@ week,display_week,week_label,start_date,game_id,status,result,home_team,away_tea
 13,13,Week 13,2026-11-28T18:00:00.000Z,401870804,Upcoming,,Western Kentucky,Kennesaw State,0.4835,Western Kentucky,Kennesaw State,FBS vs FBS,fbs,fbs,home,-14.06,-10.9,-0.66,16.0,Kennesaw State,0.66,0.4835
 1,1,Week 1,2026-09-05T23:30:00.000Z,401858428,Final,"Western Michigan 12, Michigan 13",Michigan,Western Michigan,0.8219,Western Michigan,Michigan,FBS vs FBS,fbs,fbs,away,-3.47,8.79,-14.76,16.0,Michigan,14.76,0.1781
 2,2,Week 2,2026-09-12T22:30:00.000Z,401866421,Final,"Monmouth 14, Western Michigan 49",Western Michigan,Monmouth,0.9601,Western Michigan,Monmouth (FCS baseline),FCS involved,fbs,fcs,home,-3.47,-36.0,35.03,20.0,Western Michigan,35.03,0.9601
-3,3,Week 3,2026-09-19T23:00:00.000Z,401862773,Final,"Western Michigan 28, Rice 21",Rice,Western Michigan,0.3907,Western Michigan,Rice,FBS vs FBS,fbs,fbs,away,-3.47,-10.41,4.44,16.0,Western Michigan,4.44,0.6093
+3,3,Week 3,2026-09-19T23:00:00.000Z,401862773,Final,"Western Michigan 28, Rice 21",Rice,Western Michigan,0.3909,Western Michigan,Rice,FBS vs FBS,fbs,fbs,away,-3.47,-10.4,4.43,16.0,Western Michigan,4.43,0.6091
 4,4,Week 4,2026-09-26T19:30:00.000Z,401860897,Final,"Boise State 32, Western Michigan 7",Western Michigan,Boise State,0.2552,Western Michigan,Boise State,FBS vs FBS,fbs,fbs,home,-3.47,9.56,-10.53,16.0,Boise State,10.53,0.2552
 5,5,Week 5,2026-10-03T17:00:00.000Z,401866432,Final,"Western Michigan 20, Buffalo 17",Buffalo,Western Michigan,0.3264,Western Michigan,Buffalo,FBS vs FBS,fbs,fbs,away,-3.47,-13.17,7.2,16.0,Western Michigan,7.2,0.6736
 6,6,Week 6,2026-10-10T19:30:00.000Z,401866439,Upcoming,,Western Michigan,Kent State,0.8264,Western Michigan,Kent State,FBS vs FBS,fbs,fbs,home,-3.47,-16.01,15.04,16.0,Western Michigan,15.04,0.8264
 7,7,Week 7,2026-10-17T04:00:00.000Z,401866443,Upcoming,,Central Michigan,Western Michigan,0.4103,Western Michigan,Central Michigan,FBS vs FBS,fbs,fbs,away,-3.47,-9.6,3.63,16.0,Western Michigan,3.63,0.5897
 8,8,Week 8,2026-10-24T04:00:00.000Z,401866450,Upcoming,,Toledo,Western Michigan,0.648,Western Michigan,Toledo,FBS vs FBS,fbs,fbs,away,-3.47,0.11,-6.08,16.0,Toledo,6.08,0.352
-9,9,Week 9,2026-10-31T16:00:00.000Z,401866452,Upcoming,,Western Michigan,Bowling Green,0.7894,Western Michigan,Bowling Green,FBS vs FBS,fbs,fbs,home,-3.47,-13.84,12.87,16.0,Western Michigan,12.87,0.7894
+9,9,Week 9,2026-10-31T16:00:00.000Z,401866452,Upcoming,,Western Michigan,Bowling Green,0.7896,Western Michigan,Bowling Green,FBS vs FBS,fbs,fbs,home,-3.47,-13.85,12.88,16.0,Western Michigan,12.88,0.7896
 11,11,Week 11,2026-11-11T00:00:00.000Z,401866458,Upcoming,,Akron,Western Michigan,0.1763,Western Michigan,Akron,FBS vs FBS,fbs,fbs,away,-3.47,-20.84,14.87,16.0,Western Michigan,14.87,0.8237
 12,12,Week 12,2026-11-18T00:00:00.000Z,401866465,Upcoming,,Western Michigan,Eastern Michigan,0.7131,Western Michigan,Eastern Michigan,FBS vs FBS,fbs,fbs,home,-3.47,-9.97,9.0,16.0,Western Michigan,9.0,0.7131
 13,13,Week 13,2026-11-24T05:00:00.000Z,401866471,Upcoming,,Western Michigan,Miami (OH),0.7097,Western Michigan,Miami (OH),FBS vs FBS,fbs,fbs,home,-3.47,-9.81,8.84,16.0,Western Michigan,8.84,0.7097
