@@ -267,7 +267,10 @@ def capture_current_week(ledger: pd.DataFrame, odds: pd.DataFrame, ratings: pd.D
         )
     if not new_rows:
         return ledger
-    return pd.concat([ledger, pd.DataFrame(new_rows)], ignore_index=True).reindex(columns=LEDGER_COLUMNS)
+    captured = pd.DataFrame(new_rows).reindex(columns=LEDGER_COLUMNS)
+    if ledger.empty:
+        return captured
+    return pd.concat([ledger, captured], ignore_index=True).reindex(columns=LEDGER_COLUMNS)
 
 
 def update_ledger(
