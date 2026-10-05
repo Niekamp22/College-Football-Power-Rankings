@@ -25,6 +25,7 @@ The current model is a market-calibrated predictive power rating built for neutr
 - `streamlit_app.py`: older Streamlit prototype kept for reference
 - `project_win_totals.py`: projects future-season win totals from the current ratings and schedule
 - `review_completed_games.py`: grades completed games against the model, market lines, and final scores
+- `best_bets.py`: freezes the weekly top-four model shortlist and grades ATS results, CLV, and units
 - `export_master_workbook.py`: combines current outputs into one spreadsheet workbook
 - `tune_model.py`: runs a small historical parameter sweep to look for better backtest settings
 - `margin_challenger.py`: validates matchup and market-residual features on a held-out season before production use
@@ -143,6 +144,8 @@ Every Odds API refresh appends a normalized snapshot to `output/odds/odds_histor
 `output/odds/clv_summary.csv` tracks opening-to-latest movement and calculates closing-line value after kickoff. Positive CLV means the captured number was better than the final pregame consensus. The ATS classifier is guarded by `validate_ats_signal.py`; it is not deployed unless its held-out Brier score beats the baseline model.
 
 The podcast shortlist is intentionally stricter than the general odds board. Candidates must be FBS-only, have a moderate model edge, be offered by at least four books at `-120` or better, involve medium-or-better rating confidence, avoid spreads above 14 points and large internal rating gaps, and receive support from both rating components. These safeguards improve candidate quality but do not represent a validated ATS probability.
+
+The first four qualifying candidates captured for a week are stored in `output/best_bets/best_bet_ledger_2026.csv`. Their pick-time spread, price, sportsbook, model edge, and reasoning are immutable. Later refreshes add final-score grading, closing-line value, units won or lost, and cumulative season results. Weeks before the ledger was introduced are not reconstructed with hindsight.
 
 Every refresh also runs `margin_challenger.py`. New matchup features remain research-only unless they improve held-out margin MAE and clear the ATS-side validation gate; failed experiments are retained in the Validation view instead of silently changing production.
 

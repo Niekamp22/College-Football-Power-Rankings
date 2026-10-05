@@ -30,6 +30,7 @@ DEFAULT_ODDS_HISTORY = Path("output/odds/odds_history.csv")
 DEFAULT_CLV_SUMMARY = Path("output/odds/clv_summary.csv")
 DEFAULT_MASTER_WORKBOOK = Path("output/power_ratings_master.xlsx")
 DEFAULT_REFRESH_STATUS = Path("output/refresh_status.json")
+DEFAULT_BEST_BETS_OUTPUT = Path("output/best_bets/best_bet_ledger_2026.csv")
 DEFAULT_ANALYTICS_OUTPUTS = [
     Path("output/analytics/edge_bucket_summary_2026.csv"),
     Path("output/analytics/split_summary_2026.csv"),
@@ -139,6 +140,7 @@ def main() -> None:
         require_env("ODDS_API_KEY")
         run([python, "sync_odds_api.py"])
 
+    run([python, "best_bets.py", "--season", str(args.projection_year), "--top", "4"])
     run([python, "betting_analytics.py", "--season", str(args.projection_year)])
     if not args.skip_backtest:
         run([python, "validate_ats_signal.py"])
@@ -172,6 +174,7 @@ def main() -> None:
         DEFAULT_ODDS_OUTPUT,
         DEFAULT_ODDS_HISTORY,
         DEFAULT_CLV_SUMMARY,
+        DEFAULT_BEST_BETS_OUTPUT,
         *DEFAULT_ANALYTICS_OUTPUTS,
         DEFAULT_MASTER_WORKBOOK,
         DEFAULT_REFRESH_STATUS,

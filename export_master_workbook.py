@@ -30,6 +30,7 @@ DEFAULT_MARKET_DISAGREEMENTS_PATH = Path("output/analytics/market_disagreements_
 DEFAULT_PROBABILITY_CALIBRATION_PATH = Path("output/analytics/probability_calibration_2026.csv")
 DEFAULT_ATS_VALIDATION_PATH = Path("output/analytics/ats_model_validation.csv")
 DEFAULT_MARGIN_CHALLENGER_PATH = Path("output/analytics/margin_challenger_validation.csv")
+DEFAULT_BEST_BETS_PATH = Path("output/best_bets/best_bet_ledger_2026.csv")
 DEFAULT_OUTPUT_PATH = Path("output/power_ratings_master.xlsx")
 
 
@@ -55,6 +56,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--probability-calibration", type=Path, default=DEFAULT_PROBABILITY_CALIBRATION_PATH)
     parser.add_argument("--ats-validation", type=Path, default=DEFAULT_ATS_VALIDATION_PATH)
     parser.add_argument("--margin-challenger", type=Path, default=DEFAULT_MARGIN_CHALLENGER_PATH)
+    parser.add_argument("--best-bets", type=Path, default=DEFAULT_BEST_BETS_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH)
     return parser.parse_args()
 
@@ -150,6 +152,7 @@ def main() -> None:
     probability_calibration = load_csv(args.probability_calibration)
     ats_validation = load_csv(args.ats_validation)
     margin_challenger = load_csv(args.margin_challenger)
+    best_bets = load_csv(args.best_bets)
 
     workbook = Workbook()
     workbook.remove(workbook.active)
@@ -160,6 +163,7 @@ def main() -> None:
     write_sheet(workbook, "WeeklyMatchups", projected_games)
     write_sheet(workbook, "ScheduleCoverage", schedule_coverage)
     write_sheet(workbook, "OddsEdges", odds_comparison)
+    write_sheet(workbook, "BestBets", best_bets)
     write_sheet(workbook, "OddsHistory", odds_history)
     write_sheet(workbook, "CLVSummary", clv_summary)
     write_sheet(workbook, "WeeklyReview", weekly_results_review)

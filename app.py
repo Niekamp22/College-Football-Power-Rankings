@@ -7,6 +7,8 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from best_bets import build_podcast_shortlist
+
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
 DEFAULT_BACKTEST_PATH = Path("output/backtests/weekly_backtest_2025_regular.csv")
@@ -29,6 +31,7 @@ DEFAULT_PROBABILITY_CALIBRATION_PATH = Path("output/analytics/probability_calibr
 DEFAULT_ATS_VALIDATION_PATH = Path("output/analytics/ats_model_validation.csv")
 DEFAULT_MARGIN_CHALLENGER_PATH = Path("output/analytics/margin_challenger_validation.csv")
 DEFAULT_REFRESH_STATUS_PATH = Path("output/refresh_status.json")
+DEFAULT_BEST_BETS_PATH = Path("output/best_bets/best_bet_ledger_2026.csv")
 
 
 def load_csv(path: Path) -> pd.DataFrame:
@@ -178,134 +181,6 @@ def team_watchlist_label(row: pd.Series) -> str:
     if fbs_record == "0-0":
         flags.append("FCS-only profile")
     return ", ".join(flags)
-
-
-def build_podcast_shortlist(
-    odds: pd.DataFrame,
-    ratings: pd.DataFrame,
-    week: int | None = None,
-    min_edge: float = 3.0,
-    max_edge: float = 8.5,
-    min_books: int = 4,
-) -> pd.DataFrame:
-    """Rank well-supported candidates without claiming a validated ATS advantage."""
-    if odds.empty or ratings.empty:
-        return pd.DataFrame()
-
-    board = odds.copy()
-    for column in [
-        "display_week",
-        "book_count",
-        "model_home_spread",
-        "market_home_margin",
-        "edge_home_points",
-        "absolute_edge_points",
-        "selected_best_spread",
-        "selected_best_price",
-        "line_shopping_value",
-    ]:
-        if column in board.columns:
-            board[column] = pd.to_numeric(board[column], errors="coerce")
-
-    board = board[
-        board["market_home_margin"].notna()
-        & board["selected_best_spread"].notna()
-        & board["selected_best_price"].notna()
-        & board["absolute_edge_points"].between(min_edge, max_edge, inclusive="both")
-        & (board["book_count"].fillna(0) >= min_books)
-        & (board["selected_best_price"] >= -120)
-        & (board["market_home_margin"].abs() <= 14.0)
-        & board["game_type"].eq("FBS vs FBS")
-        & board["betting_status"].eq("Standard")
-    ].copy()
-    if board.empty:
-        return pd.DataFrame()
-
-    selected_week = week if week is not None else int(board["display_week"].max())
-    board = board[board["display_week"] == selected_week]
-    rating_lookup = ratings.set_index("team")
-    confidence_values = {"High": 1.0, "Medium": 0.65, "Low": 0.3, "Legacy": 0.4}
-    rows: list[dict[str, object]] = []
-
-    for _, game in board.iterrows():
-        home_team = str(game["home_team"])
-        away_team = str(game["away_team"])
-        if home_team not in rating_lookup.index or away_team not in rating_lookup.index:
-            continue
-
-        home = rating_lookup.loc[home_team]
-        away = rating_lookup.loc[away_team]
-        neutral_site = str(game.get("neutral_site", "")).strip().lower() in {"true", "1", "yes"}
-        home_field = 0.0 if neutral_site else 2.5
-        market_margin = float(game["market_home_margin"])
-        direction = 1.0 if float(game["edge_home_points"]) >= 0 else -1.0
-        football_edge = (
-            float(home["football_rating"]) - float(away["football_rating"]) + home_field - market_margin
-        )
-        market_component_edge = (
-            float(home["market_rating"]) - float(away["market_rating"]) + home_field - market_margin
-        )
-        components_agree = direction * football_edge > 0 and direction * market_component_edge > 0
-        if not components_agree:
-            continue
-
-        home_confidence = confidence_values.get(str(home.get("rating_confidence", "")), 0.4)
-        away_confidence = confidence_values.get(str(away.get("rating_confidence", "")), 0.4)
-        if min(home_confidence, away_confidence) < confidence_values["Medium"]:
-            continue
-        confidence_score = (home_confidence + away_confidence) / 2
-        edge = float(game["absolute_edge_points"])
-        edge_quality = max(0.0, 1.0 - abs(edge - 5.5) / 5.5)
-        liquidity_score = min(float(game["book_count"]) / 8.0, 1.0)
-        raw_shopping_value = game.get("line_shopping_value")
-        shopping_value = float(raw_shopping_value) if pd.notna(raw_shopping_value) else 0.0
-        shopping_score = min(max(shopping_value, 0.0) / 1.5, 1.0)
-        max_market_gap = max(abs(float(home["market_gap"])), abs(float(away["market_gap"])))
-        if max_market_gap >= 10.0:
-            continue
-        model_fair_line = (
-            float(game["model_home_spread"])
-            if str(game["edge_side"]) == home_team
-            else -float(game["model_home_spread"])
-        )
-        candidate_score = (
-            30.0 * edge_quality
-            + 25.0
-            + 15.0 * liquidity_score
-            + 10.0 * shopping_score
-            + 20.0 * confidence_score
-        )
-        caution = "Confirm injuries, weather, and the line before locking the pick."
-        reasoning = (
-            f"The model's fair line is {game['edge_side']} {model_fair_line:+.1f}, compared with the best available "
-            f"{float(game['selected_best_spread']):+.1f}. The independent football rating and market-rating component "
-            f"both support {game['edge_side']} against the consensus line. The price is available across "
-            f"{int(float(game['book_count']))} tracked books, and line shopping improves the consensus spread by "
-            f"{shopping_value:.2f} points."
-        )
-
-        rows.append(
-            {
-                "Week": f"Week {selected_week}",
-                "Kickoff": game.get("commence_time", ""),
-                "Matchup": f"{away_team} at {home_team}",
-                "Model Lean": str(game["edge_side"]),
-                "Model Fair Line": model_fair_line,
-                "Best Line": float(game["selected_best_spread"]),
-                "Price": int(float(game["selected_best_price"])),
-                "Book": str(game.get("selected_best_book", "")),
-                "Model Edge": edge,
-                "Books": int(float(game["book_count"])),
-                "Line Shopping Gain": shopping_value,
-                "Candidate Score": round(candidate_score, 1),
-                "Reasoning": reasoning,
-                "Caution": caution,
-            }
-        )
-
-    if not rows:
-        return pd.DataFrame()
-    return pd.DataFrame(rows).sort_values(["Candidate Score", "Model Edge"], ascending=[False, False]).reset_index(drop=True)
 
 
 def summarize_team_betting(team_games: pd.DataFrame) -> pd.DataFrame:
@@ -492,6 +367,7 @@ def main() -> None:
     probability_calibration = load_csv(Path(probability_calibration_default))
     ats_validation = load_csv(DEFAULT_ATS_VALIDATION_PATH)
     margin_challenger_validation = load_csv(DEFAULT_MARGIN_CHALLENGER_PATH)
+    best_bets = load_csv(DEFAULT_BEST_BETS_PATH)
     refresh_status = load_refresh_status()
 
     snapshot_label, refresh_label = latest_snapshot_status()
@@ -555,13 +431,14 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, line_history_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab = st.tabs(
+    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, best_bets_tab, line_history_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab = st.tabs(
         [
             "Rankings",
             "Matchup Lab",
             "Weekly Board",
             "Season Forecast",
             "Betting Board",
+            "Best Bet Tracker",
             "Line Movement",
             "Team Profiles",
             "Research",
@@ -871,7 +748,9 @@ def main() -> None:
                 st.info("No games currently satisfy every shortlist safeguard.")
             else:
                 shortlist_details = podcast_shortlist.head(6).copy()
-                shortlist_display = shortlist_details.drop(columns=["Reasoning", "Caution"]).copy()
+                shortlist_display = shortlist_details.drop(
+                    columns=["Event ID", "Display Week", "Home Team", "Away Team", "Reasoning", "Caution"]
+                ).copy()
                 shortlist_display.insert(0, "Rank", range(1, len(shortlist_display) + 1))
                 shortlist_display["Kickoff"] = shortlist_display["Kickoff"].map(format_eastern_time)
                 shortlist_display["Model Fair Line"] = shortlist_display["Model Fair Line"].map(
@@ -1122,6 +1001,139 @@ def main() -> None:
 
             with st.expander("Raw odds comparison"):
                 st.dataframe(filtered_odds, width="stretch", hide_index=True)
+
+    with best_bets_tab:
+        st.subheader("Season-Long Model Best Bets")
+        st.caption(
+            "The first four qualifying recommendations for each week are frozen with the exact line, price, and book. "
+            "They are later graded against the final score and closing market without rewriting history. Tracking begins "
+            "with the first published ledger week; earlier weeks are not reconstructed with hindsight."
+        )
+        if best_bets.empty:
+            render_missing_state(DEFAULT_BEST_BETS_PATH, "Best-bet ledger")
+        else:
+            tracked = best_bets.copy()
+            for column in [
+                "display_week",
+                "selection_rank",
+                "locked_spread",
+                "locked_price",
+                "model_fair_line",
+                "model_edge",
+                "candidate_score",
+                "cover_margin",
+                "closing_spread",
+                "clv_points",
+                "units",
+                "cumulative_units",
+            ]:
+                tracked[column] = pd.to_numeric(tracked[column], errors="coerce")
+
+            graded = tracked[tracked["status"].eq("graded")].copy()
+            decisions = graded[graded["ats_result"].isin(["win", "loss"])].copy()
+            wins = int(graded["ats_result"].eq("win").sum())
+            losses = int(graded["ats_result"].eq("loss").sum())
+            pushes = int(graded["ats_result"].eq("push").sum())
+            pending = int(tracked["status"].eq("pending").sum())
+            tracker_col1, tracker_col2, tracker_col3, tracker_col4, tracker_col5 = st.columns(5)
+            tracker_col1.metric("Record", f"{wins}-{losses}-{pushes}")
+            tracker_col2.metric(
+                "Hit Rate",
+                f"{wins / len(decisions) * 100:.1f}%" if not decisions.empty else "N/A",
+            )
+            tracker_col3.metric("Units", f"{graded['units'].sum():+.2f}")
+            tracker_col4.metric(
+                "Average CLV",
+                f"{graded['clv_points'].mean():+.2f}" if graded["clv_points"].notna().any() else "N/A",
+            )
+            tracker_col5.metric("Pending", pending)
+
+            if decisions.empty:
+                st.info("The ledger is active. Results and performance charts will populate after these games finish.")
+            else:
+                weekly_tracker = (
+                    graded.groupby(["display_week", "week_label"], as_index=False)
+                    .agg(
+                        picks=("event_id", "count"),
+                        wins=("ats_result", lambda values: int((values == "win").sum())),
+                        losses=("ats_result", lambda values: int((values == "loss").sum())),
+                        pushes=("ats_result", lambda values: int((values == "push").sum())),
+                        units=("units", "sum"),
+                        average_clv=("clv_points", "mean"),
+                    )
+                    .sort_values("display_week")
+                )
+                weekly_tracker["cumulative_units"] = weekly_tracker["units"].cumsum()
+                st.line_chart(weekly_tracker.set_index("week_label")[["cumulative_units"]], width="stretch")
+                weekly_display = weekly_tracker[
+                    ["week_label", "picks", "wins", "losses", "pushes", "units", "average_clv", "cumulative_units"]
+                ].copy()
+                weekly_display.columns = [
+                    "Week",
+                    "Picks",
+                    "Wins",
+                    "Losses",
+                    "Pushes",
+                    "Units",
+                    "Average CLV",
+                    "Cumulative Units",
+                ]
+                st.dataframe(weekly_display, width="stretch", hide_index=True)
+
+            tracker_display = tracked[
+                [
+                    "week_label",
+                    "selection_rank",
+                    "kickoff_utc",
+                    "matchup",
+                    "pick_team",
+                    "locked_spread",
+                    "locked_price",
+                    "locked_book",
+                    "model_fair_line",
+                    "model_edge",
+                    "candidate_score",
+                    "status",
+                    "final_score",
+                    "ats_result",
+                    "cover_margin",
+                    "closing_spread",
+                    "clv_points",
+                    "units",
+                    "cumulative_units",
+                ]
+            ].copy()
+            tracker_display["kickoff_utc"] = tracker_display["kickoff_utc"].map(format_eastern_time)
+            tracker_display["locked_book"] = tracker_display["locked_book"].map(friendly_book_name)
+            tracker_display.columns = [
+                "Week",
+                "Rank",
+                "Kickoff (ET)",
+                "Matchup",
+                "Pick",
+                "Locked Spread",
+                "Locked Price",
+                "Book",
+                "Model Fair Line",
+                "Model Edge",
+                "Candidate Score",
+                "Status",
+                "Final Score",
+                "ATS Result",
+                "Cover Margin",
+                "Closing Spread",
+                "CLV",
+                "Units",
+                "Cumulative Units",
+            ]
+            st.dataframe(tracker_display, width="stretch", hide_index=True, height=520)
+            with st.expander("Locked reasoning"):
+                for _, pick in tracked.sort_values(["display_week", "selection_rank"], ascending=[False, True]).iterrows():
+                    st.markdown(
+                        f"**{pick['week_label']} No. {int(pick['selection_rank'])}: "
+                        f"{pick['pick_team']} {float(pick['locked_spread']):+.1f}**"
+                    )
+                    st.write(pick["reasoning"])
 
     with line_history_tab:
         if clv_summary.empty:

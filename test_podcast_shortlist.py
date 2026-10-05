@@ -2,7 +2,7 @@ import unittest
 
 import pandas as pd
 
-from app import build_podcast_shortlist
+from best_bets import build_podcast_shortlist
 
 
 class PodcastShortlistTest(unittest.TestCase):
@@ -28,6 +28,7 @@ class PodcastShortlistTest(unittest.TestCase):
 
     def test_only_well_supported_fbs_candidates_survive(self) -> None:
         common = {
+            "event_id": "event-1",
             "display_week": 4,
             "commence_time": "2026-09-26T16:00:00Z",
             "home_team": "Home",

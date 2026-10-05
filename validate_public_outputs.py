@@ -149,6 +149,38 @@ def validate_outputs(season: int) -> dict[str, object]:
         if captured.empty:
             warnings.append("No current odds capture timestamp was found")
 
+    best_bets = read_csv(
+        Path(f"output/best_bets/best_bet_ledger_{season}.csv"),
+        {
+            "display_week",
+            "selection_rank",
+            "event_id",
+            "pick_team",
+            "locked_spread",
+            "locked_price",
+            "status",
+            "ats_result",
+            "units",
+            "cumulative_units",
+        },
+        errors,
+        stats,
+        minimum_rows=1,
+    )
+    if not best_bets.empty:
+        duplicate_picks = best_bets.duplicated(["display_week", "event_id"]).sum()
+        if duplicate_picks:
+            errors.append(f"Best-bet ledger contains {int(duplicate_picks)} duplicate week/event picks")
+        week_counts = best_bets.groupby("display_week").size()
+        if week_counts.gt(4).any():
+            errors.append("Best-bet ledger contains more than four picks in a week")
+        valid_statuses = {"pending", "graded"}
+        invalid_statuses = set(best_bets["status"].dropna().astype(str)) - valid_statuses
+        if invalid_statuses:
+            errors.append(f"Best-bet ledger contains invalid statuses: {', '.join(sorted(invalid_statuses))}")
+        stats["best_bets_graded"] = int(best_bets["status"].eq("graded").sum())
+        stats["best_bets_pending"] = int(best_bets["status"].eq("pending").sum())
+
     snapshots = sorted(Path(f"output/snapshots/{season}").glob("week_*_ratings.csv"))
     stats["rating_snapshots"] = len(snapshots)
     if not snapshots:
