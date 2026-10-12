@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "generated_at_utc": "2026-10-11T12:51:40+00:00",
+  "generated_at_utc": "2026-10-12T22:09:52+00:00",
   "errors": [],
   "warnings": [
     "8 teams have incomplete schedules; forecasts remain published with an in-app warning"
@@ -16,14 +16,14 @@
     "completed_games_review_2026_rows": 448,
     "forward_graded_games": 188,
     "retrospective_games": 260,
-    "ncaaf_game_odds_comparison_rows": 33,
-    "odds_games": 33,
-    "odds_last_captured_utc": "2026-10-11T12:51:34+00:00",
-    "best_bet_ledger_2026_rows": 9,
+    "ncaaf_game_odds_comparison_rows": 45,
+    "odds_games": 45,
+    "odds_last_captured_utc": "2026-10-12T22:09:50+00:00",
+    "best_bet_ledger_2026_rows": 10,
     "best_bets_graded": 9,
-    "best_bets_pending": 0,
+    "best_bets_pending": 1,
     "rating_snapshots": 4,
     "latest_rating_snapshot": "week_07_ratings.csv",
-    "master_workbook_bytes": 461668
+    "master_workbook_bytes": 483685
   }
 }
