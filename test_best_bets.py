@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 
 import pandas as pd
 
-from best_bets import LEDGER_COLUMNS, grade_ledger, payout_units
+from best_bets import LEDGER_COLUMNS, capture_current_week, grade_ledger, payout_units
 
 
 class BestBetTrackerTest(unittest.TestCase):
@@ -74,6 +74,60 @@ class BestBetTrackerTest(unittest.TestCase):
         self.assertEqual(pick["cover_margin"], 4.0)
         self.assertEqual(pick["clv_points"], 1.0)
         self.assertAlmostEqual(pick["units"], 0.909, places=3)
+
+    def test_later_refresh_appends_without_replacing_locked_pick(self) -> None:
+        existing = pd.DataFrame(
+            [
+                {
+                    "season": 2026,
+                    "display_week": 7,
+                    "week_label": "Week 7",
+                    "selection_rank": 1,
+                    "selection_source": "automated_frozen",
+                    "event_id": "locked-event",
+                    "pick_team": "Locked Team",
+                    "locked_spread": 6.5,
+                }
+            ]
+        ).reindex(columns=LEDGER_COLUMNS)
+        ratings = pd.DataFrame(
+            [
+                {"team": "Home", "football_rating": 10.0, "market_rating": 9.0, "market_gap": -1.0, "rating_confidence": "High"},
+                {"team": "Away", "football_rating": 4.0, "market_rating": 4.0, "market_gap": 0.0, "rating_confidence": "High"},
+            ]
+        )
+        odds = pd.DataFrame(
+            [
+                {
+                    "event_id": "new-event",
+                    "display_week": 7,
+                    "commence_time": "2099-10-20T16:00:00Z",
+                    "home_team": "Home",
+                    "away_team": "Away",
+                    "neutral_site": False,
+                    "book_count": 8,
+                    "model_home_spread": -8.5,
+                    "market_home_margin": 3.0,
+                    "edge_home_points": 5.5,
+                    "absolute_edge_points": 5.5,
+                    "edge_side": "Home",
+                    "selected_best_spread": -2.5,
+                    "selected_best_price": -105,
+                    "selected_best_book": "book",
+                    "line_shopping_value": 0.5,
+                    "game_type": "FBS vs FBS",
+                    "betting_status": "Standard",
+                }
+            ]
+        )
+
+        updated = capture_current_week(existing, odds, ratings, season=2026, top=4)
+
+        self.assertEqual(len(updated), 2)
+        self.assertEqual(updated.iloc[0]["event_id"], "locked-event")
+        self.assertEqual(updated.iloc[0]["locked_spread"], 6.5)
+        self.assertEqual(updated.iloc[1]["event_id"], "new-event")
+        self.assertEqual(updated.iloc[1]["selection_rank"], 2)
 
 
 if __name__ == "__main__":

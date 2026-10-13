@@ -230,15 +230,24 @@ def capture_current_week(ledger: pd.DataFrame, odds: pd.DataFrame, ratings: pd.D
         return ledger
 
     week = int(shortlist.iloc[0]["Display Week"])
-    if not ledger.empty and (pd.to_numeric(ledger["display_week"], errors="coerce") == week).any():
+    if ledger.empty:
+        existing_week = ledger
+    else:
+        existing_week = ledger[pd.to_numeric(ledger["display_week"], errors="coerce").eq(week)]
+    remaining_slots = max(top - len(existing_week), 0)
+    if remaining_slots == 0:
         return ledger
 
     now = datetime.now(timezone.utc)
     kickoff = pd.to_datetime(shortlist["Kickoff"], errors="coerce", utc=True)
-    shortlist = shortlist[kickoff > now].head(top)
+    existing_event_ids = set(existing_week["event_id"].dropna().astype(str))
+    shortlist = shortlist[
+        (kickoff > now) & ~shortlist["Event ID"].astype(str).isin(existing_event_ids)
+    ].head(remaining_slots)
     new_rows: list[dict[str, object]] = []
     captured_at = now.isoformat(timespec="seconds")
-    for rank, (_, pick) in enumerate(shortlist.iterrows(), start=1):
+    next_rank = int(pd.to_numeric(existing_week["selection_rank"], errors="coerce").max()) + 1 if not existing_week.empty else 1
+    for rank, (_, pick) in enumerate(shortlist.iterrows(), start=next_rank):
         opponent = pick["Away Team"] if pick["Model Lean"] == pick["Home Team"] else pick["Home Team"]
         new_rows.append(
             {
