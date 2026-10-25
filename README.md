@@ -4,6 +4,40 @@ This project builds a college football power rating from CollegeFootballData inp
 
 The current model is a market-calibrated predictive power rating built for neutral-field matchups.
 
+## Josh's Poll
+
+The **Josh's Poll** tab ranks all FBS teams using 70% resume and 30% current power ratings.
+It has a Top 25 view, conference and team filters, score breakdowns, game-by-game resume credits,
+CSV downloads, and weekly editions. It updates automatically during the weekly public refresh.
+It is a resume poll; the existing predictive ratings and betting selections keep their existing inputs.
+
+- An FBS win earns `1 + 2 * q^3` credits. `q` is the opponent's current power percentile from 0 to 1.
+- An FBS loss deducts `5 + 2 * (1 - q)^2` credits. Avoiding losses is deliberately valuable.
+- An FCS win earns only `0.05` credits; an FCS loss deducts `8`.
+- Earned credits are win credits minus loss deductions. Wins accumulate; byes add nothing.
+- Resume credits and power ratings are each independently scaled from their field minimum to maximum onto 0-100.
+  Equal inputs share a score; an entirely tied component scores 50 for everyone.
+  The combined score is exactly `0.70 * resume_score + 0.30 * power_score`.
+- Head-to-head orders close groups spanning at most 1.0 combined point. Groups are anchored to their highest
+  score so a chain of small differences cannot override a large overall gap. Split series and circular
+  results retain score order within the tied/circular group. Weighted scores do not change.
+- Opponents are re-evaluated with each edition's power ratings. Resume scoring uses wins/losses, not margins,
+  preseason AP placement, or recruiting. The power model itself considers performance and market information,
+  which also inform opponent quality; the two components are not independent statistical signals.
+- All completed games in the current season's input count, including postseason games when present.
+  Teams without completed games remain unranked. No historical editions are fabricated from today's ratings.
+- History starts with the first published poll. The current week can update as scores are corrected;
+  earlier weeks are preserved and movement compares with the last earlier published week.
+
+The coefficients are Josh's initial ranking preferences, not parameters fitted to predict betting results.
+Changes to them should be identified as a methodology revision before comparing weekly movement.
+
+```powershell
+py -3 joshs_poll.py --season 2026
+```
+
+Outputs are under `output/polls/`. The master workbook includes `JoshsPoll` and `PollGameResumes` tabs.
+
 - `Neutral rating` is the estimated point value of a team relative to an average FBS team.
 - `Neutral rating` is calibrated against CFBD market spreads, so team-to-team differences act like projected spreads.
 - `Efficiency score` isolates how strong the team looks under the hood.

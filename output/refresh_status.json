@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "generated_at_utc": "2026-10-25T12:44:13+00:00",
+  "generated_at_utc": "2026-10-25T16:22:33+00:00",
   "errors": [],
   "warnings": [
     "8 teams have incomplete schedules; forecasts remain published with an in-app warning"
@@ -8,6 +8,10 @@
   "stats": {
     "season": 2026,
     "cfbd_power_ratings_current_rows": 138,
+    "joshs_poll_2026_rows": 138,
+    "joshs_poll_games_2026_rows": 1010,
+    "joshs_poll_through_week": 8,
+    "joshs_poll_ranked_teams": 138,
     "projected_win_totals_2026_rows": 138,
     "projected_games_2026_rows": 1649,
     "unique_projected_games": 888,
@@ -24,6 +28,6 @@
     "best_bets_pending": 1,
     "rating_snapshots": 6,
     "latest_rating_snapshot": "week_09_ratings.csv",
-    "master_workbook_bytes": 519583
+    "master_workbook_bytes": 620780
   }
 }

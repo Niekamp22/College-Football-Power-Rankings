@@ -5,8 +5,8 @@ import csv
 from pathlib import Path
 from typing import Any
 
-from openpyxl import Workbook
-from openpyxl.styles import Font
+from openpyxl import Workbook, load_workbook
+from openpyxl.styles import Font, PatternFill
 from openpyxl.worksheet.datavalidation import DataValidation
 
 
@@ -31,6 +31,8 @@ DEFAULT_PROBABILITY_CALIBRATION_PATH = Path("output/analytics/probability_calibr
 DEFAULT_ATS_VALIDATION_PATH = Path("output/analytics/ats_model_validation.csv")
 DEFAULT_MARGIN_CHALLENGER_PATH = Path("output/analytics/margin_challenger_validation.csv")
 DEFAULT_BEST_BETS_PATH = Path("output/best_bets/best_bet_ledger_2026.csv")
+DEFAULT_JOSHS_POLL_PATH = Path("output/polls/joshs_poll_2026.csv")
+DEFAULT_JOSHS_POLL_GAMES_PATH = Path("output/polls/joshs_poll_games_2026.csv")
 DEFAULT_OUTPUT_PATH = Path("output/power_ratings_master.xlsx")
 
 
@@ -57,7 +59,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ats-validation", type=Path, default=DEFAULT_ATS_VALIDATION_PATH)
     parser.add_argument("--margin-challenger", type=Path, default=DEFAULT_MARGIN_CHALLENGER_PATH)
     parser.add_argument("--best-bets", type=Path, default=DEFAULT_BEST_BETS_PATH)
+    parser.add_argument("--joshs-poll", type=Path, default=DEFAULT_JOSHS_POLL_PATH)
+    parser.add_argument("--joshs-poll-games", type=Path, default=DEFAULT_JOSHS_POLL_GAMES_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH)
+    parser.add_argument("--poll-only", action="store_true", help="Update only the poll tabs in an existing master workbook.")
     return parser.parse_args()
 
 
@@ -130,8 +135,78 @@ def add_matchup_sheet(workbook: Workbook, ratings: list[dict[str, Any]]) -> None
     autosize(sheet)
 
 
+def add_poll_sheets(workbook: Workbook, poll: list[dict[str, Any]], games: list[dict[str, Any]]) -> None:
+    fields = ["rank", "team", "conference", "record", "poll_score", "resume_score", "power_score",
+              "resume_rank", "power_rank", "movement", "top_25_wins", "best_win", "worst_loss",
+              "resume_raw", "win_credits", "loss_penalties", "power_rating", "head_to_head_note"]
+    text_fields = {"team", "conference", "record", "best_win", "worst_loss", "head_to_head_note"}
+    sheet = workbook.create_sheet("JoshsPoll")
+    sheet.sheet_view.showGridLines = False
+    sheet["A1"] = "Josh's Poll"
+    sheet["A1"].font = Font(size=18, bold=True, color="14324A")
+    sheet["A2"], sheet["B2"] = "Resume weight", 0.7
+    sheet["D2"], sheet["E2"] = "Power weight", 0.3
+    sheet["B2"].number_format = sheet["E2"].number_format = "0%"
+    sheet["A3"] = "Current-season results. Opponents use this edition's power ratings. Rank includes close-score head-to-head."
+    for column, field in enumerate(fields, 1):
+        sheet.cell(5, column, field.replace("_", " ").title())
+    for row_index, row in enumerate(poll, 6):
+        for column, field in enumerate(fields, 1):
+            value = row.get(field, "")
+            if field not in text_fields:
+                value = float(value) if value != "" else None
+            sheet.cell(row_index, column, value)
+        sheet.cell(row_index, 5, f"=F{row_index}*$B$2+G{row_index}*$E$2" if row.get("rank") else None)
+        sheet.cell(row_index, 14, f"=O{row_index}-P{row_index}")
+    for cell in sheet[5]:
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = PatternFill("solid", fgColor="14324A")
+    for row in sheet.iter_rows(min_row=6):
+        for cell in row:
+            if cell.column in {5, 6, 7, 14, 15, 16, 17}:
+                cell.number_format = "0.00"
+    sheet.freeze_panes = "C6"
+    sheet.auto_filter.ref = f"A5:R{max(5, len(poll) + 5)}"
+    autosize(sheet)
+    sheet.column_dimensions["A"].width = 17
+    sheet.column_dimensions["B"].width = 23
+    sheet.column_dimensions["L"].width = sheet.column_dimensions["M"].width = 24
+    sheet.column_dimensions["R"].width = 44
+
+    numeric_fields = {"season", "game_id", "display_week", "opponent_power_rank", "opponent_strength",
+                      "win_credit", "loss_penalty", "resume_points"}
+    typed_games = [{key: (float(value) if value != "" else None) if key in numeric_fields else value
+                    for key, value in row.items()} for row in games]
+    write_sheet(workbook, "PollGameResumes", typed_games)
+    game_sheet = workbook["PollGameResumes"]
+    game_sheet.sheet_view.showGridLines = False
+    game_sheet.freeze_panes = "G2"
+    if typed_games:
+        game_sheet.auto_filter.ref = game_sheet.dimensions
+        for cell in game_sheet[1]:
+            cell.value = str(cell.value).replace("_", " ").title()
+            cell.font = Font(bold=True, color="FFFFFF")
+            cell.fill = PatternFill("solid", fgColor="14324A")
+        for row in game_sheet.iter_rows(min_row=2):
+            for cell in row:
+                if cell.column >= 14:
+                    cell.number_format = "0.00"
+
+
 def main() -> None:
     args = parse_args()
+    if args.poll_only:
+        workbook = load_workbook(args.output)
+        for title in ("JoshsPoll", "PollGameResumes"):
+            if title in workbook.sheetnames:
+                del workbook[title]
+        add_poll_sheets(workbook, load_csv(args.joshs_poll), load_csv(args.joshs_poll_games))
+        insertion = workbook.sheetnames.index("Rankings") + 1
+        for index, title in enumerate(("JoshsPoll", "PollGameResumes"), insertion):
+            workbook.move_sheet(workbook[title], offset=index - workbook.sheetnames.index(title))
+        workbook.save(args.output)
+        print(f"Updated only the poll tabs in {args.output}")
+        return
     ratings = load_csv(args.ratings)
     weekly_backtest = load_csv(args.backtest)
     game_backtest = load_csv(args.backtest_games)
@@ -158,6 +233,7 @@ def main() -> None:
     workbook.remove(workbook.active)
 
     write_sheet(workbook, "Rankings", ratings)
+    add_poll_sheets(workbook, load_csv(args.joshs_poll), load_csv(args.joshs_poll_games))
     add_matchup_sheet(workbook, ratings)
     write_sheet(workbook, "ProjectedWins", win_totals)
     write_sheet(workbook, "WeeklyMatchups", projected_games)

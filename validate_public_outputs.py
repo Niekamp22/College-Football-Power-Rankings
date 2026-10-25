@@ -4,11 +4,69 @@ import argparse
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+import hashlib
 
 import pandas as pd
 
 
 DEFAULT_OUTPUT = Path("output/refresh_status.json")
+
+
+def validate_poll(season: int, ratings: pd.DataFrame, errors: list[str], stats: dict[str, object]) -> None:
+    root = Path("output/polls")
+    poll = read_csv(root / f"joshs_poll_{season}.csv", {
+        "rank", "team", "record", "games_played", "wins", "losses", "through_week", "resume_score", "power_score",
+        "poll_score", "resume_contribution", "power_contribution", "resume_raw", "win_credits", "loss_penalties",
+    }, errors, stats, minimum_rows=120)
+    details = read_csv(root / f"joshs_poll_games_{season}.csv", {
+        "game_id", "team", "opponent", "result", "resume_points", "win_credit", "loss_penalty",
+    }, errors, stats, minimum_rows=1)
+    if poll.empty or not {"rank", "poll_score", "resume_score", "power_score", "team", "resume_raw", "games_played",
+                          "wins", "losses", "win_credits", "loss_penalties", "resume_contribution", "power_contribution"}.issubset(poll.columns):
+        return
+    if poll["team"].duplicated().any() or set(poll["team"]) != set(ratings["team"]):
+        errors.append("Josh's Poll team coverage does not match power ratings")
+    ranked = poll[poll["rank"].notna()]
+    if sorted(ranked["rank"].tolist()) != list(range(1, len(ranked) + 1)):
+        errors.append("Josh's Poll ranks are not consecutive and unique")
+    score_columns = ["resume_score", "power_score", "poll_score"]
+    numeric = ranked[score_columns].apply(pd.to_numeric, errors="coerce")
+    if numeric.isna().any().any() or (numeric < -1e-6).any().any() or (numeric > 100.000001).any().any():
+        errors.append("Josh's Poll has missing or out-of-range scores")
+    if ((ranked["poll_score"] - 0.7 * ranked["resume_score"] - 0.3 * ranked["power_score"]).abs() > 0.00001).any():
+        errors.append("Josh's Poll 70/30 blend does not reconcile")
+    if ((ranked["resume_contribution"] - 0.7 * ranked["resume_score"]).abs() > 0.00001).any() or ((ranked["power_contribution"] - 0.3 * ranked["power_score"]).abs() > 0.00001).any():
+        errors.append("Josh's Poll score contributions do not reconcile")
+    if not details.empty and {"game_id", "team", "resume_points", "win_credit", "loss_penalty", "result"}.issubset(details.columns):
+        if details.duplicated(["game_id", "team"]).any():
+            errors.append("Josh's Poll contains duplicate team/game credits")
+        totals = details.groupby("team")["resume_points"].sum()
+        expected = poll["team"].map(totals).fillna(0.0)
+        if ((expected - poll["resume_raw"]).abs() > 0.0001).any():
+            errors.append("Josh's Poll game credits do not reconcile to resume totals")
+        if ((poll["resume_raw"] - poll["win_credits"] + poll["loss_penalties"]).abs() > 0.00001).any():
+            errors.append("Josh's Poll win credits and loss deductions do not reconcile")
+        counts = details.groupby("team").size()
+        victories = details[details["result"].eq("W")].groupby("team").size()
+        defeats = details[details["result"].eq("L")].groupby("team").size()
+        for column, series in (("games_played", counts), ("wins", victories), ("losses", defeats)):
+            if (poll[column] != poll["team"].map(series).fillna(0)).any():
+                errors.append(f"Josh's Poll {column} does not reconcile to game detail")
+        if ((poll["games_played"] > 0) != poll["rank"].notna()).any():
+            errors.append("Josh's Poll has an incorrect played/unranked status")
+    metadata_path = root / str(season) / "latest_metadata.json"
+    if not metadata_path.exists():
+        errors.append("Josh's Poll metadata is missing")
+    else:
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        rating_hash = hashlib.sha256(Path("output/cfbd_power_ratings_current.csv").read_bytes()).hexdigest()
+        if metadata.get("ratings_sha256") != rating_hash:
+            errors.append("Josh's Poll is stale relative to current power ratings")
+        games_path = Path(f"data/cfbd/raw/{season}/games.json")
+        if games_path.exists() and metadata.get("games_sha256") != hashlib.sha256(games_path.read_bytes()).hexdigest():
+            errors.append("Josh's Poll is stale relative to current game results")
+    stats["joshs_poll_through_week"] = int(poll["through_week"].max())
+    stats["joshs_poll_ranked_teams"] = len(ranked)
 
 
 def parse_args() -> argparse.Namespace:
@@ -78,6 +136,9 @@ def validate_outputs(season: int) -> dict[str, object]:
         invalid_ratings = pd.to_numeric(ratings["rating"], errors="coerce").isna().sum()
         if invalid_ratings:
             errors.append(f"Ratings contain {int(invalid_ratings)} invalid rating values")
+
+    if not ratings.empty:
+        validate_poll(season, ratings, errors, stats)
 
     totals = read_csv(
         Path(f"output/projections/projected_win_totals_{season}.csv"),

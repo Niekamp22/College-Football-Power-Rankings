@@ -116,6 +116,7 @@ def main() -> None:
         ]
     )
     shutil.copy2(DEFAULT_RATINGS_OUTPUT, LEGACY_RATINGS_OUTPUT)
+    run([python, "joshs_poll.py", "--season", str(args.ratings_year), "--games", str(ratings_games)])
     run([python, "snapshot_rankings.py", "--season", str(args.ratings_year)])
 
     if not args.skip_backtest:
@@ -178,6 +179,8 @@ def main() -> None:
         *DEFAULT_ANALYTICS_OUTPUTS,
         DEFAULT_MASTER_WORKBOOK,
         DEFAULT_REFRESH_STATUS,
+        *sorted(Path("output/polls").glob(f"*_{args.ratings_year}.csv")),
+        *sorted(Path(f"output/polls/{args.ratings_year}").glob("*")),
         *sorted(Path("output/snapshots").glob(f"{args.ratings_year}/week_*")),
     ]
     existing_files = [str(path) for path in files_to_commit if path.exists()]

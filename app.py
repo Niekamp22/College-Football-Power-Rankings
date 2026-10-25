@@ -8,6 +8,7 @@ import pandas as pd
 import streamlit as st
 
 from best_bets import build_podcast_shortlist
+from poll_ui import render_joshs_poll
 
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
@@ -423,7 +424,7 @@ def main() -> None:
     st.markdown(
         f"""
         <div style="padding: 1rem 1.2rem; border-radius: 18px; background: linear-gradient(135deg, #14324a, #b6461d); color: white; margin-bottom: 1rem;">
-          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.85;">Current No. 1</div>
+          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.85;">Power Ratings No. 1</div>
           <div style="font-size: 2rem; font-weight: 700;">{top_row['team']}</div>
           <div style="font-size: 1rem; opacity: 0.92;">Power Rating {top_row['rating']:.2f} | Football {top_row['football_rating']:.2f} | Market {top_row['market_rating']:.2f}</div>
         </div>
@@ -431,9 +432,10 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    rankings_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, best_bets_tab, line_history_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab = st.tabs(
+    rankings_tab, josh_poll_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, best_bets_tab, line_history_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab = st.tabs(
         [
             "Rankings",
+            "Josh's Poll",
             "Matchup Lab",
             "Weekly Board",
             "Season Forecast",
@@ -479,6 +481,9 @@ def main() -> None:
         display.insert(0, "rank", filtered.index)
         display.columns = ["Rank"] + display_labels
         st.dataframe(display, width="stretch", hide_index=True, height=620)
+
+    with josh_poll_tab:
+        render_joshs_poll()
 
     with matchup_tab:
         team_names = ratings["team"].astype(str).tolist()
