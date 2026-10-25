@@ -1,9 +1,10 @@
 season,display_week,week_label,rating_source,games,games_with_market_line,model_margin_mae,market_margin_mae,model_winner_accuracy,market_winner_accuracy,edge_right_side_rate
-2026,0,Week 0,current_retrospective,8,8,7.99,13.31,0.875,0.75,0.875
-2026,1,Week 1,current_retrospective,91,91,14.27,13.56,0.923,0.912,0.596
-2026,2,Week 2,current_retrospective,86,86,11.11,11.24,0.872,0.884,0.558
-2026,3,Week 3,current_retrospective,75,75,9.49,9.57,0.893,0.88,0.554
+2026,0,Week 0,current_retrospective,8,8,8.22,13.31,0.875,0.75,0.875
+2026,1,Week 1,current_retrospective,91,91,14.14,13.56,0.923,0.912,0.562
+2026,2,Week 2,current_retrospective,86,86,11.01,11.24,0.872,0.884,0.593
+2026,3,Week 3,current_retrospective,75,75,9.61,9.57,0.907,0.88,0.581
 2026,4,Week 4,week_04_snapshot,71,71,12.7,11.58,0.817,0.859,0.551
 2026,5,Week 5,week_05_snapshot,59,59,13.29,12.9,0.712,0.746,0.534
 2026,6,Week 6,week_06_snapshot,58,58,11.82,11.5,0.638,0.672,0.569
 2026,7,Week 7,week_07_snapshot,62,62,10.87,10.46,0.677,0.71,0.533
+2026,8,Week 8,week_08_snapshot,56,56,11.21,10.79,0.571,0.643,0.429

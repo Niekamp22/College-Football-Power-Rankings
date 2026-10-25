@@ -1,139 +1,139 @@
 team,conference,rating,schedule_games,expected_games,missing_games,status
-Boise State,Pac-12,9.71,11,12,1,incomplete
-Colorado State,Pac-12,-11.42,11,12,1,incomplete
-Fresno State,Pac-12,-0.59,11,12,1,incomplete
-Oregon State,Pac-12,4.27,11,12,1,incomplete
-San Diego State,Pac-12,-7.63,11,12,1,incomplete
-Texas State,Pac-12,0.65,11,12,1,incomplete
-Utah State,Pac-12,-6.66,11,12,1,incomplete
-Washington State,Pac-12,-8.13,11,12,1,incomplete
-Boston College,ACC,-4.15,12,12,0,complete
-California,ACC,-5.46,12,12,0,complete
-Clemson,ACC,4.18,12,12,0,complete
-Duke,ACC,4.22,12,12,0,complete
-Florida State,ACC,6.58,12,12,0,complete
-Georgia Tech,ACC,-2.72,12,12,0,complete
-Louisville,ACC,10.01,12,12,0,complete
-Miami,ACC,21.86,12,12,0,complete
-NC State,ACC,-1.57,12,12,0,complete
-North Carolina,ACC,4.67,12,12,0,complete
-Pittsburgh,ACC,4.73,12,12,0,complete
-SMU,ACC,7.33,12,12,0,complete
-Stanford,ACC,-9.44,12,12,0,complete
-Syracuse,ACC,-3.48,12,12,0,complete
-Virginia,ACC,2.36,12,12,0,complete
-Virginia Tech,ACC,3.76,12,12,0,complete
-Wake Forest,ACC,9.45,12,12,0,complete
-Army,American Athletic,-1.19,12,12,0,complete
-Charlotte,American Athletic,-18.37,12,12,0,complete
-East Carolina,American Athletic,-6.35,12,12,0,complete
-Florida Atlantic,American Athletic,-7.19,12,12,0,complete
-Memphis,American Athletic,3.64,12,12,0,complete
-Navy,American Athletic,-4.32,12,12,0,complete
-North Texas,American Athletic,2.08,12,12,0,complete
-Rice,American Athletic,-12.87,12,12,0,complete
-South Florida,American Athletic,0.7,12,12,0,complete
-Temple,American Athletic,-7.89,12,12,0,complete
-Tulane,American Athletic,-2.28,12,12,0,complete
-Tulsa,American Athletic,-4.04,12,12,0,complete
-UAB,American Athletic,-8.89,12,12,0,complete
-UTSA,American Athletic,0.09,12,12,0,complete
-Arizona,Big 12,9.01,12,12,0,complete
-Arizona State,Big 12,-1.6,12,12,0,complete
-BYU,Big 12,12.0,12,12,0,complete
-Baylor,Big 12,7.26,12,12,0,complete
-Cincinnati,Big 12,-0.35,12,12,0,complete
-Colorado,Big 12,-2.35,12,12,0,complete
-Houston,Big 12,10.59,12,12,0,complete
-Iowa State,Big 12,3.69,12,12,0,complete
-Kansas,Big 12,0.76,12,12,0,complete
-Kansas State,Big 12,5.23,12,12,0,complete
-Oklahoma State,Big 12,4.56,12,12,0,complete
-TCU,Big 12,5.6,12,12,0,complete
-Texas Tech,Big 12,16.34,12,12,0,complete
-UCF,Big 12,1.75,12,12,0,complete
-Utah,Big 12,14.57,12,12,0,complete
-West Virginia,Big 12,-1.53,12,12,0,complete
-Illinois,Big Ten,3.44,12,12,0,complete
-Indiana,Big Ten,22.17,12,12,0,complete
-Iowa,Big Ten,10.46,12,12,0,complete
-Maryland,Big Ten,-3.32,12,12,0,complete
-Michigan,Big Ten,8.74,12,12,0,complete
-Michigan State,Big Ten,0.56,12,12,0,complete
-Minnesota,Big Ten,-0.81,12,12,0,complete
-Nebraska,Big Ten,13.89,12,12,0,complete
-Northwestern,Big Ten,11.29,12,12,0,complete
-Ohio State,Big Ten,23.08,12,12,0,complete
-Oregon,Big Ten,16.54,12,12,0,complete
-Penn State,Big Ten,11.15,12,12,0,complete
-Purdue,Big Ten,0.54,12,12,0,complete
-Rutgers,Big Ten,-4.97,12,12,0,complete
-UCLA,Big Ten,11.29,12,12,0,complete
-USC,Big Ten,13.56,12,12,0,complete
-Washington,Big Ten,5.26,12,12,0,complete
-Wisconsin,Big Ten,9.34,12,12,0,complete
-Delaware,Conference USA,-11.1,12,12,0,complete
-Florida International,Conference USA,-4.55,12,12,0,complete
-Jacksonville State,Conference USA,-5.26,12,12,0,complete
-Kennesaw State,Conference USA,-10.91,12,12,0,complete
-Liberty,Conference USA,4.91,12,12,0,complete
-Middle Tennessee,Conference USA,-12.63,12,12,0,complete
-Missouri State,Conference USA,-13.92,12,12,0,complete
-New Mexico State,Conference USA,-11.7,12,12,0,complete
-Sam Houston,Conference USA,-15.29,12,12,0,complete
-Western Kentucky,Conference USA,-11.44,12,12,0,complete
-Notre Dame,FBS Independents,23.5,12,12,0,complete
-UConn,FBS Independents,-5.55,12,12,0,complete
-Akron,Mid-American,-20.38,12,12,0,complete
-Ball State,Mid-American,-16.27,12,12,0,complete
-Bowling Green,Mid-American,-13.05,12,12,0,complete
-Buffalo,Mid-American,-9.59,12,12,0,complete
-Central Michigan,Mid-American,-10.39,12,12,0,complete
-Eastern Michigan,Mid-American,-13.28,12,12,0,complete
-Kent State,Mid-American,-16.48,12,12,0,complete
-Massachusetts,Mid-American,-12.6,12,12,0,complete
-Miami (OH),Mid-American,-8.91,12,12,0,complete
-Ohio,Mid-American,-4.7,12,12,0,complete
-Sacramento State,Mid-American,-24.78,12,12,0,complete
-Toledo,Mid-American,-2.09,12,12,0,complete
-Western Michigan,Mid-American,-1.55,12,12,0,complete
-Air Force,Mountain West,-2.0,12,12,0,complete
-Hawai'i,Mountain West,-11.35,12,12,0,complete
-Nevada,Mountain West,-4.78,12,12,0,complete
-New Mexico,Mountain West,5.19,12,12,0,complete
-North Dakota State,Mountain West,4.01,12,12,0,complete
-Northern Illinois,Mountain West,-16.61,12,12,0,complete
-San José State,Mountain West,-8.34,13,12,0,extra_games
-UNLV,Mountain West,-1.43,12,12,0,complete
-UTEP,Mountain West,-19.85,12,12,0,complete
-Wyoming,Mountain West,-10.42,12,12,0,complete
-Alabama,SEC,21.87,12,12,0,complete
-Arkansas,SEC,0.1,12,12,0,complete
-Auburn,SEC,9.3,12,12,0,complete
+Boise State,Pac-12,9.81,11,12,1,incomplete
+Colorado State,Pac-12,-10.51,11,12,1,incomplete
+Fresno State,Pac-12,-1.21,11,12,1,incomplete
+Oregon State,Pac-12,4.31,11,12,1,incomplete
+San Diego State,Pac-12,-8.21,11,12,1,incomplete
+Texas State,Pac-12,0.64,11,12,1,incomplete
+Utah State,Pac-12,-6.75,11,12,1,incomplete
+Washington State,Pac-12,-8.62,11,12,1,incomplete
+Boston College,ACC,-1.87,12,12,0,complete
+California,ACC,-6.64,12,12,0,complete
+Clemson,ACC,3.33,12,12,0,complete
+Duke,ACC,3.98,12,12,0,complete
+Florida State,ACC,7.28,12,12,0,complete
+Georgia Tech,ACC,-4.82,12,12,0,complete
+Louisville,ACC,10.51,12,12,0,complete
+Miami,ACC,22.7,12,12,0,complete
+NC State,ACC,-1.6,12,12,0,complete
+North Carolina,ACC,3.5,12,12,0,complete
+Pittsburgh,ACC,4.55,12,12,0,complete
+SMU,ACC,9.08,12,12,0,complete
+Stanford,ACC,-8.67,12,12,0,complete
+Syracuse,ACC,-2.36,12,12,0,complete
+Virginia,ACC,2.54,12,12,0,complete
+Virginia Tech,ACC,4.0,12,12,0,complete
+Wake Forest,ACC,10.04,12,12,0,complete
+Army,American Athletic,-1.07,12,12,0,complete
+Charlotte,American Athletic,-18.36,12,12,0,complete
+East Carolina,American Athletic,-5.7,12,12,0,complete
+Florida Atlantic,American Athletic,-7.76,12,12,0,complete
+Memphis,American Athletic,2.92,12,12,0,complete
+Navy,American Athletic,-4.81,12,12,0,complete
+North Texas,American Athletic,2.51,12,12,0,complete
+Rice,American Athletic,-12.31,12,12,0,complete
+South Florida,American Athletic,0.93,12,12,0,complete
+Temple,American Athletic,-7.69,12,12,0,complete
+Tulane,American Athletic,-4.35,12,12,0,complete
+Tulsa,American Athletic,-4.21,12,12,0,complete
+UAB,American Athletic,-8.76,12,12,0,complete
+UTSA,American Athletic,2.03,12,12,0,complete
+Arizona,Big 12,11.49,12,12,0,complete
+Arizona State,Big 12,-0.49,12,12,0,complete
+BYU,Big 12,11.2,12,12,0,complete
+Baylor,Big 12,6.15,12,12,0,complete
+Cincinnati,Big 12,2.29,12,12,0,complete
+Colorado,Big 12,-4.76,12,12,0,complete
+Houston,Big 12,10.43,12,12,0,complete
+Iowa State,Big 12,1.35,12,12,0,complete
+Kansas,Big 12,1.31,12,12,0,complete
+Kansas State,Big 12,3.91,12,12,0,complete
+Oklahoma State,Big 12,6.24,12,12,0,complete
+TCU,Big 12,4.23,12,12,0,complete
+Texas Tech,Big 12,13.9,12,12,0,complete
+UCF,Big 12,2.88,12,12,0,complete
+Utah,Big 12,13.93,12,12,0,complete
+West Virginia,Big 12,-0.0,12,12,0,complete
+Illinois,Big Ten,4.89,12,12,0,complete
+Indiana,Big Ten,21.71,12,12,0,complete
+Iowa,Big Ten,8.98,12,12,0,complete
+Maryland,Big Ten,-3.22,12,12,0,complete
+Michigan,Big Ten,8.98,12,12,0,complete
+Michigan State,Big Ten,0.77,12,12,0,complete
+Minnesota,Big Ten,0.05,12,12,0,complete
+Nebraska,Big Ten,13.71,12,12,0,complete
+Northwestern,Big Ten,11.92,12,12,0,complete
+Ohio State,Big Ten,23.13,12,12,0,complete
+Oregon,Big Ten,14.75,12,12,0,complete
+Penn State,Big Ten,11.33,12,12,0,complete
+Purdue,Big Ten,0.88,12,12,0,complete
+Rutgers,Big Ten,-5.36,12,12,0,complete
+UCLA,Big Ten,11.52,12,12,0,complete
+USC,Big Ten,12.22,12,12,0,complete
+Washington,Big Ten,4.77,12,12,0,complete
+Wisconsin,Big Ten,10.79,12,12,0,complete
+Delaware,Conference USA,-9.23,12,12,0,complete
+Florida International,Conference USA,-5.64,12,12,0,complete
+Jacksonville State,Conference USA,-5.54,12,12,0,complete
+Kennesaw State,Conference USA,-12.15,12,12,0,complete
+Liberty,Conference USA,5.78,12,12,0,complete
+Middle Tennessee,Conference USA,-10.97,12,12,0,complete
+Missouri State,Conference USA,-14.89,12,12,0,complete
+New Mexico State,Conference USA,-11.07,12,12,0,complete
+Sam Houston,Conference USA,-16.19,12,12,0,complete
+Western Kentucky,Conference USA,-11.78,12,12,0,complete
+Notre Dame,FBS Independents,23.74,12,12,0,complete
+UConn,FBS Independents,-4.68,12,12,0,complete
+Akron,Mid-American,-20.36,12,12,0,complete
+Ball State,Mid-American,-15.7,12,12,0,complete
+Bowling Green,Mid-American,-13.1,12,12,0,complete
+Buffalo,Mid-American,-9.91,12,12,0,complete
+Central Michigan,Mid-American,-10.5,12,12,0,complete
+Eastern Michigan,Mid-American,-12.67,12,12,0,complete
+Kent State,Mid-American,-15.72,12,12,0,complete
+Massachusetts,Mid-American,-13.13,12,12,0,complete
+Miami (OH),Mid-American,-8.27,12,12,0,complete
+Ohio,Mid-American,-5.46,12,12,0,complete
+Sacramento State,Mid-American,-25.48,12,12,0,complete
+Toledo,Mid-American,-1.71,12,12,0,complete
+Western Michigan,Mid-American,-1.67,12,12,0,complete
+Air Force,Mountain West,-3.7,12,12,0,complete
+Hawai'i,Mountain West,-8.99,12,12,0,complete
+Nevada,Mountain West,-4.42,12,12,0,complete
+New Mexico,Mountain West,5.54,12,12,0,complete
+North Dakota State,Mountain West,3.97,12,12,0,complete
+Northern Illinois,Mountain West,-19.15,12,12,0,complete
+San José State,Mountain West,-8.59,13,12,0,extra_games
+UNLV,Mountain West,-1.51,12,12,0,complete
+UTEP,Mountain West,-19.68,12,12,0,complete
+Wyoming,Mountain West,-9.21,12,12,0,complete
+Alabama,SEC,21.46,12,12,0,complete
+Arkansas,SEC,-0.2,12,12,0,complete
+Auburn,SEC,8.24,12,12,0,complete
 Florida,SEC,12.38,12,12,0,complete
-Georgia,SEC,21.9,12,12,0,complete
-Kentucky,SEC,9.73,12,12,0,complete
-LSU,SEC,21.03,12,12,0,complete
-Mississippi State,SEC,7.19,12,12,0,complete
-Missouri,SEC,11.25,12,12,0,complete
-Oklahoma,SEC,10.08,12,12,0,complete
-Ole Miss,SEC,16.43,12,12,0,complete
-South Carolina,SEC,9.09,12,12,0,complete
-Tennessee,SEC,15.03,12,12,0,complete
-Texas,SEC,19.01,12,12,0,complete
-Texas A&M,SEC,11.07,12,12,0,complete
-Vanderbilt,SEC,-0.92,12,12,0,complete
-App State,Sun Belt,-8.33,12,12,0,complete
-Arkansas State,Sun Belt,-7.79,12,12,0,complete
-Coastal Carolina,Sun Belt,-10.16,12,12,0,complete
-Georgia Southern,Sun Belt,-4.63,12,12,0,complete
-Georgia State,Sun Belt,-4.25,12,12,0,complete
-James Madison,Sun Belt,7.1,12,12,0,complete
-Louisiana,Sun Belt,-1.67,12,12,0,complete
-Louisiana Tech,Sun Belt,-3.74,12,12,0,complete
-Marshall,Sun Belt,-9.99,12,12,0,complete
-Old Dominion,Sun Belt,-12.08,12,12,0,complete
-South Alabama,Sun Belt,-4.95,12,12,0,complete
-Southern Miss,Sun Belt,-16.46,12,12,0,complete
-Troy,Sun Belt,-7.39,12,12,0,complete
-UL Monroe,Sun Belt,-20.02,12,12,0,complete
+Georgia,SEC,21.64,12,12,0,complete
+Kentucky,SEC,9.84,12,12,0,complete
+LSU,SEC,21.77,12,12,0,complete
+Mississippi State,SEC,6.82,12,12,0,complete
+Missouri,SEC,11.13,12,12,0,complete
+Oklahoma,SEC,10.75,12,12,0,complete
+Ole Miss,SEC,16.35,12,12,0,complete
+South Carolina,SEC,9.55,12,12,0,complete
+Tennessee,SEC,14.14,12,12,0,complete
+Texas,SEC,19.48,12,12,0,complete
+Texas A&M,SEC,11.52,12,12,0,complete
+Vanderbilt,SEC,-0.93,12,12,0,complete
+App State,Sun Belt,-7.1,12,12,0,complete
+Arkansas State,Sun Belt,-7.86,12,12,0,complete
+Coastal Carolina,Sun Belt,-9.42,12,12,0,complete
+Georgia Southern,Sun Belt,-4.89,12,12,0,complete
+Georgia State,Sun Belt,-5.4,12,12,0,complete
+James Madison,Sun Belt,6.17,12,12,0,complete
+Louisiana,Sun Belt,-3.05,12,12,0,complete
+Louisiana Tech,Sun Belt,-2.74,12,12,0,complete
+Marshall,Sun Belt,-9.1,12,12,0,complete
+Old Dominion,Sun Belt,-12.98,12,12,0,complete
+South Alabama,Sun Belt,-5.87,12,12,0,complete
+Southern Miss,Sun Belt,-15.89,12,12,0,complete
+Troy,Sun Belt,-9.69,12,12,0,complete
+UL Monroe,Sun Belt,-18.33,12,12,0,complete
