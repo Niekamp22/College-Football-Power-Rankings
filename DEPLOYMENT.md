@@ -6,6 +6,7 @@ Streamlit is pinned to the version tested locally. Keep the hosted and local ver
 an unrestricted Streamlit upgrade can change browser component bundles independently of a model-data refresh.
 If the page reports "Failed to fetch dynamically imported module", check the component asset requests and
 hosted Streamlit version, then reload the browser after the deployment finishes rebuilding.
+The app renders only the selected tab to avoid downloading every hidden tab's browser components at startup.
 
 ## Files the hosted app needs
 
