@@ -11,7 +11,9 @@ APP_PATH = Path(__file__).with_name("app.py")
 
 class AppNavigationTests(unittest.TestCase):
     def test_startup_does_not_build_hidden_tabs(self) -> None:
-        app = AppTest.from_file(str(APP_PATH)).run(timeout=60)
+        app = AppTest.from_file(str(APP_PATH))
+        app.query_params["interface"] = "interactive"
+        app.run(timeout=60)
         self.assertFalse(app.exception)
         self.assertEqual(app.session_state["main_section"], "Rankings")
         self.assertTrue(app.tabs[0].children)
@@ -19,7 +21,9 @@ class AppNavigationTests(unittest.TestCase):
             self.assertFalse(tab.children, f"Hidden tab was built: {tab.label}")
 
     def test_every_tab_can_open_independently(self) -> None:
-        app = AppTest.from_file(str(APP_PATH)).run(timeout=60)
+        app = AppTest.from_file(str(APP_PATH))
+        app.query_params["interface"] = "interactive"
+        app.run(timeout=60)
         labels = [tab.label for tab in app.tabs]
         for index, label in enumerate(labels):
             with self.subTest(tab=label):

@@ -8,6 +8,10 @@ If the page reports "Failed to fetch dynamically imported module", check the com
 hosted Streamlit version, then reload the browser after the deployment finishes rebuilding.
 The app renders only the selected tab to avoid downloading every hidden tab's browser components at startup.
 
+The default recovery view uses native HTML tables, links, and GET forms, avoiding Streamlit's separately
+downloaded widget modules when the hosting service fails to deliver them. It reads the same published
+outputs. The full interactive interface remains available at `?interface=interactive`.
+
 ## Files the hosted app needs
 
 The app reads prebuilt CSV/XLSX outputs by default:

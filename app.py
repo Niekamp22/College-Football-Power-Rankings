@@ -9,6 +9,7 @@ import streamlit as st
 
 from best_bets import build_podcast_shortlist
 from poll_ui import render_joshs_poll
+from recovery_ui import render_recovery_view
 
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
@@ -299,6 +300,10 @@ def main() -> None:
         layout="wide",
         initial_sidebar_state="collapsed",
     )
+
+    if st.query_params.get("interface", "basic") != "interactive":
+        render_recovery_view()
+        return
 
     st.markdown(
         """
