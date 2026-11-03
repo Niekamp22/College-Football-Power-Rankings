@@ -12,8 +12,8 @@ import pandas as pd
 from cfb_weeks import display_week_for_game
 
 
-RESUME_WEIGHT = 0.70
-POWER_WEIGHT = 0.30
+RESUME_WEIGHT = 0.80
+POWER_WEIGHT = 0.20
 FBS_WIN_BASE = 1.0
 QUALITY_WIN_BONUS = 2.0
 FBS_LOSS_BASE = 5.0
@@ -21,7 +21,7 @@ BAD_LOSS_EXTRA = 2.0
 FCS_WIN_CREDIT = 0.05
 FCS_LOSS_PENALTY = 8.0
 HEAD_TO_HEAD_WINDOW = 1.0
-METHOD_VERSION = 1
+METHOD_VERSION = 2
 DEFAULT_OUTPUT_ROOT = Path("output/polls")
 GAME_COLUMNS = [
     "season", "game_id", "display_week", "season_type", "start_date", "team", "opponent",
@@ -314,7 +314,7 @@ def generate_poll(season: int, ratings_path: Path, games_path: Path, output_root
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build Josh's Poll: 70% resume, 30% power.")
+    parser = argparse.ArgumentParser(description="Build Josh's Poll: 80% resume, 20% power.")
     parser.add_argument("--season", type=int, default=2026)
     parser.add_argument("--ratings", type=Path, default=Path("output/cfbd_power_ratings_current.csv"))
     parser.add_argument("--games", type=Path)

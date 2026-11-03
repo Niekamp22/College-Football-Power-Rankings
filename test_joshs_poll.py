@@ -80,7 +80,7 @@ class JoshsPollTests(unittest.TestCase):
         poll, detail = build_poll(ratings(), games, 2026)
         self.assertEqual(len(detail), 2)
         for row in poll[poll["games_played"] > 0].itertuples():
-            self.assertAlmostEqual(row.poll_score, 0.7 * row.resume_score + 0.3 * row.power_score)
+            self.assertAlmostEqual(row.poll_score, 0.8 * row.resume_score + 0.2 * row.power_score)
 
     def test_head_to_head_only_reorders_close_scores_and_handles_cycles(self) -> None:
         board = pd.DataFrame([

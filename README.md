@@ -6,7 +6,7 @@ The current model is a market-calibrated predictive power rating built for neutr
 
 ## Josh's Poll
 
-The **Josh's Poll** tab ranks all FBS teams using 70% resume and 30% current power ratings.
+The **Josh's Poll** tab ranks all FBS teams using 80% resume and 20% current power ratings (methodology version 2).
 It has a Top 25 view, conference and team filters, score breakdowns, game-by-game resume credits,
 CSV downloads, and weekly editions. It updates automatically during the weekly public refresh.
 It is a resume poll; the existing predictive ratings and betting selections keep their existing inputs.
@@ -17,7 +17,7 @@ It is a resume poll; the existing predictive ratings and betting selections keep
 - Earned credits are win credits minus loss deductions. Wins accumulate; byes add nothing.
 - Resume credits and power ratings are each independently scaled from their field minimum to maximum onto 0-100.
   Equal inputs share a score; an entirely tied component scores 50 for everyone.
-  The combined score is exactly `0.70 * resume_score + 0.30 * power_score`.
+  The combined score is exactly `0.80 * resume_score + 0.20 * power_score`.
 - Head-to-head orders close groups spanning at most 1.0 combined point. Groups are anchored to their highest
   score so a chain of small differences cannot override a large overall gap. Split series and circular
   results retain score order within the tied/circular group. Weighted scores do not change.

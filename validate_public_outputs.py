@@ -8,6 +8,8 @@ import hashlib
 
 import pandas as pd
 
+from joshs_poll import POWER_WEIGHT, RESUME_WEIGHT
+
 
 DEFAULT_OUTPUT = Path("output/refresh_status.json")
 
@@ -33,9 +35,9 @@ def validate_poll(season: int, ratings: pd.DataFrame, errors: list[str], stats: 
     numeric = ranked[score_columns].apply(pd.to_numeric, errors="coerce")
     if numeric.isna().any().any() or (numeric < -1e-6).any().any() or (numeric > 100.000001).any().any():
         errors.append("Josh's Poll has missing or out-of-range scores")
-    if ((ranked["poll_score"] - 0.7 * ranked["resume_score"] - 0.3 * ranked["power_score"]).abs() > 0.00001).any():
-        errors.append("Josh's Poll 70/30 blend does not reconcile")
-    if ((ranked["resume_contribution"] - 0.7 * ranked["resume_score"]).abs() > 0.00001).any() or ((ranked["power_contribution"] - 0.3 * ranked["power_score"]).abs() > 0.00001).any():
+    if ((ranked["poll_score"] - RESUME_WEIGHT * ranked["resume_score"] - POWER_WEIGHT * ranked["power_score"]).abs() > 0.00001).any():
+        errors.append("Josh's Poll weighted blend does not reconcile")
+    if ((ranked["resume_contribution"] - RESUME_WEIGHT * ranked["resume_score"]).abs() > 0.00001).any() or ((ranked["power_contribution"] - POWER_WEIGHT * ranked["power_score"]).abs() > 0.00001).any():
         errors.append("Josh's Poll score contributions do not reconcile")
     if not details.empty and {"game_id", "team", "resume_points", "win_credit", "loss_penalty", "result"}.issubset(details.columns):
         if details.duplicated(["game_id", "team"]).any():
@@ -62,6 +64,8 @@ def validate_poll(season: int, ratings: pd.DataFrame, errors: list[str], stats: 
         rating_hash = hashlib.sha256(Path("output/cfbd_power_ratings_current.csv").read_bytes()).hexdigest()
         if metadata.get("ratings_sha256") != rating_hash:
             errors.append("Josh's Poll is stale relative to current power ratings")
+        if metadata.get("resume_weight") != RESUME_WEIGHT or metadata.get("power_weight") != POWER_WEIGHT:
+            errors.append("Josh's Poll metadata weights do not match the current methodology")
         games_path = Path(f"data/cfbd/raw/{season}/games.json")
         if games_path.exists() and metadata.get("games_sha256") != hashlib.sha256(games_path.read_bytes()).hexdigest():
             errors.append("Josh's Poll is stale relative to current game results")

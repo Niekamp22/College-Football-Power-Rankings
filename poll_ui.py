@@ -6,10 +6,11 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from joshs_poll import POWER_WEIGHT, RESUME_WEIGHT
+
 
 def render_joshs_poll(season: int = 2026, root: Path = Path("output/polls")) -> None:
     st.subheader("Josh's Poll")
-    st.caption("70% resume + 30% power. Wins, losses, and the opponents you beat determine the resume.")
     latest_path = root / f"joshs_poll_{season}.csv"
     if not latest_path.exists():
         st.info("Josh's Poll will appear after the next model refresh.")
@@ -26,6 +27,12 @@ def render_joshs_poll(season: int = 2026, root: Path = Path("output/polls")) -> 
     poll = pd.read_csv(poll_path)
     details = pd.read_csv(detail_path) if detail_path.exists() else pd.DataFrame()
     metadata = json.loads(metadata_path.read_text(encoding="utf-8")) if metadata_path.exists() else {}
+    resume_weight = float(metadata.get("resume_weight", RESUME_WEIGHT))
+    power_weight = float(metadata.get("power_weight", POWER_WEIGHT))
+    resume_label = f"Resume {resume_weight:.0%}"
+    power_label = f"Power {power_weight:.0%}"
+    st.caption(f"{resume_weight:.0%} resume + {power_weight:.0%} power. "
+               "Wins, losses, and the opponents you beat determine the resume.")
     ranked = poll[poll["rank"].notna()].sort_values("rank")
     if ranked.empty:
         st.info("The first poll will be published when teams have completed games.")
@@ -61,11 +68,11 @@ def render_joshs_poll(season: int = 2026, root: Path = Path("output/polls")) -> 
     }
     if components:
         columns.update({"resume_score": "Resume Score", "power_score": "Power Score",
-                        "resume_contribution": "Resume 70%", "power_contribution": "Power 30%",
+                        "resume_contribution": resume_label, "power_contribution": power_label,
                         "resume_raw": "Earned Credits", "head_to_head_note": "Head-to-Head"})
     st.dataframe(board[list(columns)].rename(columns=columns), hide_index=True, width="stretch", height=620,
                  column_config={name: st.column_config.NumberColumn(format="%.2f") for name in
-                                ["Poll Score", "Resume Score", "Power Score", "Resume 70%", "Power 30%", "Earned Credits"]})
+                                ["Poll Score", "Resume Score", "Power Score", resume_label, power_label, "Earned Credits"]})
     st.caption("Change compares with the previous published week; blank means no earlier edition. Positive means a rise. "
                "Top 25 Wins uses opponents' power ranks in this edition. Head-to-head can reorder a close score group.")
     if board.empty:
@@ -109,9 +116,9 @@ def render_joshs_poll(season: int = 2026, root: Path = Path("output/polls")) -> 
             "(`5 + 2 x (1 - opponent strength) squared`). An FCS loss costs 8 credits. "
             "Wins accumulate, so byes add no credits. All completed season games in the published data count equally. "
             "There is no scoring-margin bonus or extra late-season penalty in the resume calculation.\n\n"
-            "**70/30 blend:** The lowest and highest earned resume totals are scaled to 0 and 100; "
+            f"**{resume_weight:.0%}/{power_weight:.0%} blend:** The lowest and highest earned resume totals are scaled to 0 and 100; "
             "the same scaling is applied separately to power ratings. Equal values share a score. "
-            "Josh's score is `0.70 x Resume Score + 0.30 x Power Score`. "
+            f"Josh's score is `{resume_weight:.2f} x Resume Score + {power_weight:.2f} x Power Score`. "
             "These are ranking scores, not win or betting probabilities.\n\n"
             "**Head-to-head:** Teams are grouped from highest score down, with no group spanning more than "
             "1.0 combined point. Direct results order teams within each group; circular results retain score order. "

@@ -9,6 +9,8 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill
 from openpyxl.worksheet.datavalidation import DataValidation
 
+from joshs_poll import POWER_WEIGHT, RESUME_WEIGHT
+
 
 DEFAULT_RATINGS_PATH = Path("output/cfbd_power_ratings_current.csv")
 DEFAULT_BACKTEST_PATH = Path("output/backtests/weekly_backtest_2025_regular.csv")
@@ -144,8 +146,8 @@ def add_poll_sheets(workbook: Workbook, poll: list[dict[str, Any]], games: list[
     sheet.sheet_view.showGridLines = False
     sheet["A1"] = "Josh's Poll"
     sheet["A1"].font = Font(size=18, bold=True, color="14324A")
-    sheet["A2"], sheet["B2"] = "Resume weight", 0.7
-    sheet["D2"], sheet["E2"] = "Power weight", 0.3
+    sheet["A2"], sheet["B2"] = "Resume weight", RESUME_WEIGHT
+    sheet["D2"], sheet["E2"] = "Power weight", POWER_WEIGHT
     sheet["B2"].number_format = sheet["E2"].number_format = "0%"
     sheet["A3"] = "Current-season results. Opponents use this edition's power ratings. Rank includes close-score head-to-head."
     for column, field in enumerate(fields, 1):
