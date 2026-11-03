@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import html
+from contextvars import ContextVar
 from pathlib import Path
-from urllib.parse import urlencode
 
 import pandas as pd
 import streamlit as st
@@ -12,6 +12,8 @@ from ui_helpers import format_eastern_time, site_adjusted_spread, win_probabilit
 
 
 OUTPUT = Path("output")
+_HTML_PARTS: ContextVar[list[str] | None] = ContextVar("html_parts", default=None)
+_PAGE_PARAMS: ContextVar[dict[str, str] | None] = ContextVar("page_params", default=None)
 PAGES = {
     "rankings": "Rankings", "poll": "Josh's Poll", "matchup": "Matchup Lab",
     "weekly": "Weekly Board", "odds": "Betting Board", "bets": "Best Bet Tracker",
@@ -29,18 +31,27 @@ def read_csv(relative: str) -> pd.DataFrame:
 
 
 def emit(value: str) -> None:
-    st.markdown(value, unsafe_allow_html=True)
+    parts = _HTML_PARTS.get()
+    if parts is None:
+        st.markdown(value, unsafe_allow_html=True)
+    else:
+        parts.append(value)
+
+
+def parameters():
+    current = _PAGE_PARAMS.get()
+    return st.query_params if current is None else current
 
 
 def select(name: str, label: str, values: list[str], default: str = "") -> str:
-    current = st.query_params.get(name, default or (values[0] if values else ""))
+    current = parameters().get(name, default or (values[0] if values else ""))
     options = "".join(f'<option value="{escape(value)}"{" selected" if value == current else ""}>{escape(value)}</option>'
                       for value in values)
     return f'<label>{escape(label)}<select name="{escape(name)}">{options}</select></label>'
 
 
 def entry(name: str, label: str, default: str = "", numeric: bool = False) -> str:
-    value = st.query_params.get(name, default)
+    value = parameters().get(name, default)
     kind = 'type="number" min="0" max="50" step="0.5"' if numeric else 'type="search"'
     return f'<label>{escape(label)}<input {kind} name="{escape(name)}" value="{escape(value)}"></label>'
 
@@ -70,7 +81,7 @@ def table(frame: pd.DataFrame, columns: dict[str, str], decimals: list[str] | No
 
 
 def team_filter(frame: pd.DataFrame, fields: list[str], parameter: str = "search") -> pd.DataFrame:
-    query = st.query_params.get(parameter, "").strip()
+    query = parameters().get(parameter, "").strip()
     if not query:
         return frame
     mask = pd.Series(False, index=frame.index)
@@ -90,9 +101,9 @@ def show_rankings(ratings: pd.DataFrame) -> None:
     form("rankings", [select("scope", "Show", ["Top 25", "All FBS teams"]), entry("search", "Find a team"),
                       select("conference", "Conference", ["All conferences"] + sorted(board.conference.dropna().unique()))])
     board = team_filter(board, ["team"])
-    if st.query_params.get("scope", "Top 25") == "Top 25":
+    if parameters().get("scope", "Top 25") == "Top 25":
         board = board[board["rank"] <= 25]
-    conference = st.query_params.get("conference", "All conferences")
+    conference = parameters().get("conference", "All conferences")
     if conference != "All conferences":
         board = board[board.conference.eq(conference)]
     emit("<p>Ratings estimate neutral-field strength. A 10-point rating difference projects a 10-point margin.</p>")
@@ -106,7 +117,7 @@ def show_poll() -> None:
     editions = {"Latest": OUTPUT / "polls/joshs_poll_2026.csv"}
     editions.update({f"Through Week {int(path.stem.split('_')[1])}": path
                      for path in sorted(root.glob("week_*_poll.csv"), reverse=True)})
-    selected = st.query_params.get("edition", "Latest")
+    selected = parameters().get("edition", "Latest")
     path = editions.get(selected, editions["Latest"])
     if not path.exists():
         emit("<p>The poll will appear after the next refresh.</p>")
@@ -121,12 +132,12 @@ def show_poll() -> None:
     form("poll", [select("edition", "Edition", list(editions)), select("scope", "Show", ["Top 25", "All FBS teams"]),
                   select("team", "Explore a team's resume", teams), entry("search", "Find a team")])
     board = team_filter(poll, ["team"])
-    if st.query_params.get("scope", "Top 25") == "Top 25":
+    if parameters().get("scope", "Top 25") == "Top 25":
         board = board[board["rank"] <= 25]
     table(board, {"rank": "Rank", "team": "Team", "record": "Record", "poll_score": "Poll Score",
                   "movement": "Change", "resume_rank": "Resume Rank", "power_rank": "Power Rank",
                   "best_win": "Best Win", "worst_loss": "Worst Loss"}, ["poll_score"])
-    chosen = st.query_params.get("team", teams[0])
+    chosen = parameters().get("team", teams[0])
     found = poll[poll["team"].eq(chosen)]
     if found.empty:
         return
@@ -150,7 +161,7 @@ def show_matchup(ratings: pd.DataFrame) -> None:
     sites = ["Neutral", "Team A Home", "Team B Home"]
     form("matchup", [select("team_a", "Team A", teams), select("team_b", "Team B", teams, teams[min(1, len(teams) - 1)]),
                      select("site", "Game site", sites)])
-    team_a, team_b = st.query_params.get("team_a", teams[0]), st.query_params.get("team_b", teams[min(1, len(teams) - 1)])
+    team_a, team_b = parameters().get("team_a", teams[0]), parameters().get("team_b", teams[min(1, len(teams) - 1)])
     lookup = ratings.set_index("team")["rating"]
     if team_a not in lookup or team_b not in lookup:
         emit("<p>Choose two teams from the list.</p>")
@@ -158,7 +169,7 @@ def show_matchup(ratings: pd.DataFrame) -> None:
     if team_a == team_b:
         emit("<p>Choose two different teams.</p>")
         return
-    site = st.query_params.get("site", "Neutral")
+    site = parameters().get("site", "Neutral")
     margin = site_adjusted_spread(float(lookup[team_a]) - float(lookup[team_b]), site)
     probability = win_probability(margin)
     favorite = team_a if margin >= 0 else team_b
@@ -178,7 +189,7 @@ def show_weekly() -> None:
     future = games[(games["status"] != "Final") & (pd.to_datetime(games["start_date"], utc=True) >= pd.Timestamp.now(tz="UTC"))]
     default = str(int(future["display_week"].min())) if not future.empty else weeks[-1]
     form("weekly", [select("week", "Week", weeks, default), entry("search", "Find a team")])
-    week = st.query_params.get("week", default)
+    week = parameters().get("week", default)
     board = team_filter(games[games["display_week"].astype(str).eq(week)], ["home_team", "away_team"]).copy()
     board["kickoff"] = board["start_date"].map(eastern)
     board["favorite_spread"] = -board["favorite_spread"].abs()
@@ -197,13 +208,13 @@ def show_odds() -> None:
     form("odds", [select("week", "Week", ["All"] + week_choices(board)), entry("search", "Find a team"),
                   entry("min_edge", "Minimum edge", "0", True), entry("max_edge", "Maximum edge", "50", True)])
     try:
-        minimum, maximum = float(st.query_params.get("min_edge", "0")), float(st.query_params.get("max_edge", "50"))
+        minimum, maximum = float(parameters().get("min_edge", "0")), float(parameters().get("max_edge", "50"))
         if not 0 <= minimum <= maximum <= 50:
             raise ValueError
     except ValueError:
         emit("<p>Choose an edge range between 0 and 50, with minimum no greater than maximum.</p>")
         return
-    week = st.query_params.get("week", "All")
+    week = parameters().get("week", "All")
     if week != "All":
         board = board[board["display_week"].astype(str).eq(week)]
     board = team_filter(board, ["home_team", "away_team"])
@@ -245,19 +256,20 @@ def show_results() -> None:
     games = read_csv("reviews/completed_games_review_2026.csv")
     weeks = week_choices(games)
     form("results", [select("week", "Week", weeks, weeks[-1]), entry("search", "Find a team")])
-    board = team_filter(games[games["display_week"].astype(str).eq(st.query_params.get("week", weeks[-1]))], ["home_team", "away_team"])
+    board = team_filter(games[games["display_week"].astype(str).eq(parameters().get("week", weeks[-1]))], ["home_team", "away_team"])
     table(board, {"away_team": "Away", "away_points": "Away Score", "home_team": "Home", "home_points": "Home Score",
                   "model_home_spread": "Model Home Spread", "market_home_spread": "Market Home Spread",
                   "edge_result": "Edge Result", "absolute_model_error": "Model Error", "rating_source": "Rating Source"},
           ["model_home_spread", "market_home_spread", "absolute_model_error"])
 
 
-def render_recovery_view() -> None:
+def _render_all_pages() -> None:
     emit("""<style>
     .block-container{max-width:1380px;padding-top:1.5rem} h1,h2,h3{color:#14324a}
     .recovery-nav{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
     .recovery-nav a{color:#14324a;background:#efe4d2;padding:.5rem .8rem;border-radius:8px;text-decoration:none}
-    .recovery-nav a[aria-current=page]{color:white;background:#14324a}
+    .recovery-page{display:none;scroll-margin-top:200px}.recovery-page:target{display:block}
+    .recovery-pages:not(:has(.recovery-page:target)) .recovery-page[data-default=true]{display:block}
     .recovery-form{display:flex;gap:1rem;flex-wrap:wrap;align-items:end;margin:1rem 0}
     .recovery-form label{display:flex;flex:1 1 160px;flex-direction:column;gap:.4rem;color:#14324a}
     .recovery-form input,.recovery-form select{font:inherit;width:100%;min-height:42px;box-sizing:border-box;border:1px solid #d7cbb8;border-radius:8px;padding:.5rem;background:#fffaf2;color:#1d2430}
@@ -276,17 +288,32 @@ def render_recovery_view() -> None:
     page = st.query_params.get("page", "rankings")
     if page not in PAGES:
         page = "rankings"
-    links = []
+    emit('<div class="recovery-app">')
+    rules = []
     for key, title in PAGES.items():
-        url = "?" + urlencode({"interface": "basic", "page": key})
-        links.append(f'<a href="{escape(url)}" target="_self"{" aria-current=page" if page == key else ""}>{escape(title)}</a>')
-    emit('<nav class="recovery-nav">' + "".join(links) + "</nav>")
-    emit(f"<h2>{escape(PAGES[page])}</h2>")
-    if page in {"rankings", "matchup"}:
-        ratings = read_csv("cfbd_power_ratings_current.csv")
-        if ratings.empty:
-            emit("<p>The published ratings are unavailable.</p>")
-            return
+        rules.append(f'.recovery-app:has(#page-{key}:target) .recovery-nav a[href="#page-{key}"]' + '{color:white;background:#14324a}')
+    rules.append('.recovery-app:not(:has(.recovery-page:target)) .recovery-nav a[data-default=true]{color:white;background:#14324a}')
+    emit("<style>" + "".join(rules) + "</style>")
+    emit('<nav class="recovery-nav">' + "".join(f'<a href="#page-{key}" target="_self"{" data-default=true" if key == page else ""}>{escape(title)}</a>' for key, title in PAGES.items()) + '</nav>')
+    ratings = read_csv("cfbd_power_ratings_current.csv")
+    emit('<div class="recovery-pages">')
+    for key, title in PAGES.items():
+        emit(f'<section class="recovery-page" id="page-{key}"{" data-default=true" if key == page else ""}><h2>{escape(title)}</h2>')
+        token = _PAGE_PARAMS.set(dict(st.query_params) if key == page else {})
+        try:
+            _render_page(key, ratings)
+        finally:
+            _PAGE_PARAMS.reset(token)
+        emit("</section>")
+    emit('</div></div>')
+    emit('<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/Niekamp22/College-Football-Power-Rankings/main/output/power_ratings_master.xlsx">Download latest Excel workbook</a>'
+         ' &nbsp; <a target="_self" href="?interface=interactive">Open full interface</a></p>')
+
+
+def _render_page(page: str, ratings: pd.DataFrame) -> None:
+    if page in {"rankings", "matchup"} and ratings.empty:
+        emit("<p>The published ratings are unavailable.</p>")
+        return
     if page == "rankings":
         show_rankings(ratings)
     elif page == "poll":
@@ -308,5 +335,13 @@ def render_recovery_view() -> None:
             "team": "Team", "conference": "Conference", "actual_wins": "Wins", "actual_losses": "Losses",
             "projected_wins": "Projected Wins", "projected_losses": "Projected Losses",
             "remaining_games": "Remaining Games", "schedule_games": "Scheduled Games"}, ["projected_wins", "projected_losses"])
-    emit('<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/Niekamp22/College-Football-Power-Rankings/main/output/power_ratings_master.xlsx">Download latest Excel workbook</a>'
-         ' &nbsp; <a target="_self" href="?interface=interactive">Open full interface</a></p>')
+
+
+def render_recovery_view() -> None:
+    parts: list[str] = []
+    token = _HTML_PARTS.set(parts)
+    try:
+        _render_all_pages()
+    finally:
+        _HTML_PARTS.reset(token)
+    emit("".join(parts))

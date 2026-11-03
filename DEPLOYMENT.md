@@ -6,10 +6,13 @@ Streamlit is pinned to the version tested locally. Keep the hosted and local ver
 an unrestricted Streamlit upgrade can change browser component bundles independently of a model-data refresh.
 If the page reports "Failed to fetch dynamically imported module", check the component asset requests and
 hosted Streamlit version, then reload the browser after the deployment finishes rebuilding.
-The app renders only the selected tab to avoid downloading every hidden tab's browser components at startup.
+The older interactive interface renders only its selected tab to avoid downloading hidden widget components.
 
 The primary interface uses native HTML tables, links, and GET forms. This is the approved layout and
-avoids Streamlit's separately downloaded widget modules. It loads only the selected page's files.
+avoids Streamlit's separately downloaded widget modules. All eight primary pages are preloaded into one
+HTML document. Section links switch visibility with CSS and URL fragments without another server request.
+Applying filters or changing matchup inputs still submits a normal GET and rebuilds the document.
+Each page's query parameters are isolated so filtering one page does not alter other preloaded pages.
 The older interface is isolated in `legacy_ui.py` and imported only at `?interface=interactive`.
 
 `app_data.py` provides shared, bounded caches for CSV, JSON, and workbook reads. Each read checks the file's

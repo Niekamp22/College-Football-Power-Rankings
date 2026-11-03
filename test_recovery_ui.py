@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+import re
 from pathlib import Path
 from unittest.mock import patch
 
@@ -15,20 +16,28 @@ APP_PATH = Path(__file__).with_name("app.py")
 
 
 class RecoveryViewTests(unittest.TestCase):
-    def test_page_navigation_reads_only_its_own_csv_sources(self) -> None:
-        expected = {
-            "rankings": ["cfbd_power_ratings_current.csv"],
-            "weekly": ["projections/projected_games_2026.csv"],
-            "forecast": ["projections/projected_win_totals_2026.csv"],
-        }
-        for page, paths in expected.items():
-            with self.subTest(page=page):
-                app = AppTest.from_file(str(APP_PATH))
-                app.query_params["page"] = page
-                with patch("recovery_ui.read_csv", wraps=read_csv) as reader:
-                    app.run(timeout=60)
-                self.assertFalse(app.exception)
-                self.assertEqual([call.args[0] for call in reader.call_args_list], paths)
+    def test_all_pages_are_preloaded_for_browser_only_navigation(self) -> None:
+        app = AppTest.from_file(str(APP_PATH))
+        with patch("recovery_ui.read_csv", wraps=read_csv) as reader:
+            app.run(timeout=60)
+        self.assertFalse(app.exception)
+        self.assertEqual(len(app.markdown), 1)
+        source = app.markdown[0].value
+        for page in PAGES:
+            self.assertIn(f'href="#page-{page}"', source)
+            self.assertIn(f'id="page-{page}"', source)
+        self.assertEqual([call.args[0] for call in reader.call_args_list].count("cfbd_power_ratings_current.csv"), 1)
+
+    def test_filters_on_one_page_do_not_empty_other_preloaded_pages(self) -> None:
+        app = AppTest.from_file(str(APP_PATH))
+        app.query_params.update({"page": "odds", "week": "All", "search": "NO SUCH TEAM"})
+        app.run(timeout=60)
+        self.assertFalse(app.exception)
+        source = app.markdown[0].value
+        weekly = re.search(r'id="page-weekly"[^>]*>(.*?)</section>', source, re.S).group(1)
+        self.assertIn("<table", weekly)
+        self.assertNotIn("No rows match", weekly)
+        self.assertIn('id="page-odds" data-default=true', source)
 
     def test_default_view_avoids_failing_widget_modules(self) -> None:
         app = AppTest.from_file(str(APP_PATH)).run(timeout=60)
