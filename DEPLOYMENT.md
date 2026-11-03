@@ -2,6 +2,11 @@
 
 This app is designed to deploy on Streamlit Community Cloud with `app.py` as the entrypoint.
 
+Streamlit is pinned to the version tested locally. Keep the hosted and local versions aligned when upgrading:
+an unrestricted Streamlit upgrade can change browser component bundles independently of a model-data refresh.
+If the page reports "Failed to fetch dynamically imported module", check the component asset requests and
+hosted Streamlit version, then reload the browser after the deployment finishes rebuilding.
+
 ## Files the hosted app needs
 
 The app reads prebuilt CSV/XLSX outputs by default:
