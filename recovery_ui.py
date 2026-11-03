@@ -52,8 +52,10 @@ def select(name: str, label: str, values: list[str], default: str = "") -> str:
 
 def entry(name: str, label: str, default: str = "", numeric: bool = False) -> str:
     value = parameters().get(name, default)
-    kind = 'type="number" min="0" max="50" step="0.5"' if numeric else 'type="search"'
-    return f'<label>{escape(label)}<input {kind} name="{escape(name)}" value="{escape(value)}"></label>'
+    keyboard = 'inputmode="decimal"' if numeric else 'inputmode="search"'
+    # React treats an input's value as controlled. Textarea children seed an editable native value.
+    return (f'<label>{escape(label)}<textarea rows="1" {keyboard} name="{escape(name)}" '
+            f'aria-label="{escape(label)}">{escape(value)}</textarea></label>')
 
 
 def form(page: str, controls: list[str]) -> None:
@@ -272,7 +274,8 @@ def _render_all_pages() -> None:
     .recovery-pages:not(:has(.recovery-page:target)) .recovery-page[data-default=true]{display:block}
     .recovery-form{display:flex;gap:1rem;flex-wrap:wrap;align-items:end;margin:1rem 0}
     .recovery-form label{display:flex;flex:1 1 160px;flex-direction:column;gap:.4rem;color:#14324a}
-    .recovery-form input,.recovery-form select{font:inherit;width:100%;min-height:42px;box-sizing:border-box;border:1px solid #d7cbb8;border-radius:8px;padding:.5rem;background:#fffaf2;color:#1d2430}
+    .recovery-form input,.recovery-form select,.recovery-form textarea{font:inherit;width:100%;min-height:42px;box-sizing:border-box;border:1px solid #d7cbb8;border-radius:8px;padding:.5rem;background:#fffaf2;color:#1d2430}
+    .recovery-form textarea{height:42px;resize:none;white-space:pre;overflow:auto}
     .recovery-form button{font:inherit;background:#a73e1d;color:white;border:0;border-radius:8px;padding:.7rem 1.2rem;cursor:pointer}
     .recovery-table{max-width:100%;overflow-x:auto;margin:1rem 0}.recovery-table table{width:100%;border-collapse:collapse;white-space:nowrap}
     .recovery-table th{text-align:left;background:#14324a;color:white;padding:.6rem}.recovery-table td{padding:.6rem;border-bottom:1px solid #dfd5c6}
