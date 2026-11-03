@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 
 from joshs_poll import POWER_WEIGHT, RESUME_WEIGHT
+from app_data import load_csv, load_json
 
 
 def render_joshs_poll(season: int = 2026, root: Path = Path("output/polls")) -> None:
@@ -24,9 +24,9 @@ def render_joshs_poll(season: int = 2026, root: Path = Path("output/polls")) -> 
     poll_path = archived or latest_path
     detail_path = archived.with_name(archived.name.replace("_poll.csv", "_games.csv")) if archived else root / f"joshs_poll_games_{season}.csv"
     metadata_path = archived.with_name(archived.name.replace("_poll.csv", "_metadata.json")) if archived else season_root / "latest_metadata.json"
-    poll = pd.read_csv(poll_path)
-    details = pd.read_csv(detail_path) if detail_path.exists() else pd.DataFrame()
-    metadata = json.loads(metadata_path.read_text(encoding="utf-8")) if metadata_path.exists() else {}
+    poll = load_csv(poll_path)
+    details = load_csv(detail_path)
+    metadata = load_json(metadata_path) if metadata_path.exists() else {}
     resume_weight = float(metadata.get("resume_weight", RESUME_WEIGHT))
     power_weight = float(metadata.get("power_weight", POWER_WEIGHT))
     resume_label = f"Resume {resume_weight:.0%}"

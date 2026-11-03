@@ -15,6 +15,21 @@ APP_PATH = Path(__file__).with_name("app.py")
 
 
 class RecoveryViewTests(unittest.TestCase):
+    def test_page_navigation_reads_only_its_own_csv_sources(self) -> None:
+        expected = {
+            "rankings": ["cfbd_power_ratings_current.csv"],
+            "weekly": ["projections/projected_games_2026.csv"],
+            "forecast": ["projections/projected_win_totals_2026.csv"],
+        }
+        for page, paths in expected.items():
+            with self.subTest(page=page):
+                app = AppTest.from_file(str(APP_PATH))
+                app.query_params["page"] = page
+                with patch("recovery_ui.read_csv", wraps=read_csv) as reader:
+                    app.run(timeout=60)
+                self.assertFalse(app.exception)
+                self.assertEqual([call.args[0] for call in reader.call_args_list], paths)
+
     def test_default_view_avoids_failing_widget_modules(self) -> None:
         app = AppTest.from_file(str(APP_PATH)).run(timeout=60)
         self.assertFalse(app.exception, [error.message for error in app.exception])

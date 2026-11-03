@@ -1,0 +1,1740 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+import pandas as pd
+import streamlit as st
+
+from app_data import load_bytes, load_csv
+from best_bets import build_podcast_shortlist
+from poll_ui import render_joshs_poll
+from ui_helpers import (
+    DEFAULT_RATINGS_PATH,
+    DEFAULT_BACKTEST_PATH,
+    DEFAULT_EXCEL_PATH,
+    DEFAULT_WIN_TOTALS_PATH,
+    DEFAULT_PROJECTED_GAMES_PATH,
+    DEFAULT_SCHEDULE_COVERAGE_PATH,
+    DEFAULT_ODDS_COMPARISON_PATH,
+    DEFAULT_ODDS_HISTORY_PATH,
+    DEFAULT_CLV_SUMMARY_PATH,
+    DEFAULT_WEEKLY_RESULTS_REVIEW_PATH,
+    DEFAULT_COMPLETED_GAMES_REVIEW_PATH,
+    DEFAULT_EDGE_BUCKET_SUMMARY_PATH,
+    DEFAULT_SPLIT_SUMMARY_PATH,
+    DEFAULT_TEAM_BIAS_PATH,
+    DEFAULT_CONFERENCE_SUMMARY_PATH,
+    DEFAULT_BIG_MISSES_PATH,
+    DEFAULT_MARKET_DISAGREEMENTS_PATH,
+    DEFAULT_PROBABILITY_CALIBRATION_PATH,
+    DEFAULT_ATS_VALIDATION_PATH,
+    DEFAULT_MARGIN_CHALLENGER_PATH,
+    DEFAULT_REFRESH_STATUS_PATH,
+    DEFAULT_BEST_BETS_PATH,
+    format_eastern_time,
+    format_percent,
+    friendly_book_name,
+    is_frozen_rating_source,
+    default_week_index,
+    summarize_completed_games,
+    latest_snapshot_status,
+    load_refresh_status,
+    win_probability,
+    site_adjusted_spread,
+    add_week_display_columns,
+    add_game_type_column,
+    team_watchlist_label,
+    summarize_team_betting,
+    build_team_betting_summary,
+    render_missing_state,
+)
+
+
+def render_legacy_interface() -> None:
+    st.markdown(
+        """
+        <style>
+        .block-container {max-width: 1380px; padding-top: 2.1rem; padding-bottom: 3rem;}
+        h1, h2, h3 {color: #102a43; letter-spacing: -0.02em;}
+        [data-testid="stMetric"] {background: rgba(255,255,255,.58); border: 1px solid rgba(20,50,74,.12); padding: .8rem; border-radius: 14px;}
+        [data-baseweb="tab-list"] {gap: .25rem; overflow-x: auto; scrollbar-width: thin;}
+        [data-baseweb="tab"] {white-space: nowrap; min-width: fit-content;}
+        [data-testid="stDataFrame"] {border: 1px solid rgba(20,50,74,.12); border-radius: 12px; overflow: hidden;}
+        .trust-bar {display:flex; flex-wrap:wrap; gap:.55rem; margin:.7rem 0 1.15rem;}
+        .trust-pill {background:#efe4d2; border:1px solid rgba(20,50,74,.12); border-radius:999px; padding:.38rem .72rem; color:#31445a; font-size:.84rem;}
+        .rating-note {padding:.78rem 1rem; border-left:4px solid #b6461d; background:rgba(255,255,255,.5); border-radius:0 10px 10px 0; margin:.4rem 0 1rem;}
+        @media (max-width: 700px) {
+          .block-container {padding-left: 1rem; padding-right: 1rem; padding-top: 1.2rem;}
+          h1 {font-size: 2rem !important;}
+          [data-testid="stMetric"] {padding:.55rem;}
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.title("College Football Power Ratings")
+    st.caption("Neutral-field team strength, matchup projections, and transparent market comparisons for the 2026 season.")
+
+    ratings_default = str(DEFAULT_RATINGS_PATH)
+    backtest_default = str(DEFAULT_BACKTEST_PATH)
+    win_totals_default = str(DEFAULT_WIN_TOTALS_PATH)
+    projected_games_default = str(DEFAULT_PROJECTED_GAMES_PATH)
+    schedule_coverage_default = str(DEFAULT_SCHEDULE_COVERAGE_PATH)
+    odds_default = str(DEFAULT_ODDS_COMPARISON_PATH)
+    weekly_review_default = str(DEFAULT_WEEKLY_RESULTS_REVIEW_PATH)
+    completed_review_default = str(DEFAULT_COMPLETED_GAMES_REVIEW_PATH)
+    edge_bucket_default = str(DEFAULT_EDGE_BUCKET_SUMMARY_PATH)
+    split_summary_default = str(DEFAULT_SPLIT_SUMMARY_PATH)
+    team_bias_default = str(DEFAULT_TEAM_BIAS_PATH)
+    conference_summary_default = str(DEFAULT_CONFERENCE_SUMMARY_PATH)
+    big_misses_default = str(DEFAULT_BIG_MISSES_PATH)
+    market_disagreements_default = str(DEFAULT_MARKET_DISAGREEMENTS_PATH)
+    probability_calibration_default = str(DEFAULT_PROBABILITY_CALIBRATION_PATH)
+
+    ratings_path = ratings_default
+    backtest_path = backtest_default
+    win_totals_path = win_totals_default
+    projected_games_path = projected_games_default
+    schedule_coverage_path = schedule_coverage_default
+    odds_path = odds_default
+    weekly_review_path = weekly_review_default
+    completed_review_path = completed_review_default
+    ratings = load_csv(DEFAULT_RATINGS_PATH)
+    backtest = load_csv(DEFAULT_BACKTEST_PATH)
+    win_totals = load_csv(DEFAULT_WIN_TOTALS_PATH)
+    projected_games = load_csv(DEFAULT_PROJECTED_GAMES_PATH)
+    schedule_coverage = load_csv(DEFAULT_SCHEDULE_COVERAGE_PATH)
+    odds = load_csv(DEFAULT_ODDS_COMPARISON_PATH)
+    odds_history = load_csv(DEFAULT_ODDS_HISTORY_PATH)
+    clv_summary = load_csv(DEFAULT_CLV_SUMMARY_PATH)
+    weekly_review = load_csv(DEFAULT_WEEKLY_RESULTS_REVIEW_PATH)
+    completed_review = load_csv(DEFAULT_COMPLETED_GAMES_REVIEW_PATH)
+    edge_bucket_summary = load_csv(Path(edge_bucket_default))
+    split_summary = load_csv(Path(split_summary_default))
+    team_bias = load_csv(Path(team_bias_default))
+    conference_summary = load_csv(Path(conference_summary_default))
+    big_misses = load_csv(Path(big_misses_default))
+    market_disagreements = load_csv(Path(market_disagreements_default))
+    probability_calibration = load_csv(Path(probability_calibration_default))
+    ats_validation = load_csv(DEFAULT_ATS_VALIDATION_PATH)
+    margin_challenger_validation = load_csv(DEFAULT_MARGIN_CHALLENGER_PATH)
+    best_bets = load_csv(DEFAULT_BEST_BETS_PATH)
+    refresh_status = load_refresh_status()
+
+    snapshot_label, refresh_label = latest_snapshot_status()
+    completed_week = "No finals loaded"
+    if not completed_review.empty and "display_week" in completed_review.columns:
+        completed_week = f"Results through Week {int(pd.to_numeric(completed_review['display_week'], errors='coerce').max())}"
+    odds_update_label = "Odds refresh unavailable"
+    if not odds.empty and "captured_at_utc" in odds.columns and odds["captured_at_utc"].notna().any():
+        odds_update_label = f"Odds updated {format_eastern_time(odds['captured_at_utc'].dropna().max())}"
+    health_label = "Automated checks unavailable"
+    if refresh_status.get("status") == "passed":
+        incomplete_count = refresh_status.get("stats", {}).get("incomplete_schedules", 0)
+        health_label = f"Data checks passed | {incomplete_count} incomplete schedules"
+    elif refresh_status.get("status") == "failed":
+        health_label = "Data checks failed | previous published data retained"
+    st.markdown(
+        f'<div class="trust-bar"><span class="trust-pill">{snapshot_label}</span>'
+        f'<span class="trust-pill">{completed_week}</span><span class="trust-pill">{refresh_label}</span>'
+        f'<span class="trust-pill">{odds_update_label}</span><span class="trust-pill">{health_label}</span>'
+        '<span class="trust-pill">All kickoff times Eastern</span></div>',
+        unsafe_allow_html=True,
+    )
+
+    st.sidebar.header("2026 Power Ratings")
+    st.sidebar.caption("The app automatically uses the latest published model data.")
+    if DEFAULT_EXCEL_PATH.exists():
+        st.sidebar.download_button(
+            "Download full Excel workbook",
+            data=load_bytes(DEFAULT_EXCEL_PATH),
+            file_name=DEFAULT_EXCEL_PATH.name,
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            width="stretch",
+        )
+    st.sidebar.caption("Open the sidebar whenever you need the workbook. No file setup is required.")
+
+    if ratings.empty:
+        render_missing_state(Path(ratings_path), "Ratings file")
+        st.info("The latest published model data is unavailable. Please try again after the next refresh.")
+        st.stop()
+
+    ratings = ratings.sort_values("rating", ascending=False).reset_index(drop=True)
+    ratings.index = ratings.index + 1
+    if "football_rating" not in ratings.columns:
+        ratings["football_rating"] = ratings["rating"]
+    if "market_rating" not in ratings.columns:
+        ratings["market_rating"] = ratings["rating"]
+    if "market_gap" not in ratings.columns:
+        ratings["market_gap"] = ratings["market_rating"] - ratings["football_rating"]
+    if "rating_confidence" not in ratings.columns:
+        ratings["rating_confidence"] = "Legacy"
+
+    top_row = ratings.iloc[0]
+    st.markdown(
+        f"""
+        <div style="padding: 1rem 1.2rem; border-radius: 18px; background: linear-gradient(135deg, #14324a, #b6461d); color: white; margin-bottom: 1rem;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.85;">Power Ratings No. 1</div>
+          <div style="font-size: 2rem; font-weight: 700;">{top_row['team']}</div>
+          <div style="font-size: 1rem; opacity: 0.92;">Power Rating {top_row['rating']:.2f} | Football {top_row['football_rating']:.2f} | Market {top_row['market_rating']:.2f}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    rankings_tab, josh_poll_tab, matchup_tab, weekly_tab, win_totals_tab, odds_tab, best_bets_tab, line_history_tab, team_betting_tab, analytics_tab, review_tab, backtest_tab = st.tabs(
+        [
+            "Rankings",
+            "Josh's Poll",
+            "Matchup Lab",
+            "Weekly Board",
+            "Season Forecast",
+            "Betting Board",
+            "Best Bet Tracker",
+            "Line Movement",
+            "Team Profiles",
+            "Research",
+            "Performance",
+            "Methodology",
+        ],
+        key="main_section",
+        on_change="rerun",
+    )
+
+    if rankings_tab.open:
+        with rankings_tab:
+            st.markdown(
+                '<div class="rating-note"><strong>How to read the rating:</strong> +10 means a team is about 10 points better '
+                'than an average FBS team on a neutral field. The difference between two ratings is the projected neutral-field spread.</div>',
+                unsafe_allow_html=True,
+            )
+            st.caption("Final Rating blends 60% independent football strength with 40% market-implied strength. Market Gap is market minus football. Confidence reflects sample strength and agreement between model components.")
+            conferences = ["All conferences"] + sorted(ratings["conference"].dropna().astype(str).unique().tolist())
+            selected_conference = st.selectbox("Conference", conferences, index=0)
+            search_term = st.text_input("Team search", placeholder="Start typing a team name")
+
+            filtered = ratings.copy()
+            filtered["watchlist"] = filtered.apply(team_watchlist_label, axis=1)
+            watchlist_only = st.checkbox("Show watchlist teams only", value=False)
+            if selected_conference != "All conferences":
+                filtered = filtered[filtered["conference"] == selected_conference]
+            if search_term:
+                filtered = filtered[filtered["team"].str.contains(search_term, case=False, na=False)]
+            if watchlist_only:
+                filtered = filtered[filtered["watchlist"] != ""]
+
+            show_components = st.checkbox("Show rating components", value=False)
+            display_columns = ["team", "conference", "record", "rating", "rating_confidence"]
+            display_labels = ["Team", "Conference", "Record", "Rating", "Confidence"]
+            if show_components:
+                display_columns += ["football_rating", "market_rating", "market_gap", "watchlist"]
+                display_labels += ["Football", "Market", "Market Gap", "Watchlist"]
+
+            display = filtered[display_columns].copy()
+            display.insert(0, "rank", filtered.index)
+            display.columns = ["Rank"] + display_labels
+            st.dataframe(display, width="stretch", hide_index=True, height=620)
+
+    if josh_poll_tab.open:
+        with josh_poll_tab:
+            render_joshs_poll()
+
+    if matchup_tab.open:
+        with matchup_tab:
+            team_names = ratings["team"].astype(str).tolist()
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                team_a_name = st.selectbox("Team A", team_names, index=0)
+            with col2:
+                team_b_name = st.selectbox("Team B", team_names, index=1 if len(team_names) > 1 else 0)
+            with col3:
+                game_site = st.selectbox("Game Site", ["Neutral", "Team A Home", "Team B Home"], index=0)
+
+            team_a = ratings[ratings["team"] == team_a_name].iloc[0]
+            team_b = ratings[ratings["team"] == team_b_name].iloc[0]
+            base_spread = float(team_a["rating"]) - float(team_b["rating"])
+            spread = site_adjusted_spread(base_spread, game_site)
+            team_a_prob = win_probability(spread)
+
+            metric1, metric2, metric3 = st.columns(3)
+            favorite_label = f"{team_a_name} -{abs(spread):.1f}" if spread >= 0 else f"{team_b_name} -{abs(spread):.1f}"
+            metric1.metric("Projected Spread", favorite_label)
+            metric2.metric(f"{team_a_name} Win %", f"{team_a_prob * 100:.1f}%")
+            metric3.metric(f"{team_b_name} Win %", f"{(1 - team_a_prob) * 100:.1f}%")
+            st.caption(f"Site setting: {game_site}. Home field adds 2.5 points. Win probability is an estimate, not a guarantee.")
+
+            comparison = pd.DataFrame(
+                [
+                    {
+                        "Team": team_a_name,
+                        "Rating": float(team_a["rating"]),
+                        "Football Rating": float(team_a["football_rating"]),
+                        "Market Rating": float(team_a["market_rating"]),
+                        "Market Gap": float(team_a["market_gap"]),
+                        "Confidence": team_a["rating_confidence"],
+                        "Record": team_a["record"],
+                        "Efficiency": float(team_a["efficiency_score"]),
+                        "Market": float(team_a["market_score"]),
+                        "Schedule": float(team_a["schedule_score"]),
+                    },
+                    {
+                        "Team": team_b_name,
+                        "Rating": float(team_b["rating"]),
+                        "Football Rating": float(team_b["football_rating"]),
+                        "Market Rating": float(team_b["market_rating"]),
+                        "Market Gap": float(team_b["market_gap"]),
+                        "Confidence": team_b["rating_confidence"],
+                        "Record": team_b["record"],
+                        "Efficiency": float(team_b["efficiency_score"]),
+                        "Market": float(team_b["market_score"]),
+                        "Schedule": float(team_b["schedule_score"]),
+                    },
+                ]
+            )
+            st.dataframe(comparison, width="stretch", hide_index=True)
+            with st.expander("What do these matchup numbers mean?"):
+                st.write(
+                    "Football Rating is the independent on-field model. Market Rating is strength inferred from betting lines. "
+                    "Market Gap shows where those two views disagree. Efficiency, Market, and Schedule are 0-100 component scores, "
+                    "where a higher score is stronger within the current FBS field."
+                )
+
+    if weekly_tab.open:
+        with weekly_tab:
+            if projected_games.empty:
+                render_missing_state(Path(projected_games_path), "Projected games file")
+            else:
+                weekly_board = add_game_type_column(add_week_display_columns(projected_games))
+                weekly_board["week"] = weekly_board["week"].astype(int)
+                available_weeks = sorted(int(week) for week in weekly_board["display_week"].dropna().unique())
+                week_options = {f"Week {week}": week for week in available_weeks}
+                game_type_options = ["All"] + sorted(weekly_board["game_type"].dropna().astype(str).unique().tolist())
+                filter_col1, filter_col2, filter_col3 = st.columns([1, 1, 2])
+                with filter_col1:
+                    selected_week_label = st.selectbox(
+                        "Week", list(week_options), index=default_week_index(weekly_board), key="weekly_matchup_week"
+                    )
+                    selected_week = week_options[selected_week_label]
+                with filter_col2:
+                    selected_game_type = st.selectbox("Game Type", game_type_options, index=0, key="weekly_game_type")
+                with filter_col3:
+                    matchup_search = st.text_input(
+                        "Search weekly matchups",
+                        placeholder="Search by team, opponent, or favorite",
+                        key="weekly_matchup_search",
+                    ).strip().lower()
+                board = weekly_board[weekly_board["display_week"] == selected_week].copy()
+                if "game_id" in board.columns and board["game_id"].notna().any():
+                    board = board.drop_duplicates(subset="game_id", keep="first")
+                else:
+                    board = board[board["site"].isin(["home", "neutral"])].copy()
+                if selected_game_type != "All":
+                    board = board[board["game_type"] == selected_game_type]
+
+                if {"home_team", "away_team"}.issubset(board.columns):
+                    board["matchup"] = board.apply(
+                        lambda row: f"{row['away_team']} vs {row['home_team']}"
+                        if row["site"] == "neutral"
+                        else f"{row['away_team']} at {row['home_team']}",
+                        axis=1,
+                    )
+                else:
+                    board["matchup"] = board.apply(
+                        lambda row: f"{row['opponent']} vs {row['team']}" if row["site"] == "neutral" else f"{row['opponent']} at {row['team']}",
+                        axis=1,
+                    )
+                board["line"] = board.apply(
+                    lambda row: f"{row['favorite']} -{float(row['favorite_spread']):.1f}",
+                    axis=1,
+                )
+                if matchup_search:
+                    board = board[
+                        board.apply(
+                            lambda row: matchup_search in str(row["matchup"]).lower()
+                            or matchup_search in str(row["favorite"]).lower()
+                            or matchup_search in str(row["team"]).lower()
+                            or matchup_search in str(row["opponent"]).lower(),
+                            axis=1,
+                        )
+                    ]
+
+                probability_column = "home_win_probability" if "home_win_probability" in board.columns else "win_probability"
+                display_columns = ["week_label", "start_date", "matchup", "game_type", "site"]
+                if "status" in board.columns:
+                    display_columns.append("status")
+                display_columns += ["line", probability_column]
+                display = board[display_columns].copy()
+                display["start_date"] = display["start_date"].map(format_eastern_time)
+                display_labels = ["Week", "Kickoff (ET)", "Matchup", "Game Type", "Site"]
+                if "status" in board.columns:
+                    display_labels.append("Status")
+                display_labels += ["Projected Line", "Home Team Win %"]
+                display.columns = display_labels
+                display["Home Team Win %"] = display["Home Team Win %"].map(format_percent)
+                st.dataframe(display, width="stretch", hide_index=True, height=520)
+
+    if win_totals_tab.open:
+        with win_totals_tab:
+            if win_totals.empty:
+                render_missing_state(Path(win_totals_path), "Projected win totals file")
+            else:
+                if not schedule_coverage.empty and "status" in schedule_coverage.columns:
+                    incomplete = schedule_coverage[schedule_coverage["status"] == "incomplete"].copy()
+                    if not incomplete.empty:
+                        st.warning(
+                            f"{len(incomplete)} teams have fewer than 12 scheduled games in the loaded schedule data. "
+                            "Projected win totals for those teams are not reliable until the schedule is refreshed."
+                        )
+                        with st.expander("Incomplete schedule audit"):
+                            st.dataframe(
+                                incomplete[["team", "conference", "schedule_games", "missing_games"]],
+                                width="stretch",
+                                hide_index=True,
+                            )
+
+                st.caption(
+                    "Season forecast = actual wins already earned + expected wins in the remaining schedule. "
+                    "An opponent rating of 0 represents an average FBS team."
+                )
+                totals_columns = [
+                    "team",
+                    "conference",
+                    "actual_wins",
+                    "actual_losses",
+                    "remaining_games",
+                    "remaining_expected_wins",
+                    "projected_wins",
+                    "projected_losses",
+                    "projected_strength_of_schedule",
+                    "average_game_win_probability",
+                ]
+                totals_columns = [column for column in totals_columns if column in win_totals.columns]
+                totals_display = win_totals[totals_columns].copy().sort_values("projected_wins", ascending=False)
+                totals_display = totals_display.rename(
+                    columns={
+                        "team": "Team",
+                        "conference": "Conference",
+                        "actual_wins": "Actual Wins",
+                        "actual_losses": "Actual Losses",
+                        "remaining_games": "Games Left",
+                        "remaining_expected_wins": "Expected Wins Left",
+                        "projected_wins": "Projected Wins",
+                        "projected_losses": "Projected Losses",
+                        "projected_strength_of_schedule": "Avg Opponent Rating",
+                        "average_game_win_probability": "Avg Remaining Win %",
+                    }
+                )
+                if "Avg Remaining Win %" in totals_display.columns:
+                    totals_display["Avg Remaining Win %"] = totals_display["Avg Remaining Win %"].map(format_percent)
+                st.dataframe(totals_display, width="stretch", height=520, hide_index=True)
+
+                if not projected_games.empty:
+                    team_names = totals_display["Team"].tolist()
+                    selected_team = st.selectbox("Schedule detail", team_names, key="schedule_detail_team")
+                    team_games = add_game_type_column(add_week_display_columns(projected_games))
+                    team_games = team_games[team_games["team"] == selected_team].copy().sort_values(["display_week", "week"])
+                    schedule_columns = ["week_label", "start_date"]
+                    schedule_columns += [column for column in ["status", "result"] if column in team_games.columns]
+                    schedule_columns += ["opponent", "game_type", "site", "projected_spread", "win_probability"]
+                    team_games = team_games[schedule_columns].copy()
+                    team_games["start_date"] = team_games["start_date"].map(format_eastern_time)
+                    schedule_labels = ["Week", "Kickoff (ET)"]
+                    schedule_labels += [label for column, label in [("status", "Status"), ("result", "Result")] if column in schedule_columns]
+                    schedule_labels += ["Opponent", "Game Type", "Site", "Current Model Spread", "Current Model Win %"]
+                    team_games.columns = schedule_labels
+                    team_games["Current Model Win %"] = team_games["Current Model Win %"].map(format_percent)
+                    st.dataframe(team_games, width="stretch", hide_index=True)
+
+    if odds_tab.open:
+        with odds_tab:
+            if odds.empty:
+                render_missing_state(Path(odds_path), "Odds comparison file")
+            else:
+                odds_board = add_game_type_column(add_week_display_columns(odds))
+                numeric_columns = [
+                    "week",
+                    "display_week",
+                    "book_count",
+                    "model_home_margin",
+                    "model_home_spread",
+                    "market_home_spread",
+                    "market_home_margin",
+                    "edge_home_points",
+                    "absolute_edge_points",
+                    "actual_home_points",
+                    "actual_away_points",
+                    "actual_home_margin",
+                    "selected_best_spread",
+                    "selected_best_price",
+                    "break_even_probability",
+                    "line_shopping_value",
+                ]
+                for column in numeric_columns:
+                    if column in odds_board.columns:
+                        odds_board[column] = pd.to_numeric(odds_board[column], errors="coerce")
+                if "market_status" not in odds_board.columns:
+                    odds_board["market_status"] = "open_market"
+                if "edge_review_flag" not in odds_board.columns:
+                    odds_board["edge_review_flag"] = "Standard"
+                if "betting_status" not in odds_board.columns:
+                    odds_board["betting_status"] = "Standard"
+                if "schedule_match_status" not in odds_board.columns:
+                    odds_board["schedule_match_status"] = ""
+                for column in [
+                    "selected_best_spread",
+                    "selected_best_price",
+                    "break_even_probability",
+                    "line_shopping_value",
+                ]:
+                    if column not in odds_board.columns:
+                        odds_board[column] = pd.NA
+                if "selected_best_book" not in odds_board.columns:
+                    odds_board["selected_best_book"] = ""
+
+                live_odds = odds_board[odds_board["market_home_spread"].notna()].copy()
+                no_current_odds = odds_board[odds_board["market_home_spread"].isna()].copy()
+                upcoming_without_line = no_current_odds[~no_current_odds["market_status"].eq("completed_no_current_odds")]
+                metric_col1, metric_col2, metric_col3 = st.columns(3)
+                metric_col1.metric("Live Odds Games", f"{len(live_odds)}")
+                metric_col2.metric("Upcoming Without Line", f"{len(upcoming_without_line)}")
+                metric_col3.metric("Largest Model/Market Gap", f"{live_odds['absolute_edge_points'].max():.2f}" if not live_odds.empty else "N/A")
+                st.caption("Large gaps are review flags, not automatic bets. Always confirm the current line, injuries, weather, and availability.")
+
+                st.subheader("Model Shortlist")
+                st.caption(
+                    "A conservative starting list for discussion. It requires FBS games, 3-8.5 point edges, "
+                    "at least four books, medium-or-better team confidence, prices of -120 or better, spreads no larger "
+                    "than 14, small internal rating gaps, and agreement between both rating components."
+                )
+                podcast_shortlist = build_podcast_shortlist(odds_board, ratings)
+                if podcast_shortlist.empty:
+                    st.info("No games currently satisfy every shortlist safeguard.")
+                else:
+                    shortlist_details = podcast_shortlist.head(6).copy()
+                    shortlist_display = shortlist_details.drop(
+                        columns=["Event ID", "Display Week", "Home Team", "Away Team", "Reasoning", "Caution"]
+                    ).copy()
+                    shortlist_display.insert(0, "Rank", range(1, len(shortlist_display) + 1))
+                    shortlist_display["Kickoff"] = shortlist_display["Kickoff"].map(format_eastern_time)
+                    shortlist_display["Model Fair Line"] = shortlist_display["Model Fair Line"].map(
+                        lambda value: f"{float(value):+.1f}"
+                    )
+                    shortlist_display["Best Line"] = shortlist_display["Best Line"].map(lambda value: f"{float(value):+.1f}")
+                    shortlist_display["Price"] = shortlist_display["Price"].map(lambda value: f"{int(value):+d}")
+                    shortlist_display["Model Edge"] = shortlist_display["Model Edge"].map(lambda value: f"{float(value):.2f}")
+                    shortlist_display["Line Shopping Gain"] = shortlist_display["Line Shopping Gain"].map(
+                        lambda value: f"{float(value):.2f}"
+                    )
+                    shortlist_display["Book"] = shortlist_display["Book"].map(friendly_book_name)
+                    st.dataframe(shortlist_display, width="stretch", hide_index=True)
+                    with st.expander("Why these games made the list"):
+                        for rank, (_, candidate) in enumerate(shortlist_details.iterrows(), start=1):
+                            st.markdown(
+                                f"**{rank}. {candidate['Model Lean']} {float(candidate['Best Line']):+.1f} "
+                                f"({int(candidate['Price']):+d}, {candidate['Book']})**"
+                            )
+                            st.write(candidate["Reasoning"])
+                            st.caption(f"Caution: {candidate['Caution']}")
+                    st.warning(
+                        "The Candidate Score ranks data quality and signal agreement; it is not a validated cover probability. "
+                        "Confirm injuries, weather, and the available line before recording a podcast pick."
+                    )
+
+                filter_col1, filter_col2, filter_col3, filter_col4 = st.columns([1, 1, 1.4, 2])
+                available_weeks = sorted(int(week) for week in odds_board["display_week"].dropna().unique()) if "display_week" in odds_board.columns else []
+                week_options = {f"Week {week}": week for week in available_weeks}
+                odds_game_type_options = ["All"] + sorted(odds_board["game_type"].dropna().astype(str).unique().tolist())
+                market_status_options = sorted(odds_board["market_status"].dropna().astype(str).unique().tolist())
+                review_flag_options = ["All"] + sorted(odds_board["edge_review_flag"].dropna().astype(str).unique().tolist())
+                betting_status_options = ["All"] + sorted(odds_board["betting_status"].dropna().astype(str).unique().tolist())
+                edge_side_options = ["All"] + sorted(
+                    side for side in odds_board["edge_side"].dropna().astype(str).unique().tolist() if side
+                )
+                with filter_col1:
+                    week_filter = st.selectbox("Week", ["All"] + list(week_options), index=0, key="odds_week_filter")
+                with filter_col2:
+                    odds_game_type_filter = st.selectbox("Game Type", odds_game_type_options, index=0, key="odds_game_type_filter")
+                with filter_col3:
+                    edge_range = st.slider(
+                        "Edge range",
+                        min_value=0.0,
+                        max_value=50.0,
+                        value=(2.5, 10.0),
+                        step=0.5,
+                        help="Very large edges are often data/model review candidates rather than clean value spots.",
+                    )
+                with filter_col4:
+                    odds_search = st.text_input(
+                        "Search odds board",
+                        placeholder="Search by team, matchup, or edge side",
+                        key="odds_search",
+                    ).strip().lower()
+
+                odds_advanced = st.expander("Advanced filters and sorting")
+                advanced_col1, advanced_col2, advanced_col3, advanced_col4, advanced_col5, advanced_col6 = odds_advanced.columns(6)
+                with advanced_col1:
+                    selected_market_statuses = st.multiselect(
+                        "Market status",
+                        market_status_options,
+                        default=market_status_options,
+                        key="odds_market_status_filter",
+                    )
+                with advanced_col2:
+                    edge_side_filter = st.selectbox("Edge side", edge_side_options, index=0, key="odds_edge_side_filter")
+                with advanced_col3:
+                    review_flag_filter = st.selectbox("Review Flag", review_flag_options, index=0, key="odds_review_flag_filter")
+                with advanced_col4:
+                    betting_status_filter = st.selectbox(
+                        "Betting Status",
+                        betting_status_options,
+                        index=0,
+                        key="odds_betting_status_filter",
+                    )
+                with advanced_col5:
+                    min_books = st.number_input(
+                        "Minimum books",
+                        min_value=0,
+                        max_value=25,
+                        value=0,
+                        step=1,
+                        key="odds_min_books",
+                    )
+                with advanced_col6:
+                    hide_no_line_games = st.checkbox("Hide no-line games", value=False, key="odds_hide_no_line")
+
+                sort_col1, sort_col2, sort_col3 = odds_advanced.columns([1.4, 1, 1])
+                odds_sort_options = {
+                    "Biggest edge": "absolute_edge_points",
+                    "Kickoff": "commence_time",
+                    "Most books": "book_count",
+                    "Model spread": "model_home_spread",
+                    "Market spread": "market_home_spread",
+                }
+                with sort_col1:
+                    odds_sort_label = st.selectbox("Sort odds by", list(odds_sort_options), index=0, key="odds_sort_by")
+                with sort_col2:
+                    odds_sort_direction = st.selectbox("Direction", ["Descending", "Ascending"], index=0, key="odds_sort_direction")
+                with sort_col3:
+                    max_odds_rows = st.number_input("Rows shown", min_value=10, max_value=250, value=75, step=5, key="odds_rows_shown")
+
+                min_edge, max_edge = edge_range
+                if week_filter != "All":
+                    selected_display_week = week_options[week_filter]
+                    week_odds = odds_board[odds_board["display_week"] == selected_display_week].copy()
+                    live_week_odds = week_odds[
+                        (week_odds["absolute_edge_points"] >= min_edge)
+                        & (week_odds["absolute_edge_points"] <= max_edge)
+                    ].copy()
+                    fallback_week_odds = week_odds[week_odds["market_home_spread"].isna()].copy()
+                    filtered_odds = pd.concat([live_week_odds, fallback_week_odds], ignore_index=True)
+                else:
+                    filtered_odds = odds_board[
+                        (odds_board["absolute_edge_points"] >= min_edge)
+                        & (odds_board["absolute_edge_points"] <= max_edge)
+                    ].copy()
+                if odds_game_type_filter != "All":
+                    filtered_odds = filtered_odds[filtered_odds["game_type"] == odds_game_type_filter]
+                if selected_market_statuses:
+                    filtered_odds = filtered_odds[filtered_odds["market_status"].isin(selected_market_statuses)]
+                if edge_side_filter != "All":
+                    filtered_odds = filtered_odds[filtered_odds["edge_side"] == edge_side_filter]
+                if review_flag_filter != "All":
+                    filtered_odds = filtered_odds[filtered_odds["edge_review_flag"] == review_flag_filter]
+                if betting_status_filter != "All":
+                    filtered_odds = filtered_odds[filtered_odds["betting_status"] == betting_status_filter]
+                filtered_odds = filtered_odds[filtered_odds["book_count"].fillna(0) >= min_books]
+                if hide_no_line_games:
+                    filtered_odds = filtered_odds[filtered_odds["market_home_spread"].notna()]
+                if odds_search:
+                    filtered_odds = filtered_odds[
+                        filtered_odds.apply(
+                            lambda row: odds_search in str(row.get("home_team", "")).lower()
+                            or odds_search in str(row.get("away_team", "")).lower()
+                            or odds_search in str(row.get("edge_side", "")).lower(),
+                            axis=1,
+                        )
+                    ]
+
+                sort_column = odds_sort_options[odds_sort_label]
+                filtered_odds = filtered_odds.sort_values(
+                    sort_column,
+                    ascending=odds_sort_direction == "Ascending",
+                    na_position="last",
+                )
+
+                odds_summary_col1, odds_summary_col2, odds_summary_col3, odds_summary_col4 = st.columns(4)
+                odds_summary_col1.metric("Filtered Games", f"{len(filtered_odds)}")
+                odds_summary_col2.metric(
+                    "Avg Edge",
+                    f"{filtered_odds['absolute_edge_points'].mean():.2f}" if filtered_odds["absolute_edge_points"].notna().any() else "N/A",
+                )
+                odds_summary_col3.metric(
+                    "Median Edge",
+                    f"{filtered_odds['absolute_edge_points'].median():.2f}" if filtered_odds["absolute_edge_points"].notna().any() else "N/A",
+                )
+                odds_summary_col4.metric(
+                    "Avg Books",
+                    f"{filtered_odds['book_count'].mean():.1f}" if filtered_odds["book_count"].notna().any() else "N/A",
+                )
+
+                filtered_odds["matchup"] = filtered_odds.apply(
+                    lambda row: f"{row['away_team']} at {row['home_team']}",
+                    axis=1,
+                )
+                filtered_odds["model_line"] = filtered_odds.apply(
+                    lambda row: f"{row['home_team']} {float(row['model_home_spread']):+.1f}",
+                    axis=1,
+                )
+                filtered_odds["market_line"] = filtered_odds.apply(
+                    lambda row: (
+                        f"{row['home_team']} {float(row['market_home_spread']):+.1f}"
+                        if pd.notna(row.get("market_home_spread"))
+                        else "No current line"
+                    ),
+                    axis=1,
+                )
+                filtered_odds["edge_display"] = filtered_odds["absolute_edge_points"].map(
+                    lambda value: f"{float(value):.2f}" if pd.notna(value) else "N/A"
+                )
+                filtered_odds["best_line"] = filtered_odds.apply(
+                    lambda row: (
+                        f"{row.get('edge_side')} {float(row.get('selected_best_spread')):+.1f} "
+                        f"({int(row.get('selected_best_price')):+d}, {row.get('selected_best_book')})"
+                        if pd.notna(row.get("selected_best_spread")) and pd.notna(row.get("selected_best_price"))
+                        else "Unavailable"
+                    ),
+                    axis=1,
+                )
+                filtered_odds["break_even_display"] = filtered_odds["break_even_probability"].map(
+                    lambda value: f"{float(value) * 100:.1f}%" if pd.notna(value) else "N/A"
+                )
+                filtered_odds["result"] = filtered_odds.apply(
+                    lambda row: (
+                        f"{row.get('away_team')} {int(row.get('actual_away_points'))}, {row.get('home_team')} {int(row.get('actual_home_points'))}"
+                        if pd.notna(row.get("actual_away_points")) and pd.notna(row.get("actual_home_points"))
+                        else ""
+                    ),
+                    axis=1,
+                )
+
+                display = filtered_odds.head(max_odds_rows)[
+                    [
+                        "week_label",
+                        "commence_time",
+                        "matchup",
+                        "game_type",
+                        "market_status",
+                        "edge_side",
+                        "model_favorite",
+                        "betting_status",
+                        "edge_review_flag",
+                        "edge_display",
+                        "best_line",
+                        "break_even_display",
+                        "line_shopping_value",
+                        "model_line",
+                        "market_line",
+                        "result",
+                        "book_count",
+                        "market_total",
+                    ]
+                ].copy()
+                display["commence_time"] = display["commence_time"].map(format_eastern_time)
+                display.columns = [
+                    "Week",
+                    "Kickoff",
+                    "Matchup",
+                    "Game Type",
+                    "Market Status",
+                    "Model Edge Side",
+                    "Model Winner",
+                    "Betting Status",
+                    "Review Flag",
+                    "Edge Points",
+                    "Best Available Line",
+                    "Break-Even %",
+                    "Line Shopping Value",
+                    "Model Line",
+                    "Market Line",
+                    "Result",
+                    "Books",
+                    "Market Total",
+                ]
+                st.dataframe(display, width="stretch", hide_index=True, height=520)
+
+                with st.expander("Raw odds comparison"):
+                    st.dataframe(filtered_odds, width="stretch", hide_index=True)
+
+    if best_bets_tab.open:
+        with best_bets_tab:
+            st.subheader("Season-Long Model Best Bets")
+            st.caption(
+                "The first four qualifying recommendations for each week are frozen with the exact line, price, and book. "
+                "They are later graded against the final score and closing market without rewriting history. Tracking begins "
+                "with Week 5, whose six picks were recovered from the saved pregame odds and frozen Week 5 ratings. "
+                "Weeks before Week 5 are not reconstructed with hindsight."
+            )
+            if best_bets.empty:
+                render_missing_state(DEFAULT_BEST_BETS_PATH, "Best-bet ledger")
+            else:
+                tracked = best_bets.copy()
+                for column in [
+                    "display_week",
+                    "selection_rank",
+                    "locked_spread",
+                    "locked_price",
+                    "model_fair_line",
+                    "model_edge",
+                    "candidate_score",
+                    "cover_margin",
+                    "closing_spread",
+                    "clv_points",
+                    "units",
+                    "cumulative_units",
+                ]:
+                    tracked[column] = pd.to_numeric(tracked[column], errors="coerce")
+
+                graded = tracked[tracked["status"].eq("graded")].copy()
+                decisions = graded[graded["ats_result"].isin(["win", "loss"])].copy()
+                wins = int(graded["ats_result"].eq("win").sum())
+                losses = int(graded["ats_result"].eq("loss").sum())
+                pushes = int(graded["ats_result"].eq("push").sum())
+                pending = int(tracked["status"].eq("pending").sum())
+                tracker_col1, tracker_col2, tracker_col3, tracker_col4, tracker_col5 = st.columns(5)
+                tracker_col1.metric("Record", f"{wins}-{losses}-{pushes}")
+                tracker_col2.metric(
+                    "Hit Rate",
+                    f"{wins / len(decisions) * 100:.1f}%" if not decisions.empty else "N/A",
+                )
+                tracker_col3.metric("Units", f"{graded['units'].sum():+.2f}")
+                tracker_col4.metric(
+                    "Average CLV",
+                    f"{graded['clv_points'].mean():+.2f}" if graded["clv_points"].notna().any() else "N/A",
+                )
+                tracker_col5.metric("Pending", pending)
+
+                if decisions.empty:
+                    st.info("The ledger is active. Results and performance charts will populate after these games finish.")
+                else:
+                    weekly_tracker = (
+                        graded.groupby(["display_week", "week_label"], as_index=False)
+                        .agg(
+                            picks=("event_id", "count"),
+                            wins=("ats_result", lambda values: int((values == "win").sum())),
+                            losses=("ats_result", lambda values: int((values == "loss").sum())),
+                            pushes=("ats_result", lambda values: int((values == "push").sum())),
+                            units=("units", "sum"),
+                            average_clv=("clv_points", "mean"),
+                        )
+                        .sort_values("display_week")
+                    )
+                    weekly_tracker["cumulative_units"] = weekly_tracker["units"].cumsum()
+                    st.line_chart(weekly_tracker.set_index("week_label")[["cumulative_units"]], width="stretch")
+                    weekly_display = weekly_tracker[
+                        ["week_label", "picks", "wins", "losses", "pushes", "units", "average_clv", "cumulative_units"]
+                    ].copy()
+                    weekly_display.columns = [
+                        "Week",
+                        "Picks",
+                        "Wins",
+                        "Losses",
+                        "Pushes",
+                        "Units",
+                        "Average CLV",
+                        "Cumulative Units",
+                    ]
+                    st.dataframe(weekly_display, width="stretch", hide_index=True)
+
+                tracker_display = tracked[
+                    [
+                        "week_label",
+                        "selection_rank",
+                        "selection_source",
+                        "kickoff_utc",
+                        "matchup",
+                        "pick_team",
+                        "locked_spread",
+                        "locked_price",
+                        "locked_book",
+                        "model_fair_line",
+                        "model_edge",
+                        "candidate_score",
+                        "status",
+                        "final_score",
+                        "ats_result",
+                        "cover_margin",
+                        "closing_spread",
+                        "clv_points",
+                        "units",
+                        "cumulative_units",
+                    ]
+                ].copy()
+                tracker_display["kickoff_utc"] = tracker_display["kickoff_utc"].map(format_eastern_time)
+                tracker_display["locked_book"] = tracker_display["locked_book"].map(friendly_book_name)
+                tracker_display.columns = [
+                    "Week",
+                    "Rank",
+                    "Record Source",
+                    "Kickoff (ET)",
+                    "Matchup",
+                    "Pick",
+                    "Locked Spread",
+                    "Locked Price",
+                    "Book",
+                    "Model Fair Line",
+                    "Model Edge",
+                    "Candidate Score",
+                    "Status",
+                    "Final Score",
+                    "ATS Result",
+                    "Cover Margin",
+                    "Closing Spread",
+                    "CLV",
+                    "Units",
+                    "Cumulative Units",
+                ]
+                st.dataframe(tracker_display, width="stretch", hide_index=True, height=520)
+                with st.expander("Locked reasoning"):
+                    for _, pick in tracked.sort_values(["display_week", "selection_rank"], ascending=[False, True]).iterrows():
+                        st.markdown(
+                            f"**{pick['week_label']} No. {int(pick['selection_rank'])}: "
+                            f"{pick['pick_team']} {float(pick['locked_spread']):+.1f}**"
+                        )
+                        st.write(pick["reasoning"])
+
+    if line_history_tab.open:
+        with line_history_tab:
+            if clv_summary.empty:
+                render_missing_state(DEFAULT_CLV_SUMMARY_PATH, "CLV summary")
+            else:
+                ats_validated = (
+                    not ats_validation.empty
+                    and ats_validation["validated_for_deployment"].astype(str).str.lower().eq("true").any()
+                )
+                if not ats_validated:
+                    st.warning(
+                        "No ATS probability model is deployed. The held-out 2025 classifier failed to beat the baseline Brier score, "
+                        "so this page shows prices, movement, and CLV without pretending the edge is a validated cover probability."
+                    )
+                history = clv_summary.copy()
+                for column in [
+                    "snapshot_count",
+                    "opening_market_home_spread",
+                    "latest_market_home_spread",
+                    "home_line_movement",
+                    "latest_model_edge",
+                    "selected_best_spread",
+                    "selected_best_price",
+                    "break_even_probability",
+                    "line_shopping_value",
+                    "opening_to_latest_value",
+                    "closing_side_spread",
+                    "best_line_clv",
+                ]:
+                    if column in history.columns:
+                        history[column] = pd.to_numeric(history[column], errors="coerce")
+
+                tracked_col1, tracked_col2, tracked_col3, tracked_col4 = st.columns(4)
+                tracked_col1.metric("Tracked Games", len(history))
+                tracked_col2.metric("Odds Snapshots", int(history["snapshot_count"].sum()))
+                tracked_col3.metric("Multiple Snapshots", int(history["snapshot_count"].gt(1).sum()))
+                tracked_col4.metric(
+                    "Avg Line-Shop Gain",
+                    f"{history['line_shopping_value'].mean():.2f}" if history["line_shopping_value"].notna().any() else "N/A",
+                )
+                st.caption(
+                    "CLV compares the line captured when a pick was available with the final pregame consensus. "
+                    "Positive CLV means we secured a better number than the closing market."
+                )
+
+                history_filter_col1, history_filter_col2 = st.columns([1, 2])
+                history_weeks = ["All"] + sorted(history["week_label"].dropna().astype(str).unique().tolist())
+                with history_filter_col1:
+                    history_week = st.selectbox("Week", history_weeks, key="clv_week_filter")
+                with history_filter_col2:
+                    history_search = st.text_input(
+                        "Search line history",
+                        placeholder="Search by team or edge side",
+                        key="clv_search",
+                    ).strip().lower()
+
+                filtered_history = history.copy()
+                if history_week != "All":
+                    filtered_history = filtered_history[filtered_history["week_label"] == history_week]
+                if history_search:
+                    filtered_history = filtered_history[
+                        filtered_history.apply(
+                            lambda row: history_search in str(row.get("home_team", "")).lower()
+                            or history_search in str(row.get("away_team", "")).lower()
+                            or history_search in str(row.get("edge_side", "")).lower(),
+                            axis=1,
+                        )
+                    ]
+                filtered_history["matchup"] = filtered_history.apply(
+                    lambda row: f"{row.get('away_team')} at {row.get('home_team')}",
+                    axis=1,
+                )
+                filtered_history["break_even_display"] = filtered_history["break_even_probability"].map(
+                    lambda value: f"{float(value) * 100:.1f}%" if pd.notna(value) else "N/A"
+                )
+                history_display = filtered_history[
+                    [
+                        "week_label",
+                        "commence_time",
+                        "matchup",
+                        "snapshot_count",
+                        "opening_market_home_spread",
+                        "latest_market_home_spread",
+                        "home_line_movement",
+                        "edge_side",
+                        "latest_model_edge",
+                        "selected_best_spread",
+                        "selected_best_price",
+                        "selected_best_book",
+                        "break_even_display",
+                        "line_shopping_value",
+                        "opening_to_latest_value",
+                        "best_line_clv",
+                        "ats_result",
+                        "betting_status",
+                    ]
+                ].copy()
+                history_display["commence_time"] = history_display["commence_time"].map(format_eastern_time)
+                history_display.columns = [
+                    "Week",
+                    "Kickoff (ET)",
+                    "Matchup",
+                    "Snapshots",
+                    "Opening Home Line",
+                    "Latest Home Line",
+                    "Home Line Move",
+                    "Model Side",
+                    "Latest Edge",
+                    "Best Spread",
+                    "Best Price",
+                    "Best Book",
+                    "Break-Even %",
+                    "Line-Shop Gain",
+                    "Opening Value",
+                    "Closing-Line Value",
+                    "ATS Result",
+                    "Betting Status",
+                ]
+                st.dataframe(history_display, width="stretch", hide_index=True, height=520)
+
+                with st.expander("Raw odds snapshot history"):
+                    st.dataframe(odds_history, width="stretch", hide_index=True)
+
+    if team_betting_tab.open:
+        with team_betting_tab:
+            if completed_review.empty:
+                render_missing_state(Path(completed_review_path), "Completed games review file")
+            else:
+                if "rating_source" in completed_review.columns and not completed_review["rating_source"].map(is_frozen_rating_source).any():
+                    st.warning(
+                        "Research view: these team trends currently use retrospective ratings. They can identify patterns, "
+                        "but they are not a verified forward betting record."
+                    )
+                team_summary, team_game_log = build_team_betting_summary(completed_review)
+                if team_summary.empty or team_game_log.empty:
+                    st.warning("No completed games with market lines are available for team betting analysis.")
+                else:
+                    st.caption(
+                        "Team-level betting view. ATS cover rate is based on the closing/average market spread in the review file. "
+                        "Edge hit rate only counts games where the model's spread edge selected that team."
+                    )
+
+                    betting_filter_col1, betting_filter_col2, betting_filter_col3, betting_filter_col4 = st.columns([1, 1, 1.3, 2])
+                    with betting_filter_col1:
+                        min_team_games = st.number_input(
+                            "Minimum games",
+                            min_value=1,
+                            max_value=20,
+                            value=1,
+                            step=1,
+                            key="team_betting_min_games",
+                        )
+                    with betting_filter_col2:
+                        min_edge_picks = st.number_input(
+                            "Minimum edge picks",
+                            min_value=0,
+                            max_value=20,
+                            value=0,
+                            step=1,
+                            key="team_betting_min_edge_picks",
+                        )
+                    with betting_filter_col3:
+                        game_type_filter = st.selectbox(
+                            "Game Type",
+                            ["All"] + sorted(team_game_log["game_type"].dropna().astype(str).unique().tolist()),
+                            index=0,
+                            key="team_betting_game_type",
+                        )
+                    with betting_filter_col4:
+                        team_betting_search = st.text_input(
+                            "Search teams",
+                            placeholder="Start typing a team",
+                            key="team_betting_search",
+                        ).strip().lower()
+
+                    filtered_team_games = team_game_log.copy()
+                    if game_type_filter != "All":
+                        filtered_team_games = filtered_team_games[filtered_team_games["game_type"] == game_type_filter]
+
+                    if filtered_team_games.empty:
+                        st.info("No team-game rows match those filters.")
+                    else:
+                        team_summary = summarize_team_betting(filtered_team_games)
+                        filtered_team_summary = team_summary[
+                            (team_summary["games"] >= min_team_games)
+                            & (team_summary["model_edge_picks"] >= min_edge_picks)
+                        ].copy()
+                        if team_betting_search:
+                            filtered_team_summary = filtered_team_summary[
+                                filtered_team_summary["team"].str.contains(team_betting_search, case=False, na=False)
+                            ]
+
+                        sort_options = {
+                            "Best ATS cover rate": "ats_cover_rate",
+                            "Worst ATS cover rate": "ats_cover_rate",
+                            "Best edge-pick hit rate": "edge_pick_hit_rate",
+                            "Worst edge-pick hit rate": "edge_pick_hit_rate",
+                            "Most edge picks": "model_edge_picks",
+                            "Best avg ATS margin": "avg_ats_margin",
+                            "Worst avg ATS margin": "avg_ats_margin",
+                            "Largest model error": "avg_model_error",
+                        }
+                        sort_col1, sort_col2 = st.columns([1.4, 1])
+                        with sort_col1:
+                            team_sort_label = st.selectbox("Sort teams by", list(sort_options), index=0, key="team_betting_sort")
+                        with sort_col2:
+                            max_team_rows = st.number_input(
+                                "Rows shown",
+                                min_value=10,
+                                max_value=250,
+                                value=75,
+                                step=5,
+                                key="team_betting_rows",
+                            )
+
+                        ascending = team_sort_label.startswith("Worst")
+                        filtered_team_summary = filtered_team_summary.sort_values(
+                            sort_options[team_sort_label],
+                            ascending=ascending,
+                            na_position="last",
+                        )
+
+                        metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+                        metric_col1.metric("Teams Shown", f"{len(filtered_team_summary)}")
+                        metric_col2.metric(
+                            "Avg ATS Cover",
+                            f"{filtered_team_summary['ats_cover_rate'].mean() * 100:.1f}%"
+                            if filtered_team_summary["ats_cover_rate"].notna().any()
+                            else "N/A",
+                        )
+                        metric_col3.metric(
+                            "Avg Edge Hit",
+                            f"{filtered_team_summary['edge_pick_hit_rate'].mean() * 100:.1f}%"
+                            if filtered_team_summary["edge_pick_hit_rate"].notna().any()
+                            else "N/A",
+                        )
+                        metric_col4.metric(
+                            "Avg Model Error",
+                            f"{filtered_team_summary['avg_model_error'].mean():.2f}"
+                            if filtered_team_summary["avg_model_error"].notna().any()
+                            else "N/A",
+                        )
+
+                        display = filtered_team_summary.head(max_team_rows)[
+                            [
+                                "team",
+                                "games",
+                                "ats_covers",
+                                "ats_decisions",
+                                "ats_cover_rate",
+                                "avg_ats_margin",
+                                "model_edge_picks",
+                                "edge_pick_hits",
+                                "edge_pick_hit_rate",
+                                "avg_edge_when_picked",
+                                "model_winner_accuracy",
+                                "avg_model_error",
+                                "avg_market_error",
+                            ]
+                        ].copy()
+                        for column in ["ats_cover_rate", "edge_pick_hit_rate", "model_winner_accuracy"]:
+                            display[column] = display[column].map(lambda value: f"{value * 100:.1f}%" if pd.notna(value) else "N/A")
+                        for column in ["avg_ats_margin", "avg_edge_when_picked", "avg_model_error", "avg_market_error"]:
+                            display[column] = display[column].map(lambda value: f"{value:.2f}" if pd.notna(value) else "N/A")
+                        display.columns = [
+                            "Team",
+                            "Games",
+                            "ATS Covers",
+                            "ATS Decisions",
+                            "ATS Cover %",
+                            "Avg ATS Margin",
+                            "Model Edge Picks",
+                            "Edge Hits",
+                            "Edge Hit %",
+                            "Avg Edge Pick",
+                            "Winner Pick %",
+                            "Model Error",
+                            "Market Error",
+                        ]
+                        st.dataframe(display, width="stretch", hide_index=True, height=520)
+
+                        st.subheader("Team Game Log")
+                        selected_team = st.selectbox(
+                            "Team detail",
+                            filtered_team_summary["team"].tolist() if not filtered_team_summary.empty else sorted(filtered_team_games["team"].unique().tolist()),
+                            key="team_betting_detail_team",
+                        )
+                        detail = filtered_team_games[filtered_team_games["team"] == selected_team].sort_values(["display_week", "opponent"]).copy()
+                        detail["score"] = detail.apply(
+                            lambda row: f"{int(row['points_for'])}-{int(row['points_against'])}",
+                            axis=1,
+                        )
+                        detail_display = detail[
+                            [
+                                "week_label",
+                                "start_date",
+                                "opponent",
+                                "game_type",
+                                "site",
+                                "score",
+                                "market_spread",
+                                "ats_margin",
+                                "ats_result",
+                                "model_margin",
+                                "model_edge",
+                                "model_edge_pick",
+                                "model_edge_hit",
+                            ]
+                        ].copy()
+                        detail_display["start_date"] = detail_display["start_date"].map(format_eastern_time)
+                        detail_display.columns = [
+                            "Week",
+                            "Kickoff (ET)",
+                            "Opponent",
+                            "Game Type",
+                            "Site",
+                            "Score",
+                            "Market Spread",
+                            "ATS Margin",
+                            "ATS Result",
+                            "Model Margin",
+                            "Model Edge",
+                            "Model Picked Team",
+                            "Edge Hit",
+                        ]
+                        st.dataframe(detail_display, width="stretch", hide_index=True)
+
+    if analytics_tab.open:
+        with analytics_tab:
+            st.info(
+                "Research diagnostics explain where the model has been strong or weak. Unless explicitly labeled forward, "
+                "these summaries should not be interpreted as a live betting record."
+            )
+            analytics_frames = [
+                edge_bucket_summary,
+                split_summary,
+                team_bias,
+                conference_summary,
+                big_misses,
+                market_disagreements,
+                probability_calibration,
+            ]
+            if all(frame.empty for frame in analytics_frames):
+                render_missing_state(Path(edge_bucket_default), "Betting analytics files")
+            else:
+                st.caption(
+                    "Statistical tracking layer for model health. These tables are regenerated during each refresh and saved in "
+                    "`output/analytics` plus the master workbook."
+                )
+
+                analytics_section = st.selectbox(
+                    "Analytics view",
+                    [
+                        "Edge Buckets",
+                        "Splits",
+                        "Probability Calibration",
+                        "Team Bias",
+                        "Conference Summary",
+                        "Big Misses",
+                        "Market Disagreements",
+                    ],
+                    index=0,
+                    key="analytics_view",
+                )
+
+                if analytics_section == "Edge Buckets":
+                    if edge_bucket_summary.empty:
+                        render_missing_state(Path(edge_bucket_default), "Edge bucket summary")
+                    else:
+                        display = edge_bucket_summary.copy()
+                        st.write("How model edge size has performed against the market and actual results.")
+                        st.dataframe(display, width="stretch", hide_index=True)
+
+                elif analytics_section == "Splits":
+                    if split_summary.empty:
+                        render_missing_state(Path(split_summary_default), "Split summary")
+                    else:
+                        split_options = ["All"] + sorted(split_summary["split"].dropna().astype(str).unique().tolist())
+                        selected_split = st.selectbox("Split", split_options, index=0, key="analytics_split_filter")
+                        display = split_summary.copy()
+                        if selected_split != "All":
+                            display = display[display["split"] == selected_split]
+                        st.write("Performance split by game type, pick role, pick site, and week.")
+                        st.dataframe(display, width="stretch", hide_index=True)
+
+                elif analytics_section == "Probability Calibration":
+                    if probability_calibration.empty:
+                        render_missing_state(Path(probability_calibration_default), "Probability calibration")
+                    else:
+                        st.write("Checks whether model win probabilities are calibrated to actual win rates.")
+                        chart = probability_calibration.copy()
+                        for column in ["average_model_probability", "actual_win_rate"]:
+                            chart[column] = pd.to_numeric(chart[column], errors="coerce")
+                        st.line_chart(
+                            chart.set_index("win_probability_bucket")[["average_model_probability", "actual_win_rate"]],
+                            width="stretch",
+                        )
+                        st.dataframe(probability_calibration, width="stretch", hide_index=True)
+
+                elif analytics_section == "Team Bias":
+                    if team_bias.empty:
+                        render_missing_state(Path(team_bias_default), "Team bias")
+                    else:
+                        bias = team_bias.copy()
+                        for column in [
+                            "games",
+                            "ats_cover_rate",
+                            "average_ats_margin",
+                            "average_model_bias_margin",
+                            "model_edge_picks",
+                            "edge_pick_hit_rate",
+                            "model_margin_mae",
+                            "market_margin_mae",
+                        ]:
+                            bias[column] = pd.to_numeric(bias[column], errors="coerce")
+                        bias_col1, bias_col2, bias_col3 = st.columns([1, 1, 2])
+                        with bias_col1:
+                            min_bias_games = st.number_input("Minimum games", min_value=1, max_value=20, value=1, step=1, key="analytics_bias_min_games")
+                        with bias_col2:
+                            bias_sort = st.selectbox(
+                                "Sort by",
+                                ["Largest absolute bias", "Most overrated", "Most underrated", "Worst model error", "Best ATS cover"],
+                                index=0,
+                                key="analytics_bias_sort",
+                            )
+                        with bias_col3:
+                            bias_search = st.text_input("Search team/conference", key="analytics_bias_search").strip().lower()
+                        bias = bias[bias["games"] >= min_bias_games]
+                        if bias_search:
+                            bias = bias[
+                                bias.apply(
+                                    lambda row: bias_search in str(row.get("team", "")).lower()
+                                    or bias_search in str(row.get("conference", "")).lower(),
+                                    axis=1,
+                                )
+                            ]
+                        if bias_sort == "Largest absolute bias":
+                            bias = bias.assign(abs_bias=bias["average_model_bias_margin"].abs()).sort_values("abs_bias", ascending=False)
+                        elif bias_sort == "Most overrated":
+                            bias = bias.sort_values("average_model_bias_margin", ascending=False)
+                        elif bias_sort == "Most underrated":
+                            bias = bias.sort_values("average_model_bias_margin", ascending=True)
+                        elif bias_sort == "Worst model error":
+                            bias = bias.sort_values("model_margin_mae", ascending=False)
+                        else:
+                            bias = bias.sort_values("ats_cover_rate", ascending=False)
+                        st.write("Positive model bias means the model has overrated that team versus actual margins.")
+                        st.dataframe(bias.drop(columns=["abs_bias"], errors="ignore"), width="stretch", hide_index=True, height=520)
+
+                elif analytics_section == "Conference Summary":
+                    if conference_summary.empty:
+                        render_missing_state(Path(conference_summary_default), "Conference summary")
+                    else:
+                        st.write("Conference-level rollup of team bias and error metrics.")
+                        st.dataframe(conference_summary, width="stretch", hide_index=True)
+
+                elif analytics_section == "Big Misses":
+                    if big_misses.empty:
+                        render_missing_state(Path(big_misses_default), "Big misses")
+                    else:
+                        miss = big_misses.copy()
+                        miss["absolute_model_error"] = pd.to_numeric(miss["absolute_model_error"], errors="coerce")
+                        min_miss = st.slider("Minimum model error", min_value=20.0, max_value=60.0, value=20.0, step=1.0, key="analytics_min_miss")
+                        miss = miss[miss["absolute_model_error"] >= min_miss].sort_values("absolute_model_error", ascending=False)
+                        st.write("Games where the model missed the final margin badly enough to deserve review.")
+                        st.dataframe(miss, width="stretch", hide_index=True, height=520)
+
+                elif analytics_section == "Market Disagreements":
+                    if market_disagreements.empty:
+                        st.info("No games yet where the model and market disagreed on the winner.")
+                    else:
+                        st.write("Games where the model and market picked different outright winners.")
+                        st.dataframe(market_disagreements, width="stretch", hide_index=True)
+
+    if review_tab.open:
+        with review_tab:
+            if weekly_review.empty or completed_review.empty:
+                render_missing_state(Path(completed_review_path), "Completed games review file")
+            else:
+                completed_games = add_game_type_column(add_week_display_columns(completed_review))
+                if "betting_status" not in completed_games.columns:
+                    completed_games["betting_status"] = "Standard"
+                if "rating_source" not in completed_games.columns:
+                    completed_games["rating_source"] = "Legacy"
+                for column in [
+                    "display_week",
+                    "games",
+                    "games_with_market_line",
+                    "model_margin_mae",
+                    "market_margin_mae",
+                    "model_winner_accuracy",
+                    "market_winner_accuracy",
+                    "edge_right_side_rate",
+                    "actual_home_margin",
+                    "model_home_margin",
+                    "market_home_margin",
+                    "absolute_model_error",
+                    "absolute_market_error",
+                    "model_edge_home_points",
+                ]:
+                    if column in completed_games.columns:
+                        completed_games[column] = pd.to_numeric(completed_games[column], errors="coerce")
+
+                frozen_games = completed_games[completed_games["rating_source"].map(is_frozen_rating_source)].copy()
+                retrospective_games = completed_games[~completed_games["rating_source"].map(is_frozen_rating_source)].copy()
+                weekly_results = summarize_completed_games(frozen_games)
+                st.caption("Forward performance uses only ratings frozen before kickoff. Retrospective diagnostics are never included in the headline record.")
+
+                review_col1, review_col2, review_col3, review_col4 = st.columns(4)
+                total_completed = len(frozen_games)
+                market_games = int(frozen_games["absolute_market_error"].notna().sum())
+                weighted_model_mae = (
+                    frozen_games["absolute_model_error"].mean()
+                    if total_completed
+                    else 0.0
+                )
+                weighted_market_mae = (
+                    frozen_games["absolute_market_error"].mean()
+                    if market_games
+                    else 0.0
+                )
+                review_col1.metric("Forward-Graded Games", f"{total_completed}")
+                review_col2.metric("Forward Market Lines", f"{market_games}")
+                review_col3.metric("Forward Model MAE", f"{weighted_model_mae:.2f}" if total_completed else "N/A")
+                review_col4.metric("Market Margin MAE", f"{weighted_market_mae:.2f}" if market_games else "N/A")
+
+                if frozen_games.empty:
+                    st.info(
+                        "The trustworthy forward record begins with the Week 4 ratings snapshot. "
+                        f"The {len(retrospective_games)} earlier games remain available below as diagnostics, not claimed predictions."
+                    )
+
+                st.subheader("Forward Record by Week")
+                if weekly_results.empty:
+                    st.write("No frozen-prediction games have finished yet.")
+                else:
+                    weekly_display = weekly_results.copy()
+                    weekly_display = weekly_display.rename(
+                        columns={
+                            "week_label": "Week",
+                            "games": "Games",
+                            "games_with_market_line": "Market Games",
+                            "model_margin_mae": "Model Margin MAE",
+                            "market_margin_mae": "Market Margin MAE",
+                            "model_winner_accuracy": "Model Winner %",
+                            "market_winner_accuracy": "Market Winner %",
+                            "edge_right_side_rate": "Edge Right-Side %",
+                        }
+                    )
+                    for column in ["Model Winner %", "Market Winner %", "Edge Right-Side %"]:
+                        weekly_display[column] = weekly_display[column].map(format_percent)
+                    st.dataframe(weekly_display, width="stretch", hide_index=True)
+
+                st.subheader("Game-Level Review")
+                completed_games["matchup"] = completed_games.apply(
+                    lambda row: f"{row['away_team']} at {row['home_team']}",
+                    axis=1,
+                )
+                completed_games["score"] = completed_games.apply(
+                    lambda row: f"{row['away_team']} {int(row['away_points'])}, {row['home_team']} {int(row['home_points'])}",
+                    axis=1,
+                )
+                completed_games["model_line"] = completed_games.apply(
+                    lambda row: f"{row['home_team']} {float(row['model_home_spread']):+.1f}",
+                    axis=1,
+                )
+                completed_games["market_line"] = completed_games.apply(
+                    lambda row: (
+                        f"{row['home_team']} {float(row['market_home_spread']):+.1f}"
+                        if pd.notna(row.get("market_home_spread")) and row.get("market_home_spread") != ""
+                        else "No market line"
+                    ),
+                    axis=1,
+                )
+                completed_games["model_winner"] = completed_games.apply(
+                    lambda row: row["home_team"] if row["model_home_margin"] >= 0 else row["away_team"],
+                    axis=1,
+                )
+
+                show_retrospective = st.checkbox(
+                    "Show retrospective diagnostic game log",
+                    value=False,
+                    help="These games use ratings calculated after the games and must not be treated as a betting record.",
+                )
+                completed_games = (
+                    completed_games
+                    if show_retrospective
+                    else completed_games[completed_games["rating_source"].map(is_frozen_rating_source)].copy()
+                )
+                if show_retrospective:
+                    st.warning("Diagnostic mode includes hindsight-assisted ratings. Use it to find model weaknesses, not to judge predictive performance.")
+
+                available_review_weeks = sorted(int(week) for week in completed_games["display_week"].dropna().unique())
+                review_week_options = {f"Week {week}": week for week in available_review_weeks}
+                review_game_type_options = ["All"] + sorted(completed_games["game_type"].dropna().astype(str).unique().tolist())
+                winner_result_options = ["All"] + sorted(completed_games["winner_model_result"].dropna().astype(str).unique().tolist())
+                rating_source_options = ["All"] + sorted(completed_games["rating_source"].dropna().astype(str).unique().tolist())
+                edge_result_options = ["All"] + sorted(
+                    result for result in completed_games["edge_result"].dropna().astype(str).unique().tolist() if result
+                )
+                review_betting_status_options = ["All"] + sorted(
+                    completed_games["betting_status"].dropna().astype(str).unique().tolist()
+                )
+                review_filter_col1, review_filter_col2, review_filter_col3, review_filter_col4, review_filter_col5 = st.columns([1, 1, 1, 1.4, 2])
+                with review_filter_col1:
+                    review_week_filter = st.selectbox("Week", ["All"] + list(review_week_options), index=0, key="results_review_week")
+                with review_filter_col2:
+                    review_game_type_filter = st.selectbox("Game Type", review_game_type_options, index=0, key="results_review_game_type")
+                with review_filter_col3:
+                    winner_result_filter = st.selectbox("Winner Pick", winner_result_options, index=0, key="results_review_winner_result")
+                with review_filter_col4:
+                    rating_source_filter = st.selectbox(
+                        "Rating Source",
+                        rating_source_options,
+                        index=0,
+                        key="results_review_rating_source",
+                    )
+                with review_filter_col5:
+                    review_search = st.text_input(
+                        "Search completed games",
+                        placeholder="Search by team, matchup, or result",
+                        key="results_review_search",
+                    ).strip().lower()
+
+                review_advanced = st.expander("Advanced filters and sorting")
+                review_advanced_col1, review_advanced_col2, review_advanced_col3, review_advanced_col4, review_advanced_col5 = review_advanced.columns(5)
+                with review_advanced_col1:
+                    edge_result_filter = st.selectbox("Edge Result", edge_result_options, index=0, key="results_review_edge_result")
+                with review_advanced_col2:
+                    review_betting_status_filter = st.selectbox(
+                        "Betting Status",
+                        review_betting_status_options,
+                        index=0,
+                        key="results_review_betting_status",
+                    )
+                with review_advanced_col3:
+                    min_model_error = st.slider(
+                        "Min model error",
+                        min_value=0.0,
+                        max_value=60.0,
+                        value=0.0,
+                        step=1.0,
+                        key="results_review_min_model_error",
+                    )
+                with review_advanced_col4:
+                    error_view = st.selectbox(
+                        "Error view",
+                        ["All games", "Model worse than market", "Model better than market", "No market line"],
+                        index=0,
+                        key="results_review_error_view",
+                    )
+                with review_advanced_col5:
+                    min_edge_size = st.slider(
+                        "Min edge size",
+                        min_value=0.0,
+                        max_value=50.0,
+                        value=0.0,
+                        step=0.5,
+                        help="Uses absolute model edge versus market when a market line exists.",
+                        key="results_review_min_edge_size",
+                    )
+
+                review_sort_col1, review_sort_col2, review_sort_col3 = review_advanced.columns([1.4, 1, 1])
+                review_sort_options = {
+                    "Biggest model error": "absolute_model_error",
+                    "Biggest market error": "absolute_market_error",
+                    "Largest model edge": "absolute_model_edge",
+                    "Kickoff": "start_date",
+                    "Actual margin": "actual_home_margin",
+                }
+                with review_sort_col1:
+                    review_sort_label = st.selectbox("Sort review by", list(review_sort_options), index=0, key="results_review_sort_by")
+                with review_sort_col2:
+                    review_sort_direction = st.selectbox("Direction", ["Descending", "Ascending"], index=0, key="results_review_sort_direction")
+                with review_sort_col3:
+                    max_review_rows = st.number_input("Rows shown", min_value=10, max_value=250, value=75, step=5, key="results_review_rows_shown")
+
+                filtered_review = completed_games.copy()
+                filtered_review["absolute_model_edge"] = filtered_review["model_edge_home_points"].abs()
+                if review_week_filter != "All":
+                    filtered_review = filtered_review[filtered_review["display_week"] == review_week_options[review_week_filter]]
+                if review_game_type_filter != "All":
+                    filtered_review = filtered_review[filtered_review["game_type"] == review_game_type_filter]
+                if winner_result_filter != "All":
+                    filtered_review = filtered_review[filtered_review["winner_model_result"] == winner_result_filter]
+                if rating_source_filter != "All":
+                    filtered_review = filtered_review[filtered_review["rating_source"] == rating_source_filter]
+                if edge_result_filter != "All":
+                    filtered_review = filtered_review[filtered_review["edge_result"] == edge_result_filter]
+                if review_betting_status_filter != "All":
+                    filtered_review = filtered_review[filtered_review["betting_status"] == review_betting_status_filter]
+                filtered_review = filtered_review[filtered_review["absolute_model_error"].fillna(0) >= min_model_error]
+                filtered_review = filtered_review[filtered_review["absolute_model_edge"].fillna(0) >= min_edge_size]
+                if error_view == "Model worse than market":
+                    filtered_review = filtered_review[
+                        filtered_review["absolute_market_error"].notna()
+                        & (filtered_review["absolute_model_error"] > filtered_review["absolute_market_error"])
+                    ]
+                elif error_view == "Model better than market":
+                    filtered_review = filtered_review[
+                        filtered_review["absolute_market_error"].notna()
+                        & (filtered_review["absolute_model_error"] < filtered_review["absolute_market_error"])
+                    ]
+                elif error_view == "No market line":
+                    filtered_review = filtered_review[filtered_review["absolute_market_error"].isna()]
+                if review_search:
+                    filtered_review = filtered_review[
+                        filtered_review.apply(
+                            lambda row: review_search in str(row.get("matchup", "")).lower()
+                            or review_search in str(row.get("winner_model_result", "")).lower()
+                            or review_search in str(row.get("edge_result", "")).lower(),
+                            axis=1,
+                        )
+                    ]
+
+                review_sort_column = review_sort_options[review_sort_label]
+                filtered_review = filtered_review.sort_values(
+                    review_sort_column,
+                    ascending=review_sort_direction == "Ascending",
+                    na_position="last",
+                )
+
+                review_summary_col1, review_summary_col2, review_summary_col3, review_summary_col4 = st.columns(4)
+                review_summary_col1.metric("Filtered Games", f"{len(filtered_review)}")
+                review_summary_col2.metric(
+                    "Model Error",
+                    f"{filtered_review['absolute_model_error'].mean():.2f}" if filtered_review["absolute_model_error"].notna().any() else "N/A",
+                )
+                review_summary_col3.metric(
+                    "Market Error",
+                    f"{filtered_review['absolute_market_error'].mean():.2f}" if filtered_review["absolute_market_error"].notna().any() else "N/A",
+                )
+                review_summary_col4.metric(
+                    "Winner Hit Rate",
+                    f"{(filtered_review['winner_model_result'].eq('correct').mean() * 100):.1f}%" if not filtered_review.empty else "N/A",
+                )
+
+                review_game_display = filtered_review.head(max_review_rows)[
+                    [
+                        "week_label",
+                        "start_date",
+                        "matchup",
+                        "game_type",
+                        "rating_source",
+                        "score",
+                        "model_line",
+                        "market_line",
+                        "actual_home_margin",
+                        "absolute_model_error",
+                        "absolute_market_error",
+                        "absolute_model_edge",
+                        "model_winner",
+                        "betting_status",
+                        "winner_model_result",
+                        "edge_result",
+                    ]
+                ].copy()
+                review_game_display["start_date"] = review_game_display["start_date"].map(format_eastern_time)
+                review_game_display.columns = [
+                    "Week",
+                    "Kickoff (ET)",
+                    "Matchup",
+                    "Game Type",
+                    "Rating Source",
+                    "Final Score",
+                    "Model Line",
+                    "Market Line",
+                    "Actual Home Margin",
+                    "Model Error",
+                    "Market Error",
+                    "Model Edge",
+                    "Model Winner",
+                    "Betting Status",
+                    "Winner Pick",
+                    "Edge Result",
+                ]
+                st.dataframe(review_game_display, width="stretch", hide_index=True, height=520)
+
+    if backtest_tab.open:
+        with backtest_tab:
+            st.subheader("How the model works")
+            st.write(
+                "The final power rating is measured in points above or below an average FBS team on a neutral field. "
+                "It blends 60% independent football performance with 40% market-implied strength, then adds 2.5 points "
+                "for the home team in matchup projections. CFBD supplies schedules, scores, and team data; live market "
+                "comparisons come from The Odds API."
+            )
+            st.caption(
+                "This site is an analytical tool, not financial advice. Lines move, data can be incomplete, and model edges can be wrong. "
+                "Use legal sportsbooks where available and bet responsibly."
+            )
+            st.subheader("Margin Challenger Gate")
+            if margin_challenger_validation.empty:
+                render_missing_state(DEFAULT_MARGIN_CHALLENGER_PATH, "Margin challenger validation")
+            else:
+                held_out = margin_challenger_validation[
+                    margin_challenger_validation["stage"].eq("2025_held_out_test")
+                ]
+                held_out = held_out.iloc[0] if not held_out.empty else margin_challenger_validation.iloc[-1]
+                challenger_col1, challenger_col2, challenger_col3 = st.columns(3)
+                challenger_col1.metric("Market Margin MAE", f"{float(held_out['market_mae']):.3f}")
+                challenger_col2.metric("Challenger Margin MAE", f"{float(held_out['challenger_mae']):.3f}")
+                challenger_col3.metric("Improvement", f"{float(held_out['mae_improvement']):+.3f}")
+                st.info(
+                    "The matchup residual challenger remains research-only because it did not improve held-out 2025 "
+                    "margin accuracy. Failed challengers are retained here instead of silently changing production."
+                )
+
+            st.subheader("Historical Weekly Backtest")
+            if backtest.empty:
+                render_missing_state(Path(backtest_path), "Backtest file")
+            else:
+                total_games = int(backtest["games"].sum())
+                model_market_distance = (backtest["model_vs_market_mae"] * backtest["games"]).sum() / total_games
+                model_actual_mae = (backtest["model_vs_actual_mae"] * backtest["games"]).sum() / total_games
+                market_actual_mae = (backtest["actual_vs_market_mae"] * backtest["games"]).sum() / total_games
+                weighted_corr = (backtest["model_vs_market_corr"] * backtest["games"]).sum() / total_games
+                col1, col2, col3, col4 = st.columns(4)
+                col1.metric("Tracked Games", f"{total_games}")
+                col2.metric("Model vs Actual MAE", f"{model_actual_mae:.2f}")
+                col3.metric("Market vs Actual MAE", f"{market_actual_mae:.2f}")
+                col4.metric("Model vs Market Gap", f"{model_market_distance:.2f}")
+                st.caption(f"Model/market spread correlation: {weighted_corr:.3f}. Lower MAE is better; the correlation only measures agreement with the market.")
+
+                chart_df = backtest.set_index("week")[
+                    ["model_vs_market_mae", "model_vs_actual_mae", "actual_vs_market_mae"]
+                ].rename(
+                    columns={
+                        "model_vs_market_mae": "Model vs Market Gap",
+                        "model_vs_actual_mae": "Model vs Actual Error",
+                        "actual_vs_market_mae": "Market vs Actual Error",
+                    }
+                )
+                st.line_chart(chart_df, width="stretch")
+                st.dataframe(backtest, width="stretch", hide_index=True)

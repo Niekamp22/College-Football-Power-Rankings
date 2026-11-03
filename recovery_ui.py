@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import html
-import json
-import math
 from pathlib import Path
 from urllib.parse import urlencode
 
 import pandas as pd
 import streamlit as st
+
+from app_data import load_csv, load_json
+from ui_helpers import format_eastern_time, site_adjusted_spread, win_probability
 
 
 OUTPUT = Path("output")
@@ -24,7 +25,7 @@ def escape(value: object) -> str:
 
 def read_csv(relative: str) -> pd.DataFrame:
     path = OUTPUT / relative
-    return pd.read_csv(path) if path.exists() else pd.DataFrame()
+    return load_csv(path)
 
 
 def emit(value: str) -> None:
@@ -80,8 +81,7 @@ def team_filter(frame: pd.DataFrame, fields: list[str], parameter: str = "search
 
 
 def eastern(value: object) -> str:
-    timestamp = pd.to_datetime(value, errors="coerce", utc=True)
-    return timestamp.tz_convert("America/New_York").strftime("%a %b %d, %I:%M %p ET") if pd.notna(timestamp) else "TBD"
+    return format_eastern_time(value, compact=False)
 
 
 def show_rankings(ratings: pd.DataFrame) -> None:
@@ -111,10 +111,10 @@ def show_poll() -> None:
     if not path.exists():
         emit("<p>The poll will appear after the next refresh.</p>")
         return
-    poll = pd.read_csv(path).sort_values("rank")
+    poll = load_csv(path).sort_values("rank")
     latest = path == editions["Latest"]
     metadata_path = root / "latest_metadata.json" if latest else path.with_name(path.name.replace("_poll.csv", "_metadata.json"))
-    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    metadata = load_json(metadata_path)
     emit(f"<p><strong>{metadata['resume_weight']:.0%} resume + {metadata['power_weight']:.0%} power.</strong> "
          f"Results through Week {metadata['through_week']}. Updated {escape(eastern(metadata['generated_at_utc']))}.</p>")
     teams = poll["team"].tolist()
@@ -138,7 +138,7 @@ def show_poll() -> None:
         emit(f"<p>{escape(row['head_to_head_note'])}</p>")
     detail_path = OUTPUT / "polls/joshs_poll_games_2026.csv" if latest else path.with_name(path.name.replace("_poll.csv", "_games.csv"))
     if detail_path.exists():
-        details = pd.read_csv(detail_path)
+        details = load_csv(detail_path)
         table(details[details["team"].eq(chosen)].sort_values("start_date"), {
             "display_week": "Week", "opponent": "Opponent", "site": "Site", "result": "Result", "score": "Score",
             "opponent_power_rank": "Opponent Power Rank", "win_credit": "Win Credits", "loss_penalty": "Loss Deduction",
@@ -159,8 +159,8 @@ def show_matchup(ratings: pd.DataFrame) -> None:
         emit("<p>Choose two different teams.</p>")
         return
     site = st.query_params.get("site", "Neutral")
-    margin = float(lookup[team_a]) - float(lookup[team_b]) + (2.5 if site == "Team A Home" else -2.5 if site == "Team B Home" else 0.0)
-    probability = 0.5 * (1 + math.erf(margin / (16 * math.sqrt(2))))
+    margin = site_adjusted_spread(float(lookup[team_a]) - float(lookup[team_b]), site)
+    probability = win_probability(margin)
     favorite = team_a if margin >= 0 else team_b
     emit(f'<div class="recovery-summary"><h3>{escape(favorite)} -{abs(margin):.1f}</h3>'
          f'<p>{escape(team_a)} win probability: <strong>{probability:.1%}</strong><br>'
@@ -271,7 +271,7 @@ def render_recovery_view() -> None:
     emit("<h1>College Football Power Ratings</h1><p class='recovery-note'>Recovery view. Rankings, projections, and recorded bets use the latest published model data.</p>")
     status_path = OUTPUT / "refresh_status.json"
     if status_path.exists():
-        status = json.loads(status_path.read_text(encoding="utf-8"))
+        status = load_json(status_path)
         emit(f"<p>Updated {escape(eastern(status.get('generated_at_utc')))}. All kickoff times are Eastern.</p>")
     page = st.query_params.get("page", "rankings")
     if page not in PAGES:
@@ -282,10 +282,11 @@ def render_recovery_view() -> None:
         links.append(f'<a href="{escape(url)}" target="_self"{" aria-current=page" if page == key else ""}>{escape(title)}</a>')
     emit('<nav class="recovery-nav">' + "".join(links) + "</nav>")
     emit(f"<h2>{escape(PAGES[page])}</h2>")
-    ratings = read_csv("cfbd_power_ratings_current.csv")
-    if ratings.empty:
-        emit("<p>The published ratings are unavailable.</p>")
-        return
+    if page in {"rankings", "matchup"}:
+        ratings = read_csv("cfbd_power_ratings_current.csv")
+        if ratings.empty:
+            emit("<p>The published ratings are unavailable.</p>")
+            return
     if page == "rankings":
         show_rankings(ratings)
     elif page == "poll":

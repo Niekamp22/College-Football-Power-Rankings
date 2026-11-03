@@ -8,9 +8,17 @@ If the page reports "Failed to fetch dynamically imported module", check the com
 hosted Streamlit version, then reload the browser after the deployment finishes rebuilding.
 The app renders only the selected tab to avoid downloading every hidden tab's browser components at startup.
 
-The default recovery view uses native HTML tables, links, and GET forms, avoiding Streamlit's separately
-downloaded widget modules when the hosting service fails to deliver them. It reads the same published
-outputs. The full interactive interface remains available at `?interface=interactive`.
+The primary interface uses native HTML tables, links, and GET forms. This is the approved layout and
+avoids Streamlit's separately downloaded widget modules. It loads only the selected page's files.
+The older interface is isolated in `legacy_ui.py` and imported only at `?interface=interactive`.
+
+`app_data.py` provides shared, bounded caches for CSV, JSON, and workbook reads. Each read checks the file's
+nanosecond modification time, size, and identity before using cached data. A weekly publication therefore
+invalidates the old entry automatically; no manual cache clearing is required. Missing CSVs are not cached,
+and callers receive independent data copies so filtering cannot alter another user's results.
+
+`app.py` handles only application setup and interface routing. Shared time and matchup helpers live in
+`ui_helpers.py`. No model training or external API calls run during website requests.
 
 ## Files the hosted app needs
 
