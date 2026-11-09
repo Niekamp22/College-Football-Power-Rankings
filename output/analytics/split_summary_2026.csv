@@ -1,18 +1,18 @@
 split,value,games,edge_hit_rate,model_better_than_market_rate,model_margin_mae,market_margin_mae,average_edge
-Game Type,FBS vs FBS,562,0.5463,0.4911,11.439,11.548,3.482
-Game Type,FCS involved,123,0.4715,0.4146,15.022,12.593,7.879
-Pick Role,favorite,285,0.5754,0.5298,11.772,11.639,4.039
-Pick Role,underdog,400,0.5025,0.44,12.304,11.805,4.437
-Pick Site,away,344,0.4971,0.4302,11.752,11.386,4.075
-Pick Site,home,331,0.571,0.5257,12.496,12.14,4.453
-Pick Site,neutral,10,0.5,0.5,9.784,10.4,5.01
-Betting Status,Pass - FCS extreme edge,18,0.5,0.3889,21.918,12.028,21.689
-Betting Status,Pass - FCS low edge,23,0.6087,0.5652,12.083,12.315,2.45
-Betting Status,Pass - FCS underdog,49,0.3265,0.3265,15.537,13.128,4.542
-Betting Status,Qualified FCS favorite,33,0.5758,0.4545,12.544,12.303,9.085
-Betting Status,Review - extreme edge,6,0.8333,0.6667,13.117,19.333,18.1
-Betting Status,Standard,556,0.5432,0.4892,11.421,11.464,3.324
-Rating Source,current_retrospective,260,0.5769,0.5115,11.706,11.634,6.876
+Game Type,FBS vs FBS,562,0.548,0.4929,11.439,11.548,3.481
+Game Type,FCS involved,123,0.4715,0.4146,15.021,12.593,7.879
+Pick Role,favorite,285,0.5754,0.5298,11.772,11.639,4.038
+Pick Role,underdog,400,0.505,0.4425,12.302,11.805,4.437
+Pick Site,away,344,0.5,0.4331,11.75,11.386,4.075
+Pick Site,home,331,0.571,0.5257,12.496,12.14,4.452
+Pick Site,neutral,10,0.5,0.5,9.78,10.4,5.016
+Betting Status,Pass - FCS extreme edge,18,0.5,0.3889,21.916,12.028,21.687
+Betting Status,Pass - FCS low edge,23,0.6087,0.5652,12.084,12.315,2.452
+Betting Status,Pass - FCS underdog,49,0.3265,0.3265,15.536,13.128,4.543
+Betting Status,Qualified FCS favorite,33,0.5758,0.4545,12.543,12.303,9.081
+Betting Status,Review - extreme edge,6,0.8333,0.6667,13.11,19.333,18.097
+Betting Status,Standard,556,0.545,0.491,11.421,11.464,3.324
+Rating Source,current_retrospective,260,0.5808,0.5154,11.704,11.634,6.874
 Rating Source,week_04_snapshot,71,0.5352,0.4648,12.702,11.577,3.754
 Rating Source,week_05_snapshot,59,0.5254,0.4746,13.29,12.903,3.178
 Rating Source,week_06_snapshot,58,0.569,0.5345,11.822,11.5,2.64
@@ -20,11 +20,11 @@ Rating Source,week_07_snapshot,62,0.5161,0.4516,10.868,10.456,2.256
 Rating Source,week_08_snapshot,56,0.4286,0.4107,11.208,10.79,2.012
 Rating Source,week_09_snapshot,56,0.5,0.4464,13.124,12.634,2.337
 Rating Source,week_10_snapshot,63,0.4603,0.4127,13.095,12.766,2.344
-Week,Week 0,8,0.875,0.875,7.709,13.312,6.119
-Week,Week 1,91,0.5714,0.5055,14.301,13.558,8.01
+Week,Week 0,8,0.875,0.875,7.724,13.312,6.109
+Week,Week 1,91,0.5714,0.5055,14.302,13.558,8.009
 Week,Week 10,63,0.4603,0.4127,13.095,12.766,2.344
-Week,Week 2,86,0.5349,0.4884,11.39,11.241,6.354
-Week,Week 3,75,0.6,0.5067,9.346,9.57,6.178
+Week,Week 2,86,0.5465,0.5,11.387,11.241,6.353
+Week,Week 3,75,0.6,0.5067,9.342,9.57,6.178
 Week,Week 4,71,0.5352,0.4648,12.702,11.577,3.754
 Week,Week 5,59,0.5254,0.4746,13.29,12.903,3.178
 Week,Week 6,58,0.569,0.5345,11.822,11.5,2.64
