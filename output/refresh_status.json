@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "generated_at_utc": "2026-11-03T18:24:34+00:00",
+  "generated_at_utc": "2026-11-09T12:45:24+00:00",
   "errors": [],
   "warnings": [
     "8 teams have incomplete schedules; forecasts remain published with an in-app warning"
@@ -9,25 +9,25 @@
     "season": 2026,
     "cfbd_power_ratings_current_rows": 138,
     "joshs_poll_2026_rows": 138,
-    "joshs_poll_games_2026_rows": 1122,
-    "joshs_poll_through_week": 9,
+    "joshs_poll_games_2026_rows": 1247,
+    "joshs_poll_through_week": 10,
     "joshs_poll_ranked_teams": 138,
     "projected_win_totals_2026_rows": 138,
     "projected_games_2026_rows": 1649,
     "unique_projected_games": 888,
     "schedule_coverage_2026_rows": 138,
     "incomplete_schedules": 8,
-    "completed_games_review_2026_rows": 622,
-    "forward_graded_games": 362,
+    "completed_games_review_2026_rows": 685,
+    "forward_graded_games": 425,
     "retrospective_games": 260,
-    "ncaaf_game_odds_comparison_rows": 46,
-    "odds_games": 46,
-    "odds_last_captured_utc": "2026-11-03T18:24:20+00:00",
-    "best_bet_ledger_2026_rows": 20,
-    "best_bets_graded": 16,
+    "ncaaf_game_odds_comparison_rows": 51,
+    "odds_games": 51,
+    "odds_last_captured_utc": "2026-11-09T12:45:19+00:00",
+    "best_bet_ledger_2026_rows": 24,
+    "best_bets_graded": 20,
     "best_bets_pending": 4,
-    "rating_snapshots": 7,
-    "latest_rating_snapshot": "week_10_ratings.csv",
-    "master_workbook_bytes": 690988
+    "rating_snapshots": 8,
+    "latest_rating_snapshot": "week_11_ratings.csv",
+    "master_workbook_bytes": 728884
   }
 }

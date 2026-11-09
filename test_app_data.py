@@ -58,7 +58,10 @@ class AppDataTests(unittest.TestCase):
             path.write_text(json.dumps({"week": 10}), encoding="utf-8")
             self.assertEqual(load_json(path)["week"], 10)
             self.assertIn(b"10", load_bytes(path))
+            previous = path.stat()
             path.write_text("invalid json", encoding="utf-8")
+            # Same-size writes can share a filesystem timestamp on fast Windows runs.
+            os.utime(path, ns=(previous.st_atime_ns, previous.st_mtime_ns + 1_000_000_000))
             with self.assertRaises(json.JSONDecodeError):
                 load_json(path)
 

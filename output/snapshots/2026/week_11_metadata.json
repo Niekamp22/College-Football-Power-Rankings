@@ -1,0 +1,8 @@
+{
+  "season": 2026,
+  "prediction_week": 11,
+  "created_at_utc": "2026-11-09T12:45:18+00:00",
+  "ratings_source": "output\\cfbd_power_ratings_current.csv",
+  "teams": 138,
+  "rating_system": "dual"
+}

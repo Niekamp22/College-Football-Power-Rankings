@@ -1,49 +1,55 @@
 week_label,game_type,away_team,home_team,model_favorite,market_favorite,winner_model_result,winner_market_result,model_home_margin,market_home_margin,actual_home_margin,absolute_model_error,absolute_market_error
-Week 2,FCS involved,Montana State,Nevada,Nevada,Montana State,wrong,correct,33.12,-5.0,-13.0,46.12,8.0
+Week 10,FBS vs FBS,Tulsa,Tulane,Tulane,Tulsa,wrong,correct,2.01,-3.0,-50.0,52.01,47.0
+Week 2,FCS involved,Montana State,Nevada,Nevada,Montana State,wrong,correct,31.93,-5.0,-13.0,44.93,8.0
 Week 5,FBS vs FBS,Baylor,Arizona State,Baylor,Arizona State,correct,wrong,-0.59,3.5,-36.0,35.41,39.5
-Week 2,FBS vs FBS,UNLV,North Texas,North Texas,UNLV,correct,wrong,6.96,-2.75,38.0,31.04,40.75
 Week 5,FBS vs FBS,Oregon State,Colorado State,Colorado State,Oregon State,wrong,correct,0.05,-7.0,-30.0,30.05,23.0
-Week 2,FBS vs FBS,Maryland,UConn,UConn,Maryland,wrong,correct,1.25,-11.5,-24.0,25.25,12.5
-Week 1,FBS vs FBS,Western Kentucky,Nevada,Nevada,Western Kentucky,correct,wrong,10.13,-0.25,35.0,24.87,35.25
-Week 2,FCS involved,Illinois State,Northern Illinois,Northern Illinois,Illinois State,wrong,correct,20.1,-2.5,-4.0,24.1,1.5
+Week 2,FBS vs FBS,UNLV,North Texas,North Texas,UNLV,correct,wrong,9.16,-2.75,38.0,28.84,40.75
+Week 1,FBS vs FBS,Western Kentucky,Nevada,Nevada,Western Kentucky,correct,wrong,9.33,-0.25,35.0,25.67,35.25
+Week 2,FCS involved,Illinois State,Northern Illinois,Northern Illinois,Illinois State,wrong,correct,20.3,-2.5,-4.0,24.3,1.5
+Week 1,FBS vs FBS,Wyoming,Colorado State,Wyoming,Colorado State,wrong,correct,-1.71,2.75,22.0,23.71,19.25
 Week 8,FBS vs FBS,UTSA,Tulane,Tulane,UTSA,wrong,correct,0.21,-3.0,-23.0,23.21,20.0
 Week 6,FBS vs FBS,Missouri State,Western Kentucky,Western Kentucky,Missouri State,correct,wrong,0.38,-1.75,21.0,20.62,22.75
 Week 9,FBS vs FBS,Kennesaw State,Middle Tennessee,Middle Tennessee,Kennesaw State,wrong,correct,3.68,-1.25,-16.0,19.68,14.75
 Week 4,FBS vs FBS,Oregon,USC,USC,Oregon,wrong,correct,3.66,-3.5,-14.0,17.66,10.5
+Week 10,FBS vs FBS,Iowa,Northwestern,Northwestern,Iowa,wrong,correct,2.72,-2.75,-14.0,16.72,11.25
 Week 6,FBS vs FBS,Iowa,Washington,Iowa,Washington,correct,wrong,-0.29,3.0,-17.0,16.71,20.0
 Week 5,FBS vs FBS,Fresno State,Washington State,Fresno State,Washington State,correct,wrong,-3.3,2.25,-20.0,16.7,22.25
 Week 7,FBS vs FBS,Western Kentucky,Sam Houston,Sam Houston,Western Kentucky,wrong,correct,1.14,-1.25,-13.0,14.14,11.75
 Week 9,FBS vs FBS,Southern Miss,UL Monroe,UL Monroe,Southern Miss,wrong,correct,0.06,-3.5,-14.0,14.06,10.5
 Week 9,FBS vs FBS,Delaware,Western Kentucky,Delaware,Western Kentucky,correct,wrong,-0.05,2.5,-14.0,13.95,16.5
-Week 3,FBS vs FBS,Wyoming,Central Michigan,Central Michigan,Wyoming,correct,wrong,0.77,-1.75,14.0,13.23,15.75
-Week 2,FBS vs FBS,Georgia State,Kennesaw State,Georgia State,Kennesaw State,correct,wrong,-0.84,7.5,-14.0,13.16,21.5
+Week 2,FBS vs FBS,Georgia State,Kennesaw State,Georgia State,Kennesaw State,correct,wrong,-1.22,7.5,-14.0,12.78,21.5
+Week 3,FBS vs FBS,Wyoming,Central Michigan,Central Michigan,Wyoming,correct,wrong,1.95,-1.75,14.0,12.05,15.75
 Week 7,FBS vs FBS,Washington,Purdue,Washington,Purdue,correct,wrong,-1.59,3.0,-12.0,10.41,15.0
 Week 6,FBS vs FBS,USC,Penn State,Penn State,USC,wrong,correct,2.25,-0.25,-8.0,10.25,7.75
+Week 10,FBS vs FBS,Fresno State,Utah State,Fresno State,Utah State,wrong,correct,-3.19,0.25,7.0,10.19,6.75
 Week 9,FBS vs FBS,Kansas State,Colorado,Kansas State,Colorado,wrong,correct,-6.17,3.0,3.0,9.17,0.0
-Week 3,FBS vs FBS,Arizona State,Kansas,Kansas,Arizona State,wrong,correct,1.54,-5.25,-7.0,8.54,1.75
+Week 3,FBS vs FBS,Arizona State,Kansas,Kansas,Arizona State,wrong,correct,1.49,-5.25,-7.0,8.49,1.75
 Week 4,FBS vs FBS,Air Force,Nevada,Nevada,Air Force,wrong,correct,5.45,-5.25,-3.0,8.45,2.25
 Week 4,FBS vs FBS,TCU,UCF,UCF,TCU,correct,wrong,0.37,-3.5,8.0,7.63,11.5
-Week 1,FBS vs FBS,Liberty,James Madison,Liberty,James Madison,wrong,correct,-0.5,6.0,7.0,7.5,1.0
 Week 5,FBS vs FBS,Georgia Southern,Coastal Carolina,Coastal Carolina,Georgia Southern,wrong,correct,0.16,-2.25,-7.0,7.16,4.75
+Week 10,FBS vs FBS,South Florida,East Carolina,South Florida,East Carolina,wrong,correct,-3.47,2.0,3.0,6.47,1.0
 Week 8,FBS vs FBS,Tennessee,South Carolina,Tennessee,South Carolina,wrong,correct,-3.45,2.5,3.0,6.45,0.5
+Week 2,FBS vs FBS,Navy,Florida Atlantic,Florida Atlantic,Navy,correct,wrong,1.6,-4.5,8.0,6.4,12.5
 Week 7,FBS vs FBS,Ohio State,Indiana,Indiana,Ohio State,wrong,correct,2.28,-2.75,-4.0,6.28,1.25
-Week 2,FBS vs FBS,Oklahoma,Michigan,Michigan,Oklahoma,correct,wrong,1.95,-5.0,7.0,5.05,12.0
+Week 10,FBS vs FBS,Western Kentucky,Middle Tennessee,Middle Tennessee,Western Kentucky,correct,wrong,3.02,-2.0,9.0,5.98,11.0
 Week 4,FBS vs FBS,Army,Temple,Temple,Army,wrong,correct,1.05,-4.0,-4.0,5.05,0.0
 Week 8,FBS vs FBS,Baylor,Kansas,Baylor,Kansas,wrong,correct,-3.85,1.5,1.0,4.85,0.5
 Week 5,FBS vs FBS,Army,Louisiana Tech,Army,Louisiana Tech,wrong,correct,-2.74,0.25,2.0,4.74,1.75
 Week 7,FBS vs FBS,App State,Coastal Carolina,Coastal Carolina,App State,wrong,correct,1.53,-1.25,-3.0,4.53,1.75
-Week 0,FBS vs FBS,North Carolina,TCU,North Carolina,TCU,correct,wrong,-0.52,7.5,-5.0,4.48,12.5
 Week 4,FBS vs FBS,UConn,Miami (OH),UConn,Miami (OH),wrong,correct,-1.44,2.5,3.0,4.44,0.5
-Week 1,FBS vs FBS,San José State,Eastern Michigan,San José State,Eastern Michigan,correct,wrong,-1.89,1.5,-6.0,4.11,7.5
-Week 2,FBS vs FBS,South Florida,Army,South Florida,Army,correct,wrong,-0.37,3.0,-4.0,3.63,7.0
+Week 0,FBS vs FBS,North Carolina,TCU,North Carolina,TCU,correct,wrong,-0.67,7.5,-5.0,4.33,12.5
 Week 6,FBS vs FBS,Miami (OH),Massachusetts,Massachusetts,Miami (OH),wrong,correct,2.19,-6.0,-1.0,3.19,5.0
 Week 7,FBS vs FBS,Penn State,Michigan,Penn State,Michigan,wrong,correct,-0.17,6.0,3.0,3.17,3.0
-Week 3,FBS vs FBS,East Carolina,Old Dominion,East Carolina,Old Dominion,correct,wrong,-5.96,2.5,-3.0,2.96,5.5
-Week 3,FBS vs FBS,James Madison,San Diego State,James Madison,San Diego State,correct,wrong,-10.33,3.0,-13.0,2.67,16.0
+Week 1,FBS vs FBS,Baylor,Auburn,Baylor,Auburn,wrong,correct,-1.75,6.5,1.0,2.75,5.5
+Week 1,FBS vs FBS,San José State,Eastern Michigan,San José State,Eastern Michigan,correct,wrong,-3.35,1.5,-6.0,2.65,7.5
+Week 2,FBS vs FBS,Jacksonville State,Ohio,Jacksonville State,Ohio,wrong,correct,-0.44,1.75,2.0,2.44,0.25
 Week 6,FBS vs FBS,Illinois,Michigan State,Michigan State,Illinois,wrong,correct,1.4,-2.5,-1.0,2.4,1.5
-Week 1,FBS vs FBS,Baylor,Auburn,Baylor,Auburn,wrong,correct,-1.35,6.5,1.0,2.35,5.5
 Week 7,FBS vs FBS,Delaware,Middle Tennessee,Middle Tennessee,Delaware,correct,wrong,0.72,-1.25,3.0,2.28,4.25
 Week 5,FBS vs FBS,Syracuse,UConn,UConn,Syracuse,wrong,correct,1.21,-6.5,-1.0,2.21,5.5
 Week 8,FBS vs FBS,Miami (OH),Central Michigan,Central Michigan,Miami (OH),wrong,correct,1.07,-3.5,-1.0,2.07,2.5
-Week 0,FBS vs FBS,Memphis,UNLV,Memphis,UNLV,correct,wrong,-4.13,4.75,-6.0,1.87,10.75
+Week 3,FBS vs FBS,East Carolina,Old Dominion,East Carolina,Old Dominion,correct,wrong,-4.83,2.5,-3.0,1.83,5.5
+Week 10,FBS vs FBS,Delaware,Kennesaw State,Kennesaw State,Delaware,correct,wrong,0.21,-1.25,2.0,1.79,3.25
+Week 3,FBS vs FBS,James Madison,San Diego State,James Madison,San Diego State,correct,wrong,-11.25,3.0,-13.0,1.75,16.0
+Week 10,FBS vs FBS,Penn State,Washington,Penn State,Washington,correct,wrong,-1.3,2.5,-3.0,1.7,5.5
+Week 0,FBS vs FBS,Memphis,UNLV,Memphis,UNLV,correct,wrong,-4.7,4.75,-6.0,1.3,10.75
 Week 6,FBS vs FBS,Louisiana,Louisiana Tech,Louisiana,Louisiana Tech,wrong,correct,-0.03,3.0,1.0,1.03,2.0
