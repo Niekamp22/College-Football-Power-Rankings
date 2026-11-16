@@ -5,21 +5,21 @@ Week 4,FBS vs FBS,UCLA,Maryland,-51.0,-0.58,-2.5,50.42,48.5,0-2.5,Maryland,wrong
 Week 5,FBS vs FBS,Middle Tennessee,Kansas,55.0,7.37,21.0,47.63,34.0,10-15,Middle Tennessee,wrong_side
 Week 2,FCS involved,Montana State,Nevada,-13.0,32.72,-5.0,45.72,8.0,15+,Nevada,wrong_side
 Week 1,FCS involved,Idaho State,Utah State,-12.0,32.76,15.0,44.76,27.0,15+,Utah State,wrong_side
-Week 2,FCS involved,Gardner-Webb,Liberty,1.0,44.21,28.5,43.21,27.5,15+,Liberty,wrong_side
+Week 2,FCS involved,Gardner-Webb,Liberty,1.0,44.24,28.5,43.24,27.5,15+,Liberty,wrong_side
 Week 5,FBS vs FBS,Stanford,Wake Forest,54.0,11.06,14.5,42.94,39.5,2.5-5,Stanford,wrong_side
 Week 6,FBS vs FBS,San Diego State,Oregon State,52.0,9.25,14.5,42.75,37.5,5-7.5,San Diego State,wrong_side
 Week 2,FCS involved,Wagner,James Madison,84.0,41.54,46.5,42.46,37.5,2.5-5,Wagner,wrong_side
 Week 11,FBS vs FBS,Wake Forest,SMU,-42.0,-0.24,2.5,41.76,44.5,2.5-5,Wake Forest,right_side
-Week 3,FCS involved,Nicholls,Sam Houston,59.0,19.02,21.0,39.98,38.0,0-2.5,Nicholls,wrong_side
+Week 3,FCS involved,Nicholls,Sam Houston,59.0,19.01,21.0,39.99,38.0,0-2.5,Nicholls,wrong_side
 Week 10,FBS vs FBS,UTSA,Florida Atlantic,31.0,-7.27,-7.0,38.27,38.0,0-2.5,UTSA,wrong_side
 Week 1,FCS involved,Mississippi Valley State,Sacramento State,52.0,14.86,38.5,37.14,13.5,15+,Mississippi Valley State,wrong_side
-Week 2,FCS involved,Richmond,NC State,73.0,36.08,33.25,36.92,39.75,2.5-5,NC State,right_side
+Week 2,FCS involved,Richmond,NC State,73.0,36.07,33.25,36.93,39.75,2.5-5,NC State,right_side
 Week 11,FBS vs FBS,South Carolina,Arkansas,28.0,-8.74,-6.5,36.74,34.5,0-2.5,South Carolina,wrong_side
 Week 9,FBS vs FBS,Boston College,Duke,45.0,8.35,7.0,36.65,38.0,0-2.5,Duke,right_side
 Week 10,FBS vs FBS,Oklahoma State,Kansas State,-38.0,-1.51,-7.0,36.49,31.0,5-7.5,Kansas State,wrong_side
 Week 5,FBS vs FBS,Memphis,Charlotte,-51.0,-14.72,-19.5,36.28,31.5,2.5-5,Charlotte,wrong_side
 Week 5,FBS vs FBS,Baylor,Arizona State,-36.0,-0.59,3.5,35.41,39.5,2.5-5,Baylor,right_side
-Week 1,FCS involved,Northwestern State,Louisiana Tech,74.0,39.2,44.5,34.8,29.5,5-7.5,Northwestern State,wrong_side
+Week 1,FCS involved,Northwestern State,Louisiana Tech,74.0,39.19,44.5,34.81,29.5,5-7.5,Northwestern State,wrong_side
 Week 3,FCS involved,South Dakota,Boise State,14.0,48.44,28.25,34.44,14.25,15+,Boise State,wrong_side
 Week 5,FBS vs FBS,Florida,Missouri,28.0,-6.32,-5.5,34.32,33.5,0-2.5,Florida,wrong_side
 Week 5,FBS vs FBS,Eastern Michigan,Massachusetts,-24.0,10.05,5.75,34.05,29.75,2.5-5,Massachusetts,wrong_side
@@ -29,17 +29,17 @@ Week 10,FBS vs FBS,Duke,NC State,-38.0,-4.27,-4.5,33.73,33.5,0-2.5,NC State,wron
 Week 1,FCS involved,South Dakota State,Northwestern,16.0,49.05,13.25,33.05,2.75,15+,Northwestern,right_side
 Week 11,FBS vs FBS,Auburn,Mississippi State,-32.0,0.62,-2.75,32.62,29.25,2.5-5,Mississippi State,wrong_side
 Week 4,FCS involved,Gardner-Webb,Marshall,1.0,33.51,25.0,32.51,24.0,7.5-10,Marshall,wrong_side
-Week 1,FCS involved,Tarleton State,Bowling Green,-7.0,25.33,1.75,32.33,8.75,15+,Bowling Green,wrong_side
+Week 1,FCS involved,Tarleton State,Bowling Green,-7.0,25.34,1.75,32.34,8.75,15+,Bowling Green,wrong_side
 Week 8,FBS vs FBS,Hawai'i,Northern Illinois,-35.0,-2.73,-3.0,32.27,32.0,0-2.5,Northern Illinois,wrong_side
 Week 11,FBS vs FBS,Stanford,Virginia Tech,-18.0,14.12,17.25,32.12,35.25,2.5-5,Stanford,right_side
 Week 11,FBS vs FBS,James Madison,UConn,24.0,-8.05,-4.25,32.05,28.25,2.5-5,James Madison,wrong_side
-Week 1,FBS vs FBS,Texas State,Texas,52.0,20.08,29.5,31.92,22.5,7.5-10,Texas State,wrong_side
+Week 1,FBS vs FBS,Texas State,Texas,52.0,20.07,29.5,31.93,22.5,7.5-10,Texas State,wrong_side
 Week 5,FBS vs FBS,Virginia,Florida State,31.0,-0.91,-1.25,31.91,32.25,0-2.5,Florida State,right_side
 Week 9,FBS vs FBS,Baylor,UCF,-32.0,-0.77,-2.0,31.23,30.0,0-2.5,UCF,wrong_side
 Week 1,FCS involved,VMI,Virginia Tech,70.0,39.09,54.5,30.91,15.5,15+,VMI,wrong_side
 Week 6,FBS vs FBS,Buffalo,Toledo,-15.0,15.78,18.75,30.78,33.75,2.5-5,Buffalo,right_side
-Week 1,FBS vs FBS,Miami (OH),Pittsburgh,45.0,14.29,16.25,30.71,28.75,0-2.5,Miami (OH),wrong_side
-Week 2,FBS vs FBS,UNLV,North Texas,38.0,7.29,-2.75,30.71,40.75,10-15,North Texas,right_side
+Week 2,FBS vs FBS,UNLV,North Texas,38.0,7.28,-2.75,30.72,40.75,10-15,North Texas,right_side
+Week 1,FBS vs FBS,Miami (OH),Pittsburgh,45.0,14.3,16.25,30.7,28.75,0-2.5,Miami (OH),wrong_side
 Week 5,FBS vs FBS,Oregon State,Colorado State,-30.0,0.05,-7.0,30.05,23.0,5-7.5,Colorado State,wrong_side
 Week 1,FCS involved,Nicholls,Kansas State,68.0,38.09,41.25,29.91,26.75,2.5-5,Nicholls,wrong_side
 Week 6,FBS vs FBS,Minnesota,Purdue,28.0,-1.84,-2.75,29.84,30.75,0-2.5,Purdue,right_side
@@ -58,30 +58,30 @@ Week 7,FBS vs FBS,Florida Atlantic,Army,32.0,3.64,2.25,28.36,29.75,0-2.5,Army,ri
 Week 9,FBS vs FBS,Kent State,Sacramento State,21.0,-7.26,-7.5,28.26,28.5,0-2.5,Sacramento State,right_side
 Week 8,FBS vs FBS,Iowa State,Arizona,36.0,7.83,12.0,28.17,24.0,2.5-5,Iowa State,wrong_side
 Week 3,FCS involved,Portland State,Oregon,84.0,55.98,58.5,28.02,25.5,2.5-5,Portland State,wrong_side
-Week 3,FCS involved,Maine,Boston College,6.0,33.89,37.5,27.89,31.5,2.5-5,Maine,right_side
+Week 3,FCS involved,Maine,Boston College,6.0,33.9,37.5,27.9,31.5,2.5-5,Maine,right_side
 Week 1,FBS vs FBS,Kent State,South Carolina,57.0,29.3,36.0,27.7,21.0,5-7.5,Kent State,wrong_side
 Week 11,FBS vs FBS,Georgia Tech,Clemson,-14.0,13.67,15.5,27.67,29.5,0-2.5,Georgia Tech,right_side
 Week 8,FBS vs FBS,Texas Tech,Cincinnati,13.0,-14.21,-10.75,27.21,23.75,2.5-5,Texas Tech,wrong_side
 Week 2,FCS involved,Colgate,Central Michigan,3.0,30.16,18.5,27.16,15.5,10-15,Central Michigan,wrong_side
 Week 10,FCS involved,Merrimack,Wake Forest,77.0,50.03,46.5,26.97,30.5,2.5-5,Wake Forest,right_side
 Week 4,FBS vs FBS,Delaware,Virginia,39.0,12.67,19.75,26.33,19.25,5-7.5,Delaware,wrong_side
-Week 1,FBS vs FBS,Western Kentucky,Nevada,35.0,8.84,-0.25,26.16,35.25,7.5-10,Nevada,right_side
+Week 1,FBS vs FBS,Western Kentucky,Nevada,35.0,8.86,-0.25,26.14,35.25,7.5-10,Nevada,right_side
 Week 8,FBS vs FBS,Boston College,Georgia Tech,-22.0,4.09,6.5,26.09,28.5,0-2.5,Boston College,right_side
 Week 10,FBS vs FBS,Central Michigan,Eastern Michigan,-28.0,-1.95,-2.75,26.05,25.25,0-2.5,Eastern Michigan,wrong_side
 Week 7,FBS vs FBS,Wake Forest,California,-34.0,-8.11,-10.0,25.89,24.0,0-2.5,California,wrong_side
 Week 1,FCS involved,UAlbany,Buffalo,4.0,29.84,18.5,25.84,14.5,10-15,Buffalo,wrong_side
 Week 1,FBS vs FBS,Wyoming,Colorado State,22.0,-3.77,2.75,25.77,19.25,5-7.5,Wyoming,wrong_side
+Week 1,FCS involved,New Hampshire,Syracuse,63.0,37.3,35.0,25.7,28.0,0-2.5,Syracuse,right_side
 Week 5,FBS vs FBS,Old Dominion,Georgia State,32.0,6.3,2.0,25.7,30.0,2.5-5,Georgia State,right_side
-Week 1,FCS involved,New Hampshire,Syracuse,63.0,37.32,35.0,25.68,28.0,0-2.5,Syracuse,right_side
 Week 7,FBS vs FBS,Missouri,Ole Miss,28.0,2.4,4.5,25.6,23.5,0-2.5,Missouri,wrong_side
 Week 5,FBS vs FBS,Alabama,Mississippi State,-33.0,-7.44,-5.5,25.56,27.5,0-2.5,Alabama,right_side
 Week 11,FBS vs FBS,Kansas,West Virginia,-23.0,2.41,1.5,25.41,24.5,0-2.5,West Virginia,wrong_side
+Week 1,FCS involved,Hampton,Maryland,62.0,36.64,45.5,25.36,16.5,7.5-10,Hampton,wrong_side
 Week 10,FBS vs FBS,Texas State,Oregon State,-21.0,4.36,4.75,25.36,25.75,0-2.5,Texas State,right_side
 Week 1,FBS vs FBS,Massachusetts,Rutgers,-16.0,9.35,29.25,25.35,45.25,15+,Massachusetts,right_side
-Week 1,FCS involved,Hampton,Maryland,62.0,36.65,45.5,25.35,16.5,7.5-10,Hampton,wrong_side
 Week 1,FBS vs FBS,Florida Atlantic,Florida,45.0,19.69,26.5,25.31,18.5,5-7.5,Florida Atlantic,wrong_side
 Week 11,FBS vs FBS,Texas Tech,Oklahoma State,-25.0,0.29,4.25,25.29,29.25,2.5-5,Texas Tech,right_side
-Week 2,FBS vs FBS,Maryland,UConn,-24.0,1.14,-11.5,25.14,12.5,10-15,UConn,wrong_side
+Week 2,FBS vs FBS,Maryland,UConn,-24.0,1.16,-11.5,25.16,12.5,10-15,UConn,wrong_side
 Week 9,FBS vs FBS,Florida International,Liberty,39.0,13.92,13.75,25.08,25.25,0-2.5,Liberty,right_side
 Week 4,FBS vs FBS,Massachusetts,Sacramento State,-29.0,-4.01,-6.0,24.99,23.0,0-2.5,Sacramento State,wrong_side
 Week 4,FBS vs FBS,Tulsa,Arkansas,28.0,3.05,7.0,24.95,21.0,2.5-5,Tulsa,wrong_side
@@ -92,12 +92,12 @@ Week 11,FBS vs FBS,Cincinnati,Iowa State,28.0,3.56,2.5,24.44,25.5,0-2.5,Iowa Sta
 Week 3,FCS involved,North Dakota,Nebraska,27.0,51.39,27.25,24.39,0.25,15+,Nebraska,wrong_side
 Week 1,FBS vs FBS,UL Monroe,Mississippi State,49.0,24.66,28.5,24.34,20.5,2.5-5,UL Monroe,wrong_side
 Week 1,FCS involved,North Alabama,Arkansas,17.0,41.26,40.5,24.26,23.5,0-2.5,Arkansas,wrong_side
-Week 1,FCS involved,Alcorn State,Southern Miss,46.0,21.85,20.0,24.15,26.0,0-2.5,Southern Miss,right_side
+Week 1,FCS involved,Alcorn State,Southern Miss,46.0,21.87,20.0,24.13,26.0,0-2.5,Southern Miss,right_side
 Week 7,FBS vs FBS,Troy,Louisiana,27.0,2.88,3.0,24.12,24.0,0-2.5,Troy,wrong_side
 Week 2,FCS involved,Southern,Houston,71.0,46.89,51.75,24.11,19.25,2.5-5,Southern,wrong_side
-Week 1,FBS vs FBS,Missouri State,Texas A&M,50.0,26.03,39.5,23.97,10.5,10-15,Missouri State,wrong_side
 Week 7,FBS vs FBS,Alabama,Tennessee,16.0,-7.95,-7.75,23.95,23.75,0-2.5,Alabama,wrong_side
-Week 2,FCS involved,Illinois State,Northern Illinois,-4.0,19.78,-2.5,23.78,1.5,15+,Northern Illinois,wrong_side
+Week 1,FBS vs FBS,Missouri State,Texas A&M,50.0,26.06,39.5,23.94,10.5,10-15,Missouri State,wrong_side
+Week 2,FCS involved,Illinois State,Northern Illinois,-4.0,19.8,-2.5,23.8,1.5,15+,Northern Illinois,wrong_side
 Week 7,FBS vs FBS,Charlotte,Temple,-7.0,16.75,18.5,23.75,25.5,0-2.5,Charlotte,right_side
 Week 8,FBS vs FBS,California,SMU,39.0,15.27,18.5,23.73,20.5,2.5-5,California,wrong_side
 Week 8,FBS vs FBS,Colorado,Oklahoma State,33.0,9.42,13.0,23.58,20.0,2.5-5,Colorado,wrong_side
@@ -106,16 +106,16 @@ Week 4,FBS vs FBS,Oklahoma State,West Virginia,-17.0,6.57,1.5,23.57,18.5,5-7.5,W
 Week 8,FBS vs FBS,UTSA,Tulane,-23.0,0.21,-3.0,23.21,20.0,2.5-5,Tulane,wrong_side
 Week 4,FBS vs FBS,Florida Atlantic,UL Monroe,-28.0,-4.9,-11.5,23.1,16.5,5-7.5,UL Monroe,wrong_side
 Week 6,FBS vs FBS,Florida State,Louisville,24.0,0.91,4.25,23.09,19.75,2.5-5,Florida State,wrong_side
-Week 1,FBS vs FBS,Fresno State,USC,39.0,15.95,22.0,23.05,17.0,5-7.5,Fresno State,wrong_side
+Week 1,FBS vs FBS,Fresno State,USC,39.0,15.96,22.0,23.04,17.0,5-7.5,Fresno State,wrong_side
 Week 4,FBS vs FBS,Ole Miss,Florida,24.0,1.02,4.0,22.98,20.0,2.5-5,Ole Miss,wrong_side
 Week 4,FBS vs FBS,Texas A&M,LSU,29.0,6.07,8.5,22.93,20.5,0-2.5,Texas A&M,wrong_side
-Week 2,FCS involved,Northern Colorado,Wyoming,8.0,30.7,23.5,22.7,15.5,5-7.5,Wyoming,wrong_side
+Week 2,FCS involved,Northern Colorado,Wyoming,8.0,30.69,23.5,22.69,15.5,5-7.5,Wyoming,wrong_side
 Week 1,FCS involved,The Citadel,Charlotte,-2.0,20.65,20.5,22.65,22.5,0-2.5,Charlotte,wrong_side
 Week 3,FCS involved,SE Louisiana,UL Monroe,-3.0,19.59,9.75,22.59,12.75,7.5-10,UL Monroe,wrong_side
 Week 2,FCS involved,Texas Southern,UTEP,41.0,18.64,27.25,22.36,13.75,7.5-10,Texas Southern,wrong_side
 Week 8,FBS vs FBS,UL Monroe,Troy,-7.0,15.34,13.5,22.34,20.5,0-2.5,Troy,wrong_side
 Week 4,FBS vs FBS,Boise State,Western Michigan,-25.0,-2.76,-8.5,22.24,16.5,5-7.5,Western Michigan,wrong_side
-Week 1,FCS involved,Maine,App State,52.0,29.82,21.0,22.18,31.0,7.5-10,App State,right_side
+Week 1,FCS involved,Maine,App State,52.0,29.81,21.0,22.19,31.0,7.5-10,App State,right_side
 Week 10,FBS vs FBS,Oregon,Ohio State,-13.0,9.14,7.75,22.14,20.75,0-2.5,Ohio State,wrong_side
 Week 10,FBS vs FBS,Old Dominion,Coastal Carolina,-13.0,9.08,6.5,22.08,19.5,2.5-5,Coastal Carolina,wrong_side
 Week 10,FBS vs FBS,Oklahoma,Florida,-16.0,5.71,4.75,21.71,20.75,0-2.5,Florida,wrong_side
@@ -137,14 +137,14 @@ Week 11,FBS vs FBS,North Texas,UTSA,19.0,-1.69,-2.75,20.69,21.75,0-2.5,UTSA,righ
 Week 6,FBS vs FBS,Missouri State,Western Kentucky,21.0,0.38,-1.75,20.62,22.75,0-2.5,Western Kentucky,right_side
 Week 1,FBS vs FBS,Oklahoma State,Tulsa,14.0,-6.53,-13.25,20.53,27.25,5-7.5,Tulsa,right_side
 Week 9,FBS vs FBS,Army,Memphis,27.0,6.49,6.0,20.51,21.0,0-2.5,Memphis,right_side
-Week 2,FBS vs FBS,Bowling Green,Nebraska,49.0,28.56,30.5,20.44,18.5,0-2.5,Bowling Green,wrong_side
+Week 2,FBS vs FBS,Bowling Green,Nebraska,49.0,28.55,30.5,20.45,18.5,0-2.5,Bowling Green,wrong_side
 Week 9,FBS vs FBS,Ohio State,USC,12.0,-8.41,-6.25,20.41,18.25,0-2.5,Ohio State,wrong_side
 Week 1,FCS involved,Austin Peay,Vanderbilt,19.0,39.24,29.25,20.24,10.25,7.5-10,Vanderbilt,wrong_side
+Week 2,FCS involved,Western Illinois,Wisconsin,27.0,47.24,43.25,20.24,16.25,2.5-5,Wisconsin,wrong_side
 Week 10,FBS vs FBS,New Mexico,Nevada,-28.0,-7.77,-10.25,20.23,17.75,0-2.5,Nevada,wrong_side
-Week 2,FCS involved,Western Illinois,Wisconsin,27.0,47.22,43.25,20.22,16.25,2.5-5,Wisconsin,wrong_side
 Week 6,FBS vs FBS,Sacramento State,Bowling Green,28.0,7.79,9.5,20.21,18.5,0-2.5,Sacramento State,wrong_side
 Week 1,FBS vs FBS,Marshall,Penn State,45.0,24.82,23.25,20.18,21.75,0-2.5,Penn State,right_side
 Week 2,FBS vs FBS,Sacramento State,Fresno State,46.0,25.92,18.0,20.08,28.0,7.5-10,Fresno State,right_side
-Week 1,FCS involved,Bryant,Army,56.0,35.96,37.25,20.04,18.75,0-2.5,Bryant,wrong_side
+Week 1,FCS involved,Bryant,Army,56.0,35.94,37.25,20.06,18.75,0-2.5,Bryant,wrong_side
 Week 5,FBS vs FBS,Western Kentucky,New Mexico State,21.0,0.96,1.5,20.04,19.5,0-2.5,Western Kentucky,wrong_side
 Week 8,FBS vs FBS,Air Force,Wyoming,14.0,-6.0,-7.0,20.0,21.0,0-2.5,Wyoming,right_side
