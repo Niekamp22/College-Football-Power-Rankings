@@ -1,0 +1,20 @@
+{
+  "season": 2026,
+  "through_week": 12,
+  "method_version": 2,
+  "generated_at_utc": "2026-11-24T01:42:09+00:00",
+  "teams": 138,
+  "ranked_teams": 138,
+  "team_game_rows": 1517,
+  "ratings_sha256": "010027b8e449fe47d1e47614ea77653f0845de6aee5355efd2421c3710be6e3d",
+  "games_sha256": "8eba4433c88de740fe01354546e7b0be7137c0e74955a14a377fa4eb91418e93",
+  "resume_weight": 0.8,
+  "power_weight": 0.2,
+  "fbs_win_base": 1.0,
+  "quality_win_bonus": 2.0,
+  "fbs_loss_base": 5.0,
+  "bad_loss_extra": 2.0,
+  "fcs_win_credit": 0.05,
+  "fcs_loss_penalty": 8.0,
+  "head_to_head_window": 1.0
+}
